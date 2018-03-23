@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import uuid from 'uuid/v4'
 import { parameterize } from 'helpers/traxHelper'
 import ExternalLink from 'views/ui/ExternalLink'
 import formatClock from 'helpers/traxHelper'
@@ -32,7 +31,7 @@ const IssueItem = ({ timer, issue }) => {
     let items = issue.labels.map(l => (
       <span
         style={{ backgroundColor: `#${l.color}` }}
-        key={uuid()}
+        key={l.name}
         className={`label label-${parameterize(l.name)}`}
       >
         {l.name}

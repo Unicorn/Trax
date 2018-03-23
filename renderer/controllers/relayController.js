@@ -6,7 +6,7 @@ function fetchQuery(operation, variables) {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      Authorization: 'Bearer da2820c1667792862fd4f9cf621bf8fbccbee357',
+      Authorization: `Bearer ${process.env.GH_API_TOKEN}`,
     },
     body: JSON.stringify({ query: operation.text, variables }),
   }).then(response => {

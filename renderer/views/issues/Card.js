@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Draggable } from 'react-beautiful-dnd'
-import uuid from 'uuid/v4'
 import { parameterize } from 'helpers/traxHelper'
 import ExternalLink from 'views/ui/ExternalLink'
 import { startTimer, stopTimer } from 'controllers/timerController'
@@ -47,7 +46,7 @@ const Card = ({ dispatch, timer, issue, lane, index, provided, snapshot }) => {
     let items = issue.labels.filter(l => l.name !== lane).map(l => (
       <span
         style={{ backgroundColor: `#${l.color}` }}
-        key={uuid()}
+        key={l.name}
         className={`label label-${parameterize(l.name)}`}
       >
         {l.name}

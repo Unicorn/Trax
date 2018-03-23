@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import uuid from 'uuid/v4'
 import Alert from './Alert'
 
 const select = state => ({ alerts: state.alerts })
@@ -11,7 +10,7 @@ const Alerts = ({ alerts }) => {
 
   return (
     <div className="alerts">
-      {alerts.map(n => <Alert data={n} key={uuid()} />)}
+      {alerts.map(n => <Alert data={n} key={n.id} />)}
     </div>
   )
 }

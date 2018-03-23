@@ -17,6 +17,7 @@ __generated__
 /dist
 
 # misc
+"Icon[\r]"
 .DS_Store
 .env.local
 .env.development.local

@@ -34,6 +34,8 @@ class Dashboard extends React.Component {
   render = () => {
     const { auth, route } = this.props
 
+    console.log('ENV', process.env)
+
     if (auth.loggedIn)
       return (
         <div>
