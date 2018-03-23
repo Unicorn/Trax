@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>timer-stop</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard-Copy" transform="translate(-157.000000, -25.000000)">
+            <g id="timer-stop" transform="translate(157.000000, 25.000000)">
+                <path d="M33.4285714,13 L14.5714286,13 C13.704,13 13,13.704 13,14.5714286 L13,33.4285714 C13,34.296 13.704,35 14.5714286,35 L33.4285714,35 C34.296,35 35,34.296 35,33.4285714 L35,14.5714286 C35,13.704 34.296,13 33.4285714,13" id="Fill-124" fill="#CCB999"></path>
+                <circle id="Oval-2" stroke="#CCB999" stroke-width="2" cx="24" cy="24" r="23"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

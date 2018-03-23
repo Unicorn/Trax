@@ -1,0 +1,414 @@
+@import 'constants.scss';
+
+//
+// Navigation
+//
+header.toolbar {
+  -webkit-app-region: drag;
+  background-color: $teal;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  color: #fff;
+  display: block;
+  flex-direction: row;
+  height: 3.6rem;
+  position: fixed;
+  width: 100%;
+  z-index: 300;
+
+  .actions {
+    padding: .7rem;
+    float: right;
+  }
+}
+
+.drawer {
+  background-color: #fff;
+  bottom: -1rem;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+  font-weight: 700;
+  left: 0;
+  letter-spacing: .1rem;
+  padding: 5rem 0;
+  position: fixed;
+  text-transform: uppercase;
+  top: 0;
+  width: 7rem;
+  z-index: 2;
+
+  a {
+    color: $brown;
+    display: block;
+    margin: 2rem 0;
+    padding: .5rem 1rem;
+    text-align: center;
+
+    svg {
+      fill: darken($eggshell, 10%);
+      padding: 1rem 0;
+      transition: fill .3s;
+      width: 60%;
+    }
+
+    img {
+      background: #fff;
+      border: 2px solid darken($creme, 15%);
+      border-radius: 100%;
+      padding: .3rem;
+      transition: border-color .3s;
+      width: 100%;
+    }
+
+    &:hover {
+      svg {
+        fill: $brown;
+      }
+
+      img {
+        border-color: $brown;
+      }
+    }
+
+    &.active {
+      svg {
+        fill: $teal;
+      }
+
+      img {
+        border-color: $teal;
+      }
+    }
+  }
+}
+
+//
+// MESSAGES and TEXT
+//
+.message {
+  border: 1px solid;
+  font-size: 1.4rem;
+  padding: 1rem;
+
+  &.error {
+    color: $red;
+  }
+}
+
+.text {
+  &.red {
+    color: $red;
+  }
+}
+
+//
+// TABLES
+//
+table.formatted {
+  background: $creme;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+
+  &.fluid {
+    width: 100%;
+  }
+
+  th, td {
+    height: 4rem;
+    padding: 1.4rem;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  th {
+    border-bottom: $brown;
+    font-family: $font_header;
+    font-size: 1.5rem;
+  }
+
+  td {
+    background: #fff;
+    font-family: $font_body;
+    font-size: 1.3rem;
+    font-weight: 300;
+  }
+}
+
+table.striped {
+  tr:nth-child(even) {
+    td {
+      background: lighten($eggshell, 5.5%);
+    }
+  }
+}
+
+table.hoverable {
+  tr:hover {
+    td {
+      background: lighten($teal, 47%);
+    }
+  }
+}
+
+//
+// MODALS
+//
+#modal-root {
+  .overlay {
+    background: $eggshell;
+    animation: fadeIn .4s;
+    content: ' ';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+  }
+
+  .modal {
+    animation: showModal .5s;
+    left: 50%;
+    max-height: 100%;
+    max-width: 60rem;
+    position: fixed;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 96%;
+    z-index: 9999;
+
+    header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 1rem;
+
+      .close {
+        cursor: pointer;
+        height: 3rem;
+        width: 3rem;
+
+        svg {
+          fill: $brown;
+          transition: fill .2s;
+        }
+
+        &:hover {
+          svg {
+            fill: $red;
+          }
+        }
+      }
+    }
+
+    .content {
+      background: #fff;
+      border-radius: 5px;
+      box-shadow: 0 1px 5px rgba(153, 137, 111, 0.3), 0 5px 300px rgba(153, 137, 111, 0.3);
+      height: auto;
+      min-height: 20rem;
+      max-height: 45rem;
+      overflow-y: scroll;
+      padding: 2rem;
+    }
+  }
+}
+
+//
+// ALERTS
+//
+.alerts {
+  height: 3rem;
+  position: fixed;
+  right: 1.4rem;
+  top: 5rem;
+  width: 30rem;
+  z-index: 9999;
+
+  .alert {
+    background: #fff;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    color: #555;
+    font-size: 1.2rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+    margin-bottom: 1rem;
+    padding: 1.3rem 3rem 1.1rem 1.4rem;
+    position: relative;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+
+    &.generic {
+      text-shadow: none;
+    }
+
+    &.success {
+      background: $green;
+      border-color: darken($green, 8%);
+      color: #fff;
+    }
+
+    &.warning {
+      background: $yellow;
+      border-color: darken($yellow, 8%);
+      color: #fff;
+    }
+
+    &.error {
+      background: $red;
+      border-color: darken($red, 8%);
+      color: #fff;
+    }
+
+    .close.icon {
+      opacity: .2;
+      position: absolute;
+      right: .5rem;
+      top: .6rem;
+      width: 2.6rem;
+      transition: opacity .2s;
+
+      &:hover {
+        cursor: pointer;
+        opacity: 1;
+      }
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.accordion {
+  padding: 1.2rem 0 .5rem;
+  max-width: 60rem;
+
+  .trigger {
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1.5rem;
+    font-weight: 300;
+    padding: .5rem 0 0 1.5rem;
+    position: relative;
+
+    &:hover {
+      span {
+        color: darken($brown, 35%);
+      }
+
+      svg {
+        fill: darken($brown, 35%);
+      }
+    }
+
+    &.open {
+      span {
+        color: $teal;
+      }
+
+      svg {
+        fill: $teal;
+        width: 1.6rem;
+      }
+    }
+
+    span {
+      display: inline-block;
+      margin-left: 1rem;
+      padding-bottom: .2rem;
+      transition: color .3s;
+    }
+
+    svg {
+      fill: darken($eggshell, 15%);
+      left: 0;
+      position: absolute;
+      top: .6rem;
+      transform: rotate(180deg);
+      transition: all .2s;
+      width: 1.2rem;
+    }
+  }
+
+  .content.inner {
+    padding: .5rem 0 0 2.5rem;
+
+    p {
+      font-size: 1.3rem;
+      font-style: italic;
+      padding: .2rem 0;
+    }
+  }
+}
+
+//
+// TABBED
+//
+.tabbed {
+  margin: 2rem 0;
+
+  nav.controls {
+    overflow: hidden;
+
+    .tabs {
+      width: 100%;
+
+      > button {
+        background: rgba(0, 0, 0, 0.05);
+        border: none;
+        color: $brown;
+        display: inline-block;
+        font: 700 1.2rem $font_header;
+        margin: 0 .2rem 0 0;
+        padding: 1.2rem 2.5rem;
+        position: relative;
+        text-transform: uppercase;
+        transform: skewX(15deg);
+        transition: all .3s;
+
+        &:hover {
+          background: rgba(0, 0, 0, 0.1);
+          cursor: pointer;
+          color: darken($brown, 15%);
+        }
+
+        &:first-child {
+          margin-left: -.5rem;
+          padding-left: 2.5rem;
+        }
+
+        &.active {
+          background: $teal;
+          color: #fff;
+          z-index: 3;
+        }
+
+        span {
+          display: block;
+          transform: skewX(-15deg);
+          position: relative;
+        }
+      }
+    }
+
+    .actions {
+      float: right;
+
+      button {
+        font-size: 1.3rem;
+        margin-top: .5rem;
+        padding: .5rem 1.5rem;
+      }
+    }
+  }
+
+  .pane {
+    background: $creme;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    position: relative;
+    z-index: 2;
+  }
+}

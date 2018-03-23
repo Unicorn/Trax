@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1917px" height="802px" viewBox="0 0 1917 802" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>logo-text</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="85" y="73" width="630" height="630" rx="20"></rect>
+        <filter x="-2.8%" y="-2.0%" width="105.6%" height="105.6%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="5" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.199699955 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Artboard-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-740.000000, -2414.000000)">
+        <g id="logo-text" transform="translate(740.000000, 2414.000000)">
+            <g id="trax-copy">
+                <g id="Rectangle-3">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#F4F0E8" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <rect stroke="#DDD4C4" stroke-width="5" x="87.5" y="75.5" width="625" height="625" rx="20"></rect>
+                </g>
+                <rect id="pink" fill="#FF80FA" x="132" y="0" width="110" height="675" rx="10"></rect>
+                <rect id="yellow" fill="#F6D262" x="321" y="127" width="110" height="675" rx="10"></rect>
+                <rect id="purple" fill="#7E32D5" x="0" y="450" width="676" height="110" rx="10"></rect>
+                <rect id="teal" fill="#54E4B3" x="61" y="269" width="676" height="110" rx="10"></rect>
+                <rect id="pink-copy" fill="#FF80FA" x="132" y="0" width="110" height="675" rx="10"></rect>
+                <rect id="purple-copy" fill="#7E32D5" x="0" y="450" width="676" height="110" rx="10"></rect>
+                <rect id="yellow-copy" fill="#F6D262" x="321" y="426" width="110" height="376" rx="10"></rect>
+            </g>
+            <text id="made-by-Unicorn" font-family="Nunito-Light, Nunito" font-size="124" font-weight="300">
+                <tspan x="935.236" y="632" fill="#CCB999">made by </tspan>
+                <tspan x="1437.312" y="632" fill="#65C3CF">Unicorn</tspan>
+            </text>
+            <text id="TRAX" font-family="Nunito-SemiBold, Nunito" font-size="402" font-weight="500" fill="#7C705F">
+                <tspan x="858.139" y="445">TRAX</tspan>
+            </text>
+        </g>
+    </g>
+</svg>

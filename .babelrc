@@ -1,0 +1,11 @@
+{
+  "presets": [
+    "@babel/typescript",
+    "@babel/react",
+    "@babel/env",
+  ],
+  "plugins": [
+    "relay"
+  ]
+
+}

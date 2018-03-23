@@ -1,0 +1,431 @@
+@import 'constants';
+@import 'motion';
+@import 'html';
+@import 'forms';
+@import 'ui';
+
+//
+// HEADER
+//
+header.search {
+  @extend %clearfix;
+  background-color: darken($eggshell, 3%);
+  height: 5rem;
+  padding: 0;
+
+  > input {
+    background: transparent;
+    border: none;
+    color: $brown;
+    float: left;
+    font-size: 1.5rem;
+    font-weight: 300;
+    padding: 2.5rem 2rem;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
+    width: 50%;
+  }
+
+  input::-webkit-input-placeholder {
+    color: lighten($brown, 20%);
+    font-size: 1.5rem;
+    font-weight: 300;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.1);
+  }
+
+  .actions {
+    float: right;
+    padding: 1.5rem 2rem;
+    text-align: right;
+  }
+}
+
+header.title {
+  height: 5rem;
+
+  h1 {
+    float: left;
+  }
+
+  .actions {
+    float: right;
+    padding-top: .8rem;
+  }
+}
+
+//
+// MAIN
+//
+main.dashboard {
+  bottom: 0;
+  left: 7rem;
+  padding-top: 3.5rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+
+  section.page {
+    margin: 3rem;
+  }
+}
+
+//
+// LISTS
+//
+.list {
+  &.masonry {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    &.thirds {
+      li {
+        flex: 0 0 33%;
+        margin: $item_spacing;
+      }
+    }
+  }
+
+  &.clickable {
+    li {
+      cursor: pointer;
+
+      &:hover {
+        background: transparentize($blue, 0.95);
+        border: 1px solid #fff;
+      }
+
+      &:active {
+        background: transparentize($blue, 0.7);
+      }
+
+      &.active {
+        background: transparentize($green, 0.8);
+        border-color: #fff;
+      }
+    }
+  }
+}
+
+.item {
+  @extend %clearfix;
+  background: #fff;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+  border: 1px solid transparent;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  position: relative;
+
+  &.round {
+    border-radius: 3px;
+  }
+
+  &.active {
+    background: transparentize($green, 0.8);
+    border-color: #fff;
+  }
+
+  &.action {
+    box-shadow: none;
+    clear: both;
+
+    button {
+      width: 100%;
+    }
+  }
+
+  .title {
+    color: darken($brown, 5%);
+    flex: 1;
+    font-size: 1.2rem;
+    font-weight: 300;
+    line-height: 1.6em;
+    padding: 1.5rem;
+  }
+
+  .actions {
+    padding: .8rem 1.5rem;
+
+    button {
+      animation: fadeIn 0.5s;
+      margin: .5rem 0 0 .5rem;
+    }
+  }
+
+  .confirm.overlay {
+    animation: slideRight 0.5s;
+    background: lighten($yellow, 35%);
+    border-radius: 4px;
+    bottom: 0;
+    color: darken($yellow, 25%);
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+
+//
+// PROFILE PAGE
+//
+section.profile {
+
+  // TODO: convert to flexbox
+  .row {
+    @extend %clearfix;
+  }
+
+  .left.column {
+    float: left;
+  }
+
+  .right.column {
+    float: right;
+  }
+}
+
+//
+// BOARD
+//
+.swimlane {
+  background: $creme;
+  border-radius: 3px;
+  box-shadow: 0 0 .5rem rgba(0, 0, 0, 0.05);
+  float: left;
+  width: 23.5%;
+  margin: 2% 0;
+  padding: 1rem .5rem;
+  position: absolute;
+  top: 8.5rem;
+  bottom: 0rem;
+
+  &.backlog {
+    border-top: 2px solid $pink;
+    left: 1.5%;
+
+    big {
+      color: $pink;
+    }
+  }
+
+  &.started {
+    border-top: 2px solid $orange;
+    left: 26%;
+
+    big {
+      color: $orange;
+    }
+  }
+
+  &.review {
+    border-top: 2px solid $purple;
+    left: 50.5%;
+
+    big {
+      color: $purple;
+    }
+  }
+
+  &.complete {
+    border-top: 2px solid $green;
+    left: 75%;
+
+    big {
+      color: $green;
+    }
+  }
+
+  &.dragging-over {
+    background: #f5e8c2;
+  }
+
+  big {
+    display: block;
+    font: 1.8rem $font_header;
+    padding: 0 0 1rem 1.2rem;
+    text-transform: capitalize;
+  }
+
+  p {
+    padding-left: 1.2rem;
+  }
+
+  .inner {
+    position: absolute;
+    top: 4rem;
+    right: 0;
+    left: 0;
+    bottom: 1rem;
+    overflow-y: scroll;
+    padding: .5rem;
+  }
+}
+
+.card {
+  background: #fff;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+  cursor: move;
+  display: flex;
+  flex-direction: column;
+  margin: $item_spacing;
+  overflow: hidden;
+  position: relative;
+  transition: box-shadow .3s;
+
+  &:hover {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  }
+
+  &.dragging {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  }
+
+  &.active {
+    .bar {
+      button {
+        opacity: 1;
+      }
+
+      .counter {
+        color: darken($eggshell, 25%);
+      }
+    }
+  }
+
+  .meta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 9rem;
+    padding: 1rem 1.2rem;
+    width: 100%;
+
+    .header {
+      @extend %clearfix;
+      color: $brown;
+      font: 500 1.3rem/1.8rem $font_condensed;
+      display: block;
+      padding-bottom: .5rem;
+    }
+
+    .description {
+      color: lighten($brown, 20%);
+      display: block;
+      font: 300 1.1rem/1.6rem $font_condensed;
+      padding-bottom: .8rem;
+    }
+
+    .label {
+      background: $eggshell;
+      border-radius: 1px;
+      color: rgba(0, 0, 0, 0.4);
+      display: inline-block;
+      font: 400 1rem $font_condensed;
+      margin: 0 .4rem 0 0;
+      padding: .3rem .5rem;
+      text-transform: uppercase;
+    }
+  }
+
+  .external.link {
+    position: absolute;
+    right: 3px;
+    top: 5px;
+  }
+
+  .bar {
+    background: lighten($eggshell, 5%);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: .8rem 1rem;
+    text-align: left;
+
+    button {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: block;
+      height: 2.6rem;
+      margin: 0;
+      opacity: .4;
+      padding: 0;
+      transition: opacity .3s;
+      width: 2.6rem;
+
+      &:hover {
+        opacity: .8;
+      }
+
+      svg {
+        fill: $brown;
+        height: 56px;
+        width: 56px;
+      }
+    }
+
+    .counter {
+      color: darken($eggshell, 15%);
+      font: 1.2rem $font_monospace;
+      padding-left: 1rem;
+    }
+
+    .tracked {
+      border: 1px solid $teal;
+      border-radius: 2px;
+      color: $teal;
+      font: 1.2rem $font_monospace;
+      margin-left: .5rem;
+      padding: .5rem .8rem;
+      position: absolute;
+      right: 1rem;
+    }
+  }
+}
+
+//
+// SETTINGS PAGE
+//
+section.settings {
+  header {
+    @extend %clearfix;
+  }
+
+  h1 {
+    float: left;
+  }
+
+  .page.actions {
+    float: right;
+    padding-top: .3rem;
+  }
+}
+
+//
+// WELCOME PAGE
+//
+main.welcome {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 10rem;
+  max-width: 140rem;
+  width: 96%;
+
+  .left, .right {
+    max-width: 50%;
+  }
+
+  .left {
+    text-align: center;
+  }
+
+  .button {
+    display: inline-block;
+    margin: 3rem 0 0;
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "baseUrl": "./renderer",
+    "rootDir": "./renderer",
+    "jsx": "react",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "pretty": true,
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "target": "es6",
+    "lib": ["es7", "dom"]
+  },
+  "include": ["./renderer/**/*"],
+  "exclude": ["node_modules"]
+}
