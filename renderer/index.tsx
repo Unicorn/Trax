@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 
 // ROUTER
-import { BrowserRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 import { renderRoutes } from 'react-router-config'
 import routes from 'config/routes'
 
@@ -16,7 +16,7 @@ import 'assets/styles/app.scss'
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate persistor={persistor}>
-      <BrowserRouter>{renderRoutes(routes)}</BrowserRouter>
+      <HashRouter>{renderRoutes(routes)}</HashRouter>
     </PersistGate>
   </Provider>,
   document.getElementById('root')

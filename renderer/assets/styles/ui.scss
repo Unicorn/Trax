@@ -262,7 +262,11 @@ table.hoverable {
     }
 
     .close.icon {
+      border: none;
+      background: transparent;
+      margin: 0;
       opacity: .2;
+      padding: 0;
       position: absolute;
       right: .5rem;
       top: .6rem;
@@ -274,7 +278,7 @@ table.hoverable {
         opacity: 1;
       }
 
-      img {
+      svg {
         width: 100%;
       }
     }
