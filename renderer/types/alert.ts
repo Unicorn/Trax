@@ -2,7 +2,7 @@ export const CREATE_ALERT = 'CREATE_ALERT'
 export const DELETE_ALERT = 'DELETE_ALERT'
 export const CLEAR_ALERTS = 'CLEAR_ALERTS'
 
-export type TAlert = {
+export type Alert = {
   id?: any;
   type: 'success' | 'warning' | 'error' | 'generic';
   dismissable?: boolean;
@@ -10,20 +10,18 @@ export type TAlert = {
   message: string;
 }
 
-export type TAlerts = TAlert[]
-
-export interface IACreateAlert {
+export interface CreateAlert {
   type: typeof CREATE_ALERT;
-  payload: TAlert;
+  payload?: Alert;
 }
 
-export interface IADeleteAlert {
+export interface DeleteAlert {
   type: typeof DELETE_ALERT;
-  payload: TAlert;
+  payload?: Alert;
 }
 
-export interface IAClearAlerts {
+export interface ClearAlerts {
   type: typeof CLEAR_ALERTS;
 }
 
-export type TAlertActions = IACreateAlert | IADeleteAlert | IAClearAlerts
+export type AlertActions = CreateAlert | DeleteAlert | ClearAlerts

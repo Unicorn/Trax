@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-const Invoice = () => {
+const Invoice: React.SFC = () => {
   return (
     <section className="invoice page">
       <h1>Invoice</h1>

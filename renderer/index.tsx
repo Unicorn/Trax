@@ -15,6 +15,13 @@ import 'assets/styles/app.scss'
 
 require('dotenv').config()
 
+declare global {
+  interface Window {
+    require: any;
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: any;
+  }
+}
+
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate persistor={persistor}>

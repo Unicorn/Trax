@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import IssueTable from 'views/issues/IssueTable'
 import { setSelected, setInvoiced } from 'controllers/timerController'
+import { createInvoice } from 'controllers/invoiceController'
 
 class Report extends React.Component {
   state = {
@@ -15,14 +16,19 @@ class Report extends React.Component {
   }
 
   invoiceHandler = () => {
-    const { setInvoiced, setSelected, timers } = this.props
-    timers
-      .filter(t => t.selected)
-      .filter(t => t.selected)
-      .forEach(t => {
-        setInvoiced(t.id, !t.invoiced)
-        setSelected(t.id, false)
-      })
+    const { setInvoiced, setSelected, createInvoice, timers } = this.props
+    const filteredTimers = timers.filter(t => t.selected)
+
+    createInvoice({
+      id: 'test',
+      created: new Date(),
+      entries: filteredTimers,
+    })
+
+    filteredTimers.forEach(t => {
+      setInvoiced(t.id, !t.invoiced)
+      setSelected(t.id, false)
+    })
   }
 
   render() {

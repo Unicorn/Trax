@@ -3,9 +3,8 @@ import {
   CREATE_ALERT,
   DELETE_ALERT,
   CLEAR_ALERTS,
-  TAlert,
-  TAlerts,
-  TAlertActions
+  Alert,
+  AlertActions
 } from 'types/alert'
 
 /**
@@ -13,7 +12,7 @@ import {
  * - if `dismissAfter` was set, the alert will be auto dismissed after the given period.
  * - if id wasn't specified, a time based id will be generated.
  */
-export const createAlert = (payload: TAlert) => (dispatch: Dispatch<TAlertActions>) => {
+export const createAlert = (payload: Alert) => (dispatch: Dispatch<AlertActions>) => {
   if (!payload.id) {
     payload.id = new Date().getTime().toString()
   }
@@ -40,17 +39,17 @@ export const clearAlerts = () => ({
   type: CLEAR_ALERTS
 })
 
-export const alertReducer = (state: TAlerts = [], action: TAlertActions) => {
+export const alertReducer = (state: Alert[] = [], action: AlertActions) => {
   if (!action || !action.type) {
     return state
   }
 
   switch (action.type) {
     case CREATE_ALERT:
-      return state.concat([action.payload])
+      return state.concat([action.payload as Alert])
 
     case DELETE_ALERT:
-      return state.filter(({ id }) => id !== action.payload.id)
+      return state.filter(({ id }) => id !== action.payload!.id)
 
     case CLEAR_ALERTS:
       return []

@@ -1,25 +1,23 @@
-import { TTimerEntry } from 'types/timer'
+import { TimerEntry } from 'types/timer'
 
 // Constants
 export const CREATE_INVOICE = 'trax/invoice/CREATE_INVOICE'
 export const DELETE_INVOICE = 'trax/invoice/DELETE_INVOICE'
 
-export type TInvoice = {
+export interface Invoice {
   id: string;
   created: Date;
-  entries: TTimerEntry[];
+  entries: TimerEntry[];
 }
 
-export type TInvoices = TInvoice[]
-
-export interface IACreateInvoice {
+export interface CreateInvoice {
   type: typeof CREATE_INVOICE;
-  payload: TInvoice;
+  payload?: Invoice;
 }
 
-export interface IADeleteInvoice {
+export interface DeleteInvoice {
   type: typeof DELETE_INVOICE;
-  payload: TInvoice;
+  payload?: Invoice;
 }
 
-export type TInvoiceActions = IACreateInvoice | IADeleteInvoice
+export type InvoiceActions = CreateInvoice | DeleteInvoice

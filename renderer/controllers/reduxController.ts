@@ -2,20 +2,32 @@ import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
 import thunk from 'redux-thunk'
 import { reducer as formReducer } from 'redux-form'
 import { persistStore, persistCombineReducers } from 'redux-persist'
-import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
-import localForage from 'localforage'
+import storage from 'redux-persist/lib/storage'
 import { githubController } from 'controllers/githubController'
 import { timerReducer } from 'controllers/timerController'
 import { trackReducer } from 'controllers/trackController'
 import { alertReducer } from 'controllers/alertController'
 import { modalReducer } from 'controllers/modalController'
 import { issueReducer } from 'controllers/issueController'
+import { invoiceReducer } from 'controllers/invoiceController'
+import { TAlerts } from 'types/alert'
+import { TInvoices } from 'types/invoice'
+
+export type RootState = {
+  github: any;
+  timer: any;
+  tracks: any;
+  form: any;
+  alerts: TAlerts;
+  modals: any;
+  issues: any;
+  invoices: TInvoices;
+}
 
 const persistConfig = {
-  key: 'tracks',
-  storage: localForage,
-  stateReconciler: hardSet,
   blacklist: ['form', 'alerts', 'modals'],
+  key: 'tracks',
+  storage,
 }
 
 const rootReducer = persistCombineReducers(persistConfig, {
@@ -26,6 +38,7 @@ const rootReducer = persistCombineReducers(persistConfig, {
   alerts: alertReducer,
   modals: modalReducer,
   issues: issueReducer,
+  invoices: invoiceReducer
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
