@@ -1,29 +1,22 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import * as React from 'react'
 
-const ListIcon = ({ id, viewbox, ...props }) => {
+type TIconProps = {
+  id?: string;
+  viewbox?: string;
+}
+
+const ListIcon: React.SFC<TIconProps> = (props) => {
+  const { id, viewbox } = props
+
   return (
-    <svg
-      {...props}
-      id={id}
-      version="1.1"
-      viewBox={viewbox}
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg id={id} version="1.1" viewBox={viewbox} xmlns="http://www.w3.org/2000/svg">
       <path d="m5 83c0-3.6406 2.1914-6.9219 5.5547-8.3164 3.3633-1.3906 7.2344-0.62109 9.8086 1.9531s3.3438 6.4453 1.9531 9.8086c-1.3945 3.3633-4.6758 5.5547-8.3164 5.5547-4.9688 0-9-4.0312-9-9zm9-57c3.6406 0 6.9219-2.1914 8.3164-5.5547 1.3906-3.3633 0.62109-7.2344-1.9531-9.8086s-6.4453-3.3438-9.8086-1.9531c-3.3633 1.3945-5.5547 4.6758-5.5547 8.3164 0 4.9688 4.0312 9 9 9zm0 33c3.6406 0 6.9219-2.1914 8.3164-5.5547 1.3906-3.3633 0.62109-7.2344-1.9531-9.8086s-6.4453-3.3438-9.8086-1.9531c-3.3633 1.3945-5.5547 4.6758-5.5547 8.3164 0 4.9688 4.0312 9 9 9zm30-36h45c3.3125 0 6-2.6875 6-6s-2.6875-6-6-6h-45c-3.3125 0-6 2.6875-6 6s2.6875 6 6 6zm0 33h45c3.3125 0 6-2.6875 6-6s-2.6875-6-6-6h-45c-3.3125 0-6 2.6875-6 6s2.6875 6 6 6zm0 33h45c3.3125 0 6-2.6875 6-6s-2.6875-6-6-6h-45c-3.3125 0-6 2.6875-6 6s2.6875 6 6 6z" />
     </svg>
   )
 }
 
-ListIcon.propTypes = {
-  id: PropTypes.string,
-  color: PropTypes.string,
-  viewBox: PropTypes.string,
-}
-
 ListIcon.defaultProps = {
-  color: '#fff',
-  viewbox: '0 0 100 100',
+  viewbox: '0 0 100 100'
 }
 
 export default ListIcon
