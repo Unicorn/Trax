@@ -13,6 +13,8 @@ const PersistGate = require('redux-persist/es/integration/react').PersistGate
 
 import 'assets/styles/app.scss'
 
+require('dotenv').config()
+
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate persistor={persistor}>

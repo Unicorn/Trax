@@ -3,34 +3,25 @@ import { connect } from 'react-redux'
 import IssueTable from 'views/issues/IssueTable'
 import { setSelected, setInvoiced } from 'controllers/timerController'
 
-const select = state => {
-  let allIssues = Object.entries(state.issues).map(o => o[1])
-  let filteredIssues = allIssues.filter(issue => state.timer[issue.id])
-  return {
-    issues: filteredIssues,
-    timers: Object.entries(state.timer).map(o => o[1]),
-  }
-}
-
 class Report extends React.Component {
   state = {
     selected: false,
   }
 
   selectHandler = () => {
-    const { dispatch, timers } = this.props
-    timers.forEach(t => dispatch(setSelected(t.id, !this.state.selected)))
+    const { setSelected, timers } = this.props
+    timers.forEach(t => setSelected(t.id, !this.state.selected))
     this.setState({ selected: !this.state.selected })
   }
 
   invoiceHandler = () => {
-    const { dispatch, timers } = this.props
+    const { setInvoiced, setSelected, timers } = this.props
     timers
       .filter(t => t.selected)
       .filter(t => t.selected)
       .forEach(t => {
-        dispatch(setInvoiced(t.id, !t.invoiced))
-        dispatch(setSelected(t.id, false))
+        setInvoiced(t.id, !t.invoiced)
+        setSelected(t.id, false)
       })
   }
 
@@ -58,4 +49,13 @@ class Report extends React.Component {
   }
 }
 
-export default connect(select)(Report)
+const mapStateToProps = state => {
+  let allIssues = Object.entries(state.issues).map(o => o[1])
+  let filteredIssues = allIssues.filter(issue => state.timer[issue.id])
+  return {
+    issues: filteredIssues,
+    timers: Object.entries(state.timer).map(o => o[1]),
+  }
+}
+
+export default connect(mapStateToProps, { setSelected, setInvoiced })(Report)

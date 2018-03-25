@@ -10,6 +10,8 @@ export type TAlert = {
   message: string;
 }
 
+export type TAlerts = TAlert[]
+
 export interface IACreateAlert {
   type: typeof CREATE_ALERT;
   payload: TAlert;
@@ -25,5 +27,3 @@ export interface IAClearAlerts {
 }
 
 export type TAlertActions = IACreateAlert | IADeleteAlert | IAClearAlerts
-
-export type TAlerts = TAlert[]

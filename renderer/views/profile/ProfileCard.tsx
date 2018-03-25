@@ -19,6 +19,7 @@ const render = ({ error, props }: ReadyState) => {
 }
 
 const ProfileCard = () => {
+  const variables = {}
   const query = graphql`
     query ProfileCardQuery {
       viewer {
@@ -28,7 +29,12 @@ const ProfileCard = () => {
   `
 
   return (
-    <QueryRenderer variables={{}} environment={environment} query={query} render={render} />
+    <QueryRenderer
+      variables={variables}
+      environment={environment}
+      query={query}
+      render={render}
+    />
   )
 }
 

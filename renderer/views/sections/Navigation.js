@@ -3,7 +3,8 @@ import { NavLink } from 'react-router-dom'
 import ProfileCard from 'views/profile/ProfileCard'
 import ListIcon from 'views/ui/icons/ListIcon'
 import SettingsIcon from 'views/ui/icons/SettingsIcon'
-import WikiIcon from 'views/ui/icons/WikiIcon'
+import ReportIcon from 'views/ui/icons/ReportIcon'
+import InvoiceIcon from 'views/ui/icons/InvoiceIcon'
 import { ROUTES } from 'config/constants'
 
 const Navigation = () => (
@@ -23,7 +24,14 @@ const Navigation = () => (
       title={ROUTES.report.text}
       activeClassName="active"
     >
-      <WikiIcon />
+      <ReportIcon />
+    </NavLink>
+    <NavLink
+      to={ROUTES.invoice.path}
+      title={ROUTES.invoice.text}
+      activeClassName="active"
+    >
+      <InvoiceIcon />
     </NavLink>
     <NavLink
       to={ROUTES.settings.path}

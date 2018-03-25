@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { ReadyState, QueryRenderer, graphql } from 'react-relay'
 import { connect } from 'react-redux'
+
 import { environment } from 'controllers/relayController'
 import { createAlert } from 'controllers/alertController'
 import { TAlert } from 'types/alert'
@@ -13,8 +14,8 @@ type FragmentData = {
 
 type RepoNavigationProps = {
   selected: string;
-  handleTabClick: (e: React.MouseEvent<HTMLButtonElement>, data: FragmentData) => void;
-  createAlert: (payload: TAlert) => void;
+  handleTabClick: (e: React.MouseEvent<HTMLButtonElement>, data: FragmentData) => any;
+  createAlert: (payload: TAlert) => any;
 }
 
 const RepoNavigation: React.SFC<RepoNavigationProps> = (props) => {
@@ -24,7 +25,6 @@ const RepoNavigation: React.SFC<RepoNavigationProps> = (props) => {
     query RepoNavigationQuery {
       viewer {
         organizations(first: 10) {
-          totalCount
           nodes {
             login
             name

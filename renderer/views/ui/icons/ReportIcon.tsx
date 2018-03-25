@@ -5,7 +5,7 @@ type TIconProps = {
   viewbox?: string;
 }
 
-const WikiIcon: React.SFC<TIconProps> = (props) => {
+const ReportIcon: React.SFC<TIconProps> = (props) => {
   const { id, viewbox } = props
 
   return (
@@ -18,8 +18,8 @@ const WikiIcon: React.SFC<TIconProps> = (props) => {
   )
 }
 
-WikiIcon.defaultProps = {
+ReportIcon.defaultProps = {
   viewbox: '0 0 100 100'
 }
 
-export default WikiIcon
+export default ReportIcon

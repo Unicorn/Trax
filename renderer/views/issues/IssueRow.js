@@ -3,19 +3,6 @@ import { connect } from 'react-redux'
 import ExternalLink from 'views/ui/ExternalLink'
 import { setSelected } from 'controllers/timerController'
 
-const select = (state, props) => {
-  let timer = state.timer[props.issue.id] || {
-    isRunning: false,
-    startedAt: null,
-    counter: 0,
-    entries: [],
-  }
-
-  return {
-    timer,
-  }
-}
-
 const renderDuration = data => {
   let duration = Array.isArray(data)
     ? data.reduce((prev, curr) => {
@@ -34,6 +21,8 @@ const renderDuration = data => {
 }
 
 const renderDateRange = data => {
+  if (!data[0] || !data[0].startedAt || !data[0].stoppedAt) return
+
   const options = { weekday: 'short', month: 'short', day: 'numeric' }
   const startDate = new Date(data[0].startedAt).toLocaleDateString(
     'en-US',
@@ -76,4 +65,17 @@ const IssueRow = ({ timer, issue, dispatch }) => {
   )
 }
 
-export default connect(select)(IssueRow)
+const mapStateToProps = (state, props) => {
+  let timer = state.timer[props.issue.id] || {
+    isRunning: false,
+    startedAt: null,
+    counter: 0,
+    entries: [],
+  }
+
+  return {
+    timer,
+  }
+}
+
+export default connect(mapStateToProps)(IssueRow)

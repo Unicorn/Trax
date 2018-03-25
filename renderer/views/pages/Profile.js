@@ -10,12 +10,6 @@ import PersonalRepoList from 'views/repos/PersonalRepoList'
 import OrgRepoList from 'views/repos/OrgRepoList'
 import ExternalLink from 'views/ui/ExternalLink'
 
-const select = state => {
-  return {
-    tracks: state.tracks,
-  }
-}
-
 class Profile extends React.Component {
   state = {
     currentTab: 'Personal',
@@ -138,4 +132,8 @@ class Profile extends React.Component {
   }
 }
 
-export default connect(select)(Profile)
+const mapStateToProps = (state) => ({
+  tracks: state.tracks,
+})
+
+export default connect(mapStateToProps)(Profile)

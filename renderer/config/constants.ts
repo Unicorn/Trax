@@ -32,6 +32,10 @@ export const ROUTES = {
     text: 'Report',
     path: '/report',
   },
+  invoice: {
+    text: 'Invoice',
+    path: '/invoice',
+  },
   settings: {
     text: 'Settings',
     path: '/settings',
@@ -64,7 +68,7 @@ export const SWIMLANES = {
 export const GITHUB = {
   host: 'https://github.com',
   api: 'https://api.github.com',
-  client_id: '67c705a18a7b8576a4c1',
-  client_secret: '8085d6ddc53bea6f0a2568d7091b3e81ed41a179',
+  client_id: process.env.GH_CLIENT_ID,
+  client_secret: process.env.GH_CLIENT_SECRET,
   scope: 'user,public_repo,repo,repo_deployment,notifications',
 }

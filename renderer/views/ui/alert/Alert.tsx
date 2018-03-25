@@ -6,7 +6,7 @@ import CloseIcon from 'views/ui/icons/CloseIcon'
 
 type TAlertProps = {
   payload: TAlert;
-  deleteAlert: (id: any) => void;
+  deleteAlert: (id: any) => any;
 }
 
 const Alert: React.SFC<TAlertProps> = (props) => {

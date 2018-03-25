@@ -4,8 +4,8 @@ import { createAlert, clearAlerts } from 'controllers/alertController'
 import { TAlert } from 'types/alert'
 
 type SettingsProps = {
-  createAlert: (payload: TAlert) => void;
-  clearAlerts: () => void;
+  createAlert: (payload: TAlert) => any;
+  clearAlerts: () => any;
 }
 
 const Settings: React.SFC<SettingsProps> = (props) => {

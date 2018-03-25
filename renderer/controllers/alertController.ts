@@ -41,7 +41,9 @@ export const clearAlerts = () => ({
 })
 
 export const alertReducer = (state: TAlerts = [], action: TAlertActions) => {
-  if (!action || !action.type) return state
+  if (!action || !action.type) {
+    return state
+  }
 
   switch (action.type) {
     case CREATE_ALERT:
