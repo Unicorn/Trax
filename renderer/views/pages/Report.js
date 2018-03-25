@@ -64,4 +64,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { setSelected, setInvoiced })(Report)
+export default connect(mapStateToProps, { setSelected, setInvoiced, createInvoice })(Report)

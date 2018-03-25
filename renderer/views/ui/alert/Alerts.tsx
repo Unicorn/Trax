@@ -1,13 +1,13 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import Alert from './Alert'
-import { TAlerts } from 'types/alert'
+import AlertMessage from './Alert'
+import { Alert } from 'types/alert'
 
-type TAlertsProps = {
-  alerts: TAlerts;
+type AlertsProps = {
+  alerts: Alert[];
 }
 
-const Alerts: React.SFC<TAlertsProps> = (props) => {
+const Alerts: React.SFC<AlertsProps> = (props) => {
   const { alerts } = props
 
   if (!alerts || alerts.length < 1) {
@@ -16,7 +16,7 @@ const Alerts: React.SFC<TAlertsProps> = (props) => {
 
   return (
     <div className="alerts">
-      {alerts.map(n => <Alert payload={n} key={n.id} />)}
+      {alerts.map(n => <AlertMessage payload={n} key={n.id} />)}
     </div>
   )
 }

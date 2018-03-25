@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { createAlert, clearAlerts } from 'controllers/alertController'
-import { TAlert } from 'types/alert'
+import { Alert } from 'types/alert'
 
 type SettingsProps = {
-  createAlert: (payload: TAlert) => any;
+  createAlert: (payload: Alert) => any;
   clearAlerts: () => any;
 }
 

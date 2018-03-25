@@ -10,18 +10,18 @@ import { alertReducer } from 'controllers/alertController'
 import { modalReducer } from 'controllers/modalController'
 import { issueReducer } from 'controllers/issueController'
 import { invoiceReducer } from 'controllers/invoiceController'
-import { TAlerts } from 'types/alert'
-import { TInvoices } from 'types/invoice'
+import { Alert } from 'types/alert'
+import { Invoice } from 'types/invoice'
 
 export type RootState = {
   github: any;
   timer: any;
   tracks: any;
   form: any;
-  alerts: TAlerts;
+  alerts: Alert[];
   modals: any;
   issues: any;
-  invoices: TInvoices;
+  invoices: Invoice[];
 }
 
 const persistConfig = {

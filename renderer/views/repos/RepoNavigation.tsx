@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import { environment } from 'controllers/relayController'
 import { createAlert } from 'controllers/alertController'
-import { TAlert } from 'types/alert'
+import { Alert } from 'types/alert'
 
 type FragmentData = {
   login: string;
@@ -15,7 +15,7 @@ type FragmentData = {
 type RepoNavigationProps = {
   selected: string;
   handleTabClick: (e: React.MouseEvent<HTMLButtonElement>, data: FragmentData) => any;
-  createAlert: (payload: TAlert) => any;
+  createAlert: (payload: Alert) => any;
 }
 
 const RepoNavigation: React.SFC<RepoNavigationProps> = (props) => {
