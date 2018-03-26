@@ -8,12 +8,6 @@ import FormField from 'views/ui/form/FormField'
 import SelectField from 'views/ui/form/SelectField'
 import { SWIMLANES } from 'config/constants'
 
-const select = state => {
-  return {
-    tracks: state.tracks,
-  }
-}
-
 const submit = (values, dispatch) => {
   const errors = []
 
@@ -53,7 +47,7 @@ const CreateIssue = ({ tracks, error, pristine, submitting, handleSubmit }) => {
       <Field
         name="ident"
         label="Repo"
-        options={tracks.data.map(r => ({ value: r.ident, label: r.ident }))}
+        options={tracks.map(r => ({ value: r.ident, label: r.ident }))}
         component={SelectField}
         type="select"
       />
@@ -119,4 +113,10 @@ const formOptions = {
   onSubmitSuccess: (result, dispatch) => dispatch(closeModal()),
 }
 
-export default reduxForm(formOptions)(connect(select)(CreateIssue))
+const mapStateToProps = state => {
+  return {
+    tracks:  Object.entries(state.tracks).map(o => o[1])
+  }
+}
+
+export default reduxForm(formOptions)(connect(mapStateToProps)(CreateIssue))

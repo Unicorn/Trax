@@ -11,7 +11,7 @@ const select = state => {
   return {
     auth: state.github.auth,
     profile: state.github.profile,
-    tracks: state.tracks,
+    tracks: Object.entries(state.tracks).map(o => o[1])
   }
 }
 
@@ -27,7 +27,7 @@ class Welcome extends React.Component {
     const { auth, tracks } = this.props
 
     if (auth.data && auth.data.loggedIn)
-      return tracks.data.length > 0 ? (
+      return tracks.length > 0 ? (
         <Redirect to={ROUTES.board.path} />
       ) : (
         <Redirect to={ROUTES.profile.path} />

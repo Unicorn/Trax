@@ -1,28 +1,36 @@
+import { Dispatch } from 'redux'
 import { github } from './githubController'
+import {
+  ADD_ISSUE,
+  ADD_ISSUES,
+  UPDATE_ISSUE,
+  Issue,
+  Issues,
+  IssueActions,
+} from 'types/issue'
 
-// Constant Names
-const ADD_ISSUE = 'ADD_ISSUE'
-const ADD_ISSUES = 'ADD_ISSUES'
-const UPDATE_ISSUE = 'UPDATE_ISSUE'
+export const addIssues = (issues: Issue[]) => ({
+  type: ADD_ISSUES,
+  issues
+})
 
-export const addIssues = issues => ({ type: ADD_ISSUES, issues })
-
-export const updateIssue = issue => ({ type: UPDATE_ISSUE, issue })
+export const updateIssue = (issue: Issue) => ({
+  type: UPDATE_ISSUE,
+  issue
+})
 
 // Reducer / Store
-const initialState = {}
-
-export const createIssue = ({ owner, repo, body }) => dispatch => {
+export const createIssue = ({ owner, repo, body }: Issue) => (dispatch: Dispatch<IssueActions>) => {
   dispatch(github.createIssue({ owner, repo }, { body }))
-    .then(issue => {
+    .then((issue: Issue) => {
       issue.owner = owner
       issue.repo = repo
       return dispatch({ type: ADD_ISSUE, issue })
     })
-    .catch(error => console.log('error in creating issue', error))
+    .catch((error: Error) => console.log('error in creating issue', error))
 }
 
-export const issueReducer = (state = initialState, action) => {
+export const issueReducer = (state: Issues = {}, action: IssueActions) => {
   let newState = { ...state }
 
   switch (action.type) {

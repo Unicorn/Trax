@@ -1,6 +1,6 @@
-export const CREATE_ALERT = 'CREATE_ALERT'
-export const DELETE_ALERT = 'DELETE_ALERT'
-export const CLEAR_ALERTS = 'CLEAR_ALERTS'
+export const CREATE_ALERT = 'trax/alert/CREATE_ALERT'
+export const DELETE_ALERT = 'trax/alert/DELETE_ALERT'
+export const CLEAR_ALERTS = 'trax/alert/CLEAR_ALERTS'
 
 export type Alert = {
   id?: any;
@@ -12,12 +12,12 @@ export type Alert = {
 
 export interface CreateAlert {
   type: typeof CREATE_ALERT;
-  payload?: Alert;
+  payload: Alert;
 }
 
 export interface DeleteAlert {
   type: typeof DELETE_ALERT;
-  payload?: Alert;
+  payload: Alert;
 }
 
 export interface ClearAlerts {

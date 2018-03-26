@@ -1,3 +1,9 @@
+export type Swimlane = {
+  label: string;
+  name: string;
+  color: string;
+}
+
 export const COLORS = {
   blue: '#3C7CB3',
   orange: '#F85E10',

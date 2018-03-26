@@ -1,6 +1,6 @@
 import { Environment, Network, RecordSource, Store } from 'relay-runtime'
 
-function fetchQuery(operation, variables) {
+const fetchQuery = (operation: any, variables: any) => {
   return fetch('https://api.github.com/graphql', {
     method: 'POST',
     headers: {

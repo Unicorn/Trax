@@ -9,7 +9,7 @@ import { SWIMLANES } from 'config/constants'
 
 const select = state => ({
   issues: Object.entries(state.issues).map(o => o[1]),
-  tracks: state.tracks,
+  tracks:  Object.entries(state.tracks).map(o => o[1]),
   user: state.github.profile.data,
 })
 
@@ -22,7 +22,7 @@ class Board extends React.Component {
     const { dispatch, tracks, user } = this.props
 
     return Promise.all(
-      tracks.data.map(track => {
+      tracks.map(track => {
         const [owner, repo] = track.ident.split('/')
         var issuesArr = []
 

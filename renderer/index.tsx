@@ -18,6 +18,7 @@ require('dotenv').config()
 declare global {
   interface Window {
     require: any;
+    process: any;
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: any;
   }
 }

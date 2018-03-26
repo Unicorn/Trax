@@ -5,15 +5,7 @@ import { createFragmentContainer, graphql } from 'react-relay'
 import ExternalLink from 'views/ui/ExternalLink'
 import ConfirmUntrack from 'views/repos/ConfirmUntrack'
 import ConfirmTrack from 'views/repos/ConfirmTrack'
-import { track, untrack } from 'controllers/trackController'
-
-const select = (state, props) => {
-  return {
-    track: state.tracks.data.filter(
-      t => t.repository.id === props.repository.id
-    )[0],
-  }
-}
+import { createTrack, deleteTrack } from 'controllers/trackController'
 
 class RepoItem extends React.Component {
   state = {
@@ -29,14 +21,14 @@ class RepoItem extends React.Component {
   }
 
   _trackHandler = () => {
-    const { repository, dispatch } = this.props
-    dispatch(track(repository))
+    const { repository, createTrack } = this.props
+    createTrack(repository)
     this._hideConfirmation()
   }
 
   _untrackHandler = () => {
-    const { repository, dispatch } = this.props
-    dispatch(untrack(repository))
+    const { repository, delet_track } = this.props
+    delet_track(repository)
     this._hideConfirmation()
   }
 
@@ -114,4 +106,12 @@ const fragment = createFragmentContainer(
   `
 )
 
-export default connect(select)(fragment)
+const mapStateToProps = (state, props) => {
+  return {
+    track: Object.entries(state.tracks).map(o => o[1]).filter(
+      t => t.repository.id === props.repository.id
+    )[0],
+  }
+}
+
+export default connect(mapStateToProps, { createTrack, deleteTrack })(fragment)

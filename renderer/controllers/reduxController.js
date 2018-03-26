@@ -13,17 +13,6 @@ import { invoiceReducer } from 'controllers/invoiceController'
 import { Alert } from 'types/alert'
 import { Invoice } from 'types/invoice'
 
-export type RootState = {
-  github: any;
-  timer: any;
-  tracks: any;
-  form: any;
-  alerts: Alert[];
-  modals: any;
-  issues: any;
-  invoices: Invoice[];
-}
-
 const persistConfig = {
   blacklist: ['form', 'alerts', 'modals'],
   key: 'tracks',

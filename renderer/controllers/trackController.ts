@@ -1,14 +1,21 @@
+import { Dispatch } from 'redux'
 import { github } from 'controllers/githubController'
-import { TRAX_IDENT, SWIMLANES } from 'config/constants'
+import { TRAX_IDENT, SWIMLANES, Swimlane } from 'config/constants'
+import { Issue, EditIssue } from 'types/issue'
+import { Repository } from 'types/repository'
+import {
+  CREATE_TRACK,
+  DELETE_TRACK,
+  CLEAR_TRACKS,
+  Track,
+  Tracks,
+  TrackActions
+} from 'types/track'
 
-// Constant Names
-const TRACK = 'TRACK'
-const UNTRACK = 'UNTRACK'
-const UNTRACK_ALL = 'UNTRACK_ALL'
 
-const filterTrax = projects => projects.filter(p => p.name === TRAX_IDENT)
+const filterTrax = (projects: any[]) => projects.filter(p => p.name === TRAX_IDENT)
 
-const filterIssuesWithoutLanes = issues => {
+const filterIssuesWithoutLanes = (issues: Issue[]) => {
   let filterCriteria = [
     SWIMLANES.backlog.name,
     SWIMLANES.started.name,
@@ -21,12 +28,12 @@ const filterIssuesWithoutLanes = issues => {
   )
 }
 
-const setupColumns = project_id => dispatch => {
+const setupColumns = (project_id: string) => (dispatch: Dispatch<TrackActions>) => {
   const query = { project_id }
   const { backlog, started, review, complete } = SWIMLANES
   const columns = [backlog, started, review, complete]
 
-  const _ = c => {
+  const _ = (c: Swimlane) => {
     return {
       body: { name: c.label },
     }
@@ -43,12 +50,12 @@ const setupColumns = project_id => dispatch => {
   @param {string} owner
   @param {string} repo
 **/
-const setupLabels = (owner, repo) => dispatch => {
+const setupLabels = (owner: string, repo: string) => (dispatch: Dispatch<TrackActions>) => {
   const query = { owner, repo }
   const { backlog, started, review, complete } = SWIMLANES
   const labels = [backlog, started, review, complete]
 
-  const _ = c => {
+  const _ = (c: Swimlane) => {
     return {
       body: { name: c.name, color: c.color.replace('#', '') },
     }
@@ -56,7 +63,7 @@ const setupLabels = (owner, repo) => dispatch => {
 
   // mapping catch ignores rejections and continue the chain
   return Promise.all(
-    labels.map(l => dispatch(github.createLabel(query, _(l))).catch(e => e))
+    labels.map(l => dispatch(github.createLabel(query, _(l))).catch((e: Error) => e))
   )
 }
 
@@ -64,10 +71,10 @@ const setupLabels = (owner, repo) => dispatch => {
   Create Backlog of Issues
   @description Loops through all issues and assigns label:backlog to untracked issues
 **/
-const createBacklog = (owner, repo) => dispatch => {
+const createBacklog = (owner: string, repo: string) => (dispatch: Dispatch<TrackActions>) => {
   return dispatch(github.listIssues({ owner, repo }))
-    .then(issues => filterIssuesWithoutLanes(issues))
-    .then(issues =>
+    .then((issues: Issue[]) => filterIssuesWithoutLanes(issues))
+    .then((issues: EditIssue[]) =>
       issues.map(issue => {
         const { labels, number } = issue
         labels.push(SWIMLANES.backlog.name)
@@ -79,7 +86,9 @@ const createBacklog = (owner, repo) => dispatch => {
 }
 
 // Action Creators
-export const track = repository => dispatch => {
+export const createTrack = (repository: any) => (dispatch: Dispatch<TrackActions>) => {
+  console.log('repo', repository)
+
   const body = {
     name: 'Trax',
     body: 'An auto-generated project created and managed by the Trax App',
@@ -93,28 +102,28 @@ export const track = repository => dispatch => {
     repository,
   }
 
-  return dispatch(untrack(repository))
+  return dispatch(deleteTrack(repository))
     .then(() => dispatch(github.createProject({ owner, repo }, { body })))
-    .then(project => ({ ...track, project }))
-    .then(track =>
+    .then((project: any) => ({ ...track, project }))
+    .then((track: any) =>
       dispatch(setupColumns(track.project.id)).then(columns => ({
         ...track,
         columns,
       }))
     )
-    .then(track =>
+    .then((track: any) =>
       dispatch(setupLabels(owner, repo)).then(labels => ({ ...track, labels }))
     )
-    .then(track =>
-      dispatch(createBacklog(owner, repo)).then(issues => ({
+    .then((track: any) =>
+      dispatch(createBacklog(owner, repo)).then((issues: Issue[]) => ({
         ...track,
         backlog: issues,
       }))
     )
-    .then(track => dispatch({ type: TRACK, track }))
+    .then((track: any) => dispatch({ type: CREATE_TRACK, track }))
 }
 
-export const untrack = repository => dispatch => {
+export const deleteTrack = (repository: any) => (dispatch: Dispatch<TrackActions>) => {
   const owner = repository.owner.login
   const repo = repository.name
 
@@ -124,41 +133,33 @@ export const untrack = repository => dispatch => {
   }
 
   return dispatch(github.listProjects({ owner, repo }))
-    .then(projects =>
+    .then((projects: any) =>
       filterTrax(projects).map(p =>
         dispatch(github.deleteProject({ id: p.id }))
       )
     )
-    .then(() => dispatch({ type: UNTRACK, track }))
+    .then(() => dispatch({ type: DELETE_TRACK, track }))
 }
 
 // @TODO: Have this loop through all projects and wipe anything with name=Trax
-export const untrackAll = () => ({ type: UNTRACK_ALL })
+export const clearTracks = () => ({
+  type: CLEAR_TRACKS
+})
 
-// Reducer / Store
-const initialState = {
-  data: [],
-}
+export const trackReducer = (state: Tracks = {}, action: TrackActions) => {
+  let newState = { ...state }
 
-export const trackReducer = (state = initialState, action) => {
   switch (action.type) {
-    case TRACK:
-      return {
-        ...state,
-        data: state.data.concat([action.track]),
-      }
+    case CREATE_TRACK:
+      newState[action.track.ident] = action.track
+      return newState
 
-    case UNTRACK:
-      return {
-        ...state,
-        data: state.data.filter(p => p.ident !== action.track.ident),
-      }
+    case DELETE_TRACK:
+      delete newState[action.track.ident]
+      return newState
 
-    case UNTRACK_ALL:
-      return {
-        ...state,
-        data: [],
-      }
+    case CLEAR_TRACKS:
+      return {}
 
     default:
       return state

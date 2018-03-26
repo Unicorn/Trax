@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { QueryRenderer, graphql } from 'react-relay'
 
 import { environment } from 'controllers/relayController'
-import { untrackAll } from 'controllers/trackController'
+import { clearTracks } from 'controllers/trackController'
 import Accordion from 'views/ui/Accordion'
 import RepoNavigation from 'views/repos/RepoNavigation'
 import PersonalRepoList from 'views/repos/PersonalRepoList'
@@ -35,7 +35,7 @@ class Profile extends React.Component {
   }
 
   _untrackAll = () => {
-    this.props.dispatch(untrackAll)
+    this.props.clearTracks()
   }
 
   render = () => {
@@ -98,7 +98,7 @@ class Profile extends React.Component {
           </div>
           <div className="right column">
             <div className="tracked">
-              <ul>{tracks.data.map(r => <li key={r.ident}>{r.ident}</li>)}</ul>
+              <ul>{tracks.map(r => <li key={r.ident}>{r.ident}</li>)}</ul>
             </div>
           </div>
         </div>
@@ -133,7 +133,7 @@ class Profile extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  tracks: state.tracks,
+  tracks:  Object.entries(state.tracks).map(o => o[1])
 })
 
-export default connect(mapStateToProps)(Profile)
+export default connect(mapStateToProps, { clearTracks })(Profile)
