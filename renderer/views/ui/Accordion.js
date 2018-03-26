@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 class Accordion extends React.Component {
   constructor(props) {
@@ -206,31 +205,31 @@ class Accordion extends React.Component {
   }
 }
 
-Accordion.propTypes = {
-  transitionTime: PropTypes.number,
-  easing: PropTypes.string,
-  open: PropTypes.bool,
-  accordionPosition: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  handleTriggerClick: PropTypes.func,
-  onOpen: PropTypes.func,
-  onClose: PropTypes.func,
-  onOpening: PropTypes.func,
-  onClosing: PropTypes.func,
-  trigger: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-  triggerWhenOpen: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-  triggerDisabled: PropTypes.bool,
-  lazyRender: PropTypes.bool,
-  overflowWhenOpen: PropTypes.oneOf([
-    'hidden',
-    'visible',
-    'auto',
-    'scroll',
-    'inherit',
-    'initial',
-    'unset',
-  ]),
-  triggerSibling: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
-}
+// Accordion.propTypes = {
+//   transitionTime: PropTypes.number,
+//   easing: PropTypes.string,
+//   open: PropTypes.bool,
+//   accordionPosition: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+//   handleTriggerClick: PropTypes.func,
+//   onOpen: PropTypes.func,
+//   onClose: PropTypes.func,
+//   onOpening: PropTypes.func,
+//   onClosing: PropTypes.func,
+//   trigger: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+//   triggerWhenOpen: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+//   triggerDisabled: PropTypes.bool,
+//   lazyRender: PropTypes.bool,
+//   overflowWhenOpen: PropTypes.oneOf([
+//     'hidden',
+//     'visible',
+//     'auto',
+//     'scroll',
+//     'inherit',
+//     'initial',
+//     'unset',
+//   ]),
+//   triggerSibling: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
+// }
 
 Accordion.defaultProps = {
   className: 'accordion',

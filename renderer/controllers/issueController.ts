@@ -6,6 +6,7 @@ import {
   UPDATE_ISSUE,
   Issue,
   Issues,
+  CreateIssue,
   IssueActions,
 } from 'types/issue'
 
@@ -20,7 +21,7 @@ export const updateIssue = (issue: Issue) => ({
 })
 
 // Reducer / Store
-export const createIssue = ({ owner, repo, body }: Issue) => (dispatch: Dispatch<IssueActions>) => {
+export const createIssue = ({ owner, repo, body }: CreateIssue) => (dispatch: Dispatch<IssueActions>) => {
   dispatch(github.createIssue({ owner, repo }, { body }))
     .then((issue: Issue) => {
       issue.owner = owner

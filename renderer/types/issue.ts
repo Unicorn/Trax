@@ -22,6 +22,17 @@ export type Issue = {
   labels: Label[];
 }
 
+export type CreateIssue = {
+  owner: string;
+  repo: string;
+  body: {
+    assignees: string[];
+    title: string;
+    body: string;
+    labels: string[];
+  };
+}
+
 export type EditIssue = {
   owner: string;
   repo: string;

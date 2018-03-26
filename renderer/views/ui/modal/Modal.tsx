@@ -1,8 +1,13 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import CloseIcon from 'views/ui/icons/CloseIcon'
 
-const Modal = ({ children, title, closeHandler }) => (
+type ModalProps = {
+  title: string;
+  children: React.ReactNode;
+  closeHandler: () => void;
+}
+
+const Modal: React.SFC<ModalProps> = ({ children, title, closeHandler }) => (
   <div className="overlay">
     <div className="modal">
       <header>
@@ -15,10 +20,5 @@ const Modal = ({ children, title, closeHandler }) => (
     </div>
   </div>
 )
-
-Modal.propTypes = {
-  title: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
-}
 
 export default Modal

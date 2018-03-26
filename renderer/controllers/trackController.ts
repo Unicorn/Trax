@@ -2,12 +2,10 @@ import { Dispatch } from 'redux'
 import { github } from 'controllers/githubController'
 import { TRAX_IDENT, SWIMLANES, Swimlane } from 'config/constants'
 import { Issue, EditIssue } from 'types/issue'
-import { Repository } from 'types/repository'
 import {
   CREATE_TRACK,
   DELETE_TRACK,
   CLEAR_TRACKS,
-  Track,
   Tracks,
   TrackActions
 } from 'types/track'

@@ -1,5 +1,4 @@
 import React from 'react'
-import propTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import { createIssue } from 'controllers/issueController'
@@ -9,24 +8,6 @@ import SelectField from 'views/ui/form/SelectField'
 import { SWIMLANES } from 'config/constants'
 
 const submit = (values, dispatch) => {
-  const errors = []
-
-  if (!values.ident) errors.push('ident', 'Required')
-
-  if (!values.title) errors.push('title', 'Required')
-
-  if (!values.body) errors.push('body', 'Required')
-
-  if (!values.lane) errors.push('lane', 'Required')
-
-  if (errors.length !== 0) {
-    let obj = {}
-    errors.forEach(err => (obj[err[0]] = err[1]))
-    console.log('errors', obj)
-    // throw new SubmissionError({ _error: 'All fields are required.', ...obj })
-    return errors
-  }
-
   const [owner, repo] = values.ident.split('/')
   const body = {
     assignees: [values.assignee],
@@ -102,10 +83,6 @@ const CreateIssue = ({ tracks, error, pristine, submitting, handleSubmit }) => {
       </div>
     </form>
   )
-}
-
-CreateIssue.propTypes = {
-  handleSubmit: propTypes.func.isRequired,
 }
 
 const formOptions = {
