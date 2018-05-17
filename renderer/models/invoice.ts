@@ -1,4 +1,4 @@
-import { TimerEntry } from 'types/timer'
+import { TimerEntry } from 'models/timer'
 
 // Constants
 export const CREATE_INVOICE = 'trax/invoice/CREATE_INVOICE'

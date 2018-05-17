@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
-import { createIssue } from 'controllers/issueController'
+import { createIssue } from 'controllers/issuesController'
 import { closeModal } from 'controllers/modalController'
 import FormField from 'views/ui/form/FormField'
 import SelectField from 'views/ui/form/SelectField'

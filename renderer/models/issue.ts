@@ -1,4 +1,4 @@
-import { Label } from 'types/label'
+import { Label } from 'models/label'
 
 // Constant Names
 export const ADD_ISSUE = 'trax/issue/ADD_ISSUE'
@@ -56,17 +56,17 @@ export type Issues = {
 
 export interface AddIssue {
   type: typeof ADD_ISSUE;
-  issue: Issue;
+  issue?: Issue;
 }
 
 export interface AddIssues {
   type: typeof ADD_ISSUES;
-  issues: Issue[];
+  issues?: Issue[];
 }
 
 export interface UpdateIssue {
   type: typeof UPDATE_ISSUE,
-  issue: Issue;
+  issue?: Issue;
 }
 
 export type IssueActions = AddIssue | AddIssues | UpdateIssue

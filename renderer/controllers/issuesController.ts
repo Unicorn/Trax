@@ -1,4 +1,3 @@
-import { Dispatch } from 'redux'
 import { github } from './githubController'
 import {
   ADD_ISSUE,
@@ -8,7 +7,7 @@ import {
   Issues,
   CreateIssue,
   IssueActions,
-} from 'types/issue'
+} from 'models/issue'
 
 export const addIssues = (issues: Issue[]) => ({
   type: ADD_ISSUES,
@@ -21,7 +20,7 @@ export const updateIssue = (issue: Issue) => ({
 })
 
 // Reducer / Store
-export const createIssue = ({ owner, repo, body }: CreateIssue) => (dispatch: Dispatch<IssueActions>) => {
+export const createIssue = ({ owner, repo, body }: CreateIssue) => (dispatch: any) => {
   dispatch(github.createIssue({ owner, repo }, { body }))
     .then((issue: Issue) => {
       issue.owner = owner
@@ -31,19 +30,22 @@ export const createIssue = ({ owner, repo, body }: CreateIssue) => (dispatch: Di
     .catch((error: Error) => console.log('error in creating issue', error))
 }
 
-export const issueReducer = (state: Issues = {}, action: IssueActions) => {
+export const issuesReducer = (state: Issues = {}, action: IssueActions) => {
   let newState = { ...state }
 
   switch (action.type) {
     case ADD_ISSUE:
+      if (!action.issue) return state
       newState[action.issue.id] = action.issue
       return newState
 
     case ADD_ISSUES:
+      if (!action.issues) return state
       action.issues.forEach(issue => (newState[issue.id] = issue))
       return newState
 
     case UPDATE_ISSUE:
+      if (!action.issue) return state
       newState[action.issue.id] = action.issue
       return newState
 

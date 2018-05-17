@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { QueryRenderer, graphql } from 'react-relay'
 
 import { environment } from 'controllers/relayController'
-import { clearTracks } from 'controllers/trackController'
+import { clearTracks } from 'controllers/tracksController'
 import Accordion from 'views/ui/Accordion'
 import RepoNavigation from 'views/repos/RepoNavigation'
 import PersonalRepoList from 'views/repos/PersonalRepoList'

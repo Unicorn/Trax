@@ -1,22 +1,21 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import AlertMessage from './Alert'
-import { Alert } from 'types/alert'
+import Alert from './Alert'
+import { Alerts } from 'models/alert'
 
 type AlertsProps = {
-  alerts: Alert[];
+  alerts: Alerts;
 }
 
 const Alerts: React.SFC<AlertsProps> = (props) => {
   const { alerts } = props
 
-  if (!alerts || alerts.length < 1) {
+  if (!alerts || alerts.length < 1)
     return null
-  }
 
   return (
     <div className="alerts">
-      {alerts.map(n => <AlertMessage payload={n} key={n.id} />)}
+      {alerts.map(n => <Alert alert={n} key={n.key} />)}
     </div>
   )
 }

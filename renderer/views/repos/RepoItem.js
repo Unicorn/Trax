@@ -5,7 +5,7 @@ import { createFragmentContainer, graphql } from 'react-relay'
 import ExternalLink from 'views/ui/ExternalLink'
 import ConfirmUntrack from 'views/repos/ConfirmUntrack'
 import ConfirmTrack from 'views/repos/ConfirmTrack'
-import { createTrack, deleteTrack } from 'controllers/trackController'
+import { createTrack, deleteTrack } from 'controllers/tracksController'
 
 class RepoItem extends React.Component {
   state = {

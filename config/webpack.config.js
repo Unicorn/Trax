@@ -5,6 +5,7 @@ const Dotenv = require('dotenv-webpack')
 const path = require('path')
 
 module.exports = {
+  target: 'electron-renderer',
   entry: path.resolve(__dirname, '../renderer/index.tsx'),
   output: {
     filename: 'bundle.js',
@@ -14,15 +15,8 @@ module.exports = {
   // Enable sourcemaps for debugging webpack's output.
   devtool: 'source-map',
 
-  serve: {
-    clipboard: false,
-    port: 8080,
-    logLevel: 'warn',
-    logTime: true,
-  },
-
   resolve: {
-    extensions: ['.ts', '.tsx', '.js'],
+    extensions: ['.ts', '.tsx', '.js', '.json'],
     modules: [
       path.resolve(__dirname, '../renderer'),
       path.resolve(__dirname, '../main'),

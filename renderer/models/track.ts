@@ -1,4 +1,4 @@
-import { Repository } from 'types/repository'
+import { Repository } from 'models/repository'
 
 // Constant Names
 export const CREATE_TRACK = 'trax/track/CREATE_TRACK'
@@ -8,9 +8,9 @@ export const CLEAR_TRACKS = 'trax/track/CLEAR_TRACKS'
 export type Track = {
   ident: string;
   repository: Repository;
-  project: any;
-  columns: any;
-  labels: any;
+  project?: any;
+  columns?: any;
+  labels?: any;
 }
 
 export type Tracks = {

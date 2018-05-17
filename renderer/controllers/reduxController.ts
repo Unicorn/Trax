@@ -1,17 +1,15 @@
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
-import thunk from 'redux-thunk'
+import thunk from 'helpers/thunk'
 import { reducer as formReducer } from 'redux-form'
 import { persistStore, persistCombineReducers } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import { githubController } from 'controllers/githubController'
 import { timerReducer } from 'controllers/timerController'
-import { trackReducer } from 'controllers/trackController'
-import { alertReducer } from 'controllers/alertController'
+import { tracksReducer } from 'controllers/tracksController'
+import { alertsReducer } from 'controllers/alertsController'
 import { modalReducer } from 'controllers/modalController'
-import { issueReducer } from 'controllers/issueController'
-import { invoiceReducer } from 'controllers/invoiceController'
-import { Alert } from 'types/alert'
-import { Invoice } from 'types/invoice'
+import { issuesReducer } from 'controllers/issuesController'
+import { invoicesReducer } from 'controllers/invoicesController'
 
 const persistConfig = {
   blacklist: ['form', 'alerts', 'modals'],
@@ -22,12 +20,12 @@ const persistConfig = {
 const rootReducer = persistCombineReducers(persistConfig, {
   github: combineReducers(githubController.reducers),
   timer: timerReducer,
-  tracks: trackReducer,
+  tracks: tracksReducer,
   form: formReducer,
-  alerts: alertReducer,
+  alerts: alertsReducer,
   modals: modalReducer,
-  issues: issueReducer,
-  invoices: invoiceReducer
+  issues: issuesReducer,
+  invoices: invoicesReducer
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { ReadyState, QueryRenderer, graphql } from 'react-relay'
+import { QueryRenderer, graphql } from 'react-relay'
 import { connect } from 'react-redux'
 
 import { environment } from 'controllers/relayController'
-import { createAlert } from 'controllers/alertController'
-import { Alert } from 'types/alert'
+import { createAlert } from 'controllers/alertsController'
+import { Alert } from 'models/alert'
 
 type FragmentData = {
   login: string;
@@ -45,7 +45,7 @@ const RepoNavigation: React.SFC<RepoNavigationProps> = (props) => {
     </button>
   )
 
-  const _render = ({ error, props }: ReadyState) => {
+  const _render: any = ({ error, props }: any) => {
     let nav = [_renderTab({ id: 'personal', login: 'Personal', name: 'Personal' })]
 
     if (error) {

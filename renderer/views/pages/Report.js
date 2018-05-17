@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import IssueTable from 'views/issues/IssueTable'
 import { setSelected, setInvoiced } from 'controllers/timerController'
-import { createInvoice } from 'controllers/invoiceController'
+import { createInvoice } from 'controllers/invoicesController'
 
 class Report extends React.Component {
   state = {

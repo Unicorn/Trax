@@ -4,7 +4,7 @@ import Fuse from 'fuse.js'
 import { DragDropContext } from 'react-beautiful-dnd'
 import Lane from 'views/issues/Lane'
 import { github } from 'controllers/githubController'
-import { addIssues, updateIssue } from 'controllers/issueController'
+import { addIssues, updateIssue } from 'controllers/issuesController'
 import { SWIMLANES } from 'config/constants'
 
 const select = state => ({

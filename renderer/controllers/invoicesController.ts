@@ -3,7 +3,7 @@ import {
   DELETE_INVOICE,
   Invoice,
   InvoiceActions
-} from 'types/invoice'
+} from 'models/invoice'
 
 export const createInvoice = (payload: Invoice) => ({
   type: CREATE_INVOICE,
@@ -15,7 +15,7 @@ export const deleteInvoice = (id: any) => ({
   payload: { id }
 })
 
-export const invoiceReducer = (state: Invoice[] = [], action: InvoiceActions) => {
+export const invoicesReducer = (state: Invoice[] = [], action: InvoiceActions) => {
   if (!action || !action.type) {
     return state
   }
