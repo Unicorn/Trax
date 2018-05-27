@@ -34,14 +34,15 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 	err := json.Unmarshal(body, &req)
 	if err != nil {
 		logger.Println("Error!^ ", err)
+		respondJSON(w, r, http.StatusBadRequest, nil)
 		return
 	}
 
 	// Get to work on GitHub API:
 	client := github.NewClient(nil)
-	// list all organizations for user "thinkclay"
+
+	// list all organizations for user
 	orgs, _, err := client.Organizations.List(context.Background(), req.UserID, nil)
-	logger.Println(printjson(orgs))
 
 	if err != nil {
 		data := M{"error": err}

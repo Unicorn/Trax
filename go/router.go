@@ -70,6 +70,9 @@ func Routes() (*Router, error) {
 	router.Get("/", chain(RootHandler, base...))
 	router.Post("/", chain(RootHandler, common...))
 
+	router.Post("/create_repo", chain(CreateRepoHandler, base...))
+	router.Post("/delete_repo", chain(DeleteRepoHandler, common...))
+
 	// Handle 404
 	router.NotFound = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "page404.html")
