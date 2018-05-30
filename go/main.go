@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/gorilla/securecookie"
+	"github.com/gorilla/websocket"
 	"github.com/joho/godotenv"
 )
 
@@ -17,6 +18,15 @@ var logger *log.Logger
 func init() {
 	logger = log.New(os.Stdout, "", log.Lshortfile|log.LstdFlags)
 }
+
+// Token is for github user authentication.
+var Token = os.Getenv("GITHUB_AUTH_TOKEN")
+
+// Conn is a pointer to a websocket connection
+var Conn *websocket.Conn
+
+// M to make string interfaces
+type M map[string]interface{}
 
 func main() {
 	err := godotenv.Load()

@@ -5,14 +5,13 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
-	"os"
 
 	"github.com/google/go-github/github"
 	"golang.org/x/oauth2"
 )
 
-// DeleteRepoHandler to create new repo's
-func DeleteRepoHandler(w http.ResponseWriter, r *http.Request) {
+// CreateRepoHandler to create new repo's
+func CreateRepoHandler(w http.ResponseWriter, r *http.Request) {
 	type request struct {
 		UserID          string `json:"userID"`
 		RepoName        string `json:"repo"`
@@ -38,29 +37,23 @@ func DeleteRepoHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	token := os.Getenv("GITHUB_AUTH_TOKEN")
-
 	ctx := context.Background()
-	ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: token})
+	ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: Token})
 	tc := oauth2.NewClient(ctx, ts)
 	client := github.NewClient(tc)
 
-	// gReq := &github.Repository{
-	// 	Name:        github.String(req.RepoName), // string helper object to turn string into *string
-	// 	Private:     &req.Private,                // Personally, I like this better then the helper object..
-	// 	Description: &req.RepoDescription,
-	// }
-
-	repo, _, err := client.Repositories.List(ctx, "thinkclay", nil)
-
+	gReq := &github.Repository{
+		Name:        github.String(req.RepoName), // string helper object to turn string into *string
+		Private:     &req.Private,                // Personally, I like this better then the helper object..
+		Description: &req.RepoDescription,
+	}
+	repo, _, err := client.Repositories.Create(ctx, "", gReq)
 	if err != nil {
 		logger.Println("Error!^", err)
 		data := M{"error": err}
 		respondJSON(w, r, http.StatusBadRequest, data)
 		return
 	}
-	logger.Printf("Repo: %v\n", repo[0].GetName())
-
-	respondJSON(w, r, http.StatusOK, repo)
+	logger.Printf("Successfully created new repo: %v\n", repo.GetName())
 
 }

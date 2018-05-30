@@ -10,12 +10,6 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-// Conn is a pointer to a websocket connection
-var Conn *websocket.Conn
-
-// M to make string interfaces
-type M map[string]interface{}
-
 // RootHandler http handler to display login page
 func RootHandler(w http.ResponseWriter, r *http.Request) {
 	// Notes for later:
