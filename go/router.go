@@ -73,6 +73,7 @@ func Routes() (*Router, error) {
 	router.Post("/repo_create", chain(RepoCreateHandler, base...))
 	router.Post("/repo_delete", chain(RepoDeleteHandler, common...))
 
+	router.Get("/issue_list", chain(IssueListHandler, common...))
 	router.Post("/issue_create", chain(IssueCreateHandler, common...))
 
 	// Handle 404
