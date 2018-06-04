@@ -10,8 +10,8 @@ import (
 	"golang.org/x/oauth2"
 )
 
-// CreateRepoHandler to create new repo's
-func CreateRepoHandler(w http.ResponseWriter, r *http.Request) {
+// RepoCreateHandler to create new repo's
+func RepoCreateHandler(w http.ResponseWriter, r *http.Request) {
 	type request struct {
 		UserID          string `json:"userID"`
 		RepoName        string `json:"repo"`

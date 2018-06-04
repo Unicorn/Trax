@@ -10,8 +10,8 @@ import (
 	"golang.org/x/oauth2"
 )
 
-// DeleteRepoHandler to create new repo's
-func DeleteRepoHandler(w http.ResponseWriter, r *http.Request) {
+// RepoDeleteHandler to create new repo's
+func RepoDeleteHandler(w http.ResponseWriter, r *http.Request) {
 	///////////////////////////////////////////
 	// **Abandoned Function - Not complete** //
 	///////////////////////////////////////////

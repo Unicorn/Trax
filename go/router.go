@@ -70,10 +70,10 @@ func Routes() (*Router, error) {
 	router.Get("/", chain(RootHandler, base...))
 	router.Post("/", chain(RootHandler, common...))
 
-	router.Post("/create_repo", chain(CreateRepoHandler, base...))
-	router.Post("/delete_repo", chain(DeleteRepoHandler, common...))
+	router.Post("/repo_create", chain(RepoCreateHandler, base...))
+	router.Post("/repo_delete", chain(RepoDeleteHandler, common...))
 
-	router.Post("/list_issues", chain(IssueTimeAddHandler, common...))
+	router.Post("/issue_create", chain(IssueCreateHandler, common...))
 
 	// Handle 404
 	router.NotFound = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
