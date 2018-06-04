@@ -70,6 +70,7 @@ func Routes() (*Router, error) {
 	router.Get("/", chain(RootHandler, base...))
 	router.Post("/", chain(RootHandler, common...))
 
+	router.Get("/repo_list", chain(RepoListHandler, base...))
 	router.Post("/repo_create", chain(RepoCreateHandler, base...))
 	router.Post("/repo_delete", chain(RepoDeleteHandler, common...))
 

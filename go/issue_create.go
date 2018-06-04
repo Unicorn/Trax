@@ -13,7 +13,7 @@ import (
 
 // IssueCreateHandler to create new repo's
 func IssueCreateHandler(w http.ResponseWriter, r *http.Request) {
-	// Enpoint:  /issue_creat
+	// Endpoint:  /issue_create "POST"
 	// Example JSON Post Data:
 	// {"owner": "BDLVC-ON", "repo":"Tst1", "title": "Issue test 1", "body": "Massive text here to let you know that you have a big stinky issue!", "labels": ["one", "Two", "Three"], "assignees": ["mrosentr"] }
 
