@@ -16,6 +16,7 @@ func IssueListHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Token is for github user authentication.
 	var Token = os.Getenv("GITHUB_AUTH_TOKEN")
+
 	ctx := context.Background()
 	ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: Token})
 	tc := oauth2.NewClient(ctx, ts)

@@ -19,9 +19,6 @@ func init() {
 	logger = log.New(os.Stdout, "", log.Lshortfile|log.LstdFlags)
 }
 
-// Token is for github user authentication.
-var Token = os.Getenv("GITHUB_AUTH_TOKEN")
-
 // Conn is a pointer to a websocket connection
 var Conn *websocket.Conn
 
