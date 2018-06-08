@@ -76,6 +76,9 @@ func Routes() (*Router, error) {
 
 	router.Get("/issue_list", chain(IssueListHandler, common...))
 	router.Post("/issue_create", chain(IssueCreateHandler, common...))
+	router.Post("/issue_update", chain(IssueUpdateHandler, common...))
+	router.Post("/issue_comment_new", chain(IssueCommentNewHandler, common...))
+	router.Post("/issue_timetracker_new", chain(IssueTimetrackerNewHandler, common...))
 
 	// Handle 404
 	router.NotFound = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
