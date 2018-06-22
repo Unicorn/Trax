@@ -1,35 +1,29 @@
-import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
-import thunk from 'helpers/thunk'
-import { reducer as formReducer } from 'redux-form'
+import { createStore, applyMiddleware, compose } from 'redux'
 import { persistStore, persistCombineReducers } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-import { githubController } from 'controllers/githubController'
-import { timerReducer } from 'controllers/timerController'
-import { tracksReducer } from 'controllers/tracksController'
-import { alertsReducer } from 'controllers/alertsController'
-import { modalReducer } from 'controllers/modalController'
-import { issuesReducer } from 'controllers/issuesController'
-import { invoicesReducer } from 'controllers/invoicesController'
+import createSagaMiddleware from 'redux-saga'
+import rootSaga from 'controllers/sagaController'
+
+import { alertsReducer } from 'controllers/alertController'
+import { settingsReducer } from 'controllers/settingController'
+
+const saga = createSagaMiddleware()
 
 const persistConfig = {
-  blacklist: ['form', 'alerts', 'modals'],
-  key: 'tracks',
-  storage,
+  key: 'root',
+  blacklist: ['alerts'],
+  storage
 }
 
 const rootReducer = persistCombineReducers(persistConfig, {
-  github: combineReducers(githubController.reducers),
-  timer: timerReducer,
-  tracks: tracksReducer,
-  form: formReducer,
   alerts: alertsReducer,
-  modals: modalReducer,
-  issues: issuesReducer,
-  invoices: invoicesReducer
+  settings: settingsReducer
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-const enhancer = composeEnhancers(applyMiddleware(thunk))
+const enhancer = composeEnhancers(applyMiddleware(saga))
 
 export const store = createStore(rootReducer, enhancer)
 export const persistor = persistStore(store)
+
+saga.run(rootSaga)

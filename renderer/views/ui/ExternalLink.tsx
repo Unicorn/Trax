@@ -2,10 +2,10 @@ import * as React from 'react'
 import ExternalLinkIcon from 'views/ui/icons/ExternalLinkIcon'
 
 type ExternalLinkProps = {
-  showIcon: boolean;
+  showIcon?: boolean;
+  className?: string;
   url: string;
   children: React.ReactNode;
-  className: string;
 }
 
 const handleClick = (e: any) => {

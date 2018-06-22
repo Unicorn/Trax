@@ -1,8 +1,4 @@
-export type Swimlane = {
-  label: string;
-  name: string;
-  color: string;
-}
+export const GITHUB_API_BASE = 'http://localhost:3000'
 
 export const COLORS = {
   blue: '#3C7CB3',

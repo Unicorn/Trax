@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import { deleteAlert } from 'controllers/alertsController'
+import { deleteAlert } from 'controllers/alertController'
 import { Alert } from 'models/alert'
 import CloseIcon from 'views/ui/icons/CloseIcon'
 

@@ -1,12 +1,7 @@
 {
   "arrowParens": "avoid",
-  "trailingComma": "es5",
-  "useTabs": false,
+  "parser": "typescript",
+  "printWidth": 120,
   "semi": false,
-  "singleQuote": true,
-  "bracketSpacing": true,
-  "jsxBracketSameLine": false,
-  "tabWidth": 2,
-  "parser": "babylon",
-  "printWidth": 80,
+  "singleQuote": true
 }

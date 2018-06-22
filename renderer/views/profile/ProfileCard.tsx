@@ -1,41 +1,13 @@
 import * as React from 'react'
-import { ReadyState, QueryRenderer, graphql } from 'react-relay'
-import { environment } from 'controllers/relayController'
 
-const render = ({ error, props }: ReadyState) => {
-  if (error) {
-    return <div>{error.message}</div>
-  }
-  else if (props) {
-    return (
-      <div className="profile">
-        <img src={props.viewer.avatarUrl} alt="Profile avatar" />
-      </div>
-    )
-  }
-  else {
-    return <div>Loading</div>
-  }
+interface Props {
+  avatar: string;
 }
 
-const ProfileCard = () => {
-  const variables = {}
-  const query = graphql`
-    query ProfileCardQuery {
-      viewer {
-        avatarUrl
-      }
-    }
-  `
-
-  return (
-    <QueryRenderer
-      variables={variables}
-      environment={environment}
-      query={query}
-      render={render}
-    />
-  )
-}
+const ProfileCard: React.SFC<Props> = ({ avatar }) => (
+  <div className="profile">
+    <img src={avatar} alt="Profile avatar" />
+  </div>
+)
 
 export default ProfileCard

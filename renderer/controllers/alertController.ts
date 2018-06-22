@@ -1,10 +1,4 @@
-import {
-  CREATE_ALERT,
-  DELETE_ALERT,
-  Alert,
-  Alerts,
-  AlertAction
-} from 'models/alert'
+import { ALERT, Alert, Alerts, AlertAction } from 'models/alert'
 
 /**
  * Publish an alert
@@ -12,7 +6,7 @@ import {
  * - if id wasn't specified, a time based id will be generated.
  */
 export const createAlert = (payload: Alert): AlertAction => ({
-  type: CREATE_ALERT,
+  type: ALERT.CREATE,
   payload: {
     ...payload,
     key: payload.key || new Date().getTime().toString()
@@ -23,21 +17,23 @@ export const createAlert = (payload: Alert): AlertAction => ({
  * Dismiss an alert
  */
 export const deleteAlert = (payload: Alert): AlertAction => ({
-  type: DELETE_ALERT,
+  type: ALERT.DELETE,
   payload
 })
 
-export const alertsReducer = (state: Alerts = [], action: AlertAction): Alerts => {
+export const alertsReducer = (
+  state: Alerts = [],
+  action: AlertAction
+): Alerts => {
   const { payload, type } = action
 
-  if (!payload || !type)
-    return state
+  if (!payload || !type) return state
 
   switch (type) {
-    case CREATE_ALERT:
+    case ALERT.CREATE:
       return state.concat(payload)
 
-    case DELETE_ALERT:
+    case ALERT.DELETE:
       return state.filter(({ key }) => key !== payload.key)
 
     default:

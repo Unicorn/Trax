@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { createAlert } from 'controllers/alertsController'
 import { Alert } from 'models/alert'
 
 type SettingsProps = {
