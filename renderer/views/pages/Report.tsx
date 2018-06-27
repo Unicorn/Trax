@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 const Report: React.SFC = () => (
   <section className="report page">

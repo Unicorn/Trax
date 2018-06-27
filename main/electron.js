@@ -45,7 +45,7 @@ var createWindow = function () {
     ];
     if (process.platform === 'darwin')
         template.push({
-            label: 'Foxtrot',
+            label: 'Trax',
             submenu: [
                 { role: 'about' },
                 { role: 'hide' },
@@ -63,12 +63,12 @@ var createWindow = function () {
         width: 900,
         height: 680,
         webPreferences: {
-            // nodeIntegration: false
-            webSecurity: false
+            nodeIntegration: false,
+            preload: path.join(__dirname, 'preload.js')
         }
     });
     mainWindow.loadURL(isDev
-        ? 'http://localhost:3000'
+        ? 'https://localhost:3000'
         : "file://" + path.join(__dirname, '../build/index.html'));
     mainWindow.maximize();
     mainWindow.webContents.on('did-finish-load', function () {

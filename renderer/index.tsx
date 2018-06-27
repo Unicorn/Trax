@@ -1,5 +1,7 @@
+import { BrowserWindow } from 'electron'
+
 import * as React from 'react'
-import * as ReactDOM from 'react-dom'
+import { render } from 'react-dom'
 
 // ROUTER
 import { HashRouter } from 'react-router-dom'
@@ -9,23 +11,26 @@ import routes from 'config/routes'
 // REDUX
 import { Provider } from 'react-redux'
 import { store, persistor } from 'controllers/reduxController'
-const PersistGate = require('redux-persist/es/integration/react').PersistGate
+import { PersistGate } from 'redux-persist/integration/react'
 
 import 'assets/styles/app.scss'
 
-require('dotenv').config()
-
 declare global {
   interface Window {
-    require: any;
-    process: any;
+    app: any
+    BrowserWindow: any
+    dialog: any
+    eval: any
+    ipc: any
+    shell: any
+    authWindow: BrowserWindow
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: any;
   }
 }
 
-ReactDOM.render(
+render(
   <Provider store={store}>
-    <PersistGate persistor={persistor}>
+    <PersistGate loading={null} persistor={persistor}>
       <HashRouter>{renderRoutes(routes)}</HashRouter>
     </PersistGate>
   </Provider>,

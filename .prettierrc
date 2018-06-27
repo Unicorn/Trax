@@ -1,7 +1,7 @@
 {
   "arrowParens": "avoid",
   "parser": "typescript",
-  "printWidth": 120,
+  "printWidth": 140,
   "semi": false,
   "singleQuote": true
 }

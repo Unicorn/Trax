@@ -1,3 +1,5 @@
+export const IDENT = 'Trax'
+
 export const GITHUB_API_BASE = 'http://localhost:3000'
 
 export const COLORS = {
@@ -14,8 +16,6 @@ export const COLORS = {
   eggshell: '#fbf9f4',
   brown: '#99896F',
 }
-
-export const TRAX_IDENT = 'Trax'
 
 export const ROUTES = {
   welcome: {
@@ -68,9 +68,8 @@ export const SWIMLANES = {
 }
 
 export const GITHUB = {
-  host: 'https://github.com',
-  api: 'https://api.github.com',
-  client_id: process.env.GH_CLIENT_ID,
-  client_secret: process.env.GH_CLIENT_SECRET,
-  scope: 'user,public_repo,repo,repo_deployment,notifications',
+  API:        'https://api.github.com',
+  HOST:       'https://github.com',
+  CLIENT_ID:  '67c705a18a7b8576a4c1',
+  SCOPE:      'user,public_repo,repo,repo_deployment,notifications',
 }

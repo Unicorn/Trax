@@ -10,11 +10,12 @@ type ExternalLinkProps = {
 
 const handleClick = (e: any) => {
   e.preventDefault()
+  const url = e.currentTarget.getAttribute('href')
 
-  if (window.process) {
-    const shell = window.require('electron').shell
-    shell.openExternal(e.currentTarget.getAttribute('href'))
-  }
+  if (window.shell)
+    window.shell.openExternal(url)
+  // else
+  //   window.location = url
 }
 
 const ExternalLink: React.SFC<ExternalLinkProps> = (props) => {

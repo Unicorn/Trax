@@ -1,7 +1,6 @@
 const { CheckerPlugin } = require('awesome-typescript-loader')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const Dotenv = require('dotenv-webpack')
 const path = require('path')
 
 module.exports = {
@@ -9,19 +8,20 @@ module.exports = {
   entry: path.resolve(__dirname, '../renderer/index.tsx'),
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, '../build'),
+    path: path.resolve(__dirname, '../build')
   },
 
   // Enable sourcemaps for debugging webpack's output.
   devtool: 'source-map',
 
   resolve: {
+    // Add '.ts' and '.tsx' as resolvable extensions.
     extensions: ['.ts', '.tsx', '.js', '.json'],
     modules: [
       path.resolve(__dirname, '../renderer'),
       path.resolve(__dirname, '../main'),
-      path.resolve(__dirname, '../node_modules'),
-    ],
+      path.resolve(__dirname, '../node_modules')
+    ]
   },
 
   module: {
@@ -35,41 +35,46 @@ module.exports = {
 
       // File loader handles SVG, WAV, etc
       {
-        test: /\.wav|\.mp3|\.png|\.svg$/,
-        loader: 'file-loader',
+        test: /\.wav|\.mp3|\.svg|\.woff2$/,
+        loader: 'file-loader'
       },
 
-      // Load styles
+      // Url loader handles fonts and such
       {
-        test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        test: /\.woff2$/,
+        loader: 'url-loader'
       },
 
       // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
       {
         enforce: 'pre',
-        test: /\.js$/,
+        test: /\.js|\.tsx?$/,
         loader: 'source-map-loader'
       },
-    ],
+
+      // Load styles
+      {
+        test: /\.scss|\.css$/,
+        use: ['style-loader', 'css-loader', 'sass-loader']
+      }
+    ]
   },
 
   plugins: [
-    new Dotenv(),
     new HtmlWebpackPlugin({
       inject: true,
       title: 'Trax',
       filename: 'index.html',
-      template: path.resolve(__dirname, '../public/index.html'),
+      template: path.resolve(__dirname, '../public/index.html')
     }),
     new CheckerPlugin(),
-    new CopyWebpackPlugin([{ from: 'public' }, { from: 'main' }]),
+    new CopyWebpackPlugin([{ from: 'public' }, { from: 'main' }])
   ],
 
   node: {
     fs: 'empty',
     net: 'empty',
     tls: 'empty',
-    dns: 'empty',
-  },
+    dns: 'empty'
+  }
 }

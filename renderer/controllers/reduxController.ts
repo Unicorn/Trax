@@ -6,6 +6,7 @@ import rootSaga from 'controllers/sagaController'
 
 import { alertsReducer } from 'controllers/alertController'
 import { settingsReducer } from 'controllers/settingController'
+import { userReducer } from 'controllers/userController'
 
 const saga = createSagaMiddleware()
 
@@ -17,7 +18,8 @@ const persistConfig = {
 
 const rootReducer = persistCombineReducers(persistConfig, {
   alerts: alertsReducer,
-  settings: settingsReducer
+  settings: settingsReducer,
+  user: userReducer
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
