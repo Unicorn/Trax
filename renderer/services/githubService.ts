@@ -45,5 +45,5 @@ repoSchema.define({
 })
 
 // api services
-export const fetchUser = (login: string) => github(`users/${login}`, userSchema)
+export const fetchUser = () => github(`user`, userSchema)
 export const fetchRepo = (fullName: string) => github(`repos/${fullName}`, repoSchema)
