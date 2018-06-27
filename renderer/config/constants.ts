@@ -1,7 +1,5 @@
 export const IDENT = 'Trax'
 
-export const GITHUB_API_BASE = 'http://localhost:3000'
-
 export const COLORS = {
   blue: '#3C7CB3',
   orange: '#F85E10',
@@ -19,27 +17,27 @@ export const COLORS = {
 
 export const ROUTES = {
   welcome: {
-    text: 'Welcome',
+    name: 'welcome',
     path: '/welcome',
   },
   board: {
-    text: 'Board',
+    name: 'board',
     path: '/board',
   },
   profile: {
-    text: 'Profile',
+    name: 'profile',
     path: '/profile',
   },
   report: {
-    text: 'Report',
+    name: 'report',
     path: '/report',
   },
   invoice: {
-    text: 'Invoice',
+    name: 'invoice',
     path: '/invoice',
   },
   settings: {
-    text: 'Settings',
+    name: 'settings',
     path: '/settings',
   },
 }
@@ -66,6 +64,8 @@ export const SWIMLANES = {
     color: COLORS.green,
   },
 }
+
+
 
 export const GITHUB = {
   API:        'https://api.github.com',

@@ -2,7 +2,7 @@ import {
   SET_SETTING,
   Setting,
   Settings,
-  ActiveWidgetValues,
+  ActivePageValues,
   SettingsAction
 } from 'models/setting'
 
@@ -11,37 +11,13 @@ export const updateSetting = (payload: Setting): SettingsAction => ({
   payload
 })
 
-export const setChannel = (value: string): SettingsAction => ({
+export const setPage = (value: ActivePageValues): SettingsAction => ({
   type: SET_SETTING,
-  payload: { key: 'channel', value }
-})
-
-export const setConnection = (value: string): SettingsAction => ({
-  type: SET_SETTING,
-  payload: { key: 'connection', value }
-})
-
-export const setCaller = (value: string): SettingsAction => ({
-  type: SET_SETTING,
-  payload: { key: 'caller', value }
-})
-
-export const setPrefix = (value: string): SettingsAction => ({
-  type: SET_SETTING,
-  payload: { key: 'prefix', value }
-})
-
-export const setActiveWidget = (value: ActiveWidgetValues): SettingsAction => ({
-  type: SET_SETTING,
-  payload: { key: 'activeWidget', value }
+  payload: { key: 'page', value }
 })
 
 const initialState: Settings = {
-  activeWidget: 'phone',
-  channel: '',
-  connection: '',
-  caller: '',
-  prefix: ''
+  page: 'welcome',
 }
 
 export const settingsReducer = (

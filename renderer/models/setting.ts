@@ -1,40 +1,16 @@
 export const SET_SETTING = 'trax/settings/SET_SETTING'
 
-export type ActiveWidgetValues = 'phone' | 'contacts' | 'history' | 'settings'
+export type ActivePageValues = 'welcome' | 'board' | 'profile' | 'report' | 'invoice' | 'settings'
 
-type ActiveWidget = {
-  key: 'activeWidget'
-  value: ActiveWidgetValues
+type ActivePage = {
+  key: 'page'
+  value: ActivePageValues
 }
 
-type Channel = {
-  key: 'channel'
-  value: string
-}
-
-type Connection = {
-  key: 'connection'
-  value: string
-}
-
-type Caller = {
-  key: 'caller'
-  value: string
-}
-
-type Prefix = {
-  key: 'prefix'
-  value: string
-}
-
-export type Setting = ActiveWidget | Channel | Connection | Caller | Prefix
+export type Setting = ActivePage
 
 export interface Settings {
-  activeWidget: ActiveWidgetValues
-  channel: string
-  connection: string
-  caller: string
-  prefix: string
+  page: ActivePageValues
 }
 
 export interface SettingsAction {

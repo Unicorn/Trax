@@ -85,8 +85,10 @@ function* doAuthentication() {
 
     console.log("fetchProfile", code, error)
 
-    if (code && !error)
+    if (code && !error) {
+      localStorage.setItem('githubToken', code)
       yield put(receiveGithubAuth({ code, error }))
+    }
 
     if (error)
       yield put(createAlert({
