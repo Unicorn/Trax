@@ -1,7 +1,8 @@
 import { eventChannel } from 'redux-saga'
-import { put, call, take, takeEvery } from 'redux-saga/effects'
+import { select, put, call, take, takeEvery } from 'redux-saga/effects'
 import { receiveGithubAuth } from 'controllers/userController'
 import { createAlert } from 'controllers/alertController'
+import { fetchUser } from 'services/githubService'
 import { USER } from 'models/user'
 import { GITHUB } from 'config/constants'
 
@@ -75,7 +76,7 @@ const winEvents = () => {
   })
 }
 
-function* doAuthentication() {
+function* watchGithubAuth() {
   yield createAuthWindow()
 
   const winChan = yield call(winEvents)
@@ -99,6 +100,15 @@ function* doAuthentication() {
   }
 }
 
-export default function* profileSaga() {
-  yield takeEvery(USER.GITHUB_AUTH.REQUEST, doAuthentication)
+function* watchGithubProfile(action: any) {
+  const { code } = action.payload.githubAuth
+
+  console.log("watchGithubProfile", code)
+
+  yield call(fetchUser, { code })
+}
+
+export default function* userSaga() {
+  yield takeEvery(USER.GITHUB.AUTH.REQUEST, watchGithubAuth)
+  yield takeEvery(USER.GITHUB.PROFILE.REQUEST, watchGithubProfile)
 }

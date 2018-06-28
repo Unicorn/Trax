@@ -68,7 +68,7 @@ export const SWIMLANES = {
 
 
 export const GITHUB = {
-  API:        'https://api.github.com',
+  API:        'https://api.github.com/',
   HOST:       'https://github.com',
   CLIENT_ID:  '67c705a18a7b8576a4c1',
   SCOPE:      'user,public_repo,repo,repo_deployment,notifications',

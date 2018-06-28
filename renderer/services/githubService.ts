@@ -4,10 +4,20 @@ import { GITHUB } from 'config/constants'
 
 // Fetches an API response and normalizes the result JSON according to schema.
 // This makes every API response have the same shape, regardless of how nested it was.
-export const github = (endpoint: any, schema: any): Promise<any> => {
+export const github = (endpoint: any, schema: any, options: any): Promise<any> => {
   const url = (endpoint.indexOf(GITHUB.API) === -1) ? GITHUB.API + endpoint : endpoint
+  const request = {
+    headers: {
+      Authorization: `token ${options.code}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    ...options
+  }
 
-  return fetch(url)
+  console.log('github request', request)
+
+  return fetch(url, request)
     .then(response => response.json().then(json => ({ json, response })))
     .then(({ json, response }: any) => {
       if (!response.ok)
@@ -45,5 +55,7 @@ repoSchema.define({
 })
 
 // api services
-export const fetchUser = () => github(`user`, userSchema)
-export const fetchRepo = (fullName: string) => github(`repos/${fullName}`, repoSchema)
+export const fetchUser = (options: any) => {
+  console.log("fetchUser", options)
+  return github('user', userSchema, options)
+}

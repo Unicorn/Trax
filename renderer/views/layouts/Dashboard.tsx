@@ -5,7 +5,7 @@ interface Props {
   children: React.ReactNode
 }
 
-const Dashboard: React.SFC = ({ children }) => (
+const Dashboard: React.SFC<Props> = ({ children }) => (
   <div>
     <div>
       <header className="toolbar">
