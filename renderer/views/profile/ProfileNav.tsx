@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { requestOrgs } from 'controllers/orgController'
 import { requestUserRepos, requestOrgRepos } from 'controllers/repoController'
 import { Profile } from 'models/profile'
-import { Orgs } from 'models/org'
+import { Org, Orgs } from 'models/org'
 import { Repos } from 'models/repo'
 import RepoList from 'views/repos/RepoList'
 

@@ -5,13 +5,7 @@ import { REPO, ReposAction } from 'models/repo'
 
 function* watchReposRequest(action: ReposAction) {
   const { login } = action
-
-  console.log(login)
-
   const repos = yield call(fetchRepos, login)
-
-  console.log('watchReposRequest', repos)
-
   yield put(receiveRepos(repos))
 }
 
