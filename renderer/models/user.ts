@@ -1,4 +1,5 @@
 export const USER = {
+  LOGOUT: 'trax/user/logout',
   GITHUB: {
     AUTH: {
       REQUEST: 'trax/github/auth/REQUEST',

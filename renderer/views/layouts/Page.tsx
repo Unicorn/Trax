@@ -16,6 +16,7 @@ interface Connected {
 }
 
 const Page: React.SFC<Connected> = ({ page, user }) => {
+  console.log('Page', page, ROUTES.welcome.name, user.githubAuth.code)
   if (page === ROUTES.welcome.name && !user.githubAuth.code)
     return <Welcome />
 

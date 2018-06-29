@@ -65,7 +65,9 @@ export const SWIMLANES = {
   },
 }
 
-
+export const MICROSERVICE = {
+  API: 'https://trax-go.herokuapp.com'
+}
 
 export const GITHUB = {
   API:        'https://api.github.com/',

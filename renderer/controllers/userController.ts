@@ -16,6 +16,10 @@ export const requestGithubProfile = (payload: GithubAuth): UserAction => {
   payload: { githubAuth: payload }
 }}
 
+export const logout = (): UserAction => ({
+  type: USER.LOGOUT
+})
+
 const defaultState = {
   githubAuth: {
     code: null,
@@ -26,16 +30,14 @@ const defaultState = {
 export const userReducer = (state: User = defaultState, action: UserAction): User => {
   const { payload, type } = action
 
-  if (!payload || !type) return state
-
   switch (type)
   {
+    case USER.LOGOUT :
+      return defaultState
+
     case USER.GITHUB.AUTH.SUCCESS :
       console.log(USER.GITHUB.AUTH.SUCCESS)
-      return {
-        ...state,
-        githubAuth: payload.githubAuth
-      }
+      return { ...state, ...payload }
 
     case USER.GITHUB.PROFILE.SUCCESS :
       console.log(USER.GITHUB.PROFILE.SUCCESS, payload)

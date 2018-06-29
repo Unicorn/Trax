@@ -10,7 +10,7 @@ interface Actions {
 }
 
 const Welcome: React.SFC<Actions> = ({ requestGithubAuth }) => (
-  <div className="welcome">
+  <main className="welcome">
     <div className="left">
       <ExternalLink className="logo" url="http://unicornagency.com" showIcon={false}>
         <Logo />
@@ -43,7 +43,7 @@ const Welcome: React.SFC<Actions> = ({ requestGithubAuth }) => (
         </p>
       </blockquote>
     </div>
-  </div>
+  </main>
 )
 
 const mapDispatch = ({
