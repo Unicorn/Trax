@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { logout } from 'controllers/userController'
+import { logout } from 'controllers/authController'
 import Navigation from 'views/sections/Navigation'
 
 interface Props {

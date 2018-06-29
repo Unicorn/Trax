@@ -1,12 +1,11 @@
 import { eventChannel, END } from 'redux-saga'
 import { put, call, take, takeEvery } from 'redux-saga/effects'
 import { camelizeKeys } from 'humps'
-import { receiveGithubAuth } from 'controllers/userController'
+import { receiveAuth } from 'controllers/authController'
 import { createAlert } from 'controllers/alertController'
 import { setPage } from 'controllers/settingController'
-import { fetchUser } from 'services/githubService'
 import { randString } from 'helpers/stringHelper'
-import { USER } from 'models/user'
+import { AUTH } from 'models/auth'
 import { GITHUB, MICROSERVICE } from 'config/constants'
 
 const createAuthWindow = () => {
@@ -95,32 +94,12 @@ function* watchGithubAuth() {
     return
   }
 
-  const authToken = yield call(getGithubAuthToken, code)
+  const auth = yield call(getGithubAuthToken, code)
 
-  console.log("authToken", authToken)
-
-  // while (true) {
-  //   const { code, error } = yield take(winChan)
-  //
-  //   console.log("fetchProfile", code, error)
-  //
-  //   if (code && !error) {
-  //     localStorage.setItem('githubToken', code)
-  //     yield put(receiveGithubAuth({ code, error }))
-  //   }
-  // }
+  yield put(receiveAuth(auth))
 }
 
-function* watchGithubProfile(action: any) {
-  const { code } = action.payload.githubAuth
-
-  console.log("watchGithubProfile", code)
-
-  yield call(fetchUser, { code })
-}
-
-export default function* userSaga() {
-  yield takeEvery(USER.LOGOUT, watchLogout)
-  yield takeEvery(USER.GITHUB.AUTH.REQUEST, watchGithubAuth)
-  yield takeEvery(USER.GITHUB.PROFILE.REQUEST, watchGithubProfile)
+export default function* authSaga() {
+  yield takeEvery(AUTH.LOGOUT, watchLogout)
+  yield takeEvery(AUTH.REQUEST, watchGithubAuth)
 }

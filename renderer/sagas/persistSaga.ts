@@ -1,13 +1,9 @@
-import { put, takeEvery } from 'redux-saga/effects'
-import { requestGithubProfile } from 'controllers/userController'
+import { takeEvery } from 'redux-saga/effects'
 
 function* watchPersist(action: any) {
   const { payload } = action
-  const code = payload.user.githubAuth.code
 
-  // If we don't already have a cached user profile
-  if ((payload.user && payload.user.githubAuth) && !payload.user.githubProfile)
-    yield put(requestGithubProfile({ code }))
+  yield console.log('Persist:', payload)
 }
 
 export default function* persistSaga() {

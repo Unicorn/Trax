@@ -1,22 +1,22 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { requestGithubAuth } from 'controllers/userController'
-import { UserAction } from 'models/user'
+import { requestAuth } from 'controllers/authController'
+import { AuthAction } from 'models/auth'
 import ExternalLink from 'views/ui/ExternalLink'
 import Logo from 'views/ui/icons/Logo'
 
 interface Actions {
-  requestGithubAuth: () => UserAction
+  requestAuth: () => AuthAction
 }
 
-const Welcome: React.SFC<Actions> = ({ requestGithubAuth }) => (
+const Welcome: React.SFC<Actions> = ({ requestAuth }) => (
   <main className="welcome">
     <div className="left">
       <ExternalLink className="logo" url="http://unicornagency.com" showIcon={false}>
         <Logo />
       </ExternalLink>
 
-      <button className="large basic teal button" onClick={requestGithubAuth}>Login with Github</button>
+      <button className="large basic teal button" onClick={requestAuth}>Login with Github</button>
     </div>
 
     <div className="right">
@@ -47,7 +47,7 @@ const Welcome: React.SFC<Actions> = ({ requestGithubAuth }) => (
 )
 
 const mapDispatch = ({
-  requestGithubAuth
+  requestAuth
 })
 
 export default connect(null, mapDispatch)(Welcome)

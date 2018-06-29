@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
+import { Auth } from 'models/auth'
 
 import Dashboard from 'views/layouts/Dashboard'
 import Welcome from 'views/layouts/Welcome'
@@ -11,13 +12,12 @@ import Settings from 'views/pages/Settings'
 import { ROUTES } from 'config/constants'
 
 interface Connected {
+  auth: Auth
   page: string
-  user: any
 }
 
-const Page: React.SFC<Connected> = ({ page, user }) => {
-  console.log('Page', page, ROUTES.welcome.name, user.githubAuth.code)
-  if (page === ROUTES.welcome.name && !user.githubAuth.code)
+const Page: React.SFC<Connected> = ({ page, auth }) => {
+  if (page === ROUTES.welcome.name && !auth.accessToken)
     return <Welcome />
 
   var child = null
@@ -49,8 +49,8 @@ const Page: React.SFC<Connected> = ({ page, user }) => {
 }
 
 const mapState = (state: any): Connected => ({
+  auth: state.auth,
   page: state.settings.page,
-  user: state.user
 })
 
 export default connect(mapState)(Page)
