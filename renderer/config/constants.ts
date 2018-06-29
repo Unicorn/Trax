@@ -1,3 +1,5 @@
+import { ActivePageValues } from 'models/setting'
+
 export const IDENT = 'Trax'
 
 export const COLORS = {
@@ -15,7 +17,14 @@ export const COLORS = {
   brown: '#99896F',
 }
 
-export const ROUTES = {
+interface Routes {
+  [key: string]: {
+    name: ActivePageValues
+    path: string
+  }
+}
+
+export const ROUTES: Routes = {
   welcome: {
     name: 'welcome',
     path: '/welcome',

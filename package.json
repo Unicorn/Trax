@@ -40,6 +40,7 @@
     "fuse.js": "^3.2.0",
     "humps": "^2.0.1",
     "localforage": "^1.7.1",
+    "normalizr": "^3.2.4",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-redux": "^5.0.7",
@@ -50,6 +51,7 @@
   },
   "devDependencies": {
     "@types/humps": "^1.1.2",
+    "@types/normalizr": "^2.0.18",
     "@types/react": "^16.4.4",
     "@types/react-beautiful-dnd": "^7.1.0",
     "@types/react-dom": "^16.0.5",

@@ -4,7 +4,7 @@ import { ActivePageValues, SettingsAction } from 'models/setting'
 import { setPage } from 'controllers/settingController'
 
 interface Props {
-  name: string
+  name: ActivePageValues
   page: string
   children: React.ReactNode
 }

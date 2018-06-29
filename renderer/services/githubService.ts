@@ -28,3 +28,4 @@ export const github = (endpoint: any, options?: any): Promise<any> => {
 // api services
 export const fetchProfile = () => github('user')
 export const fetchOrgs = () => github('user/orgs')
+export const fetchRepos = (login?: string) => github(login ? `orgs/${login}/repos` : 'user/repos')
