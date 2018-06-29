@@ -12,6 +12,6 @@ export interface Auth {
 }
 
 export interface AuthAction {
-  type: typeof AUTH.REQUEST | typeof AUTH.SUCCESS
+  type: typeof AUTH.LOGOUT | typeof AUTH.REQUEST | typeof AUTH.SUCCESS | typeof AUTH.FAILURE
   payload?: Auth
 }

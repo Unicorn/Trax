@@ -6,6 +6,8 @@ import rootSaga from 'controllers/sagaController'
 
 import { alertsReducer } from 'controllers/alertController'
 import { authReducer } from 'controllers/authController'
+import { orgsReducer } from 'controllers/orgController'
+import { profileReducer } from 'controllers/profileController'
 import { settingsReducer } from 'controllers/settingController'
 
 const saga = createSagaMiddleware()
@@ -19,6 +21,8 @@ const persistConfig = {
 const rootReducer = persistCombineReducers(persistConfig, {
   alerts: alertsReducer,
   auth: authReducer,
+  orgs: orgsReducer,
+  profile: profileReducer,
   settings: settingsReducer,
 })
 

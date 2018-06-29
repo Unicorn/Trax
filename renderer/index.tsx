@@ -1,5 +1,3 @@
-import { BrowserWindow } from 'electron'
-
 import * as React from 'react'
 import { render } from 'react-dom'
 
@@ -19,7 +17,6 @@ declare global {
     eval: any
     ipc: any
     shell: any
-    authWindow: BrowserWindow
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: any;
   }
 }

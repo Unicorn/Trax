@@ -1,9 +1,14 @@
-import { takeEvery } from 'redux-saga/effects'
+import { takeEvery, put } from 'redux-saga/effects'
+import { requestProfile } from 'controllers/profileController'
 
 function* watchPersist(action: any) {
   const { payload } = action
 
-  yield console.log('Persist:', payload)
+  if (!payload || !payload.auth || !payload.auth.accessToken)
+    return
+
+  if (!payload.profile || payload.profile.login === "octocat")
+    yield put(requestProfile())
 }
 
 export default function* persistSaga() {

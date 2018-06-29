@@ -1,12 +1,20 @@
+import { BrowserWindow } from 'electron'
 import { eventChannel, END } from 'redux-saga'
 import { put, call, take, takeEvery } from 'redux-saga/effects'
 import { camelizeKeys } from 'humps'
 import { receiveAuth } from 'controllers/authController'
 import { createAlert } from 'controllers/alertController'
+import { requestProfile } from 'controllers/profileController'
 import { setPage } from 'controllers/settingController'
 import { randString } from 'helpers/stringHelper'
 import { AUTH } from 'models/auth'
 import { GITHUB, MICROSERVICE } from 'config/constants'
+
+declare global {
+  interface Window {
+    authWindow: BrowserWindow
+  }
+}
 
 const createAuthWindow = () => {
   // Build the OAuth consent page URL
@@ -41,13 +49,27 @@ const getGithubAuthCode = () => {
 
   return eventChannel(emit => {
     contents.on('did-fail-load', (_e: Event, _errCode: number, error: string, url: string) => {
-      if (url.includes(GITHUB.HOST)) {
-        console.log(`Invalid Hostname - ${_errCode}`, `Could not load ${GITHUB.HOST}. ${error}`)
-        emit({ error })
-      }
+      if (!url.match(GITHUB.HOST)) return
+
+      console.log(`Invalid Hostname - ${_errCode}`, `Could not load ${GITHUB.HOST}. ${error}`)
+      emit({ error })
+    })
+
+    contents.on('will-navigate', (_e: Event, url: string) => {
+      if (!url.match(MICROSERVICE.API)) return
+
+      console.log('will-navigate', url)
+      contents.stop()
+      const { code, error } = parseGithubAuth(url)
+
+      emit({ code, error })
+      emit(END)
     })
 
     contents.on('did-get-redirect-request', (_e: Event, _old: string, url: string) => {
+      if (!url.match(MICROSERVICE.API)) return
+
+      console.log('did-get-redirect-request', url)
       contents.stop()
       const { code, error } = parseGithubAuth(url)
 
@@ -63,10 +85,8 @@ const getGithubAuthToken = (code: string) => {
   return fetch(`${MICROSERVICE.API}/auth?code=${code}`)
     .then(response => response.json().then(json => ({ json, response })))
     .then(({ json, response }: any) => {
-      if (!response.ok)
-        return Promise.reject(json)
-
-      return <any>camelizeKeys(json)
+      localStorage.setItem("accessToken", json["access_token"])
+      return response.ok ? <any>camelizeKeys(json) : Promise.reject(json)
     })
     .then(
       (response: Response) => ({ ...response }),
@@ -78,7 +98,7 @@ function* watchLogout() {
   yield put(setPage('welcome'))
 }
 
-function* watchGithubAuth() {
+function* watchAuthRequest() {
   yield createAuthWindow()
 
   const authCode = yield call(getGithubAuthCode)
@@ -99,7 +119,12 @@ function* watchGithubAuth() {
   yield put(receiveAuth(auth))
 }
 
+function* watchAuthSuccess() {
+  yield put(requestProfile())
+}
+
 export default function* authSaga() {
   yield takeEvery(AUTH.LOGOUT, watchLogout)
-  yield takeEvery(AUTH.REQUEST, watchGithubAuth)
+  yield takeEvery(AUTH.REQUEST, watchAuthRequest)
+  yield takeEvery(AUTH.SUCCESS, watchAuthSuccess)
 }

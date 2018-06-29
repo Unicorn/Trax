@@ -1,13 +1,18 @@
 import * as React from 'react'
+import { connect } from 'react-redux'
 
-interface Props {
+interface Connected {
   avatar: string;
 }
 
-const ProfileCard: React.SFC<Props> = ({ avatar }) => (
+const ProfileCard: React.SFC<Connected> = ({ avatar }) => (
   <div className="profile">
     <img src={avatar} alt="Profile avatar" />
   </div>
 )
 
-export default ProfileCard
+const mapState = (state: any) => ({
+  avatar: state.profile.avatarUrl
+})
+
+export default connect(mapState)(ProfileCard)

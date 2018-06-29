@@ -1,9 +1,10 @@
 import * as React from 'react'
 import Accordion from 'views/ui/Accordion'
 import ExternalLink from 'views/ui/ExternalLink'
+import ProfileNav from 'views/profile/ProfileNav'
 
 const Profile: React.SFC = () => (
-  
+
   <section className="profile page">
     <header>
       <h1>Profile</h1>
@@ -47,19 +48,7 @@ const Profile: React.SFC = () => (
       </div>
     </div>
 
-    <div className="tabbed">
-      <nav className="controls">
-        <div className="tabs">
-          <div className="actions">
-            <button className="basic red button">
-              Remove All
-            </button>
-          </div>
-        </div>
-      </nav>
-      <div className="pane">
-      </div>
-    </div>
+    <ProfileNav />
   </section>
 )
 
