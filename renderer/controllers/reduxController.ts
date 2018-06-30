@@ -6,6 +6,7 @@ import rootSaga from 'controllers/sagaController'
 
 import { alertsReducer } from 'controllers/alertController'
 import { authReducer } from 'controllers/authController'
+import { issuesReducer } from 'controllers/issueController'
 import { orgsReducer } from 'controllers/orgController'
 import { profileReducer } from 'controllers/profileController'
 import { reposReducer } from 'controllers/repoController'
@@ -23,6 +24,7 @@ const persistConfig = {
 const rootReducer = persistCombineReducers(persistConfig, {
   alerts: alertsReducer,
   auth: authReducer,
+  issues: issuesReducer,
   orgs: orgsReducer,
   profile: profileReducer,
   repos: reposReducer,

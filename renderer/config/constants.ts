@@ -1,5 +1,18 @@
 import { ActivePageValues } from 'models/setting'
 
+export type Swimlane = {
+  label: string;
+  name: string;
+  color: string;
+}
+
+export type Routes = {
+  [key: string]: {
+    name: ActivePageValues
+    path: string
+  }
+}
+
 export const IDENT = 'Trax'
 
 export const COLORS = {
@@ -15,13 +28,6 @@ export const COLORS = {
   white: 'rgb(251, 249, 243)',
   eggshell: '#fbf9f4',
   brown: '#99896F',
-}
-
-interface Routes {
-  [key: string]: {
-    name: ActivePageValues
-    path: string
-  }
 }
 
 export const ROUTES: Routes = {
