@@ -9,9 +9,6 @@ function* watchPersist(action: any) {
 
   if (!payload.profile || payload.profile.login === "octocat")
     yield put(requestProfile())
-
-  if (!payload.issues)
-    yield put (requestIssues())
 }
 
 export default function* persistSaga() {

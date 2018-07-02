@@ -1,4 +1,4 @@
-import { REPO, Repo, Repos, ReposAction, defaultState } from 'models/repo'
+import { REPO, Repos, ReposAction, defaultState } from 'models/repo'
 
 export const requestUserRepos = (): ReposAction => ({
   type: REPO.REQUEST,
@@ -9,7 +9,7 @@ export const requestOrgRepos = (login: string): ReposAction => ({
   login
 })
 
-export const receiveRepos = (payload: Repo[]): ReposAction => ({
+export const receiveRepos = (payload: Repos): ReposAction => ({
   type: REPO.SUCCESS,
   payload
 })
@@ -23,7 +23,7 @@ export const reposReducer = (state: Repos = defaultState, action: ReposAction): 
       return { ...state, isLoading: true }
 
     case REPO.SUCCESS :
-      return payload ? { isLoading: false, entities: payload } : state
+      return payload ? { isLoading: false, ...payload } : state
 
     default :
       return state

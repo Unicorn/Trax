@@ -7,10 +7,19 @@ interface Props {
   repos: Repos
 }
 
+const renderRepos = (repos: Repos): React.ReactNode => {
+  const { result, entities } = repos
+
+  if(!result || result.length < 1 || !entities)
+    return null
+
+  return result.map(id => <RepoItem repo={repos.entities!.repos[id]} />)
+}
+
 const RepoList: React.SFC<Props> = ({ repos }) => (
   <Loadable widgetName="repo-list" isLoading={repos.isLoading}>
     <ul className="masonry thirds list">
-      {repos.entities.length > 0 && repos.entities.map(r => (<RepoItem repo={r} />))}
+      {renderRepos(repos)}
     </ul>
   </Loadable>
 )

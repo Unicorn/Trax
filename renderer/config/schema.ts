@@ -1,27 +1,28 @@
 import { schema } from 'normalizr'
 
-const userSchema = new schema.Entity('users', undefined, {
-  idAttribute: 'login'
-})
+const userSchema = new schema.Entity('users');
 
-const repoSchema = new schema.Entity('repos', undefined, {
-  idAttribute: 'fullName'
-})
+const repoSchema = new schema.Entity('repos');
 
-repoSchema.define({
-  owner: userSchema
-})
+const orgSchema = new schema.Entity('orgs');
 
-const orgSchema = new schema.Entity('orgs', undefined, {
-  idAttribute: 'login'
-})
+const labelSchema = new schema.Entity('labels');
 
-orgSchema.define({
-  owner: userSchema
-})
+const milestoneSchema = new schema.Entity('milestones', {
+  creator: userSchema
+});
+
+const issue = new schema.Entity('issues', {
+  assignee: userSchema,
+  assignees: [userSchema],
+  labels: labelSchema,
+  milestone: milestoneSchema,
+  user: userSchema
+});
 
 export default {
   user: userSchema,
   repo: repoSchema,
+  repos: [repoSchema],
   org: orgSchema,
 }
