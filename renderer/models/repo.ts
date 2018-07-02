@@ -1,3 +1,5 @@
+import { GithubServiceRequest } from 'models/github'
+
 export const REPO = {
   REQUEST: 'trax/github/repo/REQUEST',
   SUCCESS: 'trax/github/repo/SUCCESS',
@@ -12,10 +14,17 @@ export interface Repo {
   htmlUrl: string
 }
 
-export type Repos = Repo[]
-
 export interface ReposAction {
   type: typeof REPO.REQUEST | typeof REPO.SUCCESS | typeof REPO.FAILURE
-  payload?: Repos
+  payload?: Repo[]
   login?: string
+}
+
+export interface Repos extends GithubServiceRequest {
+  entities: Repo[]
+}
+
+export const defaultState = {
+  isLoading: false,
+  entities: []
 }

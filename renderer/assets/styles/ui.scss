@@ -434,3 +434,22 @@ table.hoverable {
     z-index: 2;
   }
 }
+
+//
+// Loadable
+//
+.loadable {
+  position: relative;
+
+  .loading {
+    bottom: 0;
+    top: 0;
+    right: 0;
+    left: 0;
+    background: transparentize($eggshell, 0.2);
+    position: absolute;
+    text-align: center;
+    padding: 5rem;
+    z-index: 5;
+  }
+}

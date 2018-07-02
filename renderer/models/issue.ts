@@ -9,6 +9,7 @@ export const ISSUE = {
 }
 
 export interface Issue {
+  ident: string
   id: number
   nodeId: string
   url: string
