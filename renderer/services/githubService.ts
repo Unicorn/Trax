@@ -39,9 +39,12 @@ export const github = (endpoint: any, options?: any, schema?: any): Promise<any>
       if (!response.ok) return Promise.reject(json)
 
       const camelizedJson = camelizeKeys(json)
-      const nextPageUrl = getNextPageUrl(response)
-
       console.log("fetch", camelizedJson)
+
+      if (!schema)
+        return <any>camelizedJson
+
+      const nextPageUrl = getNextPageUrl(response)
 
       return <any>_.merge({}, normalize(camelizedJson, schema), { nextPageUrl })
     })
@@ -57,5 +60,5 @@ export const fetchOrgs = () => github('user/orgs')
 export const fetchRepos = (login?: string) => github(login ? `orgs/${login}/repos` : 'user/repos', null, schema.repos)
 export const fetchCreateProject = ({ owner, repo }: any, request: any) => github(`repos/${owner}/${repo}/projects`, request)
 export const fetchCreateLabel = ({ owner, repo }: any, request: any) => github(`repos/${owner}/${repo}/labels`, request)
-export const fetchUnassignedIssues = ({ owner, repo }: any, request: any) => github(`repos/${owner}/${repo}/issues`, request)
+export const fetchIssues = ({ owner, repo }: any, request: any) => github(`repos/${owner}/${repo}/issues`, request, schema.issues)
 export const fetchIssueUpdate = ({ owner, repo, number }: any, request: any) => github(`repos/${owner}/${repo}/issues/${number}`, request)

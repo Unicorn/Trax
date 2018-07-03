@@ -1,4 +1,3 @@
-import { Labels } from 'models/label'
 import { Users, User } from 'models/user'
 import { Milestone } from 'models/milestone'
 
@@ -23,7 +22,7 @@ export interface Issue {
   title: string
   body: string
   user: User
-  labels: Labels
+  labels: [string]
   assignee: User
   assignees: Users
   milestone: Milestone
@@ -41,10 +40,23 @@ export interface Issue {
   updatedAt: string | null
 }
 
-export type Issues = Issue[]
+export interface Issues {
+  isLoading: boolean
+  entities?: {
+    issues: {
+      [key: number]: Issue
+    }
+  }
+  result?: [number]
+  nextPageUrl?: string
+}
 
 export interface IssuesAction {
   type: typeof ISSUE.REQUEST | typeof ISSUE.SUCCESS | typeof ISSUE.FAILURE
   payload?: Issues
-  login?: string
+  ident?: string
+}
+
+export const defaultState = {
+  isLoading: false
 }

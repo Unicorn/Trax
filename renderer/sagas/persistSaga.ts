@@ -1,14 +1,19 @@
 import { takeEvery, put } from 'redux-saga/effects'
 import { requestProfile } from 'controllers/profileController'
+import { requestIssues } from 'controllers/issueController'
+import { Track } from 'models/track'
 
 function* watchPersist(action: any) {
-  const { payload } = action
+  const { payload: { auth, profile, tracks} } = action
 
-  if (!payload || !payload.auth || !payload.auth.accessToken)
+  if (!auth || !auth.accessToken)
     return
 
-  if (!payload.profile || payload.profile.login === "octocat")
+  if (!profile || profile.login === "octocat")
     yield put(requestProfile())
+
+  if (tracks && tracks.length > 0)
+    yield tracks.map((t: Track) => put(requestIssues(t.ident)))
 }
 
 export default function* persistSaga() {

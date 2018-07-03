@@ -1,7 +1,8 @@
-import { ISSUE, Issues, IssuesAction } from 'models/issue'
+import { ISSUE, Issues, IssuesAction, defaultState } from 'models/issue'
 
-export const requestIssues = (): IssuesAction => ({
+export const requestIssues = (ident: string): IssuesAction => ({
   type: ISSUE.REQUEST,
+  ident
 })
 
 export const receiveIssues = (payload: Issues): IssuesAction => ({
@@ -9,7 +10,7 @@ export const receiveIssues = (payload: Issues): IssuesAction => ({
   payload
 })
 
-export const issuesReducer = (state: Issues = [], action: IssuesAction): Issues => {
+export const issuesReducer = (state: Issues = defaultState, action: IssuesAction): Issues => {
   const { payload, type } = action
 
   switch (type)
