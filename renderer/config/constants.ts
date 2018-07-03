@@ -1,10 +1,12 @@
 import { ActivePageValues } from 'models/setting'
 
 export type Swimlane = {
-  label: string;
+  label: Lane
   name: string;
   color: string;
 }
+
+export type Lane = 'backlog' | 'started' | 'review' | 'complete'
 
 export type Routes = {
   [key: string]: {
@@ -79,6 +81,13 @@ export const SWIMLANES = {
     color: COLORS.green,
   },
 }
+
+export const LANES = [
+  SWIMLANES.backlog.name,
+  SWIMLANES.started.name,
+  SWIMLANES.review.name,
+  SWIMLANES.complete.name,
+]
 
 export const MICROSERVICE = {
   API: 'https://trax-go.herokuapp.com'

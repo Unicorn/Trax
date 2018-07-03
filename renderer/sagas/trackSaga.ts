@@ -1,10 +1,7 @@
-import { fork, call, put, takeEvery } from 'redux-saga/effects'
-import { fetchCreateLabel, fetchIssues, fetchIssueUpdate } from 'services/githubService'
-import { receiveIssues } from 'controllers/issueController'
+import { fork, takeEvery } from 'redux-saga/effects'
+import { fetchCreateLabel } from 'services/githubService'
 import { TrackAction } from 'models/track'
 import { TRACK } from 'models/track'
-import { Issue } from 'models/issue'
-import { issuesWithoutLanes } from 'helpers/issueHelper'
 import { SWIMLANES } from 'config/constants'
 
 const getLabels = () => {

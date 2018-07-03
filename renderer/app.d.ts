@@ -1,1 +1,1 @@
-declare module 'redux-saga-router'
+declare module 'fuse.js'

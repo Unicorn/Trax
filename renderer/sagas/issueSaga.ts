@@ -10,27 +10,34 @@ function* watchIssuesRequest(action: IssuesAction) {
 
   const { ident } = action
   const [owner, repo]: any = ident.split('/')
+  const params = { owner, repo, ident }
   const request = {
     headers: {
       Accept: 'application/vnd.github.symmetra-preview+json',
-    }
+    },
+    params
   }
-  const issues = yield call(fetchIssues, { owner, repo }, request)
+  const issues = yield call(fetchIssues, request)
+  console.log('issues', issues)
+
   const backlogIssues = issuesWithoutLanes(issues)
 
+  console.log('backlogIssues', backlogIssues)
+
   yield backlogIssues.map((issue: Issue) => {
-    let r = {
+    let request2 = {
       ...request,
       method: 'PATCH',
       body: {
         labels: [...issue.labels, SWIMLANES.backlog.name]
-      }
+      },
+      params: { ...params, number: issue.number }
     }
 
-    return fork(fetchIssueUpdate, { owner, repo, number: issue.number }, r)
+    return fork(fetchIssueUpdate, request2)
   })
 
-  const issuesAgain = yield call(fetchIssues, { owner, repo }, request)
+  const issuesAgain = yield call(fetchIssues, request)
 
   console.log("issuesAgain", issuesAgain)
 

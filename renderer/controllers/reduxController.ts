@@ -11,6 +11,7 @@ import { orgsReducer } from 'controllers/orgController'
 import { profileReducer } from 'controllers/profileController'
 import { reposReducer } from 'controllers/repoController'
 import { settingsReducer } from 'controllers/settingController'
+import { timerReducer } from 'controllers/timerController'
 import { trackReducer } from 'controllers/trackController'
 
 const saga = createSagaMiddleware()
@@ -29,6 +30,7 @@ const rootReducer = persistCombineReducers(persistConfig, {
   profile: profileReducer,
   repos: reposReducer,
   settings: settingsReducer,
+  timer: timerReducer,
   tracks: trackReducer,
 })
 

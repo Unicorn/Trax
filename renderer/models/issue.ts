@@ -1,5 +1,7 @@
 import { Users, User } from 'models/user'
+import { Label } from 'models/label'
 import { Milestone } from 'models/milestone'
+import { Lane } from 'config/constants'
 
 export const ISSUE = {
   REQUEST: 'trax/github/issues/REQUEST',
@@ -9,6 +11,7 @@ export const ISSUE = {
 
 export interface Issue {
   ident: string
+  lane: Lane
   id: number
   nodeId: string
   url: string
@@ -22,7 +25,7 @@ export interface Issue {
   title: string
   body: string
   user: User
-  labels: [string]
+  labels: Label[]
   assignee: User
   assignees: Users
   milestone: Milestone

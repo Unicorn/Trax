@@ -4,6 +4,13 @@ import { camelizeKeys } from 'humps'
 import schema from 'config/schema'
 import { GITHUB } from 'config/constants'
 
+interface Request {
+  headers?: any
+  body?: any
+  method?: string
+  params?: any
+}
+
 const getNextPageUrl = (response: any) => {
   const link = response.headers.get('link')
 
@@ -31,22 +38,20 @@ export const github = (endpoint: any, options?: any, schema?: any): Promise<any>
   if (options && options.body)
     request.body = JSON.stringify(options.body)
 
-  console.log('github request', request)
-
   return fetch(url, request)
     .then(response => response.json().then(json => ({ json, response })))
     .then(({ json, response }: any) => {
       if (!response.ok) return Promise.reject(json)
 
-      const camelizedJson = camelizeKeys(json)
-      console.log("fetch", camelizedJson)
+      const data = Array.isArray(json) ? json.map((c: any) => ({ ...request.params, ...c })) : json
+      const camelizedJson = camelizeKeys(data)
 
       if (!schema)
         return <any>camelizedJson
 
       const nextPageUrl = getNextPageUrl(response)
 
-      return <any>_.merge({}, normalize(camelizedJson, schema), { nextPageUrl })
+      return <any>_.merge({ ...request.params }, normalize(camelizedJson, schema), { nextPageUrl })
     })
     .then(
       (response: Response) => response,
@@ -60,5 +65,13 @@ export const fetchOrgs = () => github('user/orgs')
 export const fetchRepos = (login?: string) => github(login ? `orgs/${login}/repos` : 'user/repos', null, schema.repos)
 export const fetchCreateProject = ({ owner, repo }: any, request: any) => github(`repos/${owner}/${repo}/projects`, request)
 export const fetchCreateLabel = ({ owner, repo }: any, request: any) => github(`repos/${owner}/${repo}/labels`, request)
-export const fetchIssues = ({ owner, repo }: any, request: any) => github(`repos/${owner}/${repo}/issues`, request, schema.issues)
-export const fetchIssueUpdate = ({ owner, repo, number }: any, request: any) => github(`repos/${owner}/${repo}/issues/${number}`, request)
+
+export const fetchIssues = (request: Request) => {
+  const { params: { owner, repo } } = request
+  return github(`repos/${owner}/${repo}/issues`, request, schema.issues)
+}
+
+export const fetchIssueUpdate = (request: Request) => {
+  const { params: { owner, repo, number } } = request
+  return github(`repos/${owner}/${repo}/issues/${number}`, request)
+}
