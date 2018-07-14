@@ -116,3 +116,12 @@ app.on('activate', () => {
 ipcMain.on('timer-tick', (_: any, time: any) => {
   tray!.setTitle(time)
 })
+
+if (isDev) {
+  app.on('certificate-error', (event, _webContents, _url, _error, _certificate, callback) => {
+    // On certificate error we disable default behaviour (stop loading the page)
+    // and we then say "it is all fine - true" to the callback
+    event.preventDefault();
+    callback(true);
+  })
+}

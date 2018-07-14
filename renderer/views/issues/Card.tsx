@@ -1,40 +1,33 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { Draggable, DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd'
+import { startTimer, stopTimer } from 'controllers/timerController'
 import { formatClock } from 'helpers/stringHelper'
 import ExternalLink from 'views/ui/ExternalLink'
-import { startTimer, stopTimer } from 'controllers/timerController'
-import TimerStartIcon from 'views/ui/icons/TimerStartIcon'
-import TimerStopIcon from 'views/ui/icons/TimerStopIcon'
+
 import { Issue } from 'models/issue'
 import { Timer } from 'models/timer'
 import LabelsList from 'views/issues/LabelsList'
+import TimerItem from 'views/issues/TimerItem'
 
 interface Props {
   issue: Issue
-  timer?: Timer
   lane: string
   index: number
-  provided: any
-  snapshot: any
 }
 
 interface Connected {
+  timer: Timer
   dispatch: (action: any) => any
 }
 
-const Card: React.SFC<Props & Connected> = ({ dispatch, timer, issue, lane, index, provided, snapshot }) => {
+const Card: React.SFC<Props & Connected> = ({ dispatch, timer, issue, lane, index }) => {
 
-  const _timerHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-
-    if (timer.isRunning)
-      dispatch(stopTimer({ id: issue.id }))
-    else
-      dispatch(startTimer({ id: issue.id }))
+  const _timerHandler = () => {
+    timer.isRunning ? dispatch(stopTimer(timer)) : dispatch(startTimer(timer))
   }
 
-  let duration = Array.isArray(timer.counter) ? timer.counter.reduce((prev: any, curr: any) => prev + curr.duration, 0) : timer.counter
+  let duration = (Array.isArray(timer.counter)) ? timer.counter.reduce((prev: any, curr: any) => prev + curr.duration, 0) : timer.counter
 
   return (
     <Draggable key={issue.id} draggableId={issue.id.toString()} index={index}>
@@ -51,9 +44,7 @@ const Card: React.SFC<Props & Connected> = ({ dispatch, timer, issue, lane, inde
             {issue.labels && issue.labels.length > 0 && <LabelsList labels={issue.labels} lane={lane} withoutLanes={true} />}
           </div>
           <div className="bar">
-            <button className={`timer `} onClick={_timerHandler}>
-              {timer.isRunning ? <TimerStopIcon /> : <TimerStartIcon />}
-            </button>
+            <TimerItem timer={timer} handler={_timerHandler} />
             <span className="counter">{formatClock(duration)}</span>
             <span className="tracked">{formatClock(duration)}</span>
             <ExternalLink showIcon={true} url={issue.htmlUrl} />
@@ -66,6 +57,7 @@ const Card: React.SFC<Props & Connected> = ({ dispatch, timer, issue, lane, inde
 
 const mapState = (state: any, props: Props) => {
   let timer = state.timer[props.issue.id] || {
+    id: props.issue.id,
     isRunning: false,
     startedAt: null,
     counter: 0,

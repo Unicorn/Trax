@@ -1,24 +1,18 @@
 import * as React from 'react'
 import { Droppable } from 'react-beautiful-dnd'
 import Card from 'views/issues/Card'
-import { Issue }
+import { Issue } from 'models/issue'
 
-const renderIssues = (issues, lane, provided, snapshot) => {
-  var filtered = []
-  const filterCriteria = ['started', 'review', 'complete']
+interface Props {
+  issues: Issue[]
+  lane: string
+}
 
-  if (lane === 'backlog')
-    filtered = issues.filter(
-      i => i.labels.filter(l => filterCriteria.includes(l.name)).length === 0
-    )
-  else
-    filtered = issues.filter(
-      i => i.labels.filter(l => lane === l.name).length > 0
-    )
+const renderIssues = (issues: Issue[], lane: string, provided: any, snapshot: any) => {
+  if (issues.length < 1)
+    return <p>No issues</p>
 
-  if (issues.length < 1 || filtered.length < 1) return <p>No issues</p>
-
-  return filtered.map((issue, index) => (
+  return issues.map((issue, index) => (
     <Card
       key={issue.id}
       issue={issue}
@@ -30,7 +24,7 @@ const renderIssues = (issues, lane, provided, snapshot) => {
   ))
 }
 
-const Lane = ({ lane, issues }) => {
+const Lane: React.SFC<Props> = ({ lane, issues }) => {
   return (
     <Droppable droppableId={lane}>
       {(provided, snapshot) => (

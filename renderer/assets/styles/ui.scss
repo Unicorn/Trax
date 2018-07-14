@@ -42,6 +42,8 @@ header.toolbar {
   z-index: 2;
 
   a, button {
+    background: transparent;
+    border: none;
     color: $brown;
     display: block;
     margin: 2rem 0;

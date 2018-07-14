@@ -94,3 +94,11 @@ electron_1.app.on('activate', function () {
 electron_1.ipcMain.on('timer-tick', function (_, time) {
     tray.setTitle(time);
 });
+if (isDev) {
+    electron_1.app.on('certificate-error', function (event, _webContents, _url, _error, _certificate, callback) {
+        // On certificate error we disable default behaviour (stop loading the page)
+        // and we then say "it is all fine - true" to the callback
+        event.preventDefault();
+        callback(true);
+    });
+}

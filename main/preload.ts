@@ -18,6 +18,6 @@ window.BrowserWindow = remote.BrowserWindow
 window.shell = shell
 window.ipc = ipcRenderer
 
-window.eval = global.eval = function() {
+window.eval = global.eval = () => {
   throw new Error(`Sorry, this app does not support window.eval().`)
 }

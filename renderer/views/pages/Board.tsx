@@ -46,6 +46,7 @@ class Board extends React.Component<Connected, State> {
 
   _onDragEnd(result: any) {
     console.log('_onDragEnd', result)
+    console.log("Fuse", Fuse)
   }
 
   render() {
