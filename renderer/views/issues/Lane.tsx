@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Droppable } from 'react-beautiful-dnd'
 import Card from 'views/issues/Card'
+import { Issue }
 
 const renderIssues = (issues, lane, provided, snapshot) => {
   var filtered = []
@@ -33,11 +34,7 @@ const Lane = ({ lane, issues }) => {
   return (
     <Droppable droppableId={lane}>
       {(provided, snapshot) => (
-        <div
-          className={`swimlane ${lane} ${snapshot.isDraggingOver &&
-            'dragging-over'}`}
-          ref={provided.innerRef}
-        >
+        <div className={`swimlane ${lane} ${snapshot.isDraggingOver && 'dragging-over'}`} ref={provided.innerRef}>
           <big>{lane}</big>
           <div className="inner">
             {renderIssues(issues, lane, provided, snapshot)}

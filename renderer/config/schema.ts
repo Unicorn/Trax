@@ -21,10 +21,17 @@ const issueSchema = new schema.Entity(
     user: userSchema,
   },
   {
-    processStrategy: (entity: Issue, _parent, _key) => ({
-      ...entity,
-      lane: entity.labels.filter(l => LANES.includes(l.name))[0].name || 'backlog'
-    })
+    processStrategy: (issue: Issue, _parent, _key) => {
+      var lane = 'backlog'
+
+      if (issue.labels && issue.labels.length > 0)
+        lane = issue.labels.filter(l => LANES.includes(l.name))[0].name
+
+      return {
+        ...issue,
+        lane
+      }
+    }
   }
 );
 

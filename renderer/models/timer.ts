@@ -13,11 +13,24 @@ export interface TimerEntry {
 }
 
 export interface Timer {
-  invoiced: boolean;
-  selected: boolean;
-  isRunning: boolean;
-  startedAt: Date;
-  counter: number;
-  timer: number;
-  entries: TimerEntry[];
+  id: number;
+  invoiced?: boolean;
+  selected?: boolean;
+  isRunning?: boolean;
+  startedAt?: Date;
+  counter?: number;
+  timer?: number;
+  entries?: TimerEntry[];
 }
+
+export interface StartTimer {
+  type: typeof TIMER.START
+  payload?: Timer
+}
+
+export interface StopTimer {
+  type: typeof TIMER.STOP
+  payload?: Timer
+}
+
+export type TimerAction = StartTimer | StopTimer
