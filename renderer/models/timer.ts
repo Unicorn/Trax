@@ -1,9 +1,7 @@
 export const TIMER = {
   START: 'trax/timer/START',
   STOP: 'trax/timer/STOP',
-  TICK_TIMER: 'trax/timer/TICK_TIMER',
-  SET_SELECTED: 'trax/timer/SET_SELECTED',
-  SET_INVOICED: 'trax/timer/SET_INVOICED',
+  TICK: 'trax/timer/TICK_TIMER',
 }
 
 export interface TimerEntry {
@@ -14,23 +12,26 @@ export interface TimerEntry {
 
 export interface Timer {
   id: number;
+  duration: number;
   invoiced?: boolean;
   selected?: boolean;
-  isRunning?: boolean;
+  isRunning: boolean;
   startedAt?: Date;
-  counter?: number;
-  timer?: number;
-  entries?: TimerEntry[];
+  entries: TimerEntry[];
 }
 
-export interface StartTimer {
-  type: typeof TIMER.START
-  payload?: Timer
+export type Timers = {
+  [key: number]: Timer
 }
 
-export interface StopTimer {
-  type: typeof TIMER.STOP
-  payload?: Timer
+export type TimerAction = {
+  type: typeof TIMER.START | typeof TIMER.STOP | typeof TIMER.TICK
+  id: number
 }
 
-export type TimerAction = StartTimer | StopTimer
+export const defaultTimerState: Timer = {
+  id: 0,
+  isRunning: false,
+  duration: 0,
+  entries: [],
+}

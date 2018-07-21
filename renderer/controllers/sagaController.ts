@@ -7,6 +7,7 @@ import orgSaga from 'sagas/orgSaga'
 import persistSaga from 'sagas/persistSaga'
 import profileSaga from 'sagas/profileSaga'
 import repoSaga from 'sagas/repoSaga'
+import timerSaga from 'sagas/timerSaga'
 import trackSaga from 'sagas/trackSaga'
 
 export default function* rootSaga() {
@@ -18,6 +19,7 @@ export default function* rootSaga() {
     persistSaga(),
     profileSaga(),
     repoSaga(),
+    timerSaga(),
     trackSaga(),
   ])
 }

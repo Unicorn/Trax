@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Droppable } from 'react-beautiful-dnd'
+import { Droppable, DroppableProvided, DroppableStateSnapshot } from 'react-beautiful-dnd'
 import Card from 'views/issues/Card'
 import { Issue } from 'models/issue'
 
@@ -8,7 +8,7 @@ interface Props {
   lane: string
 }
 
-const renderIssues = (issues: Issue[], lane: string, provided: any, snapshot: any) => {
+const renderIssues = (issues: Issue[], lane: string) => {
   if (issues.length < 1)
     return <p>No issues</p>
 
@@ -18,8 +18,6 @@ const renderIssues = (issues: Issue[], lane: string, provided: any, snapshot: an
       issue={issue}
       lane={lane}
       index={index}
-      snapshot={snapshot}
-      provided={provided}
     />
   ))
 }
@@ -27,11 +25,11 @@ const renderIssues = (issues: Issue[], lane: string, provided: any, snapshot: an
 const Lane: React.SFC<Props> = ({ lane, issues }) => {
   return (
     <Droppable droppableId={lane}>
-      {(provided, snapshot) => (
+      {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
         <div className={`swimlane ${lane} ${snapshot.isDraggingOver && 'dragging-over'}`} ref={provided.innerRef}>
           <big>{lane}</big>
           <div className="inner">
-            {renderIssues(issues, lane, provided, snapshot)}
+            {renderIssues(issues, lane)}
           </div>
         </div>
       )}

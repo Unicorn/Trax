@@ -25,18 +25,14 @@ export const settingsReducer = (
   action: SettingsAction
 ) => {
   const { payload, type } = action
-
+  let newState = { ...state }
+  
   if (!payload || !type) return state
 
   switch (type) {
     case SET_SETTING:
-      let newState = state
       newState[payload.key] = payload.value
-
-      return {
-        ...state,
-        ...newState
-      }
+      return newState
 
     default:
       return state

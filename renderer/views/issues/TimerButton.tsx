@@ -8,10 +8,10 @@ interface Props {
   handler: () => void
 }
 
-const TimerItem: React.SFC<Props> = ({ handler, timer }) => (
+const TimerButton: React.SFC<Props> = ({ handler, timer }) => (
   <button className={`timer `} onClick={handler}>
     {timer.isRunning ? <TimerStopIcon /> : <TimerStartIcon />}
   </button>
 )
 
-export default TimerItem
+export default TimerButton

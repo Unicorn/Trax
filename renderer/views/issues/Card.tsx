@@ -6,9 +6,9 @@ import { formatClock } from 'helpers/stringHelper'
 import ExternalLink from 'views/ui/ExternalLink'
 
 import { Issue } from 'models/issue'
-import { Timer } from 'models/timer'
+import { Timer, defaultTimerState } from 'models/timer'
 import LabelsList from 'views/issues/LabelsList'
-import TimerItem from 'views/issues/TimerItem'
+import TimerButton from 'views/issues/TimerButton'
 
 interface Props {
   issue: Issue
@@ -24,10 +24,10 @@ interface Connected {
 const Card: React.SFC<Props & Connected> = ({ dispatch, timer, issue, lane, index }) => {
 
   const _timerHandler = () => {
-    timer.isRunning ? dispatch(stopTimer(timer)) : dispatch(startTimer(timer))
+    timer.isRunning ? dispatch(stopTimer(timer.id)) : dispatch(startTimer(timer.id))
   }
 
-  let duration = (Array.isArray(timer.counter)) ? timer.counter.reduce((prev: any, curr: any) => prev + curr.duration, 0) : timer.counter
+  let duration = timer.entries.length > 0 ? timer.entries.reduce((prev: any, curr: any) => prev + curr.duration, 0) : timer.duration
 
   return (
     <Draggable key={issue.id} draggableId={issue.id.toString()} index={index}>
@@ -44,8 +44,8 @@ const Card: React.SFC<Props & Connected> = ({ dispatch, timer, issue, lane, inde
             {issue.labels && issue.labels.length > 0 && <LabelsList labels={issue.labels} lane={lane} withoutLanes={true} />}
           </div>
           <div className="bar">
-            <TimerItem timer={timer} handler={_timerHandler} />
-            <span className="counter">{formatClock(duration)}</span>
+            <TimerButton timer={timer} handler={_timerHandler} />
+            <span className="counter">{formatClock(timer.duration)}</span>
             <span className="tracked">{formatClock(duration)}</span>
             <ExternalLink showIcon={true} url={issue.htmlUrl} />
           </div>
@@ -55,18 +55,8 @@ const Card: React.SFC<Props & Connected> = ({ dispatch, timer, issue, lane, inde
   )
 }
 
-const mapState = (state: any, props: Props) => {
-  let timer = state.timer[props.issue.id] || {
-    id: props.issue.id,
-    isRunning: false,
-    startedAt: null,
-    counter: 0,
-    entries: [],
-  }
-
-  return {
-    timer,
-  }
-}
+const mapState = (state: any, props: Props) => ({
+  timer: state.timers[props.issue.id] || { ...defaultTimerState, id: props.issue.id }
+})
 
 export default connect(mapState)(Card)

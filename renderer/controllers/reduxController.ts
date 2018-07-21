@@ -30,7 +30,7 @@ const rootReducer = persistCombineReducers(persistConfig, {
   profile: profileReducer,
   repos: reposReducer,
   settings: settingsReducer,
-  timer: timerReducer,
+  timers: timerReducer,
   tracks: trackReducer,
 })
 
