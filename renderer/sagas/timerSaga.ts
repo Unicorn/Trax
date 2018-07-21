@@ -18,8 +18,8 @@ function* watchTimers(action: TimerAction) {
 
   // Search for running timers and stop them
   const timers = yield select((state: any) => state.timers)
-  const runningTimers = _.toPairs(timers).map((t: [string, Object]) => t[1] as Timer).filter(t => t.isRunning)
-  yield runningTimers.map(timer => put(stopTimer(timer.id)))
+  const runningTimers = _.toPairs(timers).map((t: [string, Object]) => t[1] as Timer).filter(t => t.id && t.isRunning)
+  yield runningTimers.map(t => put(stopTimer(t.id!)))
 
   // Listen for a TIMER.STOP action, otherwise start tickin!
   while(true) {

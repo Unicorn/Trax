@@ -1,6 +1,6 @@
-export const ALERT = {
-  CREATE: 'trax/alert/CREATE_ALERT',
-  DELETE: 'trax/alert/DELETE_ALERT'
+export enum ALERT {
+  CREATE = 'trax/alert/CREATE_ALERT',
+  DELETE = 'trax/alert/DELETE_ALERT'
 }
 
 export type Alert = {
@@ -13,14 +13,7 @@ export type Alert = {
 
 export type Alerts = Alert[]
 
-export interface CreateAlert {
-  type: typeof ALERT.CREATE
-  payload?: Alert
+export type AlertAction = {
+  readonly type: ALERT.CREATE | ALERT.DELETE
+  readonly payload?: Alert
 }
-
-export interface DeleteAlert {
-  type: typeof ALERT.DELETE
-  payload?: Alert
-}
-
-export type AlertAction = CreateAlert | DeleteAlert

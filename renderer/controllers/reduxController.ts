@@ -22,7 +22,7 @@ const persistConfig = {
   storage
 }
 
-const rootReducer = persistCombineReducers(persistConfig, {
+const rootReducer = persistCombineReducers<any>(persistConfig, {
   alerts: alertsReducer,
   auth: authReducer,
   issues: issuesReducer,

@@ -19,8 +19,6 @@ export const timerReducer = (state: Timers = {}, action: TimerAction) => {
   const { id, type } = action
   const newState = { ...state }
 
-  console.log('timer in reducer', id, state[id])
-
   if (!id || !type) return state
 
   const timer = state[id] || defaultTimerState

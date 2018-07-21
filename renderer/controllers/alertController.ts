@@ -21,10 +21,7 @@ export const deleteAlert = (payload: Alert): AlertAction => ({
   payload
 })
 
-export const alertsReducer = (
-  state: Alerts = [],
-  action: AlertAction
-): Alerts => {
+export const alertsReducer = (state: Alerts = [], action: AlertAction): Alerts => {
   const { payload, type } = action
 
   if (!payload || !type) return state
