@@ -1,7 +1,7 @@
-export const PROFILE = {
-  REQUEST: 'trax/github/profile/REQUEST',
-  SUCCESS: 'trax/github/profile/SUCCESS',
-  FAILURE: 'trax/github/profile/FAILURE'
+export enum PROFILE {
+  REQUEST = 'trax/github/profile/REQUEST',
+  SUCCESS = 'trax/github/profile/SUCCESS',
+  FAILURE = 'trax/github/profile/FAILURE'
 }
 
 export interface Profile {
@@ -12,7 +12,7 @@ export interface Profile {
 }
 
 export interface ProfileAction {
-  type: typeof PROFILE.REQUEST | typeof PROFILE.SUCCESS | typeof PROFILE.FAILURE
+  type: PROFILE
   payload?: Profile
 }
 

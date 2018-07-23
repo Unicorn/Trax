@@ -1,7 +1,7 @@
-export const REPO = {
-  REQUEST: 'trax/github/repo/REQUEST',
-  SUCCESS: 'trax/github/repo/SUCCESS',
-  FAILURE: 'trax/github/repo/FAILURE'
+export enum REPO {
+  REQUEST = 'trax/github/repo/REQUEST',
+  SUCCESS = 'trax/github/repo/SUCCESS',
+  FAILURE = 'trax/github/repo/FAILURE'
 }
 
 export interface Repo {
@@ -24,7 +24,7 @@ export interface Repos {
 }
 
 export interface ReposAction {
-  type: typeof REPO.REQUEST | typeof REPO.SUCCESS | typeof REPO.FAILURE
+  type: REPO
   payload?: Repos
   login?: string
 }

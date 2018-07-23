@@ -1,7 +1,7 @@
-export const ORG = {
-  REQUEST: 'trax/github/org/REQUEST',
-  SUCCESS: 'trax/github/org/SUCCESS',
-  FAILURE: 'trax/github/org/FAILURE'
+export enum ORG {
+  REQUEST = 'trax/github/org/REQUEST',
+  SUCCESS = 'trax/github/org/SUCCESS',
+  FAILURE = 'trax/github/org/FAILURE'
 }
 
 export interface Org {
@@ -16,6 +16,6 @@ export interface Org {
 export type Orgs = Org[]
 
 export interface OrgsAction {
-  type: typeof ORG.REQUEST | typeof ORG.SUCCESS | typeof ORG.FAILURE
+  type: ORG
   payload?: Orgs
 }

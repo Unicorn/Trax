@@ -3,10 +3,10 @@ import { Label } from 'models/label'
 import { Milestone } from 'models/milestone'
 import { Lane } from 'config/constants'
 
-export const ISSUE = {
-  REQUEST: 'trax/github/issues/REQUEST',
-  SUCCESS: 'trax/github/issues/SUCCESS',
-  FAILURE: 'trax/github/issues/FAILURE'
+export enum ISSUE {
+  REQUEST = 'trax/github/issues/REQUEST',
+  SUCCESS = 'trax/github/issues/SUCCESS',
+  FAILURE = 'trax/github/issues/FAILURE'
 }
 
 export interface Issue {
@@ -55,7 +55,7 @@ export interface Issues {
 }
 
 export interface IssuesAction {
-  type: typeof ISSUE.REQUEST | typeof ISSUE.SUCCESS | typeof ISSUE.FAILURE
+  type: ISSUE
   payload?: Issues
   ident?: string
 }

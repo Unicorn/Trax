@@ -33,9 +33,6 @@ export const timerReducer = (state: Timers = {}, action: TimerAction) => {
         startedAt: new Date(),
         duration: 0,
       }
-
-      console.log('new', newState[id])
-
       return newState
 
     case TIMER.STOP :
@@ -51,7 +48,6 @@ export const timerReducer = (state: Timers = {}, action: TimerAction) => {
         startedAt: undefined,
         duration: 0,
       }
-
       return newState
 
     case TIMER.TICK :
@@ -61,9 +57,6 @@ export const timerReducer = (state: Timers = {}, action: TimerAction) => {
         isRunning: true,
         duration: timer.duration + 1
       }
-
-      console.log('tic', id, timer, timer.duration)
-
       return newState
 
     default :

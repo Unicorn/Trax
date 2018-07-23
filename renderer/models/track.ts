@@ -1,9 +1,9 @@
 import { Repo } from 'models/repo'
 
-export const TRACK = {
-  CREATE: 'trax/track/CREATE',
-  DELETE: 'trax/track/DELETE',
-  CLEAR:  'trax/track/CLEAR'
+export enum TRACK {
+  CREATE = 'trax/track/CREATE',
+  DELETE = 'trax/track/DELETE',
+  CLEAR =  'trax/track/CLEAR'
 }
 
 export interface Track {
@@ -14,6 +14,6 @@ export interface Track {
 export type Tracks = Track[]
 
 export interface TrackAction {
-  type: typeof TRACK.CREATE | typeof TRACK.DELETE | typeof TRACK.CLEAR
+  type: TRACK
   payload?: Track
 }
