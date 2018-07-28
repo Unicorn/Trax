@@ -20,6 +20,10 @@ header.toolbar {
   .actions {
     padding: .7rem;
     float: right;
+
+    button {
+      margin-left: 1rem;
+    }
   }
 }
 
@@ -37,7 +41,9 @@ header.toolbar {
   width: 7rem;
   z-index: 2;
 
-  a {
+  a, button {
+    background: transparent;
+    border: none;
     color: $brown;
     display: block;
     margin: 2rem 0;
@@ -79,6 +85,11 @@ header.toolbar {
         border-color: $teal;
       }
     }
+  }
+
+  .profile img {
+    display: block;
+    min-height: 45px;
   }
 }
 
@@ -307,18 +318,7 @@ table.hoverable {
       }
     }
 
-    &.open {
-      span {
-        color: $teal;
-      }
-
-      svg {
-        fill: $teal;
-        width: 1.6rem;
-      }
-    }
-
-    span {
+    .text {
       display: inline-block;
       margin-left: 1rem;
       padding-bottom: .2rem;
@@ -336,7 +336,9 @@ table.hoverable {
     }
   }
 
-  .content.inner {
+  .content {
+    height: 0;
+    overflow: hidden;
     padding: .5rem 0 0 2.5rem;
 
     p {
@@ -345,7 +347,25 @@ table.hoverable {
       padding: .2rem 0;
     }
   }
+
+  &.open {
+    .trigger {
+      span {
+        color: $teal;
+      }
+
+      svg {
+        fill: $teal;
+        width: 1.6rem;
+      }
+    }
+
+    .content {
+      height: auto;
+    }
+  }
 }
+
 
 //
 // TABBED
@@ -414,5 +434,24 @@ table.hoverable {
     padding: 2rem;
     position: relative;
     z-index: 2;
+  }
+}
+
+//
+// Loadable
+//
+.loadable {
+  position: relative;
+
+  .loading {
+    bottom: 0;
+    top: 0;
+    right: 0;
+    left: 0;
+    background: transparentize($eggshell, 0.2);
+    position: absolute;
+    text-align: center;
+    padding: 5rem;
+    z-index: 5;
   }
 }

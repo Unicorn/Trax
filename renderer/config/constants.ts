@@ -1,8 +1,21 @@
+import { ActivePageValues } from 'models/setting'
+
 export type Swimlane = {
-  label: string;
+  label: Lane
   name: string;
   color: string;
 }
+
+export type Lane = 'backlog' | 'started' | 'review' | 'complete'
+
+export type Routes = {
+  [key: string]: {
+    name: ActivePageValues
+    path: string
+  }
+}
+
+export const IDENT = 'Trax'
 
 export const COLORS = {
   blue: '#3C7CB3',
@@ -19,31 +32,29 @@ export const COLORS = {
   brown: '#99896F',
 }
 
-export const TRAX_IDENT = 'Trax'
-
-export const ROUTES = {
+export const ROUTES: Routes = {
   welcome: {
-    text: 'Welcome',
+    name: 'welcome',
     path: '/welcome',
   },
   board: {
-    text: 'Board',
+    name: 'board',
     path: '/board',
   },
   profile: {
-    text: 'Profile',
+    name: 'profile',
     path: '/profile',
   },
   report: {
-    text: 'Report',
+    name: 'report',
     path: '/report',
   },
   invoice: {
-    text: 'Invoice',
+    name: 'invoice',
     path: '/invoice',
   },
   settings: {
-    text: 'Settings',
+    name: 'settings',
     path: '/settings',
   },
 }
@@ -71,10 +82,20 @@ export const SWIMLANES = {
   },
 }
 
+export const LANES = [
+  SWIMLANES.backlog.name,
+  SWIMLANES.started.name,
+  SWIMLANES.review.name,
+  SWIMLANES.complete.name,
+]
+
+export const MICROSERVICE = {
+  API: 'https://trax-go.herokuapp.com'
+}
+
 export const GITHUB = {
-  host: 'https://github.com',
-  api: 'https://api.github.com',
-  client_id: process.env.GH_CLIENT_ID,
-  client_secret: process.env.GH_CLIENT_SECRET,
-  scope: 'user,public_repo,repo,repo_deployment,notifications',
+  API:        'https://api.github.com/',
+  HOST:       'https://github.com',
+  CLIENT_ID:  '67c705a18a7b8576a4c1',
+  SCOPE:      'user,public_repo,repo,repo_deployment,notifications',
 }

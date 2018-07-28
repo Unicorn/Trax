@@ -1,58 +1,37 @@
-import { Dispatch } from 'redux'
-import {
-  CREATE_ALERT,
-  DELETE_ALERT,
-  CLEAR_ALERTS,
-  Alert,
-  AlertActions
-} from 'types/alert'
+import { ALERT, Alert, Alerts, AlertAction } from 'models/alert'
 
 /**
  * Publish an alert
  * - if `dismissAfter` was set, the alert will be auto dismissed after the given period.
  * - if id wasn't specified, a time based id will be generated.
  */
-export const createAlert = (payload: Alert) => (dispatch: Dispatch<AlertActions>) => {
-  if (!payload.id) {
-    payload.id = new Date().getTime().toString()
+export const createAlert = (payload: Alert): AlertAction => ({
+  type: ALERT.CREATE,
+  payload: {
+    ...payload,
+    key: payload.key || new Date().getTime().toString()
   }
-
-  dispatch({ type: CREATE_ALERT, payload })
-
-  if (payload.dismissAfter) {
-    setTimeout(() => { dispatch(deleteAlert(payload.id)) }, payload.dismissAfter)
-  }
-}
-
-/**
- * Dismiss an alert by the given id.
- */
-export const deleteAlert = (id: any) => ({
-  type: DELETE_ALERT,
-  payload: { id }
 })
 
 /**
- * Clear all notifications
+ * Dismiss an alert
  */
-export const clearAlerts = () => ({
-  type: CLEAR_ALERTS
+export const deleteAlert = (payload: Alert): AlertAction => ({
+  type: ALERT.DELETE,
+  payload
 })
 
-export const alertReducer = (state: Alert[] = [], action: AlertActions) => {
-  if (!action || !action.type) {
-    return state
-  }
+export const alertsReducer = (state: Alerts = [], action: AlertAction): Alerts => {
+  const { payload, type } = action
 
-  switch (action.type) {
-    case CREATE_ALERT:
-      return state.concat([action.payload as Alert])
+  if (!payload || !type) return state
 
-    case DELETE_ALERT:
-      return state.filter(({ id }) => id !== action.payload!.id)
+  switch (type) {
+    case ALERT.CREATE:
+      return state.concat(payload)
 
-    case CLEAR_ALERTS:
-      return []
+    case ALERT.DELETE:
+      return state.filter(({ key }) => key !== payload.key)
 
     default:
       return state

@@ -1,32 +1,30 @@
 import * as React from 'react'
-import * as ReactDOM from 'react-dom'
-
-// ROUTER
-import { HashRouter } from 'react-router-dom'
-import { renderRoutes } from 'react-router-config'
-import routes from 'config/routes'
+import { render } from 'react-dom'
 
 // REDUX
 import { Provider } from 'react-redux'
 import { store, persistor } from 'controllers/reduxController'
-const PersistGate = require('redux-persist/es/integration/react').PersistGate
+import { PersistGate } from 'redux-persist/integration/react'
+
+import Page from 'views/layouts/Page'
 
 import 'assets/styles/app.scss'
 
-require('dotenv').config()
-
 declare global {
   interface Window {
-    require: any;
-    process: any;
+    app: any
+    BrowserWindow: any
+    eval: any
+    ipc: any
+    shell: any
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: any;
   }
 }
 
-ReactDOM.render(
+render(
   <Provider store={store}>
-    <PersistGate persistor={persistor}>
-      <HashRouter>{renderRoutes(routes)}</HashRouter>
+    <PersistGate loading={null} persistor={persistor}>
+      <Page />
     </PersistGate>
   </Provider>,
   document.getElementById('root')

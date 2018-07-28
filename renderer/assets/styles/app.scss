@@ -171,7 +171,6 @@ main.dashboard {
 // PROFILE PAGE
 //
 section.profile {
-
   // TODO: convert to flexbox
   .row {
     @extend %clearfix;
@@ -427,5 +426,10 @@ main.welcome {
   .button {
     display: inline-block;
     margin: 3rem 0 0;
+  }
+
+  .logo {
+    display: block;
+    width: 250px;
   }
 }

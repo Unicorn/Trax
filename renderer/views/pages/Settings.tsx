@@ -1,15 +1,14 @@
-import React from 'react'
+import * as React from 'react'
 import { connect } from 'react-redux'
-import { createAlert, clearAlerts } from 'controllers/alertController'
-import { Alert } from 'types/alert'
+import { createAlert } from 'controllers/alertController'
+import { Alert } from 'models/alert'
 
-type SettingsProps = {
+interface Actions {
   createAlert: (payload: Alert) => any;
-  clearAlerts: () => any;
 }
 
-const Settings: React.SFC<SettingsProps> = (props) => {
-  const { createAlert, clearAlerts } = props
+const Settings: React.SFC<Actions> = (props) => {
+  const { createAlert } = props
 
   const _alertSuccess = () => createAlert({
     dismissable: true,
@@ -62,14 +61,13 @@ const Settings: React.SFC<SettingsProps> = (props) => {
             Error Alert
           </button>
         </li>
-        <li>
-          <button className="brown small button" onClick={clearAlerts}>
-            Clear Alerts
-          </button>
-        </li>
       </ul>
     </section>
   )
 }
 
-export default connect(null, { createAlert, clearAlerts })(Settings)
+const mapDispatch = ({
+  createAlert
+})
+
+export default connect(null, mapDispatch)(Settings)

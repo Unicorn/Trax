@@ -17,6 +17,7 @@ __generated__
 /dist
 
 # misc
+.idea/
 "Icon[\r]"
 .DS_Store
 .env.local
@@ -27,3 +28,8 @@ __generated__
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Plain JS
+main/*.js
+renderer/*.js
+*.js.map

@@ -1,53 +1,24 @@
-import { Dispatch } from 'redux'
-import { github } from './githubController'
-import {
-  ADD_ISSUE,
-  ADD_ISSUES,
-  UPDATE_ISSUE,
-  Issue,
-  Issues,
-  CreateIssue,
-  IssueActions,
-} from 'types/issue'
+import { ISSUE, Issues, IssuesAction, defaultState } from 'models/issue'
 
-export const addIssues = (issues: Issue[]) => ({
-  type: ADD_ISSUES,
-  issues
+export const requestIssues = (ident: string): IssuesAction => ({
+  type: ISSUE.REQUEST,
+  ident
 })
 
-export const updateIssue = (issue: Issue) => ({
-  type: UPDATE_ISSUE,
-  issue
+export const receiveIssues = (payload: Issues): IssuesAction => ({
+  type: ISSUE.SUCCESS,
+  payload
 })
 
-// Reducer / Store
-export const createIssue = ({ owner, repo, body }: CreateIssue) => (dispatch: Dispatch<IssueActions>) => {
-  dispatch(github.createIssue({ owner, repo }, { body }))
-    .then((issue: Issue) => {
-      issue.owner = owner
-      issue.repo = repo
-      return dispatch({ type: ADD_ISSUE, issue })
-    })
-    .catch((error: Error) => console.log('error in creating issue', error))
-}
+export const issuesReducer = (state: Issues = defaultState, action: IssuesAction): Issues => {
+  const { payload, type } = action
 
-export const issueReducer = (state: Issues = {}, action: IssueActions) => {
-  let newState = { ...state }
+  switch (type)
+  {
+    case ISSUE.SUCCESS :
+      return payload || state
 
-  switch (action.type) {
-    case ADD_ISSUE:
-      newState[action.issue.id] = action.issue
-      return newState
-
-    case ADD_ISSUES:
-      action.issues.forEach(issue => (newState[issue.id] = issue))
-      return newState
-
-    case UPDATE_ISSUE:
-      newState[action.issue.id] = action.issue
-      return newState
-
-    default:
+    default :
       return state
   }
 }

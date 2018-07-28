@@ -1,0 +1,6 @@
+{
+  "clipboard": false,
+  "port": 3000,
+  "logLevel": "warn",
+  "logTime": true
+}

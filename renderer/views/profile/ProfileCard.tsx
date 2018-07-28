@@ -1,41 +1,18 @@
 import * as React from 'react'
-import { ReadyState, QueryRenderer, graphql } from 'react-relay'
-import { environment } from 'controllers/relayController'
+import { connect } from 'react-redux'
 
-const render = ({ error, props }: ReadyState) => {
-  if (error) {
-    return <div>{error.message}</div>
-  }
-  else if (props) {
-    return (
-      <div className="profile">
-        <img src={props.viewer.avatarUrl} alt="Profile avatar" />
-      </div>
-    )
-  }
-  else {
-    return <div>Loading</div>
-  }
+interface Connected {
+  avatar: string;
 }
 
-const ProfileCard = () => {
-  const variables = {}
-  const query = graphql`
-    query ProfileCardQuery {
-      viewer {
-        avatarUrl
-      }
-    }
-  `
+const ProfileCard: React.SFC<Connected> = ({ avatar }) => (
+  <div className="profile">
+    <img src={avatar} alt="Profile avatar" />
+  </div>
+)
 
-  return (
-    <QueryRenderer
-      variables={variables}
-      environment={environment}
-      query={query}
-      render={render}
-    />
-  )
-}
+const mapState = (state: any) => ({
+  avatar: state.profile.avatarUrl
+})
 
-export default ProfileCard
+export default connect(mapState)(ProfileCard)

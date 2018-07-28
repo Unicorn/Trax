@@ -1,0 +1,16 @@
+import * as React from 'react'
+
+interface Props {
+  widgetName: string
+  isLoading: boolean
+  children: React.ReactNode
+}
+
+const Loadable: React.SFC<Props> = ({ widgetName, isLoading, children }) => (
+  <div className={`loadable ${widgetName} ${isLoading && 'loading'}`}>
+    {isLoading && <div className="loading"><h2>Loading...</h2></div>}
+    {children}
+  </div>
+)
+
+export default Loadable

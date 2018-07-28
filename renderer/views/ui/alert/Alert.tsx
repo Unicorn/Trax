@@ -1,22 +1,23 @@
-import React from 'react'
+import * as React from 'react'
 import { connect } from 'react-redux'
+
 import { deleteAlert } from 'controllers/alertController'
-import { Alert } from 'types/alert'
+import { Alert } from 'models/alert'
 import CloseIcon from 'views/ui/icons/CloseIcon'
 
 type AlertProps = {
-  payload: Alert;
+  alert: Alert;
   deleteAlert: (id: any) => any;
 }
 
 const Alert: React.SFC<AlertProps> = (props) => {
-  const { deleteAlert, payload: { id, type, message, dismissable } } = props
+  const { deleteAlert, alert } = props
 
   return (
-    <div className={`alert ${type}`}>
-      {message}
+    <div className={`alert ${alert.type}`}>
+      {alert.message}
 
-      {dismissable && (<button onClick={() => { deleteAlert(id) }} className="close icon">
+      {alert.dismissable && (<button onClick={() => { deleteAlert(alert) }} className="close icon">
         <CloseIcon />
       </button>)}
     </div>

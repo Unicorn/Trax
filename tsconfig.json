@@ -1,20 +1,16 @@
 {
   "compilerOptions": {
-    "allowJs": true,
-    "baseUrl": "./renderer",
-    "rootDir": "./renderer",
+    "baseUrl": "./renderer/",
     "jsx": "react",
-    "strict": true,
+    "lib": ["es7", "dom"],
+    "module": "commonjs",
+    "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "pretty": true,
     "sourceMap": true,
-    "moduleResolution": "node",
-    "target": "es6",
-    "lib": ["es7", "dom"]
+    "strict": true,
+    "target": "es6"
   },
-  "include": ["./renderer/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "include": ["./renderer/**/*"]
 }

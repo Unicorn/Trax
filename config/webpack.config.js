@@ -1,74 +1,80 @@
 const { CheckerPlugin } = require('awesome-typescript-loader')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const Dotenv = require('dotenv-webpack')
 const path = require('path')
 
 module.exports = {
+  target: 'electron-renderer',
   entry: path.resolve(__dirname, '../renderer/index.tsx'),
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, '../build'),
+    path: path.resolve(__dirname, '../build')
   },
 
   // Enable sourcemaps for debugging webpack's output.
   devtool: 'source-map',
 
-  serve: {
-    clipboard: false,
-    port: 8080,
-    logLevel: 'warn',
-    logTime: true,
-  },
-
   resolve: {
-    extensions: ['.ts', '.tsx', '.js'],
+    // Add '.ts' and '.tsx' as resolvable extensions.
+    extensions: ['.ts', '.tsx', '.js', '.json'],
     modules: [
       path.resolve(__dirname, '../renderer'),
       path.resolve(__dirname, '../main'),
-      path.resolve(__dirname, '../node_modules'),
-    ],
+      path.resolve(__dirname, '../node_modules')
+    ]
   },
 
   module: {
     rules: [
       // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
       {
-        test: /\.ts|\.tsx|\.js|\.jsx$/,
+        test: /\.tsx?$/,
         exclude: path.resolve(__dirname, '../node_modules'),
-        use: ['babel-loader', 'awesome-typescript-loader'],
+        loader: 'awesome-typescript-loader'
       },
 
       // File loader handles SVG, WAV, etc
       {
-        test: /\.wav|\.mp3|\.png|\.svg$/,
-        loader: 'file-loader',
+        test: /\.wav|\.mp3|\.svg|\.woff2$/,
+        loader: 'file-loader'
+      },
+
+      // Url loader handles fonts and such
+      {
+        test: /\.woff2$/,
+        loader: 'url-loader'
+      },
+
+      // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+      {
+        enforce: 'pre',
+        test: /\.js|\.tsx?$/,
+        loader: 'source-map-loader'
       },
 
       // Load styles
       {
-        test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
-      },
-    ],
+        test: /\.scss|\.css$/,
+        use: ['style-loader', 'css-loader', 'sass-loader']
+      }
+    ]
   },
 
   plugins: [
-    new Dotenv(),
     new HtmlWebpackPlugin({
       inject: true,
       title: 'Trax',
       filename: 'index.html',
-      template: path.resolve(__dirname, '../public/index.html'),
+      template: path.resolve(__dirname, '../public/index.html')
     }),
     new CheckerPlugin(),
-    new CopyWebpackPlugin([{ from: 'public' }, { from: 'main' }]),
+    new CopyWebpackPlugin([{ from: 'public' }, { from: 'main' }])
   ],
 
   node: {
     fs: 'empty',
     net: 'empty',
     tls: 'empty',
-    dns: 'empty',
-  },
+    dns: 'empty'
+  }
 }
