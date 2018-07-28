@@ -1,12 +1,13 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import Fuse from 'fuse.js'
+
 import { DragDropContext } from 'react-beautiful-dnd'
 import { requestIssues } from 'controllers/issueController'
 import { Tracks } from 'models/track'
 import { Issues, Issue } from 'models/issue'
-import { groupByLane } from 'helpers/issueHelper'
+import { groupByLane, filterIssues } from 'helpers/issueHelper'
 import Lane from 'views/issues/Lane'
+import SearchIssues from 'views/issues/SearchIssues'
 import { SWIMLANES } from 'config/constants'
 
 interface Connected {
@@ -39,14 +40,25 @@ class Board extends React.Component<Connected, State> {
 
   componentWillReceiveProps() {
     const { issues } = this.props
-    const grouped = groupByLane(issues)
-    console.log('grouped', grouped)
-    this.setState(grouped)
+    console.log('componentWillReceiveProps', issues)
+    this.setState(groupByLane(issues))
+  }
+
+  _filterIssues = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { backlog, started, review, complete } = this.state
+    const text = _.trim(e.target.value)
+
+
+    this.setState({
+      backlog: filterIssues(text, backlog),
+      started: filterIssues(text, started),
+      review: filterIssues(text, review),
+      complete: filterIssues(text, complete),
+    })
   }
 
   _onDragEnd(result: any) {
     console.log('_onDragEnd', result)
-    console.log("Fuse", Fuse)
   }
 
   render() {
@@ -56,10 +68,7 @@ class Board extends React.Component<Connected, State> {
     return (
       <div>
         <header className="search">
-          <input
-            type="text"
-            placeholder="Search for tasks..."
-          />
+          <SearchIssues handler={this._filterIssues} />
 
           <div className="actions">
             <button className="brown basic micro button">
