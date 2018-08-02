@@ -3,13 +3,6 @@ import * as Fuse from 'fuse.js'
 import { Issues, Issue } from 'models/issue'
 import { LANES } from 'config/constants'
 
-// interface GroupByLane {
-//   backlog?: Issue[],
-//   started?: Issue[],
-//   review?: Issue[],
-//   complete?: Issue[],
-// }
-
 export const issuesWithoutLanes = (issues: Issues) => {
   const arr = issuesArray(issues)
 
@@ -27,9 +20,6 @@ export const issuesArray = (issues: Issues): Issue[] =>  {
 
   return result.map((id: number) => entities.issues[id])
 }
-
-// export const groupByLane = (issues: Issues): GroupByLane => _.groupBy(issuesArray(issues), (i: Issue) => i.lane)
-
 
 export const filterIssues = (text: string, issues: Issue[]): Issue[] => {
   const options = {

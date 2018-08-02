@@ -40,8 +40,6 @@ function* watchIssueSwitchLanes(action: IssuesAction) {
   const labels = rawLabels.filter(l => l.name !== from).map(l => l.name)
   labels.push(to)
 
-  console.log('labels', labels)
-
   const request = {
     params: { owner, repo, number: issue.number },
     body: { labels }

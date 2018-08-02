@@ -89,5 +89,5 @@ export const fetchIssueUpdate = (request: Request) => {
     params: request.params
   }
 
-  return github(`repos/${owner}/${repo}/issues/${number}`, options)
+  return github(`repos/${owner}/${repo}/issues/${number}`, options, schema.issue)
 }

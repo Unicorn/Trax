@@ -35,6 +35,7 @@ export const issuesReducer = (state: Issues = defaultState, action: IssuesAction
       console.log("REQUEST", payload, action.from, action.to)
 
     case ISSUE.UPDATE_SUCCESS :
+      console.log("UPDATE_SUCCESS", payload)
       let issue = payload as Issue
       newState.entities.issues[issue.id] = issue
       return newState
