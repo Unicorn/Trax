@@ -68,10 +68,26 @@ export const fetchCreateLabel = ({ owner, repo }: any, request: any) => github(`
 
 export const fetchIssues = (request: Request) => {
   const { params: { owner, repo } } = request
-  return github(`repos/${owner}/${repo}/issues`, request, schema.issues)
+  const options = {
+    headers: {
+      Accept: 'application/vnd.github.symmetra-preview+json',
+    },
+    params: request.params
+  }
+
+  return github(`repos/${owner}/${repo}/issues`, options, schema.issues)
 }
 
 export const fetchIssueUpdate = (request: Request) => {
-  const { params: { owner, repo, number } } = request
-  return github(`repos/${owner}/${repo}/issues/${number}`, request)
+  const { body, params: { owner, repo, number } } = request
+  const options = {
+    headers: {
+      Accept: 'application/vnd.github.symmetra-preview+json',
+    },
+    method: 'PATCH',
+    body,
+    params: request.params
+  }
+
+  return github(`repos/${owner}/${repo}/issues/${number}`, options)
 }

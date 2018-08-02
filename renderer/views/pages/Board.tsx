@@ -1,11 +1,12 @@
 import * as React from 'react'
+import * as _ from 'lodash'
 import { connect } from 'react-redux'
 
-import { DragDropContext } from 'react-beautiful-dnd'
-import { requestIssues } from 'controllers/issueController'
+import { DragDropContext, DropResult } from 'react-beautiful-dnd'
+import { requestIssues, switchLanes } from 'controllers/issueController'
 import { Tracks } from 'models/track'
 import { Issues, Issue } from 'models/issue'
-import { groupByLane, filterIssues } from 'helpers/issueHelper'
+import { issuesArray, filterIssues } from 'helpers/issueHelper'
 import Lane from 'views/issues/Lane'
 import SearchIssues from 'views/issues/SearchIssues'
 import { SWIMLANES } from 'config/constants'
@@ -17,53 +18,55 @@ interface Connected {
 }
 
 interface State {
-  backlog?: Issue[]
-  started?: Issue[]
-  review?: Issue[]
-  complete?: Issue[]
+  issuesArr: Issue[]
 }
 
 class Board extends React.Component<Connected, State> {
 
   state = {
-    backlog: [],
-    started: [],
-    review: [],
-    complete: [],
+    issuesArr: []
   }
 
   componentWillMount() {
     const { dispatch, tracks } = this.props
-
     tracks.forEach(t => dispatch(requestIssues(t.ident)))
   }
 
-  componentWillReceiveProps() {
-    const { issues } = this.props
-    console.log('componentWillReceiveProps', issues)
-    this.setState(groupByLane(issues))
+  componentWillReceiveProps(props: Connected) {
+    this.setState({ issuesArr: issuesArray(props.issues) })
   }
 
   _filterIssues = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { backlog, started, review, complete } = this.state
+    const issuesArr = issuesArray(this.props.issues)
     const text = _.trim(e.target.value)
 
-
-    this.setState({
-      backlog: filterIssues(text, backlog),
-      started: filterIssues(text, started),
-      review: filterIssues(text, review),
-      complete: filterIssues(text, complete),
-    })
+    if (text.length === 0)
+      this.setState({ issuesArr })
+    else
+      this.setState({ issuesArr: filterIssues(text, issuesArr) })
   }
 
-  _onDragEnd(result: any) {
+  _onDragEnd = (result: DropResult) => {
     console.log('_onDragEnd', result)
+    const { dispatch, issues: { entities } } = this.props
+    const { source, destination, draggableId } = result
+
+    if (!destination || !entities)
+      return
+
+    // If the issue changed lanes
+    if (entities && source.droppableId !== destination.droppableId) {
+      let issue = entities.issues[parseInt(draggableId)]
+      dispatch(switchLanes(issue, source.droppableId, destination.droppableId))
+    }
   }
 
   render() {
-    console.log('state', this.state)
-    const { backlog, started, review, complete } = this.state
+    const issues = this.state.issuesArr
+    const backlog = issues.filter((issue: Issue) => issue.lane === SWIMLANES.backlog.name)
+    const started = issues.filter((issue: Issue) => issue.lane === SWIMLANES.started.name)
+    const review = issues.filter((issue: Issue) => issue.lane === SWIMLANES.review.name)
+    const complete = issues.filter((issue: Issue) => issue.lane === SWIMLANES.complete.name)
 
     return (
       <div>
@@ -90,7 +93,7 @@ class Board extends React.Component<Connected, State> {
 
 const mapState = (state: any) => ({
   tracks: state.tracks,
-  issues: state.issues
+  issues: state.issues,
 })
 
 export default connect(mapState)(Board)

@@ -1,12 +1,15 @@
 import { Users, User } from 'models/user'
-import { Label } from 'models/label'
+import { Labels } from 'models/label'
 import { Milestone } from 'models/milestone'
 import { Lane } from 'config/constants'
 
 export enum ISSUE {
   REQUEST = 'trax/github/issues/REQUEST',
   SUCCESS = 'trax/github/issues/SUCCESS',
-  FAILURE = 'trax/github/issues/FAILURE'
+  FAILURE = 'trax/github/issues/FAILURE',
+  UPDATE_REQUEST = 'trax/github/issue/UPDATE/REQUEST',
+  UPDATE_SUCCESS = 'trax/github/issue/UPDATE/SUCCESS',
+  UPDATE_FAILURE = 'trax/github/issue/UPDATE/FAILURE',
 }
 
 export interface Issue {
@@ -25,7 +28,7 @@ export interface Issue {
   title: string
   body: string
   user: User
-  labels: Label[]
+  labels: Labels
   assignee: User
   assignees: Users
   milestone: Milestone
@@ -45,7 +48,7 @@ export interface Issue {
 
 export interface Issues {
   isLoading: boolean
-  entities?: {
+  entities: {
     issues: {
       [key: number]: Issue
     }
@@ -56,10 +59,15 @@ export interface Issues {
 
 export interface IssuesAction {
   type: ISSUE
-  payload?: Issues
+  payload?: Issues | Issue
   ident?: string
+  from?: string
+  to?: string
 }
 
 export const defaultState = {
-  isLoading: false
+  isLoading: false,
+  entities: {
+    issues: {}
+  }
 }

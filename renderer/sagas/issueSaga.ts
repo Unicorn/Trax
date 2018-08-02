@@ -1,8 +1,9 @@
 import { put, call, fork, takeEvery } from 'redux-saga/effects'
 import { fetchIssues, fetchIssueUpdate } from 'services/githubService'
-import { receiveIssues } from 'controllers/issueController'
+import { receiveIssues, receiveIssue } from 'controllers/issueController'
 import { issuesWithoutLanes } from 'helpers/issueHelper'
 import { ISSUE, IssuesAction, Issue } from 'models/issue'
+import { Labels } from 'models/label'
 import { SWIMLANES } from 'config/constants'
 
 function* watchIssuesRequest(action: IssuesAction) {
@@ -10,41 +11,47 @@ function* watchIssuesRequest(action: IssuesAction) {
 
   const { ident } = action
   const [owner, repo]: any = ident.split('/')
-  const params = { owner, repo, ident }
-  const request = {
-    headers: {
-      Accept: 'application/vnd.github.symmetra-preview+json',
-    },
-    params
-  }
+  const request = { params: { owner, repo, ident } }
   const issues = yield call(fetchIssues, request)
-  console.log('issues', issues)
 
-  const backlogIssues = issuesWithoutLanes(issues)
-
-  console.log('backlogIssues', backlogIssues)
-
-  yield backlogIssues.map((issue: Issue) => {
-    let request2 = {
-      ...request,
-      method: 'PATCH',
+  yield issuesWithoutLanes(issues).map(({ labels, number }: Issue) => {
+    let req = {
+      params: { owner, repo, ident, number },
       body: {
-        labels: [...issue.labels, SWIMLANES.backlog.name]
-      },
-      params: { ...params, number: issue.number }
+        labels: [...labels, SWIMLANES.backlog.name]
+      }
     }
 
-    return fork(fetchIssueUpdate, request2)
+    return fork(fetchIssueUpdate, req)
   })
 
   const issuesAgain = yield call(fetchIssues, request)
 
-  console.log("issuesAgain", issuesAgain)
-
   yield put(receiveIssues(issuesAgain))
 }
 
+function* watchIssueSwitchLanes(action: IssuesAction) {
+  if (!action.payload || !action.from || !action.to) return
+
+  const { payload, from, to } = action
+  const issue = payload as Issue
+  const [owner, repo]: any = issue.ident.split('/')
+  const rawLabels = issue.labels
+  const labels = rawLabels.filter(l => l.name !== from).map(l => l.name)
+  labels.push(to)
+
+  console.log('labels', labels)
+
+  const request = {
+    params: { owner, repo, number: issue.number },
+    body: { labels }
+  }
+  const newIssue = yield call(fetchIssueUpdate, request)
+
+  yield put(receiveIssue(newIssue))
+}
 
 export default function* issueSaga() {
   yield takeEvery(ISSUE.REQUEST, watchIssuesRequest)
+  yield takeEvery(ISSUE.UPDATE_REQUEST, watchIssueSwitchLanes)
 }
