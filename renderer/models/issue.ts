@@ -1,16 +1,10 @@
+import { createActionName, GithubActions } from 'helpers/reduxHelper'
 import { Users, User } from 'models/user'
 import { Labels } from 'models/label'
 import { Milestone } from 'models/milestone'
 import { Lane } from 'config/constants'
 
-export enum ISSUE {
-  REQUEST = 'trax/github/issues/REQUEST',
-  SUCCESS = 'trax/github/issues/SUCCESS',
-  FAILURE = 'trax/github/issues/FAILURE',
-  UPDATE_REQUEST = 'trax/github/issue/UPDATE/REQUEST',
-  UPDATE_SUCCESS = 'trax/github/issue/UPDATE/SUCCESS',
-  UPDATE_FAILURE = 'trax/github/issue/UPDATE/FAILURE',
-}
+export const ISSUE = Object.assign({}, createActionName('ISSUE', 'LIST'), createActionName('ISSUE', 'UPDATE'))
 
 export interface Issue {
   ident: string
@@ -58,7 +52,7 @@ export interface Issues {
 }
 
 export interface IssuesAction {
-  type: ISSUE
+  type: GithubActions
   payload?: Issues | Issue
   ident?: string
   from?: string

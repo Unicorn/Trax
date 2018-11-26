@@ -3,7 +3,7 @@ import * as _ from 'lodash'
 import { connect } from 'react-redux'
 
 import { DragDropContext, DropResult } from 'react-beautiful-dnd'
-import { requestIssues, switchLanes } from 'controllers/issueController'
+import { issuesList, switchLanes } from 'controllers/issueController'
 import { Tracks } from 'models/track'
 import { Issues, Issue } from 'models/issue'
 import { issuesArray, filterIssues } from 'helpers/issueHelper'
@@ -29,7 +29,7 @@ class Board extends React.Component<Connected, State> {
 
   componentWillMount() {
     const { dispatch, tracks } = this.props
-    tracks.forEach(t => dispatch(requestIssues(t.ident)))
+    tracks.forEach(t => dispatch(issuesList.request(t.ident)))
   }
 
   componentWillReceiveProps(props: Connected) {

@@ -1,22 +1,24 @@
+import { action } from 'helpers/reduxHelper'
 import { ISSUE, Issues, Issue, IssuesAction, defaultState } from 'models/issue'
 
-export const requestIssues = (ident: string): IssuesAction => ({
-  type: ISSUE.REQUEST,
-  ident
-})
+export const issuesList = {
+  request: (ident: string) => action(ISSUE.LIST.REQUEST, { ident }),
+  success: (payload: Issues) => action(ISSUE.LIST.SUCCESS, { payload }),
+  failure: (payload: any) => action(ISSUE.LIST.FAILURE, { payload })
+}
 
 export const receiveIssues = (payload: Issues): IssuesAction => ({
-  type: ISSUE.SUCCESS,
+  type: ISSUE.LIST.SUCCESS,
   payload
 })
 
 export const receiveIssue = (payload: Issue): IssuesAction => ({
-  type: ISSUE.UPDATE_SUCCESS,
+  type: ISSUE.UPDATE.SUCCESS,
   payload
 })
 
 export const switchLanes = (payload: Issue, from: string, to: string): IssuesAction => ({
-  type: ISSUE.UPDATE_REQUEST,
+  type: ISSUE.UPDATE.REQUEST,
   payload,
   from,
   to
@@ -26,15 +28,17 @@ export const issuesReducer = (state: Issues = defaultState, action: IssuesAction
   const { payload, type } = action
   const newState = { ...state }
 
+  console.log("issuesReducer", ISSUE)
+
   switch (type)
   {
-    case ISSUE.SUCCESS :
+    case ISSUE.LIST.SUCCESS :
       return (payload as Issues) || state
 
-    case ISSUE.UPDATE_REQUEST :
+    case ISSUE.UPDATE.REQUEST :
       console.log("REQUEST", payload, action.from, action.to)
 
-    case ISSUE.UPDATE_SUCCESS :
+    case ISSUE.UPDATE.SUCCESS :
       console.log("UPDATE_SUCCESS", payload)
       let issue = payload as Issue
       newState.entities.issues[issue.id] = issue

@@ -1,6 +1,6 @@
 import { takeEvery, put } from 'redux-saga/effects'
 import { requestProfile } from 'controllers/profileController'
-import { requestIssues } from 'controllers/issueController'
+import { issuesList } from 'controllers/issueController'
 import { Track } from 'models/track'
 
 function* watchPersist(action: any) {
@@ -13,7 +13,7 @@ function* watchPersist(action: any) {
     yield put(requestProfile())
 
   if (tracks && tracks.length > 0)
-    yield tracks.map((t: Track) => put(requestIssues(t.ident)))
+    yield tracks.map((t: Track) => put(issuesList.request(t.ident)))
 }
 
 export default function* persistSaga() {
