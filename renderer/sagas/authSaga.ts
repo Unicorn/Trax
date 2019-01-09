@@ -56,6 +56,9 @@ const getGithubAuthCode = () => {
     })
 
     contents.on('will-navigate', (_e: Event, url: string) => {
+      console.log("will-navigate stuffs")
+      debugger
+
       if (!url.match(MICROSERVICE.API)) return
 
       console.log('will-navigate', url)
@@ -66,16 +69,16 @@ const getGithubAuthCode = () => {
       emit(END)
     })
 
-    contents.on('did-get-redirect-request', (_e: Event, _old: string, url: string) => {
-      if (!url.match(MICROSERVICE.API)) return
-
-      console.log('did-get-redirect-request', url)
-      contents.stop()
-      const { code, error } = parseGithubAuth(url)
-
-      emit({ code, error })
-      emit(END)
-    })
+    // contents.on('did-get-redirect-request', (_e: Event, _old: string, url: string) => {
+    //   if (!url.match(MICROSERVICE.API)) return
+    //
+    //   console.log('did-get-redirect-request', url)
+    //   contents.stop()
+    //   const { code, error } = parseGithubAuth(url)
+    //
+    //   emit({ code, error })
+    //   emit(END)
+    // })
 
     return () => window.authWindow.destroy()
   })

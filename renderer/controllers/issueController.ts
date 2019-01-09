@@ -28,8 +28,6 @@ export const issuesReducer = (state: Issues = defaultState, action: IssuesAction
   const { payload, type } = action
   const newState = { ...state }
 
-  console.log("issuesReducer", ISSUE)
-
   switch (type)
   {
     case ISSUE.LIST.SUCCESS :
