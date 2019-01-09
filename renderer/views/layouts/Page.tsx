@@ -4,6 +4,7 @@ import { Auth } from 'models/auth'
 
 import Dashboard from 'views/layouts/Dashboard'
 import Welcome from 'views/layouts/Welcome'
+import Create from 'views/pages/Create'
 import Board from 'views/pages/Board'
 import Profile from 'views/pages/Profile'
 import Report from 'views/pages/Report'
@@ -26,8 +27,8 @@ const Page: React.SFC<Connected> = ({ page, auth }) => {
     case ROUTES.board.name :
       child = <Board />
       break
-    case ROUTES.board.name :
-      child = <Board />
+    case ROUTES.create.name :
+      child = <Create />
       break
     case ROUTES.profile.name :
       child = <Profile />

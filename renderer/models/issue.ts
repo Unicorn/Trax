@@ -40,20 +40,30 @@ export interface Issue {
   updatedAt: string | null
 }
 
-export interface Issues {
+export interface ReceiveIssue {
   isLoading: boolean
+  result: number
   entities: {
     issues: {
       [key: number]: Issue
     }
   }
+}
+
+export interface Issues {
+  isLoading: boolean
   result?: [number]
   nextPageUrl?: string
+  entities: {
+    issues: {
+      [key: number]: Issue
+    }
+  }
 }
 
 export interface IssuesAction {
   type: GithubActions
-  payload?: Issues | Issue
+  payload?: Issues | Issue | ReceiveIssue
   ident?: string
   from?: string
   to?: string

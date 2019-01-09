@@ -1,6 +1,6 @@
 export const SET_SETTING = 'trax/settings/SET_SETTING'
 
-export type ActivePageValues = 'welcome' | 'board' | 'profile' | 'report' | 'invoice' | 'settings'
+export type ActivePageValues = 'welcome' | 'create' | 'board' | 'profile' | 'report' | 'invoice' | 'settings'
 
 type ActivePage = {
   key: 'page'

@@ -1,5 +1,6 @@
 import { action } from 'helpers/reduxHelper'
-import { ISSUE, Issues, Issue, IssuesAction, defaultState } from 'models/issue'
+import { ISSUE, Issues, Issue, ReceiveIssue, IssuesAction, defaultState } from 'models/issue'
+import { Lane } from 'config/constants'
 
 export const issuesList = {
   request: (ident: string) => action(ISSUE.LIST.REQUEST, { ident }),
@@ -12,7 +13,7 @@ export const receiveIssues = (payload: Issues): IssuesAction => ({
   payload
 })
 
-export const receiveIssue = (payload: Issue): IssuesAction => ({
+export const receiveIssue = (payload: ReceiveIssue): IssuesAction => ({
   type: ISSUE.UPDATE.SUCCESS,
   payload
 })
@@ -27,6 +28,7 @@ export const switchLanes = (payload: Issue, from: string, to: string): IssuesAct
 export const issuesReducer = (state: Issues = defaultState, action: IssuesAction): Issues => {
   const { payload, type } = action
   const newState = { ...state }
+  var issue
 
   switch (type)
   {
@@ -34,12 +36,20 @@ export const issuesReducer = (state: Issues = defaultState, action: IssuesAction
       return (payload as Issues) || state
 
     case ISSUE.UPDATE.REQUEST :
-      console.log("REQUEST", payload, action.from, action.to)
+      issue = payload as Issue
+      newState.entities.issues[issue.id] = {
+        ...issue,
+        lane: action.to as Lane
+      }
+      return newState
 
     case ISSUE.UPDATE.SUCCESS :
-      console.log("UPDATE_SUCCESS", payload)
-      let issue = payload as Issue
-      newState.entities.issues[issue.id] = issue
+      issue = payload as ReceiveIssue
+      if (issue.result)
+        newState.entities.issues[issue.result] = {
+          ...newState.entities.issues[issue.result],
+          ...issue.entities.issues[issue.result]
+        }
       return newState
 
     default :

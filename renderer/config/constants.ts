@@ -37,6 +37,10 @@ export const ROUTES: Routes = {
     name: 'welcome',
     path: '/welcome',
   },
+  create: {
+    name: 'create',
+    path: '/create',
+  },
   board: {
     name: 'board',
     path: '/board',

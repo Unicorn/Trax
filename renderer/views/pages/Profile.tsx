@@ -28,16 +28,7 @@ const Profile: React.SFC = () => (
         <Accordion trigger="I don't see my organization">
           <p>
             Depending on your organization's setting, you may have to enable
-            access.
-            <ExternalLink
-              url="https://github.com/settings/connections/applications/67c705a18a7b8576a4c1"
-              showIcon={true}
-            >
-              Open your github settings
-            </ExternalLink>{' '}
-            and scroll down to "Organization settings" on the bottom of the
-            left column. Make sure that that you grant access to whichever
-            organizations that you want to use within Trax.
+            access. <ExternalLink url="https://github.com/settings/connections/applications/67c705a18a7b8576a4c1" showIcon={true}>Open your github settings</ExternalLink> and scroll down to "Organization settings" on the bottom of the left column. Make sure that that you grant access to whichever organizations that you want to use within Trax.
           </p>
         </Accordion>
       </div>

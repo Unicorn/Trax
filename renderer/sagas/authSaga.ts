@@ -49,39 +49,6 @@ const getGithubAuthCode = () => {
   const contents = window.authWindow.webContents
 
   return eventChannel(emit => {
-<<<<<<< HEAD
-    contents.on('did-fail-load', (_e: Event, _errCode: number, error: string, url: string) => {
-      if (!url.match(GITHUB.HOST)) return
-
-      console.log(`Invalid Hostname - ${_errCode}`, `Could not load ${GITHUB.HOST}. ${error}`)
-      emit({ error })
-    })
-
-    contents.on('will-navigate', (_e: Event, url: string) => {
-      console.log("will-navigate stuffs")
-      debugger
-
-      if (!url.match(MICROSERVICE.API)) return
-
-      console.log('will-navigate', url)
-      contents.stop()
-      const { code, error } = parseGithubAuth(url)
-
-      emit({ code, error })
-      emit(END)
-    })
-
-    // contents.on('did-get-redirect-request', (_e: Event, _old: string, url: string) => {
-    //   if (!url.match(MICROSERVICE.API)) return
-    //
-    //   console.log('did-get-redirect-request', url)
-    //   contents.stop()
-    //   const { code, error } = parseGithubAuth(url)
-    //
-    //   emit({ code, error })
-    //   emit(END)
-    // })
-=======
     const filter = { urls: [ `${MICROSERVICE.API}/*`] }
     contents.session.webRequest.onBeforeRequest(filter, (details, callback) => {
       const { code, error } = parseGithubAuth(details.url)
@@ -89,7 +56,6 @@ const getGithubAuthCode = () => {
       emit(END)
       callback({})
     })
->>>>>>> ad48ae6b2e7e431480fe64a594681bae96e0a69b
 
     return () => window.authWindow.destroy()
   })

@@ -45,6 +45,8 @@ function* watchIssueSwitchLanes(action: IssuesAction) {
   }
   const newIssue = yield call(fetchIssueUpdate, request)
 
+  console.log("newIssue", newIssue)
+
   yield put(receiveIssue(newIssue))
 }
 

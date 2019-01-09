@@ -47,7 +47,6 @@ class Board extends React.Component<Connected, State> {
   }
 
   _onDragEnd = (result: DropResult) => {
-    console.log('_onDragEnd', result)
     const { dispatch, issues: { entities } } = this.props
     const { source, destination, draggableId } = result
 
