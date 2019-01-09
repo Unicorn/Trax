@@ -17,12 +17,13 @@ declare global {
 }
 
 const createAuthWindow = () => {
+
   // Build the OAuth consent page URL
   const win = new window.BrowserWindow({
     width: 600,
     height: 750,
     show: true,
-    titleBarStyle: 'hidden-inset',
+    titleBarStyle: 'hiddenInset',
     webPreferences: {
       nodeIntegration: false,
     },
@@ -48,6 +49,7 @@ const getGithubAuthCode = () => {
   const contents = window.authWindow.webContents
 
   return eventChannel(emit => {
+<<<<<<< HEAD
     contents.on('did-fail-load', (_e: Event, _errCode: number, error: string, url: string) => {
       if (!url.match(GITHUB.HOST)) return
 
@@ -79,6 +81,15 @@ const getGithubAuthCode = () => {
     //   emit({ code, error })
     //   emit(END)
     // })
+=======
+    const filter = { urls: [ `${MICROSERVICE.API}/*`] }
+    contents.session.webRequest.onBeforeRequest(filter, (details, callback) => {
+      const { code, error } = parseGithubAuth(details.url)
+      emit({ code, error })
+      emit(END)
+      callback({})
+    })
+>>>>>>> ad48ae6b2e7e431480fe64a594681bae96e0a69b
 
     return () => window.authWindow.destroy()
   })
@@ -103,7 +114,6 @@ function* watchLogout() {
 
 function* watchAuthRequest() {
   yield createAuthWindow()
-
   const authCode = yield call(getGithubAuthCode)
   const { code, error } = yield take(authCode)
 
