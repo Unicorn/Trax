@@ -2,6 +2,8 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { logout } from 'controllers/authController'
 import Navigation from 'views/sections/Navigation'
+import NavLink from 'views/ui/NavLink'
+import { ROUTES } from 'config/constants'
 
 interface Props {
   children: React.ReactNode
@@ -16,9 +18,7 @@ const Dashboard: React.SFC<Props & Actions> = ({ children, logout }) => (
     <div>
       <header className="toolbar">
         <div className="actions">
-          <button className="basic micro button">
-            Create Issue
-          </button>
+          <NavLink className="basic micro button" name={ROUTES.create.name}>Create Issue</NavLink>
 
           <button className="red micro button" onClick={logout}>
             Logout

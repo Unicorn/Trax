@@ -1,0 +1,11 @@
+.columns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 45%;
+  }
+}
