@@ -1,28 +1,35 @@
 import * as React from 'react'
 import { reduxForm, Field } from 'redux-form'
+import FormField from 'views/ui/form/FormField'
 
-const Create: React.SFC<{}> = () => {
+const Create: React.FC<any> = () => {
+
+  const submit = (values: any) => {
+    // print the form values to the console
+    console.log('submit', values)
+  }
 
   return (
     <section className="create page">
       <header>
         <h1>Create Issue</h1>
-        <form className="columns">
+        <form className="columns" onSubmit={submit}>
           <div className="left column">
-            <div className="field text">
+            <FormField
+              name="title"
+              type="text"
+              label="Title"
+            />
+
+            <div className="field textarea">
               <Field
-                name="title"
-                component="input"
-                type="text"
+                name="description"
+                component="textarea"
+                type="textarea"
                 required
               />
-              <label htmlFor="title">Title</label>
+              <label htmlFor="description">Description</label>
               <span />
-            </div>
-
-            <div className="field text">
-              <span>Description</span>
-              <textarea name="body"></textarea>
             </div>
 
             <button className="basic button">Submit</button>
@@ -50,5 +57,8 @@ const Create: React.SFC<{}> = () => {
   )
 }
 
+const formOptions = {
+  form: 'createIssue',
+}
 
-export default reduxForm<any>({})(Create)
+export default reduxForm<any>(formOptions)(Create)
