@@ -2,11 +2,11 @@
 exports.__esModule = true;
 var path = require("path");
 var electron_1 = require("electron");
-var isDev = function () { return (process.defaultApp || /node_modules[\\/]electron[\\/]/.test(process.execPath)); };
+var isDev = require('electron-is-dev');
 var mainWindow;
 var tray;
 var installExtensions = function () {
-    require('electron-debug')({ showDevTools: true, enabled: true });
+    require('electron-debug')({ showDevTools: false, enabled: true });
     var _a = require('electron-devtools-installer'), installExtension = _a["default"], REACT_DEVELOPER_TOOLS = _a.REACT_DEVELOPER_TOOLS, REACT_PERF = _a.REACT_PERF, REDUX_DEVTOOLS = _a.REDUX_DEVTOOLS;
     var extensions = [REACT_DEVELOPER_TOOLS, REACT_PERF, REDUX_DEVTOOLS];
     extensions.map(function (name) {
@@ -15,7 +15,8 @@ var installExtensions = function () {
     });
 };
 var createTray = function () {
-    tray = new electron_1.Tray(path.join(__dirname, '../public/icons/trayTemplate.png'));
+    var iconPath = isDev ? '../public/icons/trayTemplate.png' : './icons/trayTemplate.png';
+    tray = new electron_1.Tray(path.join(__dirname, iconPath));
 };
 var createWindow = function () {
     // CREATE MENU

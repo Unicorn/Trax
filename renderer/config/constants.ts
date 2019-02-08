@@ -86,6 +86,64 @@ export const SWIMLANES = {
   },
 }
 
+interface ILABEL {
+  [key: string]: {
+    label: string
+    name: string
+    color: string
+  }
+}
+
+export const LABELS: ILABEL = {
+  ...SWIMLANES,
+
+  high: {
+    label: 'High Priority',
+    name: '!!!',
+    color: '#DD5A5A'
+  },
+  medium: {
+    label: 'Medium Priority',
+    name: '!!',
+    color: '#E79595'
+  },
+  low: {
+    label: 'Low Priority',
+    name: '!',
+    color: '#F9D4D4'
+  },
+  epic: {
+    label: 'Epic',
+    name: '---epic',
+    color: '#7E5ADD'
+  },
+  story: {
+    label: 'Story',
+    name: '--story',
+    color: '#AA8FEF'
+  },
+  feature: {
+    label: 'Feature',
+    name: '-feature',
+    color: '#D0C1F9'
+  },
+  bug: {
+    label: 'Bug',
+    name: '-bug',
+    color: '#D0C1F9'
+  },
+  ux: {
+    label: 'User Experience',
+    name: '<UX>',
+    color: '#E8E4AA'
+  },
+  ui: {
+    label: 'User Interface',
+    name: '<UI>',
+    color: '#AAE8CB'
+  }
+}
+
 export const LANES = [
   SWIMLANES.backlog.name,
   SWIMLANES.started.name,

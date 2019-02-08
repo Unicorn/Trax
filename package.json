@@ -3,7 +3,7 @@
   "homepage": "./",
   "author": "Unicorn LLC <hello@unicorn.xxx>",
   "description": "A desktop application for managing Github Projects",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "private": true,
   "main": "main/electron.js",
   "productName": "Trax",
@@ -29,7 +29,6 @@
     },
     "files": [
       "build/**/*",
-      "build/icon.*",
       "node_modules/**/*"
     ],
     "mac": {
@@ -39,6 +38,7 @@
   "dependencies": {
     "@types/lodash": "^4.14.120",
     "@types/redux-form": "^7.4.16",
+    "electron-is-dev": "^1.0.1",
     "fuse.js": "^3.3.0",
     "humps": "^2.0.1",
     "localforage": "^1.7.3",

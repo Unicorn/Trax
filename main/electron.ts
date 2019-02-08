@@ -1,13 +1,12 @@
 import * as path from 'path'
 import { app, BrowserWindow, Menu, Tray, ipcMain } from 'electron'
-
-const isDev = () => (process.defaultApp || /node_modules[\\/]electron[\\/]/.test(process.execPath))
+const isDev = require('electron-is-dev')
 
 let mainWindow: BrowserWindow | null
 let tray: Tray | null
 
 const installExtensions = () => {
-  require('electron-debug')({ showDevTools: true, enabled: true })
+  require('electron-debug')({ showDevTools: false, enabled: true })
 
   const {
     default: installExtension,
@@ -26,7 +25,8 @@ const installExtensions = () => {
 }
 
 const createTray = () => {
-  tray = new Tray(path.join(__dirname, '../public/icons/trayTemplate.png'))
+  const iconPath = isDev ? '../public/icons/trayTemplate.png' : './icons/trayTemplate.png'
+  tray = new Tray(path.join(__dirname, iconPath))
 }
 
 const createWindow = () => {

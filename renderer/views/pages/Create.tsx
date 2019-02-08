@@ -2,7 +2,7 @@ import * as React from 'react'
 import { reduxForm, Field } from 'redux-form'
 import FormField from 'views/ui/form/FormField'
 
-const Create: React.FC<any> = () => {
+const Create: React.SFC<any> = () => {
 
   const submit = (values: any) => {
     // print the form values to the console

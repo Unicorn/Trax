@@ -4,13 +4,9 @@ import { receiveProfile } from 'controllers/profileController'
 import { PROFILE, ProfileAction } from 'models/profile'
 
 function* watchProfileRequest(_action: ProfileAction) {
-  const profile = yield call(fetchProfile, 'user')
-
-  console.log('watchProfileRequest', profile)
-
+  const profile = yield call(fetchProfile)
   yield put(receiveProfile(profile))
 }
-
 
 export default function* profileSaga() {
   yield takeEvery(PROFILE.REQUEST, watchProfileRequest)

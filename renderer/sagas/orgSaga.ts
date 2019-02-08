@@ -4,13 +4,9 @@ import { receiveOrgs } from 'controllers/orgController'
 import { ORG, OrgsAction } from 'models/org'
 
 function* watchOrgsRequest(_action: OrgsAction) {
-  const org = yield call(fetchOrgs, 'user')
-
-  console.log('watchOrgsRequest', org)
-
+  const org = yield call(fetchOrgs)
   yield put(receiveOrgs(org))
 }
-
 
 export default function* orgSaga() {
   yield takeEvery(ORG.REQUEST, watchOrgsRequest)
