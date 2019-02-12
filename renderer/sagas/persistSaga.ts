@@ -4,6 +4,9 @@ import { issuesList } from 'controllers/issueController'
 import { Track } from 'models/track'
 
 function* watchPersist(action: any) {
+  if (!action.payload)
+    return
+
   const { payload: { auth, profile, tracks} } = action
 
   if (!auth || !auth.accessToken)
