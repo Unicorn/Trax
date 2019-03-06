@@ -1,24 +1,56 @@
 import * as React from 'react'
-import { Field } from 'redux-form'
 
-interface IProps {
-  name: string
-  type: string
-  label: string
+type SelectOptionObject = {
+  [key: string]: {
+    label: string
+    name?: string
+    value?: string | number
+  }
 }
 
-const FormField: React.SFC<IProps> = (props) => {
-  const { name, type, label } = props
+interface Props {
+  name: string
+  type: 'text' | 'select' | 'textarea'
+  label: string
+  options?: SelectOptionObject
+}
+
+const _renderSelectInput = (props: Props) => {
+  const { name, options } = props
+
+  if (!options)
+    return null
+
+  let validOpts = Object.keys(options).map(k => <option value={k}>{options[k].label}</option>)
+  const opts = [<option />, ...validOpts]
 
   return (
-    <div className="field text">
-      <Field
-        name={name}
-        component="input"
-        type={type}
-        required
-      />
-      <label htmlFor="title">{label}</label>
+    <select name={name} required>
+      {opts}
+    </select>
+  )
+}
+
+const FormField: React.SFC<Props> = (props) => {
+  const { name, type, label } = props
+  let field = null
+
+  switch (type) {
+    case 'select' :
+      field = _renderSelectInput(props)
+      break
+    case 'text' :
+      field = <input name={name} type={type} required />
+      break
+    case 'textarea' :
+      field = <textarea name={name} required></textarea>
+      break
+  }
+
+  return (
+    <div className={`field ${type}`}>
+      {field}
+      <label htmlFor={name}>{label}</label>
       <span />
     </div>
   )

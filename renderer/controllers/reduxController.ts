@@ -1,5 +1,4 @@
 import { createStore, applyMiddleware, compose } from 'redux'
-import { reducer as formReducer } from 'redux-form'
 import { persistStore, persistCombineReducers } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import createSagaMiddleware from 'redux-saga'
@@ -33,7 +32,6 @@ const rootReducer = persistCombineReducers<any>(persistConfig, {
   settings: settingsReducer,
   timers: timerReducer,
   tracks: trackReducer,
-  form: formReducer
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

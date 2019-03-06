@@ -8,4 +8,15 @@
     flex-direction: column;
     flex-basis: 45%;
   }
+
+  &.golden-ratio {
+
+    .left.column {
+      flex-basis: 30%;
+    }
+
+    .right.column {
+      flex-basis: 66%;
+    }
+  }
 }

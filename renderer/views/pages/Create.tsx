@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { reduxForm, Field } from 'redux-form'
 import FormField from 'views/ui/form/FormField'
+import { TYPES, SWIMLANES } from 'config/constants'
 
 const Create: React.SFC<any> = () => {
 
@@ -13,7 +13,7 @@ const Create: React.SFC<any> = () => {
     <section className="create page">
       <header>
         <h1>Create Issue</h1>
-        <form className="columns" onSubmit={submit}>
+        <form className="golden-ratio columns" onSubmit={submit}>
           <div className="left column">
             <FormField
               name="title"
@@ -21,35 +21,40 @@ const Create: React.SFC<any> = () => {
               label="Title"
             />
 
-            <div className="field textarea">
-              <Field
-                name="description"
-                component="textarea"
-                type="textarea"
-                required
-              />
-              <label htmlFor="description">Description</label>
-              <span />
-            </div>
+            <FormField
+              name="type"
+              type="select"
+              label="Type"
+              options={TYPES}
+            />
+
+            <FormField
+              name="lane"
+              type="select"
+              label="Swimlane"
+              options={SWIMLANES}
+            />
+
+            <FormField
+              name="repo"
+              type="select"
+              label="Repo"
+              options={{
+                'UnicornAgency/Trax': {
+                  label: 'UnicornAgency/Trax'
+                }
+              }}
+            />
 
             <button className="basic button">Submit</button>
           </div>
 
           <div className="right column">
-            <div className="field text">
-              <span>Assignees</span>
-              <input type="text" name="assignees" />
-            </div>
-
-            <div className="field text">
-              <span>Milestone</span>
-              <input type="text" name="milestone" />
-            </div>
-
-            <div className="field text">
-              <span>Lane</span>
-              <input type="text" name="labels" />
-            </div>
+            <FormField
+              name="description"
+              type="textarea"
+              label="Description"
+            />
           </div>
         </form>
       </header>
@@ -57,8 +62,4 @@ const Create: React.SFC<any> = () => {
   )
 }
 
-const formOptions = {
-  form: 'createIssue',
-}
-
-export default reduxForm<any>(formOptions)(Create)
+export default Create
