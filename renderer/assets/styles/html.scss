@@ -22,6 +22,10 @@ output, ruby, section, summary, time, mark, audio, video {
   outline: none;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
   display: block;
 }
@@ -34,6 +38,7 @@ html, body {
   font-weight: 500;
   line-height: 1;
   margin: 0;
+  overflow: hidden;
   padding: 0 0 3rem;
 }
 

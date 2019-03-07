@@ -35,7 +35,7 @@ header.search {
 
   .actions {
     float: right;
-    padding: 1.5rem 2rem;
+    padding: 1.2rem 2rem 0;
     text-align: right;
   }
 }
@@ -59,6 +59,7 @@ header.title {
 main.dashboard {
   bottom: 0;
   left: 7rem;
+  overflow-y: scroll;
   padding-top: 3.5rem;
   position: absolute;
   right: 0;
@@ -74,6 +75,12 @@ main.dashboard {
 // LISTS
 //
 .list {
+  &.table {
+    li {
+      margin: $item_spacing;
+    }
+  }
+
   &.masonry {
     display: flex;
     flex-wrap: wrap;
@@ -140,7 +147,7 @@ main.dashboard {
   .title {
     color: darken($brown, 5%);
     flex: 1;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     font-weight: 300;
     line-height: 1.6em;
     padding: 1.5rem;
@@ -158,7 +165,6 @@ main.dashboard {
   .confirm.overlay {
     animation: slideRight 0.5s;
     background: lighten($yellow, 35%);
-    border-radius: 4px;
     bottom: 0;
     color: darken($yellow, 25%);
     left: 0;
@@ -169,72 +175,40 @@ main.dashboard {
 }
 
 //
-// PROFILE PAGE
-//
-section.profile {
-  // TODO: convert to flexbox
-  .row {
-    @extend %clearfix;
-  }
-
-  .left.column {
-    float: left;
-  }
-
-  .right.column {
-    float: right;
-  }
-}
-
-//
 // BOARD
 //
 .swimlane {
-  background: $creme;
-  border-radius: 3px;
-  box-shadow: 0 0 .5rem rgba(0, 0, 0, 0.05);
-  float: left;
-  width: 23.5%;
-  margin: 2% 0;
-  padding: 1rem .5rem;
-  position: absolute;
-  top: 8.5rem;
-  bottom: 0rem;
+  background: #fbf9f4;
+  border-top: 2px solid;
+  color: $brown;
+  flex: 1;
+  height: calc(100vh - 8.5rem);
+  padding: 1rem 1rem;
+  position: relative;
 
   &.backlog {
-    border-top: 2px solid $pink;
-    left: 1.5%;
+    background-color: transparentize($pink, 0.95);
+    color: $pink;
+  }
 
-    big {
-      color: $pink;
-    }
+  &.sprint {
+    background-color: transparentize($cyan, 0.95);
+    color: $cyan;
   }
 
   &.started {
-    border-top: 2px solid $orange;
-    left: 26%;
-
-    big {
-      color: $orange;
-    }
+    background-color: transparentize($orange, 0.95);
+    color: $orange;
   }
 
   &.review {
-    border-top: 2px solid $purple;
-    left: 50.5%;
-
-    big {
-      color: $purple;
-    }
+    background-color: transparentize($purple, 0.95);
+    color: $purple;
   }
 
   &.complete {
-    border-top: 2px solid $green;
-    left: 75%;
-
-    big {
-      color: $green;
-    }
+    background-color: transparentize($green, 0.95);
+    color: $green;
   }
 
   &.dragging-over {
@@ -244,7 +218,6 @@ section.profile {
   big {
     display: block;
     font: 1.8rem $font_header;
-    padding: 0 0 1rem 1.2rem;
     text-transform: capitalize;
   }
 
@@ -257,9 +230,9 @@ section.profile {
     top: 4rem;
     right: 0;
     left: 0;
-    bottom: 1rem;
+    bottom: 0;
     overflow-y: scroll;
-    padding: .5rem;
+    padding: 1.2rem;
 
     &::-webkit-scrollbar {
       background: transparent;
@@ -283,6 +256,10 @@ section.profile {
 
   &:hover {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+
+    .bar {
+      height: 4.2rem;
+    }
   }
 
   &.dragging {
@@ -291,6 +268,8 @@ section.profile {
 
   &.active {
     .bar {
+      height: 4.2rem;
+
       button {
         opacity: 1;
       }
@@ -318,7 +297,7 @@ section.profile {
     }
 
     .description {
-      color: lighten($brown, 20%);
+      color: lighten($brown, 10%);
       display: block;
       font: 300 1.1rem/1.6rem $font_condensed;
       padding-bottom: .8rem;
@@ -336,19 +315,25 @@ section.profile {
     }
   }
 
-  .external.link {
+  .tracked {
+    color: $teal;
+    font: 1.2rem $font_monospace;
     position: absolute;
-    right: 3px;
-    top: 5px;
+    right: 1rem;
+    top: .5rem;
   }
 
   .bar {
+    align-items: center;
     background: lighten($eggshell, 5%);
     display: flex;
     flex-direction: row;
-    align-items: center;
-    padding: .8rem 1rem;
+    height: 0;
+    justify-content: space-between;
+    overflow: hidden;
+    padding: 0 1rem;
     text-align: left;
+    transition: height .3s;
 
     button {
       background: transparent;
@@ -356,7 +341,7 @@ section.profile {
       cursor: pointer;
       display: block;
       height: 2.6rem;
-      margin: 0;
+      margin: .8rem 0;
       opacity: .4;
       padding: 0;
       transition: opacity .3s;
@@ -378,18 +363,14 @@ section.profile {
       font: 1.2rem $font_monospace;
       padding-left: 1rem;
     }
-
-    .tracked {
-      border: 1px solid $teal;
-      border-radius: 2px;
-      color: $teal;
-      font: 1.2rem $font_monospace;
-      margin-left: .5rem;
-      padding: .5rem .8rem;
-      position: absolute;
-      right: 1rem;
-    }
   }
+}
+
+.timer {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
 }
 
 //

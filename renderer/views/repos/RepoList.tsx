@@ -18,7 +18,7 @@ const renderRepos = (repos: Repos): React.ReactNode => {
 
 const RepoList: React.SFC<Props> = ({ repos }) => (
   <Loadable widgetName="repo-list" isLoading={repos.isLoading}>
-    <ul className="masonry thirds list">
+    <ul className="table list">
       {renderRepos(repos)}
     </ul>
   </Loadable>

@@ -63,12 +63,13 @@ class Board extends React.Component<Connected, State> {
   render() {
     const issues = this.state.issuesArr
     const backlog = issues.filter((issue: Issue) => issue.lane === SWIMLANES.backlog.name)
+    const sprint = issues.filter((issue: Issue) => issue.lane === SWIMLANES.sprint.name)
     const started = issues.filter((issue: Issue) => issue.lane === SWIMLANES.started.name)
     const review = issues.filter((issue: Issue) => issue.lane === SWIMLANES.review.name)
     const complete = issues.filter((issue: Issue) => issue.lane === SWIMLANES.complete.name)
 
     return (
-      <div>
+      <section className="board">
         <header className="search">
           <SearchIssues handler={this._filterIssues} />
 
@@ -78,13 +79,17 @@ class Board extends React.Component<Connected, State> {
             </button>
           </div>
         </header>
-        <DragDropContext onDragEnd={this._onDragEnd}>
-          <Lane lane={SWIMLANES.backlog.name} issues={backlog} />
-          <Lane lane={SWIMLANES.started.name} issues={started} />
-          <Lane lane={SWIMLANES.review.name} issues={review} />
-          <Lane lane={SWIMLANES.complete.name} issues={complete} />
-        </DragDropContext>
-      </div>
+        
+        <div className="columns">
+          <DragDropContext onDragEnd={this._onDragEnd}>
+            <Lane lane={SWIMLANES.backlog.name} issues={backlog} />
+            <Lane lane={SWIMLANES.sprint.name} issues={sprint} />
+            <Lane lane={SWIMLANES.started.name} issues={started} />
+            <Lane lane={SWIMLANES.review.name} issues={review} />
+            <Lane lane={SWIMLANES.complete.name} issues={complete} />
+          </DragDropContext>
+        </div>
+      </section>
     )
   }
 

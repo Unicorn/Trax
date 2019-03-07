@@ -1,7 +1,12 @@
 @import 'constants.scss';
 @import 'motion.scss';
 
-$input_background: lighten($eggshell, 3%);
+$input_background: lighten($eggshell, 6%);
+$input_font: 400 1.4rem $font_body;
+$input_letter_spacing: .05em;
+$input_color: $brown;
+$input_border_bottom: 2px solid lighten($brown, 30%);
+$input_padding: .8rem;
 
 button {
   &.null {
@@ -20,14 +25,12 @@ button {
 input, textarea, select {
   background-color: transparent;
   border: none;
-  color: $brown;
-  font-family: $font_body;
-  font-size: 1.4rem;
-  font-weight: 400;
+  color: $input_color;
+  font: $input_font;
   height: 4rem;
-  letter-spacing: .05em;
+  letter-spacing: $input_letter_spacing;
   margin: 0;
-  padding: .8rem;
+  padding: $input_padding;
   text-align: left;
 }
 
@@ -59,7 +62,7 @@ input, textarea, select {
   input[type="text"], textarea, select {
     -webkit-appearance: none;
     background-color: $input_background;
-    border-bottom: 2px solid lighten($brown, 30%);
+    border-bottom: $input_border_bottom;
     border-radius: 0;
     height: 4rem;
     margin: 0;
@@ -255,7 +258,8 @@ input, textarea, select {
   border-radius: 4px;
   color: $brown;
   cursor: pointer;
-  font: 300 1.5rem $font_condensed;
+  font: 400 1.5rem $font_condensed;
+  letter-spacing: .05rem;
   padding: 1rem 3rem;
   position: relative;
   text-transform: uppercase;
@@ -267,12 +271,12 @@ input, textarea, select {
 
   &.micro {
     padding: .5rem 1rem;
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 
   &.small {
     padding: .8rem 1.6rem;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
   }
 
   &.large {
@@ -477,4 +481,29 @@ input, textarea, select {
       }
     }
   }
+}
+
+//
+// React RTE overrides
+//
+.rich-text {
+  background: $input_background;
+  border: none;
+  border-bottom: $input_border_bottom;
+  border-radius: 0;
+}
+
+.rich-text-toolbar {
+  background: $input_background;
+  border: none;
+  margin: 0;
+  padding: $input_padding;
+}
+
+.rich-text-editor {
+  background: $input_background;
+  border-radius: 0;
+  color: $input_color;
+  font: $input_font;
+  letter-spacing: $input_letter_spacing;
 }

@@ -6,6 +6,7 @@ type ExternalLinkProps = {
   className?: string;
   showIcon?: boolean;
   url: string;
+  iconPosition?: 'left' | 'right'
 }
 
 const handleClick = (e: any) => {
@@ -19,10 +20,10 @@ const handleClick = (e: any) => {
 }
 
 const ExternalLink: React.SFC<ExternalLinkProps> = (props) => {
-  const { url, children, showIcon, className } = props
+  const { url, children, showIcon, className, iconPosition } = props
 
   return (
-    <a className={className} href={url} onClick={handleClick}>
+    <a className={`${className} ${iconPosition || 'right'}`} href={url} onClick={handleClick}>
       {children}
       {showIcon && <ExternalLinkIcon />}
     </a>

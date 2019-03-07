@@ -5,14 +5,14 @@
 //
 header.toolbar {
   -webkit-app-region: drag;
-  background-color: $teal;
+  background-color: $brown;
   background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.6);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
   color: #fff;
   display: block;
   flex-direction: row;
-  height: 3.6rem;
+  height: 3.7rem;
   position: fixed;
   width: 100%;
   z-index: 300;
@@ -59,8 +59,8 @@ header.toolbar {
 
     img {
       background: #fff;
-      border: 2px solid darken($creme, 15%);
-      border-radius: 100%;
+      border: 2px solid transparent;
+      border-radius: 5px;
       padding: .3rem;
       transition: border-color .3s;
       width: 100%;
@@ -306,8 +306,6 @@ table.hoverable {
 // TABBED
 //
 .tabbed {
-  margin: 2rem 0;
-
   nav.controls {
     overflow: hidden;
 
@@ -366,6 +364,7 @@ table.hoverable {
   .pane {
     background: $creme;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    height: calc(100vh - 14rem);
     padding: 2rem;
     position: relative;
     z-index: 2;
@@ -376,7 +375,12 @@ table.hoverable {
 // Loadable
 //
 .loadable {
-  position: relative;
+  bottom: 2rem;
+  left: 2rem;
+  overflow-y: scroll;
+  position: absolute;
+  right: 2rem;
+  top: 2rem;
 
   .loading {
     bottom: 0;

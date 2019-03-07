@@ -1,14 +1,48 @@
 import * as React from 'react'
+import RichTextEditor, { EditorValue } from 'react-rte'
 import FormField from 'views/ui/form/FormField'
 import { TYPES, SWIMLANES } from 'config/constants'
 
-const Create: React.SFC<any> = () => {
+interface State {
+  [key: string]: string | EditorValue
+}
 
-  const submit = (values: any) => {
+type FieldHandler = (e: React.FormEvent<HTMLInputElement> | EditorValue) => void
+
+// declare function _fieldHandler(e: React.FormEvent<HTMLInputElement>): void
+// declare function _fieldHandler(e: EditorValue): void
+
+const Create: React.SFC<any> = () => {
+  const [formData, setFormData] = React.useState<State>({
+    title: '',
+    type: '',
+    lane: '',
+    repo: '',
+    description: RichTextEditor.createEmptyValue()
+  })
+
+  const submit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     // print the form values to the console
-    console.log('submit', values)
+    console.log('submit', e.currentTarget)
   }
 
+  const _fieldHandler: FieldHandler = (e) => {
+    let newData: State = { ...formData }
+
+    if (e instanceof EditorValue) {
+      newData['description'] = e
+    }
+    else {
+      let input = (e as React.FormEvent<HTMLInputElement>).currentTarget
+      newData[input.name] = input.value
+    }
+
+    console.log("newData", newData)
+
+    setFormData(newData)
+  }
+  
   return (
     <section className="create page">
       <header>
@@ -19,6 +53,8 @@ const Create: React.SFC<any> = () => {
               name="title"
               type="text"
               label="Title"
+              onChange={_fieldHandler}
+              required
             />
 
             <FormField
@@ -26,6 +62,8 @@ const Create: React.SFC<any> = () => {
               type="select"
               label="Type"
               options={TYPES}
+              onChange={_fieldHandler}
+              required
             />
 
             <FormField
@@ -33,6 +71,8 @@ const Create: React.SFC<any> = () => {
               type="select"
               label="Swimlane"
               options={SWIMLANES}
+              onChange={_fieldHandler}
+              required
             />
 
             <FormField
@@ -44,16 +84,21 @@ const Create: React.SFC<any> = () => {
                   label: 'UnicornAgency/Trax'
                 }
               }}
+              onChange={_fieldHandler}
+              required
             />
 
             <button className="basic button">Submit</button>
           </div>
 
           <div className="right column">
-            <FormField
-              name="description"
-              type="textarea"
-              label="Description"
+            <RichTextEditor
+              className="rich-text"
+              editorClassName="rich-text-editor"
+              toolbarClassName="rich-text-toolbar"
+              editorStyle={{ height: "calc(100vh - 20rem)"  }}
+              onChange={_fieldHandler}
+              value={formData.description as EditorValue}
             />
           </div>
         </form>

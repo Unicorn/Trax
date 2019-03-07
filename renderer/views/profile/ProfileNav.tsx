@@ -91,7 +91,7 @@ class ProfileNav extends React.Component<Connected, State> {
             </div>
           </div>
         </nav>
-        <div className="pane">
+        <div className="scroll pane">
           <RepoList repos={repos} />
         </div>
       </div>

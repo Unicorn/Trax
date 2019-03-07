@@ -69,15 +69,15 @@ class RepoItem extends React.Component<Props & Connected, State> {
 
     return (
       <li className={`item ${track && 'active'}`}>
-        <ExternalLink className="title external link" url={repo.htmlUrl} showIcon={false}>
-          {repo.fullName}
-        </ExternalLink>
-
         <div className="actions">
           <button className="micro basic brown button" onClick={this._showConfirmation}>
             {track ? 'Untrack' : 'Track'}
           </button>
         </div>
+
+        <ExternalLink className="title external link" url={repo.htmlUrl} showIcon={false}>
+          {repo.fullName}
+        </ExternalLink>
 
         {this._renderConfirmation()}
       </li>

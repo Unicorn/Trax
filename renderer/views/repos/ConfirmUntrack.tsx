@@ -7,7 +7,6 @@ interface Props {
 
 const ConfirmUntrack: React.SFC<Props> = ({ cancel, handler }) => (
   <div className="confirm overlay item">
-    <span className="title">Delete Trax from this repository?</span>
     <div className="actions">
       <button className="micro red button" onClick={handler}>
         Delete
@@ -16,6 +15,7 @@ const ConfirmUntrack: React.SFC<Props> = ({ cancel, handler }) => (
         Clear
       </button>
     </div>
+    <span className="title">Delete Trax from this repository?</span>
   </div>
 )
 

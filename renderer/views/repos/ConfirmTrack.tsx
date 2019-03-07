@@ -7,7 +7,6 @@ interface Props {
 
 const ConfirmTrack: React.SFC<Props> = ({ cancel, handler }) => (
   <div className="confirm overlay item">
-    <span className="title">Install Trax on this repository?</span>
     <div className="actions">
       <button className="micro green button" onClick={handler}>
         Upgrade
@@ -16,6 +15,7 @@ const ConfirmTrack: React.SFC<Props> = ({ cancel, handler }) => (
         Cancel
       </button>
     </div>
+    <span className="title">Install Trax on this repository?</span>
   </div>
 )
 

@@ -6,7 +6,7 @@ export type Swimlane = {
   color: string;
 }
 
-export type Lane = 'backlog' | 'started' | 'review' | 'complete'
+export type Lane = 'backlog' | 'sprint' | 'started' | 'review' | 'complete'
 
 export type Routes = {
   [key: string]: {
@@ -68,6 +68,11 @@ export const SWIMLANES = {
     label: 'Backlog',
     name: 'backlog',
     color: COLORS.pink,
+  },
+  sprint: {
+    label: 'Sprint',
+    name: 'sprint',
+    color: COLORS.cyan,
   },
   started: {
     label: 'Started',

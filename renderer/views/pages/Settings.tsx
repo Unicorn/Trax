@@ -5,10 +5,6 @@ const Settings: React.SFC<{}> = () => {
 
   return (
     <section className="settings page">
-      <header>
-        <h1>Settings</h1>
-      </header>
-
       <SettingsNav />
     </section>
   )

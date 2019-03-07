@@ -7,7 +7,7 @@ interface Connected {
 
 const ProfileCard: React.SFC<Connected> = ({ avatar }) => (
   <div className="profile">
-    <img src={avatar} alt="Profile avatar" />
+    <img src={avatar} alt="Profile avatar" height="50px" width="50px" />
   </div>
 )
 

@@ -13,37 +13,36 @@ interface Props {
   type: 'text' | 'select' | 'textarea'
   label: string
   options?: SelectOptionObject
+  required?: boolean
+  onChange?: (e: any) => void
 }
 
-const _renderSelectInput = (props: Props) => {
-  const { name, options } = props
+const _renderOptions = (options?: SelectOptionObject) => {
+  let items = [<option />]
 
   if (!options)
-    return null
+    return items
 
-  let validOpts = Object.keys(options).map(k => <option value={k}>{options[k].label}</option>)
-  const opts = [<option />, ...validOpts]
-
-  return (
-    <select name={name} required>
-      {opts}
-    </select>
+  Object.keys(options).forEach(k =>
+    items.push(<option value={k}>{options[k].label}</option>)
   )
+
+  return items
 }
 
 const FormField: React.SFC<Props> = (props) => {
-  const { name, type, label } = props
+  const { name, type, label, options, ...rest } = props
   let field = null
 
   switch (type) {
     case 'select' :
-      field = _renderSelectInput(props)
+      field = <select name={name} {...rest}>{_renderOptions(options)}</select>
       break
     case 'text' :
-      field = <input name={name} type={type} required />
+      field = <input name={name} type={type} {...rest} />
       break
     case 'textarea' :
-      field = <textarea name={name} required></textarea>
+      field = <textarea name={name} {...rest}></textarea>
       break
   }
 
