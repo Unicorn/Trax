@@ -12,13 +12,13 @@
   }
 
   &.golden-ratio {
-
     .left.column {
-      flex-basis: 30%;
+      flex-basis: 33%;
+      padding-right: 3rem;
     }
 
     .right.column {
-      flex-basis: 66%;
+      flex-basis: 67%;
     }
   }
 }

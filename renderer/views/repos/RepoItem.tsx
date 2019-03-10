@@ -71,9 +71,9 @@ class RepoItem extends React.Component<Props & Connected, State> {
     const repoName = repo.fullName.split('/')
 
     return (
-      <li className={`item ${track && 'active'}`}>
+      <li className={`item ${track ? 'tracked' : 'untracked'}`}>
         <div className="actions">
-          <button className={track ? 'confirm' : ''} onClick={this._showConfirmation} title={track ? 'Untrack' : 'Track'}>
+          <button className={track ? 'cancel' : ''} onClick={this._showConfirmation} title={track ? 'Untrack' : 'Track'}>
             {track ? <UncheckIcon /> : <CheckIcon />}
           </button>
         </div>

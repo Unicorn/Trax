@@ -4,7 +4,11 @@ import { Labels } from 'models/label'
 import { Milestone } from 'models/milestone'
 import { Lane } from 'config/constants'
 
-export const ISSUE = Object.assign({}, createActionName('ISSUE', 'LIST'), createActionName('ISSUE', 'UPDATE'))
+export const ISSUE = Object.assign({},
+  createActionName('ISSUE', 'CREATE'),
+  createActionName('ISSUE', 'LIST'),
+  createActionName('ISSUE', 'UPDATE')
+)
 
 export interface Issue {
   ident: string
@@ -40,6 +44,14 @@ export interface Issue {
   updatedAt: string | null
 }
 
+export interface CreateIssue {
+  title: string
+  body: string
+  milestone: number
+  labels: [string]
+  assignees: [string]
+}
+
 export interface ReceiveIssue {
   isLoading: boolean
   result: number
@@ -63,7 +75,7 @@ export interface Issues {
 
 export interface IssuesAction {
   type: GithubActions
-  payload?: Issues | Issue | ReceiveIssue
+  payload?: Issues | Issue | ReceiveIssue | CreateIssue
   ident?: string
   from?: string
   to?: string

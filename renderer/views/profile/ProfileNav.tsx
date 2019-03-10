@@ -84,11 +84,6 @@ class ProfileNav extends React.Component<Connected, State> {
           <div className="tabs">
             {this._renderTab('Personal', 0)}
             {orgs.length > 0 && orgs.map((o: Org, i: number) => this._renderTab(o.login, i + 1))}
-            <div className="actions">
-              <button className="basic red button">
-                Remove All
-              </button>
-            </div>
           </div>
         </nav>
         <div className="scroll pane">

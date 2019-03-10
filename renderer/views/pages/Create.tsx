@@ -1,7 +1,13 @@
 import * as React from 'react'
+import { connect } from 'react-redux'
 import RichTextEditor, { EditorValue } from 'react-rte'
 import FormField from 'views/ui/form/FormField'
+import { createIssue } from 'controllers/issueController'
 import { TYPES, SWIMLANES } from 'config/constants'
+
+interface Connected {
+  dispatch: (action: any) => any
+}
 
 interface State {
   [key: string]: string | EditorValue
@@ -9,26 +15,25 @@ interface State {
 
 type FieldHandler = (e: React.FormEvent<HTMLInputElement> | EditorValue) => void
 
-// declare function _fieldHandler(e: React.FormEvent<HTMLInputElement>): void
-// declare function _fieldHandler(e: EditorValue): void
-
-const Create: React.SFC<any> = () => {
-  const [formData, setFormData] = React.useState<State>({
+class Create extends React.Component<Connected, State> {
+  state = {
     title: '',
     type: '',
     lane: '',
     repo: '',
     description: RichTextEditor.createEmptyValue()
-  })
+  }
 
-  const submit = (e: React.FormEvent<HTMLFormElement>) => {
+  _submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     // print the form values to the console
     console.log('submit', e.currentTarget)
+
+    this.props.dispatch(createIssue.request(this.state))
   }
 
-  const _fieldHandler: FieldHandler = (e) => {
-    let newData: State = { ...formData }
+  _fieldHandler: FieldHandler = (e) => {
+    let newData: State = { ...this.state }
 
     if (e instanceof EditorValue) {
       newData['description'] = e
@@ -38,73 +43,75 @@ const Create: React.SFC<any> = () => {
       newData[input.name] = input.value
     }
 
-    console.log("newData", newData)
-
-    setFormData(newData)
+    this.setState(newData)
   }
-  
-  return (
-    <section className="create page">
-      <header>
-        <h1>Create Issue</h1>
-        <form className="golden-ratio columns" onSubmit={submit}>
-          <div className="left column">
-            <FormField
-              name="title"
-              type="text"
-              label="Title"
-              onChange={_fieldHandler}
-              required
-            />
 
-            <FormField
-              name="type"
-              type="select"
-              label="Type"
-              options={TYPES}
-              onChange={_fieldHandler}
-              required
-            />
+  render() {
+    const { description } = this.state
 
-            <FormField
-              name="lane"
-              type="select"
-              label="Swimlane"
-              options={SWIMLANES}
-              onChange={_fieldHandler}
-              required
-            />
+    return (
+      <section className="create page">
+        <header>
+          <h1>Create Issue</h1>
+          <form className="golden-ratio columns" onSubmit={this._submitHandler}>
+            <div className="left column">
+              <FormField
+                name="title"
+                type="text"
+                label="Title"
+                onChange={this._fieldHandler}
+                required
+              />
 
-            <FormField
-              name="repo"
-              type="select"
-              label="Repo"
-              options={{
-                'UnicornAgency/Trax': {
-                  label: 'UnicornAgency/Trax'
-                }
-              }}
-              onChange={_fieldHandler}
-              required
-            />
+              <FormField
+                name="type"
+                type="select"
+                label="Type"
+                options={TYPES}
+                onChange={this._fieldHandler}
+                required
+              />
 
-            <button className="basic button">Submit</button>
-          </div>
+              <FormField
+                name="lane"
+                type="select"
+                label="Swimlane"
+                options={SWIMLANES}
+                onChange={this._fieldHandler}
+                required
+              />
 
-          <div className="right column">
-            <RichTextEditor
-              className="rich-text"
-              editorClassName="rich-text-editor"
-              toolbarClassName="rich-text-toolbar"
-              editorStyle={{ height: "calc(100vh - 20rem)"  }}
-              onChange={_fieldHandler}
-              value={formData.description as EditorValue}
-            />
-          </div>
-        </form>
-      </header>
-    </section>
-  )
+              <FormField
+                name="repo"
+                type="select"
+                label="Repo"
+                options={{
+                  'UnicornAgency/Trax': {
+                    label: 'UnicornAgency/Trax'
+                  }
+                }}
+                onChange={this._fieldHandler}
+                required
+              />
+
+              <button className="basic button">Submit</button>
+            </div>
+
+            <div className="right column">
+              <RichTextEditor
+                className="rich-text"
+                editorClassName="rich-text-editor"
+                toolbarClassName="rich-text-toolbar"
+                editorStyle={{ height: "calc(100vh - 20rem)"  }}
+                onChange={this._fieldHandler}
+                value={description as EditorValue}
+              />
+            </div>
+          </form>
+        </header>
+      </section>
+    )
+  }
 }
 
-export default Create
+export default connect()(Create)

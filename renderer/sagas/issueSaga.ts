@@ -1,8 +1,8 @@
 import { put, call, fork, takeEvery } from 'redux-saga/effects'
-import { fetchIssues, fetchIssueUpdate } from 'services/githubService'
+import { fetchIssues, fetchIssueCreate, fetchIssueUpdate } from 'services/githubService'
 import { issuesList, receiveIssue } from 'controllers/issueController'
 import { issuesWithoutLanes } from 'helpers/issueHelper'
-import { ISSUE, IssuesAction, Issue } from 'models/issue'
+import { ISSUE, IssuesAction, Issue, CreateIssue } from 'models/issue'
 import { SWIMLANES } from 'config/constants'
 
 function* watchIssuesRequest(action: IssuesAction) {
@@ -48,7 +48,27 @@ function* watchIssueSwitchLanes(action: IssuesAction) {
   yield put(receiveIssue(newIssue))
 }
 
+function* watchIssueCreate(action: IssuesAction) {
+  if (!action.payload || !action.ident) return
+
+  const { payload, ident } = action
+  const issue = payload as CreateIssue
+  const [owner, repo]: any = ident.split('/')
+
+  const request = {
+    params: { owner, repo },
+    body: {
+      title: issue.title
+    }
+  }
+
+  const newIssue = yield call(fetchIssueCreate, request)
+
+  yield put(receiveIssue(newIssue))
+}
+
 export default function* issueSaga() {
+  yield takeEvery(ISSUE.CREATE.REQUEST, watchIssueCreate)
   yield takeEvery(ISSUE.LIST.REQUEST, watchIssuesRequest)
   yield takeEvery(ISSUE.UPDATE.REQUEST, watchIssueSwitchLanes)
 }

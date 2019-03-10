@@ -1,11 +1,17 @@
 import { action } from 'helpers/reduxHelper'
-import { ISSUE, Issues, Issue, ReceiveIssue, IssuesAction, defaultState } from 'models/issue'
+import { ISSUE, Issues, Issue, ReceiveIssue, CreateIssue, IssuesAction, defaultState } from 'models/issue'
 import { Lane } from 'config/constants'
 
 export const issuesList = {
   request: (ident: string) => action(ISSUE.LIST.REQUEST, { ident }),
   success: (payload: Issues) => action(ISSUE.LIST.SUCCESS, { payload }),
   failure: (payload: any) => action(ISSUE.LIST.FAILURE, { payload })
+}
+
+export const issueCreate = {
+  request: (payload: CreateIssue) => action(ISSUE.CREATE.REQUEST, { payload }),
+  success: (payload: Issue) => action(ISSUE.CREATE.SUCCESS, { payload }),
+  failure: (payload: any) => action(ISSUE.CREATE.FAILURE, { payload })
 }
 
 export const receiveIssues = (payload: Issues): IssuesAction => ({

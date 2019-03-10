@@ -4,6 +4,7 @@
 @import 'forms';
 @import 'layout';
 @import 'ui';
+@import 'profile';
 
 //
 // HEADER
@@ -77,6 +78,7 @@ main.dashboard {
 .list {
   &.table {
     li {
+      border-bottom: 1px solid;
       margin: $item_spacing;
     }
   }
@@ -118,11 +120,10 @@ main.dashboard {
 .item {
   @extend %clearfix;
   background: #fff;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
-  border: 1px solid transparent;
+  color: $eggshell;
   display: flex;
   flex-direction: row;
-  margin: 0;
+  margin: 0 0 1px 0;
   overflow: hidden;
   position: relative;
 
@@ -130,9 +131,19 @@ main.dashboard {
     border-radius: 3px;
   }
 
-  &.active {
-    background: transparentize($green, 0.8);
+  &.tracked {
+    background: transparentize($green, 0.9);
     border-color: #fff;
+  }
+
+  &.untracked {
+    .actions button {
+      opacity: .2;
+    }
+
+    &:hover .actions button {
+      opacity: .7;
+    }
   }
 
   &.action {
@@ -149,7 +160,7 @@ main.dashboard {
     font-size: 1.4rem;
     font-weight: 300;
     line-height: 1.6em;
-    padding: 1.5rem;
+    padding: 1.5rem 0;
 
     strong {
       font-weight: 500;
@@ -157,17 +168,18 @@ main.dashboard {
   }
 
   .actions {
-    min-width: 11rem;
-    padding: .8rem 1.5rem;
+    min-width: 9rem;
+    padding: .8rem 0 0 1.5rem;
 
     button {
       animation: fadeIn 0.5s;
       background: transparent;
       border: none;
-      margin: .3rem 1rem 0 0;
+      margin: .5rem 1rem 0 0;
+      opacity: .7;
       padding: 0;
-      transition: transform .3s;
-      width: 3rem;
+      transition: .3s;
+      width: 2.5rem;
 
       svg {
         cursor: pointer;
@@ -177,6 +189,7 @@ main.dashboard {
       }
 
       &:hover {
+        opacity: 1;
         transform: scale(1.2);
       }
 
@@ -196,7 +209,7 @@ main.dashboard {
 
   .confirm.overlay {
     animation: slideRight 0.5s;
-    background: lighten($yellow, 35%);
+    background: lighten($yellow, 40%);
     bottom: 0;
     color: darken($yellow, 25%);
     left: 0;

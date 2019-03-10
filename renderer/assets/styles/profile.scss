@@ -1,0 +1,23 @@
+.profile.page {
+  h2 {
+    padding: 1rem 0 2.2rem;
+  }
+
+  .left.column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .scroll {
+      overflow-y: scroll;
+    }
+
+    h3 {
+      background: darken($eggshell, 5%);
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      padding: 1rem 2.5rem;
+      text-transform: uppercase;
+    }
+  }
+}

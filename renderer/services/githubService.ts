@@ -78,6 +78,20 @@ export const fetchIssues = (request: Request) => {
   return github(`repos/${owner}/${repo}/issues`, options, schema.issues)
 }
 
+export const fetchIssueCreate = (request: Request) => {
+  const { body, params: { owner, repo } } = request
+  const options = {
+    headers: {
+      Accept: 'application/vnd.github.symmetra-preview+json',
+    },
+    method: 'POST',
+    body,
+    params: request.params
+  }
+
+  return github(`repos/${owner}/${repo}/issues`, options, schema.issue)
+}
+
 export const fetchIssueUpdate = (request: Request) => {
   const { body, params: { owner, repo, number } } = request
   const options = {
