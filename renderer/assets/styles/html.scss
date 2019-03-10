@@ -77,7 +77,7 @@ li {
 }
 
 a {
-  color: $teal;
+  color: $link_normal;
   cursor: pointer;
   text-decoration: none;
   transition: color .2s;
@@ -95,10 +95,10 @@ a {
   }
 
   &:hover {
-    color: darken($teal, 15%);
+    color: $link_hover;
 
     svg {
-      fill: darken($teal, 15%);
+      fill: $link_hover;
     }
   }
 }

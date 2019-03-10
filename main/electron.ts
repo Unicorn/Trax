@@ -25,7 +25,7 @@ const installExtensions = () => {
 }
 
 const createTray = () => {
-  const iconPath = isDev ? '../public/icons/trayTemplate.png' : './icons/trayTemplate.png'
+  const iconPath = isDev ? '../public/icons/tray.png' : './icons/tray.png'
   tray = new Tray(path.join(__dirname, iconPath))
 }
 

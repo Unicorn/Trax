@@ -15,7 +15,7 @@ var installExtensions = function () {
     });
 };
 var createTray = function () {
-    var iconPath = isDev ? '../public/icons/trayTemplate.png' : './icons/trayTemplate.png';
+    var iconPath = isDev ? '../public/icons/tray.png' : './icons/tray.png';
     tray = new electron_1.Tray(path.join(__dirname, iconPath));
 };
 var createWindow = function () {

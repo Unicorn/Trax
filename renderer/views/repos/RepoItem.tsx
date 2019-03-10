@@ -6,6 +6,8 @@ import { Track } from 'models/track'
 import ExternalLink from 'views/ui/ExternalLink'
 import ConfirmTrack from 'views/repos/ConfirmTrack'
 import ConfirmUntrack from 'views/repos/ConfirmUntrack'
+import CheckIcon from 'views/ui/icons/CheckIcon'
+import UncheckIcon from 'views/ui/icons/UncheckIcon'
 
 
 interface Props {
@@ -66,17 +68,18 @@ class RepoItem extends React.Component<Props & Connected, State> {
 
   render() {
     const { track, repo } = this.props
+    const repoName = repo.fullName.split('/')
 
     return (
       <li className={`item ${track && 'active'}`}>
         <div className="actions">
-          <button className="micro basic brown button" onClick={this._showConfirmation}>
-            {track ? 'Untrack' : 'Track'}
+          <button className={track ? 'confirm' : ''} onClick={this._showConfirmation} title={track ? 'Untrack' : 'Track'}>
+            {track ? <UncheckIcon /> : <CheckIcon />}
           </button>
         </div>
 
         <ExternalLink className="title external link" url={repo.htmlUrl} showIcon={false}>
-          {repo.fullName}
+          <em>{repoName[0]}</em>/<strong>{repoName[1]}</strong>
         </ExternalLink>
 
         {this._renderConfirmation()}

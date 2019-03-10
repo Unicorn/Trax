@@ -19,6 +19,9 @@ $font_header: 'Nunito', sans-serif;
 $font_body: 'Roboto', sans-serif;
 $font_monospace: 'Cutive Mono', monospace;
 
+$link_normal: $teal;
+$link_hover: darken($teal, 15%);
+
 
 //
 // LAYOUT

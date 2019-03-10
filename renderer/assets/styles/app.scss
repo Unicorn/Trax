@@ -120,9 +120,9 @@ main.dashboard {
   background: #fff;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
   border: 1px solid transparent;
-  border-radius: 4px;
   display: flex;
   flex-direction: row;
+  margin: 0;
   overflow: hidden;
   position: relative;
 
@@ -145,20 +145,52 @@ main.dashboard {
   }
 
   .title {
-    color: darken($brown, 5%);
     flex: 1;
     font-size: 1.4rem;
     font-weight: 300;
     line-height: 1.6em;
     padding: 1.5rem;
+
+    strong {
+      font-weight: 500;
+    }
   }
 
   .actions {
+    min-width: 11rem;
     padding: .8rem 1.5rem;
 
     button {
       animation: fadeIn 0.5s;
-      margin: .5rem 0 0 .5rem;
+      background: transparent;
+      border: none;
+      margin: .3rem 1rem 0 0;
+      padding: 0;
+      transition: transform .3s;
+      width: 3rem;
+
+      svg {
+        cursor: pointer;
+        fill: lighten($brown, 15%);
+        height: auto;
+        width: 100%;
+      }
+
+      &:hover {
+        transform: scale(1.2);
+      }
+
+      &.active svg {
+        fill: $brown;
+      }
+
+      &.confirm svg {
+       fill: $green;
+      }
+
+      &.cancel svg {
+        fill: $red;
+      }
     }
   }
 
