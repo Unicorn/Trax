@@ -1,5 +1,5 @@
 import * as path from 'path'
-import { app, BrowserWindow, Menu, Tray, ipcMain } from 'electron'
+import { app, BrowserWindow, dialog, Menu, Tray, ipcMain, autoUpdater } from 'electron'
 import * as isDev from 'electron-is-dev'
 
 require('update-electron-app')()
@@ -114,6 +114,25 @@ app.on('window-all-closed', () => {
 
 app.on('activate', () => {
   if (mainWindow === null) createWindow()
+})
+
+autoUpdater.on('update-downloaded', (_, releaseNotes, releaseName) => {
+  const dialogOpts = {
+    type: 'info',
+    buttons: ['Restart', 'Later'],
+    title: 'Application Update',
+    message: process.platform === 'win32' ? releaseNotes : releaseName,
+    detail: 'A new version has been downloaded. Restart the application to apply the updates.'
+  }
+
+  dialog.showMessageBox(dialogOpts, (response) => {
+    if (response === 0) autoUpdater.quitAndInstall()
+  })
+})
+
+autoUpdater.on('error', message => {
+  console.error('There was a problem updating the application')
+  console.error(message)
 })
 
 ipcMain.on('timer-tick', (_: any, time: any) => {

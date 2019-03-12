@@ -19,7 +19,7 @@ header.toolbar {
   z-index: 300;
 
   .actions {
-    padding: .5rem;
+    padding: 0 .5rem;
     float: right;
 
     button {
@@ -306,62 +306,63 @@ table.hoverable {
 //
 // TABBED
 //
-.tabbed {
-  nav.controls {
-    overflow: hidden;
+.tabs {
+  overflow: hidden;
+  width: 100%;
 
-    .tabs {
-      width: 100%;
+  > button, label {
+    background: rgba(0, 0, 0, 0.05);
+    border: none;
+    color: $brown;
+    display: inline-block;
+    font: 700 1.2rem $font_header;
+    margin: 0 .2rem 0 0;
+    padding: 1.2rem 2.5rem;
+    position: relative;
+    text-transform: uppercase;
+    transform: skewX(15deg);
+    transition: all .3s;
 
-      > button {
-        background: rgba(0, 0, 0, 0.05);
-        border: none;
-        color: $brown;
-        display: inline-block;
-        font: 700 1.2rem $font_header;
-        margin: 0 .2rem 0 0;
-        padding: 1.2rem 2.5rem;
-        position: relative;
-        text-transform: uppercase;
-        transform: skewX(15deg);
-        transition: all .3s;
-
-        &:hover {
-          background: rgba(0, 0, 0, 0.1);
-          cursor: pointer;
-          color: darken($brown, 15%);
-        }
-
-        &:first-child {
-          margin-left: -.5rem;
-          padding-left: 2.5rem;
-        }
-
-        &.active {
-          background: $teal;
-          color: #fff;
-          z-index: 3;
-        }
-
-        span {
-          display: block;
-          transform: skewX(-15deg);
-          position: relative;
-        }
-      }
+    &:hover {
+      background: rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      color: darken($brown, 15%);
     }
 
-    .actions {
-      float: right;
+    &:first-child {
+      margin-left: -.5rem;
+      padding-left: 2.5rem;
+    }
 
-      button {
-        font-size: 1.3rem;
-        margin-top: .5rem;
-        padding: .5rem 1.5rem;
-      }
+    &.active {
+      background: $teal;
+      color: #fff;
+      z-index: 3;
+    }
+
+    input {
+      display: none;
+    }
+
+    span {
+      display: block;
+      transform: skewX(-15deg);
+      position: relative;
     }
   }
+}
 
+.actions {
+  float: right;
+
+  button {
+    font-size: 1.3rem;
+    margin-top: .5rem;
+    padding: .5rem 1.5rem;
+  }
+}
+
+.tabbed {
   .pane {
     background: $creme;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);

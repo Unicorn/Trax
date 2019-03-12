@@ -59,6 +59,25 @@ input, textarea, select {
     }
   }
 
+  &.group {
+    .options {
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+    }
+
+    label {
+      background-color: $brown;
+      color: $eggshell;
+      padding: .5rem 1rem;
+
+      &.checked {
+        background-color: $teal;
+        color: darken($teal, 15%);
+      }
+    }
+  }
+
   &.toggle {
     @extend label;
     height: 2.6rem;
@@ -534,14 +553,41 @@ input, textarea, select {
   }
 }
 
-//
+/**
+ * EDITOR
+ */
+.editor {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+
+  .tabs {
+    margin: 0;
+  }
+
+  .header {
+    display: none;
+  }
+
+  textarea {
+    background-color: $input_background;
+    flex: 1;
+  }
+}
+
+
 // React RTE overrides
-//
 .rich-text {
+  align-items: stretch;
   background: $input_background;
-  border: none;
   border-bottom: $input_border_bottom;
   border-radius: 0;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .rich-text-toolbar {
@@ -555,6 +601,11 @@ input, textarea, select {
   background: $input_background;
   border-radius: 0;
   color: $input_color;
+  flex: 1;
   font: $input_font;
   letter-spacing: $input_letter_spacing;
+}
+
+.DraftEditor-root {
+  height: 100%;
 }

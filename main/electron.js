@@ -94,6 +94,23 @@ electron_1.app.on('activate', function () {
     if (mainWindow === null)
         createWindow();
 });
+electron_1.autoUpdater.on('update-downloaded', function (_, releaseNotes, releaseName) {
+    var dialogOpts = {
+        type: 'info',
+        buttons: ['Restart', 'Later'],
+        title: 'Application Update',
+        message: process.platform === 'win32' ? releaseNotes : releaseName,
+        detail: 'A new version has been downloaded. Restart the application to apply the updates.'
+    };
+    electron_1.dialog.showMessageBox(dialogOpts, function (response) {
+        if (response === 0)
+            electron_1.autoUpdater.quitAndInstall();
+    });
+});
+electron_1.autoUpdater.on('error', function (message) {
+    console.error('There was a problem updating the application');
+    console.error(message);
+});
 electron_1.ipcMain.on('timer-tick', function (_, time) {
     tray.setTitle(time);
 });
