@@ -10,10 +10,12 @@ type SelectOptionObject = {
 
 interface Props {
   name: string
-  type: 'text' | 'select' | 'textarea'
+  type: 'text' | 'select' | 'textarea' | 'toggle'
   label: string
   options?: SelectOptionObject
   required?: boolean
+  checked?: boolean
+  value?: any
   onChange?: (e: any) => void
 }
 
@@ -41,18 +43,32 @@ const FormField: React.SFC<Props> = (props) => {
     case 'text' :
       field = <input name={name} type={type} {...rest} />
       break
+    case 'toggle' :
+      field = <input name={name} type="checkbox" {...rest} />
+      break
     case 'textarea' :
       field = <textarea name={name} {...rest}></textarea>
       break
   }
 
-  return (
-    <div className={`field ${type}`}>
-      {field}
-      <label htmlFor={name}>{label}</label>
-      <span />
-    </div>
-  )
+  switch (type) {
+    case 'toggle' :
+      return (
+        <label className={`field ${type}`}>
+          {field}
+          <span className="slider"></span>
+          <strong>{label}</strong>
+        </label>
+      )
+    default :
+      return (
+        <div className={`field ${type}`}>
+          {field}
+          <label htmlFor={name}>{label}</label>
+          <span />
+        </div>
+      )
+  }
 }
 
 export default FormField

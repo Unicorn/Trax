@@ -9,9 +9,10 @@ import { Issues, Issue } from 'models/issue'
 import { issuesArray, filterIssues } from 'helpers/issueHelper'
 import Lane from 'views/issues/Lane'
 import SearchIssues from 'views/issues/SearchIssues'
-import { SWIMLANES } from 'config/constants'
+import { SWIMLANES, Lane as TLane } from 'config/constants'
 
 interface Connected {
+  lanes: TLane[]
   tracks: Tracks
   issues: Issues
   dispatch: (action: any) => any
@@ -61,12 +62,8 @@ class Board extends React.Component<Connected, State> {
   }
 
   render() {
-    const issues = this.state.issuesArr
-    const backlog = issues.filter((issue: Issue) => issue.lane === SWIMLANES.backlog.name)
-    const sprint = issues.filter((issue: Issue) => issue.lane === SWIMLANES.sprint.name)
-    const started = issues.filter((issue: Issue) => issue.lane === SWIMLANES.started.name)
-    const review = issues.filter((issue: Issue) => issue.lane === SWIMLANES.review.name)
-    const complete = issues.filter((issue: Issue) => issue.lane === SWIMLANES.complete.name)
+    const { lanes } = this.props
+    const { issuesArr } = this.state
 
     return (
       <section className="board">
@@ -79,14 +76,10 @@ class Board extends React.Component<Connected, State> {
             </button>
           </div>
         </header>
-        
+
         <div className="columns">
           <DragDropContext onDragEnd={this._onDragEnd}>
-            <Lane lane={SWIMLANES.backlog.name} issues={backlog} />
-            <Lane lane={SWIMLANES.sprint.name} issues={sprint} />
-            <Lane lane={SWIMLANES.started.name} issues={started} />
-            <Lane lane={SWIMLANES.review.name} issues={review} />
-            <Lane lane={SWIMLANES.complete.name} issues={complete} />
+            {lanes.map(lane => <Lane lane={lane} issues={issuesArr.filter((issue: Issue) => issue.lane === lane)} />)}
           </DragDropContext>
         </div>
       </section>
@@ -98,6 +91,7 @@ class Board extends React.Component<Connected, State> {
 const mapState = (state: any) => ({
   tracks: state.tracks,
   issues: state.issues,
+  lanes: state.settings.lanes
 })
 
 export default connect(mapState)(Board)

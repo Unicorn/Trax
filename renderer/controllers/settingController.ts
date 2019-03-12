@@ -1,8 +1,10 @@
+import { LANES } from 'config/constants'
 import {
   SET_SETTING,
   Setting,
   Settings,
   ActivePageValues,
+  ActiveLaneValues,
   SettingsAction
 } from 'models/setting'
 
@@ -16,8 +18,14 @@ export const setPage = (value: ActivePageValues): SettingsAction => ({
   payload: { key: 'page', value }
 })
 
+export const setLanes = (value: ActiveLaneValues): SettingsAction => ({
+  type: SET_SETTING,
+  payload: { key: 'lanes', value }
+})
+
 const initialState: Settings = {
   page: 'welcome',
+  lanes: LANES
 }
 
 export const settingsReducer = (
@@ -26,7 +34,7 @@ export const settingsReducer = (
 ) => {
   const { payload, type } = action
   let newState = { ...state }
-  
+
   if (!payload || !type) return state
 
   switch (type) {

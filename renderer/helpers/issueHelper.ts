@@ -1,7 +1,7 @@
 import * as _ from 'lodash'
 import * as Fuse from 'fuse.js'
 import { Issues, Issue } from 'models/issue'
-import { LANES } from 'config/constants'
+import { LANES, LABELS, Lane } from 'config/constants'
 
 export const issuesWithoutLanes = (issues: Issues) => {
   const arr = issuesArray(issues)
@@ -9,7 +9,7 @@ export const issuesWithoutLanes = (issues: Issues) => {
   if (arr.length < 1)
     return []
 
-  return arr.filter((i: Issue) => i.labels.filter(l => LANES.includes(l.name)).length === 0)
+  return arr.filter((i: Issue) => i.labels.filter(l => LANES.includes(l.name as Lane)).length === 0)
 }
 
 export const issuesArray = (issues: Issues): Issue[] =>  {
@@ -35,4 +35,8 @@ export const filterIssues = (text: string, issues: Issue[]): Issue[] => {
   const fuse = new Fuse(issues, options)
 
   return fuse.search(text)
+}
+
+export const labelNames = (labels: string[]) => {
+  return labels.filter(l => l !== '').map(l => LABELS[l].name)
 }

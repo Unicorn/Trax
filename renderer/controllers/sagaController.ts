@@ -5,7 +5,7 @@ import authSaga from 'sagas/authSaga'
 import issueSaga from 'sagas/issueSaga'
 import orgSaga from 'sagas/orgSaga'
 import persistSaga from 'sagas/persistSaga'
-import profileSaga from 'sagas/profileSaga'
+import userSaga from 'sagas/userSaga'
 import repoSaga from 'sagas/repoSaga'
 import timerSaga from 'sagas/timerSaga'
 import trackSaga from 'sagas/trackSaga'
@@ -17,7 +17,7 @@ export default function* rootSaga() {
     issueSaga(),
     orgSaga(),
     persistSaga(),
-    profileSaga(),
+    userSaga(),
     repoSaga(),
     timerSaga(),
     trackSaga(),

@@ -2,15 +2,16 @@ import { schema } from 'normalizr'
 import { Issue } from 'models/issue'
 import { LANES } from 'config/constants'
 
-const userSchema = new schema.Entity('users');
+const userSchema = new schema.Entity('users')
+const assigneeSchema = new schema.Entity('assignees')
 
-const repoSchema = new schema.Entity('repos');
+const repoSchema = new schema.Entity('repos')
 
-const orgSchema = new schema.Entity('orgs');
+const orgSchema = new schema.Entity('orgs')
 
 const milestoneSchema = new schema.Entity('milestones', {
   creator: userSchema
-});
+})
 
 const issueSchema = new schema.Entity(
   'issues',
@@ -22,20 +23,19 @@ const issueSchema = new schema.Entity(
   },
   {
     processStrategy: (issue: Issue, _parent, _key) => {
-      var lane = 'backlog'
-
-      if (issue.labels && issue.labels.length > 0)
-        lane = issue.labels.filter(l => LANES.includes(l.name))[0].name
+      let labels = issue.labels.filter(l => LANES.includes(l.name))
 
       return {
         ...issue,
-        lane
+        lane: labels.length > 0 ? labels[0].name : 'backlog'
       }
     }
   }
-);
+)
 
 export default {
+  assignee: assigneeSchema,
+  assignees: [assigneeSchema],
   user: userSchema,
   repo: repoSchema,
   repos: [repoSchema],

@@ -65,6 +65,7 @@ export const fetchOrgs = () => github('user/orgs')
 export const fetchRepos = (login?: string) => github(login ? `orgs/${login}/repos` : 'user/repos', null, schema.repos)
 export const fetchCreateProject = ({ owner, repo }: any, request: any) => github(`repos/${owner}/${repo}/projects`, request)
 export const fetchCreateLabel = ({ owner, repo }: any, request: any) => github(`repos/${owner}/${repo}/labels`, request)
+export const fetchRepoAssignees = (ident: string) => github(`repos/${ident}/assignees`, schema.assignees) 
 
 export const fetchIssues = (request: Request) => {
   const { params: { owner, repo } } = request

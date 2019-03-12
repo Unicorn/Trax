@@ -8,6 +8,6 @@ function* watchProfileRequest(_action: ProfileAction) {
   yield put(receiveProfile(profile))
 }
 
-export default function* profileSaga() {
+export default function* userSaga() {
   yield takeEvery(PROFILE.REQUEST, watchProfileRequest)
 }

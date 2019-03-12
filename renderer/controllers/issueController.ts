@@ -9,7 +9,7 @@ export const issuesList = {
 }
 
 export const issueCreate = {
-  request: (payload: CreateIssue) => action(ISSUE.CREATE.REQUEST, { payload }),
+  request: (ident: string, payload: CreateIssue) => action(ISSUE.CREATE.REQUEST, { ident, payload }),
   success: (payload: Issue) => action(ISSUE.CREATE.SUCCESS, { payload }),
   failure: (payload: any) => action(ISSUE.CREATE.FAILURE, { payload })
 }

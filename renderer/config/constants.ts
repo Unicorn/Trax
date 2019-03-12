@@ -1,9 +1,13 @@
 import { ActivePageValues } from 'models/setting'
 
 export type Swimlane = {
-  label: Lane
-  name: string;
-  color: string;
+  label: string
+  name: Lane
+  color: string
+}
+
+export type Swimlanes = {
+  [key: string]: Swimlane;
 }
 
 export type Lane = 'backlog' | 'sprint' | 'started' | 'review' | 'complete'
@@ -63,7 +67,7 @@ export const ROUTES: Routes = {
   },
 }
 
-export const SWIMLANES = {
+export const SWIMLANES: Swimlanes = {
   backlog: {
     label: 'Backlog',
     name: 'backlog',
@@ -146,12 +150,9 @@ export const LABELS: ILABEL = {
   ...PRIORITY
 }
 
-export const LANES = [
-  SWIMLANES.backlog.name,
-  SWIMLANES.started.name,
-  SWIMLANES.review.name,
-  SWIMLANES.complete.name,
-]
+export const LANES: Lane[] = Object
+  .keys(SWIMLANES as Swimlanes)
+  .map((key: string) => (SWIMLANES[key] as Swimlane).name as Lane)
 
 export const MICROSERVICE = {
   API: 'https://trax-go.herokuapp.com'

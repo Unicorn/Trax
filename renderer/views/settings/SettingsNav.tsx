@@ -1,4 +1,5 @@
 import * as React from 'react'
+import LaneSettings from 'views/settings/LaneSettings'
 
 interface State {
   selected: number
@@ -30,13 +31,7 @@ class SettingsNav extends React.Component<{}, State> {
   _renderPane(selected: number) {
     switch(selected) {
       case 0:
-        return (
-          <ul className="labels">
-            <li>
-              <input type="text" placeholder="Label 1" />
-            </li>
-          </ul>
-        )
+        return <LaneSettings />
       default:
         return null
     }
@@ -49,7 +44,7 @@ class SettingsNav extends React.Component<{}, State> {
       <div className="tabbed">
         <nav className="controls">
           <div className="tabs">
-            {this._renderTab('Labels', 0)}
+            {this._renderTab('Project Board', 0)}
             {this._renderTab('Test', 1)}
           </div>
         </nav>

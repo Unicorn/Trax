@@ -13,6 +13,8 @@ function* watchIssuesRequest(action: IssuesAction) {
   const request = { params: { owner, repo, ident } }
   const issues = yield call(fetchIssues, request)
 
+  console.log("watchIssuesRequest", issues)
+
   yield issuesWithoutLanes(issues).map(({ labels, number }: Issue) => {
     let req = {
       params: { owner, repo, ident, number },
@@ -57,9 +59,7 @@ function* watchIssueCreate(action: IssuesAction) {
 
   const request = {
     params: { owner, repo },
-    body: {
-      title: issue.title
-    }
+    body: issue
   }
 
   const newIssue = yield call(fetchIssueCreate, request)

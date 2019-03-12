@@ -47,9 +47,9 @@ export interface Issue {
 export interface CreateIssue {
   title: string
   body: string
-  milestone: number
-  labels: [string]
-  assignees: [string]
+  labels: string[]
+  assignees: string[]
+  milestone?: number
 }
 
 export interface ReceiveIssue {
