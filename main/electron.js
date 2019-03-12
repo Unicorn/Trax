@@ -2,7 +2,8 @@
 exports.__esModule = true;
 var path = require("path");
 var electron_1 = require("electron");
-var isDev = require('electron-is-dev');
+var isDev = require("electron-is-dev");
+require('update-electron-app')();
 var mainWindow;
 var tray;
 var installExtensions = function () {
@@ -64,6 +65,7 @@ var createWindow = function () {
         width: 900,
         height: 680,
         webPreferences: {
+            contextIsolation: false,
             nodeIntegration: false,
             preload: path.join(__dirname, 'preload.js')
         }

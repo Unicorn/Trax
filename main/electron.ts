@@ -1,7 +1,8 @@
 import * as path from 'path'
 import { app, BrowserWindow, Menu, Tray, ipcMain } from 'electron'
-import { autoUpdater } from 'electron-updater'
 import * as isDev from 'electron-is-dev'
+
+require('update-electron-app')()
 
 let mainWindow: BrowserWindow | null
 let tray: Tray | null
@@ -23,13 +24,6 @@ const installExtensions = () => {
       .then((name: string) => console.log(`Added Extension:  ${name}`))
       .catch((err: Error) => console.log('An error occurred: ', err))
   })
-}
-
-const checkUpdates = () => {
-  const log = require("electron-log")
-  log.transports.file.level = "debug"
-  autoUpdater.logger = log
-  autoUpdater.checkForUpdatesAndNotify()
 }
 
 const createTray = () => {
@@ -86,6 +80,7 @@ const createWindow = () => {
     width: 900,
     height: 680,
     webPreferences: {
+      contextIsolation: false,
       nodeIntegration: false,
       preload: path.join(__dirname, 'preload.js')
     }
@@ -109,7 +104,6 @@ const createWindow = () => {
 app.on('ready', () => {
   if (isDev) installExtensions()
 
-  checkUpdates()
   createWindow()
   createTray()
 })
