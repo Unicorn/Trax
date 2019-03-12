@@ -209,6 +209,11 @@
     "@types/react" "*"
     immutable "^3.8.1"
 
+"@types/electron-is-dev@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@types/electron-is-dev/-/electron-is-dev-0.3.0.tgz#28dc6aa4c9493869a8c5da29ebd586648f5ffb70"
+  integrity sha512-Y7ur72wnUrPACXLnw8RyO+vPMOPTB1zGm0yJBPZ750+jTk2mEpC4EgoRSBpjrQW21v6p39ZPk7tPDMxIVyDMcg==
+
 "@types/history@*":
   version "4.7.2"
   resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.2.tgz#0e670ea254d559241b6eeb3894f8754991e73220"
@@ -2310,6 +2315,11 @@ electron-localshortcut@^3.0.0:
     electron-is-accelerator "^0.1.0"
     keyboardevent-from-electron-accelerator "^1.1.0"
     keyboardevents-areequal "^0.2.1"
+
+electron-log@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/electron-log/-/electron-log-3.0.1.tgz#5c60913e8ae1a8645560eea8b3c47c60d101e797"
+  integrity sha512-bomFcrYvkEXj0H00T5GjBee50TBA/VwdoDFpPQ2jz3LDGi+4wKF3xrB+N1qXiZYoqDeaK5lNRAkNsHKmXeCPfg==
 
 electron-osx-sign@0.4.11:
   version "0.4.11"
