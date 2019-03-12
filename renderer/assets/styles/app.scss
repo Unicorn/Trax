@@ -228,7 +228,7 @@ main.dashboard {
   color: $brown;
   flex: 1;
   height: calc(100vh - 8.5rem);
-  padding: 1rem 1rem;
+  padding: 1.5rem 1%;
   position: relative;
 
   &.backlog {
@@ -267,13 +267,13 @@ main.dashboard {
   }
 
   .inner {
-    position: absolute;
-    top: 4rem;
-    right: 0;
-    left: 0;
     bottom: 0;
+    left: 0;
     overflow-y: scroll;
-    padding: 1.2rem;
+    padding: 4%;
+    position: absolute;
+    right: 0;
+    top: 4rem;
 
     &::-webkit-scrollbar {
       background: transparent;
@@ -288,17 +288,17 @@ main.dashboard {
   border: 1px solid transparent;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
   cursor: move;
-  display: flex;
-  flex-direction: column;
   margin: $item_spacing;
+  min-height: 8rem;
   overflow: hidden;
   position: relative;
   transition: box-shadow .3s;
+  width: 100%;
 
   &:hover {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
 
-    .bar {
+    footer {
       height: 4.2rem;
     }
   }
@@ -308,7 +308,7 @@ main.dashboard {
   }
 
   &.active {
-    .bar {
+    footer {
       height: 4.2rem;
 
       button {
@@ -321,50 +321,46 @@ main.dashboard {
     }
   }
 
-  .meta {
+  header, .description, .labels, footer {
+    padding: 3% 4%;
+  }
+
+  header {
+    align-items: center;
+    background: lighten($eggshell, 5%);
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 9rem;
-    padding: 1rem 1.2rem;
-    width: 100%;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    font: 400 1.2rem/1.8rem $font_condensed;
+    justify-content: space-between;
 
-    .header {
-      @extend %clearfix;
-      color: $brown;
-      font: 500 1.3rem/1.8rem $font_condensed;
-      display: block;
-      padding-bottom: .5rem;
-    }
-
-    .description {
-      color: lighten($brown, 10%);
-      display: block;
-      font: 300 1.1rem/1.6rem $font_condensed;
-      padding-bottom: .8rem;
-    }
-
-    .label {
-      background: $eggshell;
-      border-radius: 1px;
-      color: rgba(0, 0, 0, 0.4);
-      display: inline-block;
-      font: 400 1rem $font_condensed;
-      margin: 0 .4rem 0 0;
-      padding: .3rem .5rem;
-      text-transform: uppercase;
+    strong {
+      color: lighten($brown, 5%);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 80%;
     }
   }
 
-  .tracked {
-    color: $teal;
-    font: 1.2rem $font_monospace;
-    position: absolute;
-    right: 1rem;
-    top: .5rem;
+  .description {
+    color: $brown;
+    display: block;
+    font: 400 1.3rem/1.8rem $font_body;
   }
 
-  .bar {
+  .label {
+    background: $eggshell;
+    border-radius: 1px;
+    color: rgba(0, 0, 0, 0.4);
+    display: inline-block;
+    font: 400 1rem $font_condensed;
+    margin: 0 .4rem 0 0;
+    padding: .3rem .5rem;
+    text-transform: uppercase;
+  }
+
+  footer {
     align-items: center;
     background: lighten($eggshell, 5%);
     display: flex;
@@ -439,8 +435,9 @@ main.welcome {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  margin-top: 10rem;
+  margin: 0 auto;
   max-width: 140rem;
+  padding-top: 10rem;
   width: 96%;
 
   .left, .right {
@@ -448,6 +445,7 @@ main.welcome {
   }
 
   .left {
+    padding-top: 10rem;
     text-align: center;
   }
 
@@ -458,6 +456,7 @@ main.welcome {
 
   .logo {
     display: block;
+    margin: 0 auto;
     width: 250px;
   }
 }

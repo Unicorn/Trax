@@ -8,7 +8,7 @@ export const randString = (length?: number): string  => {
     return result
 }
 
-export const formatClock = (duration: number) => {
+export const formatClock = (duration: number, hideEmpty?: boolean) => {
   let hours = ('0' + Math.floor(duration / (60 * 60)).toString()).slice(-2)
   let minutes_divisor = duration % (60 * 60)
   let minutes = ('0' + Math.floor(minutes_divisor / 60).toString()).slice(-2)
@@ -16,7 +16,7 @@ export const formatClock = (duration: number) => {
   let seconds = ('0' + Math.ceil(seconds_devisor).toString()).slice(-2)
   let formatted = `${hours}:${minutes}:${seconds}`
 
-  return duration > 0 ? formatted : '00:00:00'
+  return duration > 0 ? formatted : hideEmpty ? '' : '00:00:00'
 }
 
 export const parameterize = (text: string) => {

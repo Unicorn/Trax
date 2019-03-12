@@ -38,20 +38,21 @@ const Card: React.SFC<Props & Connected> = ({ dispatch, timer, issue, lane, inde
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <span className="tracked">{formatClock(duration)}</span>
+          <header>
+            <strong>{`${issue.ident}/#${issue.number}`}</strong>
+            <span className="tracked">{formatClock(duration, true)}</span>
+          </header>
 
-          <div className="meta">
-            <span className="header">{`${issue.ident}/#${issue.number}`}</span>
-            <span className="description">{issue.title}</span>
-            {issue.labels && issue.labels.length > 0 && <LabelsList labels={issue.labels} lane={lane} withoutLanes={true} />}
+          <div className="description">
+            {issue.title}
           </div>
 
+          {issue.labels && issue.labels.length > 0 && <LabelsList labels={issue.labels} lane={lane} withoutLanes={true} />}
 
-
-          <div className="bar">
+          <footer>
             <TimerButton timer={timer} handler={_timerHandler} />
             <ExternalLink showIcon={true} url={issue.htmlUrl} />
-          </div>
+          </footer>
         </div>
       )}
     </Draggable>

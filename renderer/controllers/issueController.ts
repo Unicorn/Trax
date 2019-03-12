@@ -1,3 +1,4 @@
+import { union, merge } from 'lodash'
 import { action } from 'helpers/reduxHelper'
 import { ISSUE, Issues, Issue, ReceiveIssue, CreateIssue, IssuesAction, defaultState } from 'models/issue'
 import { Lane } from 'config/constants'
@@ -39,7 +40,10 @@ export const issuesReducer = (state: Issues = defaultState, action: IssuesAction
   switch (type)
   {
     case ISSUE.LIST.SUCCESS :
-      return (payload as Issues) || state
+      let issues = payload as Issues
+      newState.entities.issues = merge(newState.entities.issues, issues.entities.issues)
+      newState.result = union(newState.result, issues.result)
+      return newState
 
     case ISSUE.UPDATE.REQUEST :
       issue = payload as Issue

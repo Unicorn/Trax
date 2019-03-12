@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-type SelectOptionObject = {
+export type SelectOptionObject = {
   [key: string]: {
     label: string
     name?: string
@@ -32,7 +32,7 @@ const _renderOptions = (options?: SelectOptionObject) => {
   return items
 }
 
-const FormField: React.SFC<Props> = (props) => {
+export const FormField: React.SFC<Props> = (props) => {
   const { name, type, label, options, ...rest } = props
   let field = null
 
@@ -70,5 +70,3 @@ const FormField: React.SFC<Props> = (props) => {
       )
   }
 }
-
-export default FormField

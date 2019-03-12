@@ -64,7 +64,7 @@ export interface ReceiveIssue {
 
 export interface Issues {
   isLoading: boolean
-  result?: [number]
+  result?: number[]
   nextPageUrl?: string
   entities: {
     issues: {

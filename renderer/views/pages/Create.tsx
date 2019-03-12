@@ -1,12 +1,14 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import RichTextEditor, { EditorValue } from 'react-rte'
-import FormField from 'views/ui/form/FormField'
+import { FormField, SelectOptionObject } from 'views/ui/form/FormField'
 import { issueCreate } from 'controllers/issueController'
 import { labelNames } from 'helpers/issueHelper'
+import { Tracks } from 'models/track'
 import { TYPES, SWIMLANES, PRIORITY } from 'config/constants'
 
 interface Connected {
+  tracks: Tracks
   dispatch: (action: any) => any
 }
 
@@ -60,7 +62,15 @@ class Create extends React.Component<Connected, State> {
   }
 
   render() {
+    const { tracks } = this.props
     const { body } = this.state
+    const repoOptions: SelectOptionObject = {}
+
+    tracks.forEach(t => {
+      repoOptions[t.ident] = {
+        label: t.ident
+      }
+    })
 
     return (
       <section className="create page">
@@ -107,11 +117,7 @@ class Create extends React.Component<Connected, State> {
                 name="repo"
                 type="select"
                 label="Repo"
-                options={{
-                  'UnicornAgency/Trax': {
-                    label: 'UnicornAgency/Trax'
-                  }
-                }}
+                options={repoOptions}
                 onChange={this._fieldHandler}
                 required
               />
@@ -136,4 +142,8 @@ class Create extends React.Component<Connected, State> {
   }
 }
 
-export default connect()(Create)
+const mapState = (state: any) => ({
+  tracks: state.tracks
+})
+
+export default connect(mapState)(Create)

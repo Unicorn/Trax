@@ -11,12 +11,14 @@ interface Props {
 const LabelsList: React.SFC<Props> = ({ labels, withoutLanes, lane }) => {
   const items = withoutLanes ? labels.filter((label: Label) => label.name !== lane) : labels
 
-  return (
-    <div className="labels">
-      {items.map((label: Label) => <LabelItem label={label} />)}
-    </div>
-  )
-
+  if (items.length > 0)
+    return (
+      <div className="labels">
+        {items.map((label: Label) => <LabelItem label={label} />)}
+      </div>
+    )
+  else
+    return null
 }
 
 export default LabelsList

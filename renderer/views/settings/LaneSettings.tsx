@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import FormField from 'views/ui/form/FormField'
+import { FormField } from 'views/ui/form/FormField'
 import { ActiveLaneValues, SettingsAction } from 'models/setting'
 import { LANES, Lane } from 'config/constants'
 import { setLanes } from 'controllers/settingController'
