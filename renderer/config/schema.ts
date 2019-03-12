@@ -1,6 +1,6 @@
 import { schema } from 'normalizr'
 import { Issue } from 'models/issue'
-import { LANES } from 'config/constants'
+import { LANES, Lane } from 'config/constants'
 
 const userSchema = new schema.Entity('users')
 const assigneeSchema = new schema.Entity('assignees')
@@ -23,7 +23,7 @@ const issueSchema = new schema.Entity(
   },
   {
     processStrategy: (issue: Issue, _parent, _key) => {
-      let labels = issue.labels.filter(l => LANES.includes(l.name))
+      let labels = issue.labels.filter(l => LANES.includes(l.name as Lane))
 
       return {
         ...issue,

@@ -9,7 +9,7 @@ import { Issues, Issue } from 'models/issue'
 import { issuesArray, filterIssues } from 'helpers/issueHelper'
 import Lane from 'views/issues/Lane'
 import SearchIssues from 'views/issues/SearchIssues'
-import { SWIMLANES, Lane as TLane } from 'config/constants'
+import { Lane as TLane } from 'config/constants'
 
 interface Connected {
   lanes: TLane[]

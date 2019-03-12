@@ -3,7 +3,7 @@
   "homepage": "./",
   "author": "Unicorn LLC <hello@unicorn.xxx>",
   "description": "A desktop application for managing Github Projects",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "private": true,
   "main": "main/electron.js",
   "productName": "Trax",
@@ -14,7 +14,8 @@
     "start": "webpack-serve ./config/webpack.config.js --https-cert ./config/localhost.cert --https-key ./config/localhost.key",
     "electron:start": "tsc main/*.ts && electron .",
     "preelectron:build": "tsc main/*.ts && webpack --config ./config/webpack.config.js",
-    "electron:build": "build -c.extraMetadata.main=build/electron.js -mwl -p never"
+    "electron:build": "electron-builder -c.extraMetadata.main=build/electron.js -mwl -p onTag",
+    "release": "yarn electron:build"
   },
   "lint-staged": {
     "*.{ts,js,tsx}": [
@@ -23,7 +24,7 @@
     ]
   },
   "build": {
-    "appId": "xxx.unicorn.trax",
+    "appId": "com.unicornagency.trax",
     "directories": {
       "buildResources": "public/icons"
     },
@@ -32,7 +33,8 @@
       "node_modules/**/*"
     ],
     "mac": {
-      "target": "zip"
+      "category": "public.app-category.developer-tools",
+      "target": "dmg"
     }
   },
   "dependencies": {
@@ -73,6 +75,7 @@
     "electron-builder": "^20.38.5",
     "electron-debug": "^2.1.0",
     "electron-devtools-installer": "^2.2.4",
+    "electron-updater": "^4.0.6",
     "eslint": "^5.12.1",
     "eslint-loader": "^2.1.1",
     "eslint-plugin-react": "^7.12.4",

@@ -7,7 +7,6 @@ import { setLanes } from 'controllers/settingController'
 
 interface Connected {
   lanes: Lane[]
-  dispatch: (action: any) => any
 }
 
 interface Actions {
