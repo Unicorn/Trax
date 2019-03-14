@@ -34,6 +34,7 @@ class RepoItem extends React.Component<Props & Connected, State> {
 
   _trackHandler = () => {
     const { dispatch, repo } = this.props
+    console.log("_trackHandler", repo)
     dispatch(createTrack(repo))
     this._hideConfirmation()
   }
@@ -89,8 +90,8 @@ class RepoItem extends React.Component<Props & Connected, State> {
 
 }
 
-const mapState = (state: any, props: Props) => ({
-  track: state.tracks.filter((t: Track) => t.ident === props.repo.fullName)[0]
+const mapState = (state: any, { repo }: Props) => ({
+  track: repo && state.tracks[repo.nodeId]
 })
 
 export default connect(mapState)(RepoItem)

@@ -1,10 +1,10 @@
+import { keys, trim } from 'lodash'
 import * as React from 'react'
-import * as _ from 'lodash'
 import { connect } from 'react-redux'
 
 import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 import { issuesList, switchLanes } from 'controllers/issueController'
-import { Tracks } from 'models/track'
+import { TRACK, Tracks } from 'models/track'
 import { Issues, Issue } from 'models/issue'
 import { issuesArray, filterIssues } from 'helpers/issueHelper'
 import Lane from 'views/issues/Lane'
@@ -30,7 +30,11 @@ class Board extends React.Component<Connected, State> {
 
   componentWillMount() {
     const { dispatch, tracks } = this.props
-    tracks.forEach(t => dispatch(issuesList.request(t.ident)))
+
+    keys(tracks).forEach(key => {
+      dispatch({ type: TRACK.RELOAD })
+      dispatch(issuesList.request(tracks[key].ident))
+    })
   }
 
   componentWillReceiveProps(props: Connected) {
@@ -39,7 +43,7 @@ class Board extends React.Component<Connected, State> {
 
   _filterIssues = (e: React.ChangeEvent<HTMLInputElement>) => {
     const issuesArr = issuesArray(this.props.issues)
-    const text = _.trim(e.target.value)
+    const text = trim(e.target.value)
 
     if (text.length === 0)
       this.setState({ issuesArr })

@@ -1,4 +1,5 @@
 import * as React from 'react'
+import ChevronDownIcon from 'views/ui/icons/ChevronDownIcon'
 
 export type OptionsObject = {
   [key: string]: {
@@ -81,6 +82,15 @@ export const FormField: React.SFC<Props> = (props) => {
         <div className={`field ${type}`}>
           <span className="header">{label}</span>
           <div className="options">{_renderRadioOptions(props, options)}</div>
+        </div>
+      )
+    case 'select' :
+      return (
+        <div className={`field ${type}`}>
+          {field}
+          <label htmlFor={name}>{label}</label>
+          <ChevronDownIcon />
+          <span />
         </div>
       )
     default :

@@ -1,3 +1,4 @@
+import { keys } from 'lodash'
 import * as React from 'react'
 import { connect } from 'react-redux'
 import Accordion from 'views/ui/Accordion'
@@ -12,14 +13,12 @@ interface Connected {
 }
 
 const _renderTracks = (tracks: Tracks) => {
-  if (!tracks || tracks.length < 1)
+  let items = keys(tracks)
+
+  if (items.length < 1)
     return <p>Nothing tracked yet. Select a repo to track.</p>
 
-  return (
-    <ul>
-      {tracks.map(t => <RepoItem repo={t.repo} />)}
-    </ul>
-  )
+  return <ul>{items.map(key => <RepoItem repo={tracks[key].repo} />)}</ul>
 }
 
 const Profile: React.SFC<Connected> = (props) => {

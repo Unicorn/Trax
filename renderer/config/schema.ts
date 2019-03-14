@@ -5,13 +5,12 @@ import { LANES, Lane } from 'config/constants'
 const userSchema = new schema.Entity('users')
 const assigneeSchema = new schema.Entity('assignees')
 
-const repoSchema = new schema.Entity('repos')
-
 const orgSchema = new schema.Entity('orgs')
 
 const milestoneSchema = new schema.Entity('milestones', {
   creator: userSchema
 })
+
 
 const issueSchema = new schema.Entity(
   'issues',
@@ -32,6 +31,8 @@ const issueSchema = new schema.Entity(
     }
   }
 )
+
+const repoSchema = new schema.Entity('repos')
 
 export default {
   assignee: assigneeSchema,

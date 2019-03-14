@@ -5,8 +5,15 @@ export const createTrack = (repo: Repo): TrackAction => ({
   type: TRACK.CREATE,
   payload: {
     ident: repo.fullName,
-    repo
+    repo,
+    users: [],
+    issues: []
   }
+})
+
+export const updateTrack = (payload: Track): TrackAction => ({
+  type: TRACK.UPDATE,
+  payload
 })
 
 export const deleteTrack = (track: Track): TrackAction => ({
@@ -14,20 +21,30 @@ export const deleteTrack = (track: Track): TrackAction => ({
   payload: track
 })
 
-export const trackReducer = (state: Tracks = [], action: TrackAction) => {
+export const trackReducer = (state: Tracks = {}, action: TrackAction) => {
   const { payload, type } = action
 
   if (!payload || !type) return state
 
-  let newState = state.slice()
+  let newState = { ...state }
 
   switch (type)
   {
     case TRACK.CREATE :
-      return newState.concat(payload)
+      newState[payload.repo.nodeId] = payload
+      return newState
+
+    case TRACK.RELOAD :
+    case TRACK.UPDATE :
+      newState[payload.repo.nodeId] = {
+        ...state[payload.repo.nodeId],
+        ...payload
+      }
+      return newState
 
     case TRACK.DELETE :
-      return state.filter((t: Track) => t.ident !== payload.ident)
+      delete newState[payload.repo.nodeId]
+      return newState
 
     default :
       return state

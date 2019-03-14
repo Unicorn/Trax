@@ -18,7 +18,7 @@ const saga = createSagaMiddleware()
 
 const persistConfig = {
   key: 'root',
-  blacklist: ['alerts', 'issues'],
+  blacklist: [],
   storage
 }
 

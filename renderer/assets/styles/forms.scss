@@ -6,7 +6,7 @@ $input_font: 400 1.4rem $font_body;
 $input_letter_spacing: .05em;
 $input_color: $brown;
 $input_border_bottom: 2px solid lighten($brown, 30%);
-$input_padding: .8rem;
+$input_padding: .8rem 1.2rem;
 
 button {
   &.null {
@@ -22,7 +22,7 @@ button {
   }
 }
 
-label {
+label, .field .header {
   display: block;
   font-family: $font_header;
   font-size: 1.6rem;
@@ -43,7 +43,7 @@ input, textarea, select {
 }
 
 .field {
-  margin: 4rem 0 1rem;
+  margin: 3rem 0 1rem;
   position: relative;
   text-align: left;
 
@@ -60,20 +60,39 @@ input, textarea, select {
   }
 
   &.group {
+    margin-top: 1.5rem;
+
+    .header {
+      display: block;
+      font-size: 1.2rem;
+      padding: 0 0 .5rem 1rem;
+    }
+
     .options {
-      align-items: center;
-      display: flex;
-      flex-direction: row;
+      width: fit-content;
     }
 
     label {
-      background-color: $brown;
-      color: $eggshell;
-      padding: .5rem 1rem;
+      background-color: $input_background;
+      color: $input_color;
+      cursor: pointer;
+      display: inline-block;
+      font: $input_font;
+      margin: 0;
+      padding: 1.2rem 1.5rem;
+      transition: .3s;
 
-      &.checked {
+      input {
+        display: none;
+      }
+
+      &:hover {
+        background-color: transparentize($yellow, .9);
+      }
+
+      &.active {
         background-color: $teal;
-        color: darken($teal, 15%);
+        color: #fff;
       }
     }
   }
@@ -127,6 +146,26 @@ input, textarea, select {
 
     input:focus + .slider {
       box-shadow: 0 0 1px $teal;
+    }
+  }
+
+  &.select {
+    svg {
+      fill: darken($input_background, 30%);
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      width: 2rem;
+    }
+
+    select {
+      cursor: pointer;
+    }
+
+    &:hover {
+      svg {
+        fill: $brown;
+      }
     }
   }
 
@@ -335,6 +374,7 @@ input, textarea, select {
   position: relative;
   text-transform: uppercase;
   transition: all .2s;
+  width: fit-content;
 
   &:hover {
     background: #eee;
@@ -352,6 +392,8 @@ input, textarea, select {
 
   &.large {
     display: block;
+    margin-top: 2.5rem;
+    padding: 2rem 5rem;
   }
 
   .icon {
@@ -586,15 +628,15 @@ input, textarea, select {
   border-radius: 0;
   border: none;
   display: flex;
+  flex: 1;
   flex-direction: column;
-  height: 100%;
 }
 
 .rich-text-toolbar {
-  background: $input_background;
+  background: #f7f7f6;
   border: none;
   margin: 0;
-  padding: $input_padding;
+  padding: .8rem .8rem .3rem;
 }
 
 .rich-text-editor {
@@ -603,6 +645,7 @@ input, textarea, select {
   color: $input_color;
   flex: 1;
   font: $input_font;
+  height: 100%;
   letter-spacing: $input_letter_spacing;
 }
 

@@ -1,3 +1,4 @@
+import { keys, findKey } from 'lodash'
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { Editor } from 'views/ui/form/Editor'
@@ -19,7 +20,7 @@ interface State {
 const defaultState = {
   title: '',
   type: '',
-  lane: '',
+  lane: 'backlog',
   priority: '',
   assignee: '',
   repo: '',
@@ -27,7 +28,10 @@ const defaultState = {
 }
 
 class Create extends React.Component<Connected, State> {
+
   state = defaultState
+  repoOptions: OptionsObject = {}
+  userOptions: OptionsObject = {}
 
   _submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -43,6 +47,8 @@ class Create extends React.Component<Connected, State> {
     }
 
     dispatch(issueCreate.request(repo, payload))
+
+    this.setState(defaultState)
   }
 
   _fieldHandler = (e: any) => {
@@ -56,19 +62,29 @@ class Create extends React.Component<Connected, State> {
       newData[input.name] = input.value
     }
 
-    console.log(newData)
-
     this.setState(newData)
+  }
+
+  _repoSelectHandler = (e: React.FormEvent<HTMLSelectElement>) => {
+    const { tracks } = this.props
+    let value = e.currentTarget.value
+    let trackKey = findKey(tracks, { ident: value })
+    this.setState({ repo: value })
+
+    if (trackKey) {
+      tracks[trackKey].users.forEach(u => {
+        this.userOptions[u.login] = { label: u.login }
+      })
+    }
   }
 
   render() {
     const { tracks } = this.props
+    const { type, priority, lane, assignee } = this.state
 
-    const repoOptions: OptionsObject = {}
-
-    tracks.forEach(t => {
-      repoOptions[t.ident] = {
-        label: t.ident
+    keys(tracks).forEach(key => {
+      this.repoOptions[tracks[key].ident] = {
+        label: tracks[key].ident
       }
     })
 
@@ -77,6 +93,24 @@ class Create extends React.Component<Connected, State> {
         <form className="golden-ratio columns" onSubmit={this._submitHandler}>
           <div className="left column">
             <h1>Create Issue</h1>
+
+            <FormField
+              name="repo"
+              type="select"
+              label="Repo"
+              options={this.repoOptions}
+              onChange={this._repoSelectHandler}
+              required
+            />
+
+            <FormField
+              name="assignee"
+              type="select"
+              label="Assigned to"
+              options={this.userOptions}
+              selected={assignee}
+              onChange={this._fieldHandler}
+            />
 
             <FormField
               name="title"
@@ -88,41 +122,32 @@ class Create extends React.Component<Connected, State> {
 
             <FormField
               name="priority"
-              type="select"
+              type="group"
               label="Priority"
               options={PRIORITY}
+              selected={priority}
               onChange={this._fieldHandler}
-              required
             />
 
             <FormField
               name="type"
-              type="select"
+              type="group"
               label="Type"
               options={TYPES}
+              selected={type}
               onChange={this._fieldHandler}
-              required
             />
 
             <FormField
               name="lane"
-              type="select"
+              type="group"
               label="Swimlane"
               options={SWIMLANES}
+              selected={lane}
               onChange={this._fieldHandler}
-              required
             />
 
-            <FormField
-              name="repo"
-              type="select"
-              label="Repo"
-              options={repoOptions}
-              onChange={this._fieldHandler}
-              required
-            />
-
-            <button className="basic button">Submit</button>
+            <button className="large teal button">Submit</button>
           </div>
 
           <div className="right column">

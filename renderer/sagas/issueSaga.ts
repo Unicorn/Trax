@@ -1,5 +1,6 @@
 import { put, call, fork, takeEvery } from 'redux-saga/effects'
 import { fetchIssues, fetchIssueCreate, fetchIssueUpdate } from 'services/githubService'
+import { createAlert } from 'controllers/alertController'
 import { issuesList, receiveIssue } from 'controllers/issueController'
 import { issuesWithoutLanes } from 'helpers/issueHelper'
 import { ISSUE, IssuesAction, Issue, CreateIssue } from 'models/issue'
@@ -12,8 +13,6 @@ function* watchIssuesRequest(action: IssuesAction) {
   const [owner, repo]: any = ident.split('/')
   const request = { params: { owner, repo, ident } }
   const issues = yield call(fetchIssues, request)
-
-  console.log("watchIssuesRequest", issues)
 
   yield issuesWithoutLanes(issues).map(({ labels, number }: Issue) => {
     let req = {
@@ -63,6 +62,14 @@ function* watchIssueCreate(action: IssuesAction) {
   }
 
   const newIssue = yield call(fetchIssueCreate, request)
+
+  console.log("NEW ISSUES VALUE", newIssue)
+
+  yield put(createAlert({
+    type: 'success',
+    dismissable: true,
+    message:  "Successfully posted your issue"
+  }))
 
   yield put(receiveIssue(newIssue))
 }

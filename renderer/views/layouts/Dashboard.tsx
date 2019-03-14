@@ -2,12 +2,14 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { logout } from 'controllers/authController'
 import Navigation from 'views/sections/Navigation'
+import Alerts from 'views/ui/alert/Alerts'
 
 interface Props {
   children: React.ReactNode
 }
 
 interface Actions {
+  alerts: any
   logout: () => void
 }
 
@@ -24,6 +26,8 @@ const Dashboard: React.SFC<Props & Actions> = ({ children, logout }) => (
         </div>
       </header>
 
+      <Alerts />
+
       <Navigation />
     </div>
 
@@ -33,8 +37,12 @@ const Dashboard: React.SFC<Props & Actions> = ({ children, logout }) => (
   </div>
 )
 
+const mapState = (state: any) => ({
+  alerts: state.alerts
+})
+
 const mapDispatch = ({
   logout
 })
 
-export default connect<{}, Actions, Props>(null, mapDispatch)(Dashboard)
+export default connect(mapState, mapDispatch)(Dashboard)

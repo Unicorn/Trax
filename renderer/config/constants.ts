@@ -120,17 +120,17 @@ export const TYPES = {
 
 export const PRIORITY = {
   high: {
-    label: 'High Priority',
+    label: 'High',
     name: '!!!',
     color: '#DD5A5A'
   },
   medium: {
-    label: 'Medium Priority',
+    label: 'Medium',
     name: '!!',
     color: '#E79595'
   },
   low: {
-    label: 'Low Priority',
+    label: 'Low',
     name: '!',
     color: '#F9D4D4'
   }
