@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 import { issuesList, switchLanes } from 'controllers/issueController'
 import { TRACK, Tracks } from 'models/track'
-import { Issues, Issue } from 'models/issue'
+import { IssuesSchema, Issue } from 'models/issue'
 import { issuesArray, filterIssues } from 'helpers/issueHelper'
 import Lane from 'views/issues/Lane'
 import SearchIssues from 'views/issues/SearchIssues'
@@ -14,7 +14,7 @@ import { Lane as TLane } from 'config/constants'
 interface Connected {
   lanes: TLane[]
   tracks: Tracks
-  issues: Issues
+  issues: IssuesSchema
   dispatch: (action: any) => any
 }
 

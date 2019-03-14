@@ -1,9 +1,9 @@
 import * as _ from 'lodash'
 import * as Fuse from 'fuse.js'
-import { Issues, Issue } from 'models/issue'
+import { IssuesSchema, Issue } from 'models/issue'
 import { LANES, LABELS, Lane } from 'config/constants'
 
-export const issuesWithoutLanes = (issues: Issues) => {
+export const issuesWithoutLanes = (issues: IssuesSchema) => {
   const arr = issuesArray(issues)
 
   if (arr.length < 1)
@@ -12,7 +12,7 @@ export const issuesWithoutLanes = (issues: Issues) => {
   return arr.filter((i: Issue) => i.labels.filter(l => LANES.includes(l.name as Lane)).length === 0)
 }
 
-export const issuesArray = (issues: Issues): Issue[] =>  {
+export const issuesArray = (issues: IssuesSchema): Issue[] =>  {
   const { result, entities } = issues
 
   if (!result || result.length < 0 || !entities)

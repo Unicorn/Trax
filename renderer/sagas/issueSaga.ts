@@ -3,7 +3,7 @@ import { fetchIssues, fetchIssueCreate, fetchIssueUpdate } from 'services/github
 import { createAlert } from 'controllers/alertController'
 import { issuesList, receiveIssue } from 'controllers/issueController'
 import { issuesWithoutLanes } from 'helpers/issueHelper'
-import { ISSUE, IssuesAction, Issue, CreateIssue } from 'models/issue'
+import { ISSUE, IssuesAction, Issue, CreateIssueRequest } from 'models/issue'
 import { SWIMLANES } from 'config/constants'
 
 function* watchIssuesRequest(action: IssuesAction) {
@@ -53,7 +53,7 @@ function* watchIssueCreate(action: IssuesAction) {
   if (!action.payload || !action.ident) return
 
   const { payload, ident } = action
-  const issue = payload as CreateIssue
+  const issue = payload as CreateIssueRequest
   const [owner, repo]: any = ident.split('/')
 
   const request = {

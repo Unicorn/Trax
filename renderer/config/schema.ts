@@ -2,6 +2,10 @@ import { schema } from 'normalizr'
 import { Issue } from 'models/issue'
 import { LANES, Lane } from 'config/constants'
 
+export interface FetchedDataSchema {
+  isLoading: boolean
+}
+
 const userSchema = new schema.Entity('users')
 const assigneeSchema = new schema.Entity('assignees')
 
@@ -34,6 +38,15 @@ const issueSchema = new schema.Entity(
 
 const repoSchema = new schema.Entity('repos')
 
+const trackSchema = new schema.Entity(
+  'tracks',
+  {
+    repo: repoSchema,
+    issues: [issueSchema],
+    users: [userSchema]
+  }
+)
+
 export default {
   assignee: assigneeSchema,
   assignees: [assigneeSchema],
@@ -43,4 +56,5 @@ export default {
   issue: issueSchema,
   issues: [issueSchema],
   org: orgSchema,
+  tracks: trackSchema
 }

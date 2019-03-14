@@ -1,3 +1,4 @@
+import { FetchedDataSchema } from 'config/schema'
 import { createActionName, GithubActions } from 'helpers/reduxHelper'
 import { Users, User } from 'models/user'
 import { Labels } from 'models/label'
@@ -44,7 +45,7 @@ export interface Issue {
   updatedAt: string | null
 }
 
-export interface CreateIssue {
+export interface CreateIssueRequest {
   title: string
   body: string
   labels: string[]
@@ -52,7 +53,7 @@ export interface CreateIssue {
   milestone?: number
 }
 
-export interface ReceiveIssue {
+export interface ReceiveIssueResponse {
   isLoading: boolean
   result: number
   entities: {
@@ -62,7 +63,7 @@ export interface ReceiveIssue {
   }
 }
 
-export interface Issues {
+export interface IssuesSchema extends FetchedDataSchema {
   isLoading: boolean
   result?: number[]
   nextPageUrl?: string
@@ -75,13 +76,13 @@ export interface Issues {
 
 export interface IssuesAction {
   type: GithubActions
-  payload?: Issues | Issue | ReceiveIssue | CreateIssue
+  payload?: IssuesSchema | Issue | ReceiveIssueResponse | CreateIssueRequest
   ident?: string
   from?: string
   to?: string
 }
 
-export const defaultState = {
+export const defaultState: IssuesSchema = {
   isLoading: false,
   entities: {
     issues: {}
