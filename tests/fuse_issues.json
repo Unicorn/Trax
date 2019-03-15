@@ -1,0 +1,402 @@
+[
+  {
+    "number": 29,
+    "title": "Create redux persist flush mechanism",
+    "body": "As a user, whenever I update the application (until v1.0) I would like my local storage to flush.\n",
+    "lane": "sprint",
+    "owner": "UnicornAgency",
+    "repo": "Trax",
+    "ident": "UnicornAgency/Trax"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "Trax",
+    "ident": "UnicornAgency/Trax",
+    "number": 28,
+    "title": "Create Page: Test and update alert UI component",
+    "body": "As a user, I want to see success, warning and error alerts in the application when creating a new issue.\n",
+    "lane": "complete",
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "Trax",
+    "ident": "UnicornAgency/Trax",
+    "number": 26,
+    "title": "Test issue again",
+    "body": "This is a test\n",
+    "lane": "complete"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "Trax",
+    "ident": "UnicornAgency/Trax",
+    "number": 24,
+    "title": "UI: Create horizontal radio select component",
+    "body": "​\nAs a user, I would like to have a UI radio/select option that lets me quickly see and select an option.\n\n## On create issue\n- [ ] Priority should use this field\n- [ ] Type should use this field\n- [ ] Swimlane should use this field",
+    "lane": "complete",
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "Trax",
+    "ident": "UnicornAgency/Trax",
+    "number": 19,
+    "title": "Map Assignees to Select Field",
+    "body": "Whenever a repo is requested, we should dispatch `fetchAssignees` to populate the Select Field with.",
+    "lane": "complete",
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "Trax",
+    "ident": "UnicornAgency/Trax",
+    "number": 2,
+    "title": "Reports export to PDF",
+    "body": "We want selected reports to generate a PDF or a printable page in Electron",
+    "lane": "complete"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1420,
+    "title": "[#1400] [VOC] Set signin page as root for now",
+    "body": "#1400 Set sign_in page as root for now",
+    "lane": "backlog"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1419,
+    "title": "[VOC] Demo verbiage ",
+    "body": "## Verbiage for a demo\r\n\r\n# Steps to complete\r\n\r\n- [ ] Include the following verbiage \r\nHow Can Vacation Offer Corporate Help You? Request a Demo and See for Yourself\r\nHave you or your corporation been paying more money for hotel accommodations than necessary simply because you're using the wrong provider? Most corporations make use of consumer-oriented sites such as Expedia or Travelocity. As a result, they pay consumer rates -- when they could be paying corporate rates by using Vacation Offer Corporate (VOC) instead.\r\nOur easy-to-use online platform provides corporate/B2B rates on hotel rooms, rental cars, and transfers for organizations just like yours. No more paying way too much and then sending those invoices to the corporation for reimbursement.\r\nWant to reduce paperwork, time and effort even as you're slashing the rates your company is currently paying for travel expenses? Credit-worthy corporations can apply for the VOC credit program. Your employees can book their travel arrangements without using a credit card or flooding your offices with reimbursement requests.\r\n\r\nThe Vacation Offer Corporate Difference\r\nthe right tools make all the difference in any kind of work, profession or industry -- and the right travel tools can make all the difference in how efficiently your corporation accomplishes its travel agendas. When you switch from a B2C platform to our dedicated B2B travel arrangement platform, you can:\r\n\r\nView past and future bookings with ease\r\nOrganize all your travel arrangements through one platform\r\nChoose from a variety of hotel options, just as you would with the consumer-based platforms\r\nEnroll in our credit program to streamline your company travel expenses while reducing the headaches associated with employee reimbursements\r\nAll of these differences add up to one big difference in your corporate bottom line --and we can prove it to you.\r\n\r\nRequest a Demo Today\r\n\r\nJust how easy is it to use the Vacation Offer Corporate platform, and just how much money can your corporation save in the process? There's no more convincing way to find out than by running the numbers for yourself. Request a demo and you'll get a real-time comparison of hotel rates using our B2B platform as opposed to a standard B2C platform. Discover the tremendous potential advantages of making VOC your preferred corporate travel engine. We're ready to help your organization go places!\r\n",
+    "lane": "backlog"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1418,
+    "title": "[VOC] Email Marketing Blast ",
+    "body": "## Description\r\nCreate an email template for a marketing blast \r\n\r\n\r\n# Steps to complete\r\n\r\n- [ ] Include the following verbiage \r\n\r\nSubject: Save on corporate travel\r\n\r\nAre you tired of paying consumer rates for business travel?\r\n\r\nIf you’re still using travel search engines to book your corporate trips or trips for your employees on a corporate credit card, then waiting for reimbursements, there is a better way.\r\n\r\nAllen Marketing Group is proud to introduce Vacation Offer Corporate, a travel search engine that provides B2B rates for your business travel. You have the ability to book hotel rooms, rental cars, and transfers at a corporate rate for you or your employees’ work travel.\r\n\r\nAs with other travel search engines, it’s easy to use. One platform keeps everything streamlined, and there are many options for airlines and hotels. One employee is able to do all of your bookings as well, ensuring that all of your travelers are on the same page.\r\n\r\nThe best part is no more waiting for reimbursements. For frequent travelers, there’s a credit program that allows employees to book travel without the need to charge a company credit card. This not only streamlines your company travel expenses, but it also ensures employee reimbursements are more efficient.\r\n\r\nStop paying consumer rates for your corporate travel. Visit Vacation Offer Corporate to get started!\r\n\r\n- [ ] Include social links, and unsubscribe button\r\n",
+    "lane": "backlog"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1417,
+    "title": "[AMG] Email Template Fixes: Outlook ",
+    "body": "## Description\r\n\r\n\t\r\nOutlook filtered the email from your domain to the Spam folder. Troubleshooting tips:\r\n\r\nSign up for [Microsoft's Smart Network Data Services](https://sendersupport.olc.protection.outlook.com/snds/addnetwork.aspx) to get the information about the traffic originating from your IP address. The SNDS gives you the data you need to understand and improve your reputation at Microsoft. Data includes filtering, complaint rate, and spam trap hits. If you see a high number of complaints and spam trap hits, re-check your email list acquisition sources and make sure you are sending relevant content to subscribed recipients.\r\n\r\nTrack your complaints, bounce, blocked and dropped messages as they influence the Outlook's inbox placement. GlockApps Bounce Monitor can help you track all of these metrics.\r\n\r\nOutlook.com filters email using Symantec/Brightmail Probe Network and cloud-based email filtering service Exchange Online Protection (EOP). IPs not previously used to send email typically don't have any reputation built up in Microsoft systems. As a result, emails from new IPs are more likely to experience deliverability issues. Search for your current IP Reputation data here and request removal if you are listed.\r\n\r\nChange the \"From\" email address. Using a different email address (even one on the same domain) can sometimes help deliver the email to the Outlook's Inbox.\r\n\r\nSeparate your outlook.com email subscribers and send the email to that segment via a different SMTP server or email service provider.\r\n\r\nYou can get the domain in Microsoft's whitelist from here\r\n\r\n",
+    "lane": "backlog"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1416,
+    "title": "[AMG] Email Template Fixes: Alt tag for all images",
+    "body": "## Description\r\n\r\nCombo through all email template views and add an alt tag to the images\r\n\r\n",
+    "lane": "backlog"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1415,
+    "title": "[AMG] Email Template Fixes: Head meta title tag ",
+    "body": "## Description\r\n\r\nAdd a title meta tag in the head of each of the email layouts in `app/views/layouts`\r\n\r\n",
+    "lane": "backlog"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1414,
+    "title": "[AMG] Email Template Fixes: Shorten URL's ",
+    "body": "## Description\r\n\r\nUse a service to shorten image urls (less than 120 chars)\r\n",
+    "lane": "backlog"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1413,
+    "title": "[AMG] Email Template Fixes: Image optimization ",
+    "body": "## Description\r\n\r\nReduce the size of the email images: (can use TinyPNG or similar)\r\n\r\n# For example:\r\n\r\n- [ ] https://s3-us-west-2.amazonaws.com/a9e7yti-images/gf_g3150_9427_001_header\r\n- [ ] https://s3-us-west-2.amazonaws.com/a9e7yti-images/vacation-offer/emails/vo-ocean.png\r\n",
+    "lane": "backlog"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1412,
+    "title": "[AMG] Email Template Fixes: Sendgrid url ",
+    "body": "## Description\r\n\r\nYour email contains a URL from sendgrid.net listed in the URIBL greylist. This list contains domains found in Unsolicited Bulk Emails. It may include ESPs which allow customers to import their recipient lists and may have no control over the subscription methods. \r\n\r\nEmail service providers use a generic (default) tracking domain to track all the emails sent through its servers by its users. You can ask your email service provider whether or not you can white-label tracking links including unsubscribe and open tracking links. If not, you can use G-Lock Analytics that allows you to use a custom tracking domain and brand tracking links with your own domain. \r\n\r\nSome advantages of using a custom tracking domain instead of the default one provided by the service provider are: \r\n\r\nWhite-labelling of tracking links can help you land in the inbox.\r\nA custom tracking domain will help create your own brand image with no ESP footprints.\r\nYour own custom tracking domain will allow you build your own sending reputation.\r\nTracking links will be branded with your domain name which will make your subscribers much more confident in opening your emails and clicking links as they will be related to your brand.\r\n\r\n",
+    "lane": "backlog"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1411,
+    "title": "[AMG] Email template fixes from glockapps ",
+    "body": "## Description\r\n\r\nFix issues found by glockapps in the amg/vo email templates\r\n\r\nLocation:\r\n- controllers: `app/mailers`\r\n- views `app/views/[name of mailer]`: so lead_mailer, payment_mailer, etc\r\n\r\nBranch to use for fixes\r\n- `hotfix/1411-email-fixes`\r\n\r\n# Steps to complete\r\n\r\n- [ ] Sendgrid url - #1412\r\n- [x] TinyPNG the images - #1413\r\n- [x] Shortened urls - #1414\r\n- [x] Html the `<head>` tag must contain a title - #1415\r\n- [x] Alt tags for images - #1416\r\n- [ ] Find and correct spam phrases if we can\r\n- [ ] Figure out how to get in the Outlook inbox - #1417\r\n\r\nOther issues:\r\n\t\r\n- [ ] Your message contains too many images (17). A best practice is to have a 65/35 text to image ratio to avoid deliverability issues.\r\n- [ ] Your message contains too many links (20). Reduce the number of links in your message content. It's also a best practice to limit the number of different domains linked in an email.",
+    "lane": "started"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1409,
+    "title": "VSF: Sales Form/update income requirement",
+    "body": "- Please change the minimum income requirement checkbox for married/cohab couples from $50,000 to $40,000. \r\n\r\n- Please change the income requirement checkbox for singles from $60,000 to $50,000. \r\n\r\nVSF>Sales Tab>Qualifications",
+    "lane": "backlog"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1408,
+    "title": "All mailers: update Terms & Conditions",
+    "body": "- Please change the minimum income requirement for married/cohab couples from $50,000 to $40,000 in the terms & conditions of all mailers.\r\n\r\n- Please change the minimum income requirement for singles from $60,000 to $50,000 in the terms & conditions of all mailers.",
+    "lane": "backlog"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1407,
+    "title": "[VOF] Payment Processing for one off manual payments - V2",
+    "body": "Extending the workflow for one off manual payments in https://github.com/UnicornAgency/AMG-CRM/issues/1406\r\n\r\n**Describe the solution you'd like**\r\n- [ ]  Using the admin dashboard, an admin enters in basic information of the user who needs to make a payment. \"first name\", \"last name\", \"email address\", \"amount to be paid\"\r\n- [ ]  The system creates a unique URL based on the information provided and an email is dispatched.\r\n- [ ] When the user accesses the URL, all the relevant fields are prefilled.\r\n- [ ] Same workflow as https://github.com/UnicornAgency/AMG-CRM/issues/1406 for processing the payment\r\n- [ ] Once a payment is successful the URL is disabled and cannot be accessed again\r\n\r\nNote Once again, No Zoho workflows should kick in\r\n\r\n**Additional context**\r\nVersion 2 for https://github.com/UnicornAgency/AMG-CRM/issues/1406\r\n",
+    "lane": "backlog"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1406,
+    "title": "[VOF] Payment Processing for one off manual payments - V1",
+    "body": "On occasion, VOF packages are purchased and arranged without the conventional workflow.(Verbally or perhaps personal use). To ease the process of payments, we want a hidden page where users can visit and use the app to make the payments\r\n\r\n**Describe the solution you'd like**\r\n\r\n- [ ] Have an obfuscated + hidden URL\r\n- [ ] The page should contain a \"first name\", \"last name\", \"email address\" and payment fields along with an \"amount\" field\r\n- [ ] Payment will be processed via Terminal CC3.\r\n- [ ] User gets a success notification upon payment success\r\n- [ ] A simple email is sent to the user containing the payment receipt\r\n- [ ] A simple email is sent to Terry providing the information of who performed a payment and the amount\r\n\r\n**Note** No Zoho Workflows should kick in for these cases",
+    "lane": "backlog"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1401,
+    "title": "[WIP] [VOC] Feature/1189 voc trans & lead emails",
+    "body": "#1189 \r\n\r\nLead\r\n- [ ] Upcoming booking\r\n- [ ] Booking Confirmation\r\n- [ ] Booking Cancelled\r\n\r\nGeneral\r\n- [ ] Admin Welcome email (still tbd) - skipping for now\r\n\r\nTransactional\r\n- [ ] Refund (to be worked on by Sohaib)\r\n- [ ] Receipt",
+    "lane": "backlog"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1400,
+    "title": "VOC: Change Landing Page",
+    "body": "This should be the landing page: https://voc.vocstaging.com/users/sign_in until a formal landing page is complete. This will allow us to launch to users sooner.",
+    "lane": "backlog"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1397,
+    "title": "[WIP] Feature/vof refactoring - react hooks, removing bootstrap/jquery, etc",
+    "body": "",
+    "lane": "backlog"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1390,
+    "title": "[WIP] [VOC] View booking details, cancel booking action",
+    "body": "#1158 + #1177 \r\n\r\n- Bookings tab that lists users bookings\r\n- Can view booking info\r\n- Cancel button\r\n\r\n@sohaibbhatti Can you review please?",
+    "lane": "backlog"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1389,
+    "title": "[VOC] When there is only one result, verify map is zoomed out to show item",
+    "body": "## Description\r\n\r\nWhen a search results only returns one or a few items, make sure that the map is zoomed out to show all the listings in the list section\r\n\r\n# Steps to complete\r\n\r\n- [ ] Check number of results\r\n- [ ] Check map zoom \r\n",
+    "lane": "backlog"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1388,
+    "title": "[VOC] Demo account",
+    "body": "## Narrative\r\nAs a user, I would like to have a demo account to present a demo to potential users. \r\n\r\n## Acceptance Criteria\r\n- [ ] Demo credentials \r\n- [ ] Full functionality of non demo account\r\n\r\n## Scenario\r\nWhen an agent is showing a potential user the VOC site the should be able to use a demo account that allows them to give a presentation. \r\n",
+    "lane": "backlog"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1386,
+    "title": "[VSF] Stamps Task creation: automation",
+    "body": "**Is your feature request related to a problem? Please describe.**\r\nCurrently the activity of creating tasks for processing stamps, in zoho, is a manual process for CSR. \r\n\r\n1. In Zoho, when a lead status is set to qualified zoho creates an automated task\r\n2. The CSR then looks at the gifts field and deciphers which gifts are eligible for being processed as Stamps\r\n3. The CSR updates the subject of the task with the acronyms of the all the gifts that need to be mailed out seperated by a \"+\" and ending with \"via USPS Priority Mail®\"\r\n\r\n**Describe the solution you'd like**\r\n1. Once the lead is set to qualified zoho should dispatch a webhook to the AMG app(containing the lead)\r\n2. The AMG app then creates a task for that lead\r\n   1.  It parses the gifts_new field and identifies which tasks are stamp tasks based off a gift / acronym / eligibility mapping that will be provided.\r\n   2.  The subject is \"Send \" followed by all the eligible acronyms seperated by a \" + \" and ending with a \"via USPS Priority Mail®\".\r\n   3. The print message is all the eligible acronyms concatenated.\r\n   4. Priority is \"High\"\r\n   5. Priorty Mail is \"Yes\"\r\n   6. Status is \"Not Started\"\r\n   7. Currency is \"USD\" (even for Candian mail @unicorn-amg ?)\r\n   8. Due Date is ______ (@unicorn-amg ?)",
+    "lane": "backlog"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1384,
+    "title": "[VOF] Convert homepage hero react to use new Hooks API ",
+    "body": "## Description\r\n\r\nOn the vof homepage, there is a section called the HomepageHero (top of the page). We want to improve the code (there are some leftover legacy code and some code that was never fixed) and convert it to use the Hooks API (useState, useEffect, etc). \r\n\r\nfor references see any voc component or vof packages components\r\n\r\n- components location: `javascript/components/vof/hero`\r\n    - HomepageHero.js covert to HomepageHero.jsx (main component)\r\n\r\n# Steps to complete\r\n\r\n- [ ] branch from `feature/vof-rh-refactor`\r\n- [ ]  remove all dependencies on jQuery (as much as you can)\r\n- [ ]  convert state to useState, useEffect\r\n- [ ]  create a HeroContext or other contexts as needed\r\n- [ ]  fix broken code like the method `setDestinationListBarPos`\r\n",
+    "lane": "started"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1380,
+    "title": "[VOF] Rebuild categories carousel ",
+    "assignees": [
+      1095827
+    ],
+    "body": "## Description\r\n\r\nBuild the homepage categories carousel from scratch (or tweak another carousel) as I cannot fix or find a carousel that does what we want that doesn't take up too much resources .",
+    "lane": "started"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1366,
+    "title": "[VSF] Refund Tab: Refunding Upgrades Bug",
+    "body": "When attempting to process a refund for an upgrade (transaction ID is in `$Upgrades.Upgrade Auth Code` the system responds with the message: \"The reference transaction does not meet the criteria for issuing a credit\"\r\n\r\nIt appears the system is not checking cc3 for the upgrade auth code and processing the transaction from there. Please review the attached screenshot and note that authorize.net allows the refund to process. \r\n![screen shot 2019-02-12 at 8 06 51 am](https://user-images.githubusercontent.com/25444105/52645170-78075380-2e9d-11e9-9172-efd73e051b22.jpg)\r\n",
+    "lane": "backlog"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1365,
+    "title": "[VSF] Refund Tab: Process refunds that do not meet criteria",
+    "labels": [
+      {
+        "name": "High Priority",
+        "color": "f85c6c",
+        "default": false,
+        "description": null
+      },
+      {
+        "name": "VSF",
+        "color": "d4c5f9",
+        "default": false,
+        "description": null
+      }
+    ],
+    "assignees": [
+      1043529,
+      25444105
+    ],
+    "body": "Sometimes we need to process a refund to a credit card outside of the time that authorize.net \"allows.\" If authorize.net gives us the \"The referenced transaction does not meet the criteria for issuing a credit\" error, the system should process a refund manually using the credit card information on the corresponding lead ID in Zoho.\r\n\r\n![screen shot 2019-02-12 at 8 04 24 am](https://user-images.githubusercontent.com/25444105/52644826-d122b780-2e9c-11e9-8629-5caca03b6d56.jpg)\r\n\r\n",
+    "lane": "backlog"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1364,
+    "title": "[VSF] Refund Tab: Improve confirmation messages",
+    "labels": [
+      {
+        "name": "VSF",
+        "color": "d4c5f9",
+        "default": false,
+        "description": null
+      }
+    ],
+    "assignees": [
+      1043529,
+      25444105
+    ],
+    "body": "- [ ] We should indicate if a transaction was voided or refunded in confirmation message.\r\n- [ ] We should use the refund transaction ID in lieu of the payment ID\r\n\r\n![screen shot 2019-02-12 at 8 01 21 am](https://user-images.githubusercontent.com/25444105/52644628-6c675d00-2e9c-11e9-916a-1232ff35707e.jpg)\r\n",
+    "lane": "backlog"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1363,
+    "title": "[VSF] Admin Tab: Delete Users",
+    "labels": [
+      {
+        "name": "VSF",
+        "color": "d4c5f9",
+        "default": false,
+        "description": null
+      }
+    ],
+    "assignees": [
+      1043529,
+      25444105
+    ],
+    "body": "- [ ] A VSF admin should be able to delete a user. ",
+    "lane": "backlog"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1360,
+    "title": "[VSF] Leads Tab: Change columns/data",
+    "body": "- [ ] A VSF user should be able to see the sales they submitted to AMG (successfully) for the last 7 days.\r\n- [ ] **A VSF user should NOT be able to see sales submitted by another user.\r\n- [ ] Leads should not be clickable (as they are now)\r\n- [ ] Columns\r\n1. Name\r\n2. Verification Code\r\n3. Authorization Code\r\n4. Agent ($Packages.Agent:$Packages.Sales Agent)\r\n5. Package Price\r\n",
+    "lane": "backlog"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1359,
+    "title": "[VSF] Billing Tab: Review user error messages",
+    "body": "- [ ] @sohaibbhatti please paste all error messages that a user could receive when attempting to process an Upgrade on the Billing tab\r\n",
+    "lane": "backlog"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1358,
+    "title": "[VSF] Sales Tab: Review user error messages",
+    "labels": [
+      {
+        "name": "VSF",
+        "color": "d4c5f9",
+        "default": false,
+        "description": null
+      }
+    ],
+    "assignees": [
+      1043529,
+      25444105
+    ],
+    "body": "- [ ] @sohaibbhatti please paste all error messages that a user could receive when attempting to submit a sale on the Sales Tab\r\n",
+    "lane": "backlog"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1421,
+    "title": "[WIP] Hotfix/1411 email fixes",
+    "labels": [],
+    "body": "",
+    "lane": "backlog"
+  },
+  {
+    "owner": "UnicornAgency",
+    "repo": "AMG-CRM",
+    "ident": "UnicornAgency/AMG-CRM",
+    "number": 1423,
+    "title": "VSF: Capture/Void Tool - Display Totals",
+    "body": "As an admin, I would like to see a total count of transactions and the sum of transactions listed. And then when I select transactions, I would like to see the total count of transactions selected as well as the sum of those transactions.",
+    "lane": "backlog"
+  }
+]

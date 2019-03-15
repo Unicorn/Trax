@@ -24,12 +24,12 @@ export const issuesArray = (issues: IssuesSchema): Issue[] =>  {
 export const filterIssues = (text: string, issues: Issue[]): Issue[] => {
   const options = {
     shouldSort: true,
-    threshold: 0.8,
+    threshold: 0.5,
     location: 0,
-    distance: 100,
+    distance: 10,
     maxPatternLength: 32,
     minMatchCharLength: 1,
-    keys: ['title', 'description', 'number', 'owner', 'repo'],
+    keys: ['title', 'number', 'repo'],
   }
 
   const fuse = new Fuse(issues, options)
