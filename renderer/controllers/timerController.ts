@@ -1,16 +1,16 @@
 import { TIMER, Timers, TimerAction, defaultTimerState } from 'models/timer'
 
-export const startTimer = (id: number) => ({
+export const startTimer = (id: string) => ({
   type: TIMER.START,
   id
 })
 
-export const stopTimer = (id: number) => ({
+export const stopTimer = (id: string) => ({
   type: TIMER.STOP,
   id
 })
 
-export const tickTimer = (id: number) => ({
+export const tickTimer = (id: string) => ({
   type: TIMER.TICK,
   id
 })

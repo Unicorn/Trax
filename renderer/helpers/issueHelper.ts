@@ -18,7 +18,7 @@ export const issuesArray = (issues: IssuesSchema): Issue[] =>  {
   if (!result || result.length < 0 || !entities)
     return []
 
-  return result.map((id: number) => entities.issues[id])
+  return result.map(id => entities.issues[id])
 }
 
 export const filterIssues = (text: string, issues: Issue[]): Issue[] => {

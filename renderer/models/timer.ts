@@ -11,25 +11,26 @@ export interface TimerEntry {
 }
 
 export interface Timer {
-  id?: number;
-  duration: number;
-  invoiced?: boolean;
-  selected?: boolean;
-  isRunning: boolean;
-  startedAt?: Date;
-  entries: TimerEntry[];
+  id: string | null
+  duration: number
+  invoiced?: boolean
+  selected?: boolean
+  isRunning: boolean
+  startedAt?: Date
+  entries: TimerEntry[]
 }
 
 export type Timers = {
-  [key: number]: Timer
+  [key: string]: Timer
 }
 
 export type TimerAction = {
   readonly type: TIMER
-  readonly id?: number
+  readonly id?: string
 }
 
 export const defaultTimerState: Timer = {
+  id: null,
   isRunning: false,
   duration: 0,
   entries: [],

@@ -1,3 +1,5 @@
+import { FetchedDataSchema } from 'config/schema'
+
 export enum REPO {
   REQUEST = 'trax/github/repo/REQUEST',
   SUCCESS = 'trax/github/repo/SUCCESS',
@@ -6,21 +8,18 @@ export enum REPO {
 
 export interface Repo {
   login: string
-  id: number
+  id: string
   nodeId: string
   fullName: string
   htmlUrl: string
 }
 
-export interface Repos {
-  isLoading: boolean
-  entities?: {
+export interface Repos extends FetchedDataSchema {
+  entities: {
     repos: {
-      [key: number]: Repo
+      [key: string]: Repo
     }
   }
-  result?: [number]
-  nextPageUrl?: string
 }
 
 export interface ReposAction {
@@ -29,6 +28,10 @@ export interface ReposAction {
   login?: string
 }
 
-export const defaultState = {
+export const defaultState: Repos = {
   isLoading: false,
+  result: [],
+  entities: {
+    repos: {}
+  }
 }

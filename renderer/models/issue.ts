@@ -14,7 +14,7 @@ export const ISSUE = Object.assign({},
 export interface Issue {
   ident: string
   lane: Lane
-  id: number
+  id: string
   nodeId: string
   url: string
   repositoryUrl: string
@@ -64,12 +64,9 @@ export interface ReceiveIssueResponse {
 }
 
 export interface IssuesSchema extends FetchedDataSchema {
-  isLoading: boolean
-  result?: number[]
-  nextPageUrl?: string
   entities: {
     issues: {
-      [key: number]: Issue
+      [key: string]: Issue
     }
   }
 }
@@ -84,6 +81,7 @@ export interface IssuesAction {
 
 export const defaultState: IssuesSchema = {
   isLoading: false,
+  result: [],
   entities: {
     issues: {}
   }

@@ -1,13 +1,30 @@
 import { schema } from 'normalizr'
 import { Issue } from 'models/issue'
 import { LANES, Lane } from 'config/constants'
+import { Timers } from 'models/timer'
+import { Repos } from 'models/Repo'
 
 export interface FetchedDataSchema {
   isLoading: boolean
-  result: string[]
   entities: {
     [key: string]: any
   }
+  nextPageUrl?: string
+  result: number
+}
+
+export const fetchDefaultState: FetchedDataSchema = {
+  isLoading: false,
+  entities: {
+    issues: {},
+    repos: {}
+  },
+  result: 0
+}
+
+export interface AppState {
+  timers: Timers
+  repos: Repos
 }
 
 const userSchema = new schema.Entity('users')
@@ -42,8 +59,6 @@ const issueSchema = new schema.Entity(
 
 const repoSchema = new schema.Entity('repos')
 
-console.log('repoSchema', repoSchema)
-
 const trackSchema = new schema.Entity(
   'tracks',
   {
@@ -53,7 +68,7 @@ const trackSchema = new schema.Entity(
   }
 )
 
-export default {
+export const scheme = {
   assignee: assigneeSchema,
   assignees: [assigneeSchema],
   user: userSchema,
