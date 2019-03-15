@@ -1,4 +1,4 @@
-import { FetchedDataSchema } from 'config/schema'
+import { FetchedItems } from 'models'
 
 export enum REPO {
   REQUEST = 'trax/github/repo/REQUEST',
@@ -14,7 +14,7 @@ export interface Repo {
   htmlUrl: string
 }
 
-export interface Repos extends FetchedDataSchema {
+export interface Repos extends FetchedItems {
   entities: {
     repos: {
       [key: string]: Repo

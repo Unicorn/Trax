@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { AppState } from 'models'
-import { Repos } from 'models/repo'
+import { Tracks } from 'models/track'
 import { Timer } from 'models/timer'
 
 interface Props {
@@ -9,23 +9,23 @@ interface Props {
 }
 
 interface Connected {
-  repos: Repos
+  tracks: Tracks
 }
 
 const TimerEntry: React.SFC<Props & Connected> = (props) => {
-  const { timer, repos } = props
-  let repo = timer.id ? repos.entities.repos[timer.id] : null
+  const { timer, tracks } = props
+
+  console.log('timer', timer, tracks)
 
   return (
     <tr>
       <td>Running: {timer.isRunning}</td>
-      <td>{repo && repo.fullName}</td>
     </tr>
   )
 }
 
 const mapState = (state: AppState) => ({
-  repos: state.repos
+  tracks: state.tracks
 })
 
 export default connect(mapState)(TimerEntry)

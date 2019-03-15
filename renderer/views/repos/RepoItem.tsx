@@ -34,7 +34,6 @@ class RepoItem extends React.Component<Props & Connected, State> {
 
   _trackHandler = () => {
     const { dispatch, repo } = this.props
-    console.log("_trackHandler", repo)
     dispatch(createTrack(repo))
     this._hideConfirmation()
   }

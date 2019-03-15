@@ -4,7 +4,6 @@ import {
   ISSUE,
   IssuesSchema,
   Issue,
-  ReceiveIssueResponse,
   CreateIssueRequest,
   IssuesAction,
   defaultState
@@ -28,7 +27,7 @@ export const receiveIssues = (payload: IssuesSchema): IssuesAction => ({
   payload
 })
 
-export const receiveIssue = (payload: ReceiveIssueResponse): IssuesAction => ({
+export const receiveIssue = (payload: IssuesSchema): IssuesAction => ({
   type: ISSUE.UPDATE.SUCCESS,
   payload
 })
@@ -62,11 +61,11 @@ export const issuesReducer = (state: IssuesSchema = defaultState, action: Issues
       return newState
 
     case ISSUE.UPDATE.SUCCESS :
-      issue = payload as ReceiveIssueResponse
+      issue = payload as IssuesSchema
       if (issue.result)
-        newState.entities.issues[issue.result] = {
-          ...newState.entities.issues[issue.result],
-          ...issue.entities.issues[issue.result]
+        newState.entities.issues[issue.result as string] = {
+          ...newState.entities.issues[issue.result as string],
+          ...issue.entities.issues[issue.result as string]
         }
       return newState
 

@@ -3,28 +3,21 @@ import { Issue } from 'models/issue'
 import { LANES, Lane } from 'config/constants'
 import { Timers } from 'models/timer'
 import { Repos } from 'models/Repo'
+import { Tracks } from 'models/track'
 
-export interface FetchedDataSchema {
+export interface FetchedItems {
   isLoading: boolean
   entities: {
     [key: string]: any
   }
   nextPageUrl?: string
-  result: number
-}
-
-export const fetchDefaultState: FetchedDataSchema = {
-  isLoading: false,
-  entities: {
-    issues: {},
-    repos: {}
-  },
-  result: 0
+  result: string[] | string
 }
 
 export interface AppState {
   timers: Timers
   repos: Repos
+  tracks: Tracks
 }
 
 const userSchema = new schema.Entity('users')
@@ -59,14 +52,6 @@ const issueSchema = new schema.Entity(
 
 const repoSchema = new schema.Entity('repos')
 
-const trackSchema = new schema.Entity(
-  'tracks',
-  {
-    repo: repoSchema,
-    issues: [issueSchema],
-    users: [userSchema]
-  }
-)
 
 export const scheme = {
   assignee: assigneeSchema,
@@ -76,6 +61,5 @@ export const scheme = {
   repos: [repoSchema],
   issue: issueSchema,
   issues: [issueSchema],
-  org: orgSchema,
-  tracks: trackSchema
+  org: orgSchema
 }

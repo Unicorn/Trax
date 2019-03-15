@@ -4,6 +4,7 @@ import { Repo } from 'models/repo'
 export const createTrack = (repo: Repo): TrackAction => ({
   type: TRACK.CREATE,
   payload: {
+    active: true,
     ident: repo.fullName,
     repo,
     users: [],
@@ -18,7 +19,10 @@ export const updateTrack = (payload: Track): TrackAction => ({
 
 export const deleteTrack = (track: Track): TrackAction => ({
   type: TRACK.DELETE,
-  payload: track
+  payload: {
+    ...track,
+    active: false
+  }
 })
 
 export const trackReducer = (state: Tracks = {}, action: TrackAction) => {
@@ -31,19 +35,16 @@ export const trackReducer = (state: Tracks = {}, action: TrackAction) => {
   switch (type)
   {
     case TRACK.CREATE :
-      newState[payload.repo.nodeId] = payload
+      newState[payload.repo.id] = payload
       return newState
 
     case TRACK.RELOAD :
     case TRACK.UPDATE :
-      newState[payload.repo.nodeId] = {
-        ...state[payload.repo.nodeId],
+    case TRACK.DELETE :
+      newState[payload.repo.id] = {
+        ...state[payload.repo.id],
         ...payload
       }
-      return newState
-
-    case TRACK.DELETE :
-      delete newState[payload.repo.nodeId]
       return newState
 
     default :

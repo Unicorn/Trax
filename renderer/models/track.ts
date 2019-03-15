@@ -11,6 +11,7 @@ export enum TRACK {
 }
 
 export interface Track {
+  active: boolean
   ident: string
   repo: Repo
   users: User[]
