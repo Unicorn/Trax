@@ -1,31 +1,44 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { AppState } from 'models'
-import { Tracks } from 'models/track'
 import { Timer } from 'models/timer'
+import { IssuesSchema } from 'models/issue'
+import { timerDuration } from 'helpers/timerHelper'
+import LabelItem from 'views/issues/LabelItem'
+import ExternalLink from 'views/ui/ExternalLink'
+import { SWIMLANES } from 'config/constants'
 
 interface Props {
   timer: Timer
 }
 
 interface Connected {
-  tracks: Tracks
+  issues:  IssuesSchema
 }
 
 const TimerEntry: React.SFC<Props & Connected> = (props) => {
-  const { timer, tracks } = props
+  const { timer, issues } = props
 
-  console.log('timer', timer, tracks)
+  if (!timer.issue)
+    return null
+
+  const issue = issues.entities.issues[timer.issue.id]
+  const lane = issue && issue.lane || ''
 
   return (
     <tr>
-      <td>Running: {timer.isRunning}</td>
+      <td><div className="input checkbox"><input type="checkbox" /></div></td>
+      <td><ExternalLink url={timer.issue.repositoryUrl} showIcon={false}>{timer.issue.ident}</ExternalLink></td>
+      <td><ExternalLink url={timer.issue.htmlUrl} showIcon={false}>#{timer.issue.number}</ExternalLink></td>
+      <td><LabelItem label={SWIMLANES[lane]} /></td>
+      <td>{timerDuration(timer, true)}</td>
+      <td>{timer.issue.title}</td>
     </tr>
   )
 }
 
 const mapState = (state: AppState) => ({
-  tracks: state.tracks
+  issues: state.issues
 })
 
 export default connect(mapState)(TimerEntry)

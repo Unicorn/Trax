@@ -24,7 +24,7 @@ const renderRepos = (repos: Repos): React.ReactNode => {
 
   const sorted = denormalize(result, scheme.repos, entities).sort(sortByRepoName)
 
-  return sorted.map((repo: Repo) => <RepoItem repo={repo} />)
+  return sorted.map((repo: Repo) => <RepoItem repo={repo} key={repo.id} />)
 }
 
 const RepoList: React.SFC<Props> = ({ repos }) => (

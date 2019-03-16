@@ -55,34 +55,9 @@ header.title {
 }
 
 //
-// MAIN
-//
-main.dashboard {
-  bottom: 0;
-  left: 7rem;
-  overflow-y: scroll;
-  padding-top: 3.5rem;
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: 1;
-
-  section.page {
-    margin: 3rem;
-  }
-}
-
-//
 // LISTS
 //
 .list {
-  &.table {
-    li {
-      border-bottom: 1px solid;
-      margin: $item_spacing;
-    }
-  }
-
   &.masonry {
     display: flex;
     flex-wrap: wrap;
@@ -349,17 +324,6 @@ main.dashboard {
     font: 400 1.3rem/1.8rem $font_body;
   }
 
-  .label {
-    background: $eggshell;
-    border-radius: 1px;
-    color: rgba(0, 0, 0, 0.4);
-    display: inline-block;
-    font: 400 1rem $font_condensed;
-    margin: 0 .4rem 0 0;
-    padding: .3rem .5rem;
-    text-transform: uppercase;
-  }
-
   footer {
     align-items: center;
     background: lighten($eggshell, 5%);
@@ -401,6 +365,17 @@ main.dashboard {
       padding-left: 1rem;
     }
   }
+}
+
+.card .label, table .label {
+  background: $eggshell;
+  border-radius: 1px;
+  color: rgba(0, 0, 0, 0.4);
+  display: inline-block;
+  font: 400 1rem $font_condensed;
+  margin: 0 .4rem 0 0;
+  padding: .3rem .5rem;
+  text-transform: uppercase;
 }
 
 .timer {
@@ -458,5 +433,87 @@ main.welcome {
     display: block;
     margin: 0 auto;
     width: 250px;
+  }
+}
+
+
+//
+// HELP MENU
+//
+aside.help {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  width: 0;
+  z-index: 500;
+
+  &::before {
+    backdrop-filter: blur(4px);
+    background-color: transparentize($brown, .9);
+    bottom: 0;
+    content: ' ';
+    left: -100vw;
+    opacity: 0;
+    position: absolute;
+    transition: opacity .3s;
+    right: 0;
+    top: 0;
+  }
+
+  .drawer {
+    background: lighten($eggshell, 5%);
+    box-shadow: 0 0 20px darken($eggshell, 8%);
+    height: 100vh;
+    left: -36vw;
+    padding: 10rem 14rem;
+    position: relative;
+    transition: left .3s;
+    width: 40vw;
+    z-index: 501;
+  }
+
+  .toggle {
+    background-color: darken($eggshell, 5%);
+    border-bottom-right-radius: 100%;
+    border-top-right-radius: 100%;
+    bottom: 3rem;
+    cursor: pointer;
+    height: 5rem;
+    padding: 1.5rem;
+    position: absolute;
+    right: -5rem;
+    width: 5rem;
+
+    svg {
+      fill: $brown;
+      opacity: .5;
+      transition: opacity, transform .3s;
+      width: 100%;
+    }
+
+    &:hover {
+      svg {
+        opacity: 1;
+        transform: scale(1.2);
+      }
+    }
+  }
+
+  &.active {
+    opacity: 1;
+    width: 100vw;
+
+    .drawer {
+      left: 0;
+    }
+
+    .toggle {
+      background-color: lighten($eggshell, 5%);
+    }
+
+    &::before {
+      left: 0;
+      opacity: 1;
+    }
   }
 }

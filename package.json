@@ -10,7 +10,7 @@
   "repository": "https://github.com/UnicornAgency/Trax",
   "scripts": {
     "precommit": "lint-staged",
-    "dev": "MODE=development NODE_PATH=./renderer concurrently 'yarn start' 'yarn electron:start'",
+    "dev": "NODE_PATH=./renderer concurrently 'yarn start' 'yarn electron:start'",
     "start": "webpack-serve ./config/webpack.config.js --https-cert ./config/localhost.cert --https-key ./config/localhost.key",
     "electron:start": "tsc main/*.ts && electron .",
     "preelectron:build": "tsc main/*.ts && webpack --config ./config/webpack.config.js",

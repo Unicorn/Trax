@@ -16,7 +16,7 @@ const getLabels = () => {
       },
       body: {
         name: LABELS[key].name,
-        color: LABELS[key].color.replace('#', '')
+        color: LABELS[key].color
       }
     })
   })

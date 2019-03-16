@@ -1,5 +1,5 @@
 import { schema } from 'normalizr'
-import { Issue } from 'models/issue'
+import { IssuesSchema, Issue } from 'models/issue'
 import { LANES, Lane } from 'config/constants'
 import { Timers } from 'models/timer'
 import { Repos } from 'models/Repo'
@@ -18,6 +18,7 @@ export interface AppState {
   timers: Timers
   repos: Repos
   tracks: Tracks
+  issues: IssuesSchema
 }
 
 const userSchema = new schema.Entity('users')

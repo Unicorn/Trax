@@ -22,18 +22,15 @@ export type Routes = {
 export const IDENT = 'Trax'
 
 export const COLORS = {
-  blue: '#3C7CB3',
-  orange: '#F85E10',
-  purple: '#7C30D4',
-  green: '#5FB42F',
-  yellow: '#F0CF0F',
-  cyan: '#48B1C6',
-  teal: '#51B294',
-  red: '#B33C3C',
-  pink: '#E068DB',
-  white: 'rgb(251, 249, 243)',
-  eggshell: '#fbf9f4',
-  brown: '#99896F',
+  blue: '3C7CB3',
+  orange: 'F85E10',
+  purple: '7C30D4',
+  green: '5FB42F',
+  yellow: 'F0CF0F',
+  cyan: '48B1C6',
+  teal: '51B294',
+  red: 'B33C3C',
+  pink: 'E068DB',
 }
 
 export const ROUTES: Routes = {

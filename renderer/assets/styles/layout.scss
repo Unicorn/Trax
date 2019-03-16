@@ -1,3 +1,25 @@
+//
+// MAIN
+//
+main.dashboard {
+  bottom: 0;
+  left: 7rem;
+  overflow-y: scroll;
+  padding-top: 3.5rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}
+
+.profile.page, .create.page, .settings.page {
+  margin: 3rem;
+}
+
+.report.page {
+  margin: 8rem;
+}
+
 .columns {
   display: flex;
   flex-direction: row;

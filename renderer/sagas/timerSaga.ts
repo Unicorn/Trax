@@ -1,4 +1,4 @@
-import * as _ from 'lodash'
+import { toPairs } from 'lodash'
 import { put, call, race, take, select, takeEvery } from 'redux-saga/effects'
 import { stopTimer, tickTimer } from 'controllers/timerController'
 import { TIMER, Timer, TimerAction } from 'models/timer'
@@ -11,15 +11,15 @@ const wait = (ms: number) => (
 )
 
 function* watchTimers(action: TimerAction) {
-  const { id } = action
+  const { issue } = action
 
-  if (!id)
+  if (!issue)
     return
 
   // Search for running timers and stop them
   const timers = yield select((state: any) => state.timers)
-  const runningTimers = _.toPairs(timers).map((t: [string, Object]) => t[1] as Timer).filter(t => t.id && t.isRunning)
-  yield runningTimers.map(t => put(stopTimer(t.id!)))
+  const runningTimers = toPairs(timers).map((t: [string, Object]) => t[1] as Timer).filter(t => t.id && t.isRunning)
+  yield runningTimers.map(t => t.issue && put(stopTimer(t.issue)))
 
   // Listen for a TIMER.STOP action, otherwise start tickin!
   while(true) {
@@ -29,7 +29,7 @@ function* watchTimers(action: TimerAction) {
     })
 
     if (!currentTimer.stopped)
-      yield put(tickTimer(id))
+      yield put(tickTimer(issue))
     else
       break
   }

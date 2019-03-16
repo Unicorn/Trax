@@ -4,6 +4,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const path = require('path')
 
 module.exports = {
+  mode: process.env.WEBPACK_SERVE ? 'development' : 'production',
   target: 'electron-renderer',
   entry: path.resolve(__dirname, '../renderer/index.tsx'),
   output: {

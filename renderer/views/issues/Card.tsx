@@ -24,7 +24,7 @@ interface Connected {
 const Card: React.SFC<Props & Connected> = ({ dispatch, timer, issue, lane, index }) => {
 
   const _timerHandler = () => {
-    timer.isRunning ? dispatch(stopTimer(issue.id)) : dispatch(startTimer(issue.id))
+    timer.isRunning ? dispatch(stopTimer(issue)) : dispatch(startTimer(issue))
   }
 
   let duration = timer.entries.length > 0 ? timer.entries.reduce((prev: any, curr: any) => prev + curr.duration, 0) : timer.duration

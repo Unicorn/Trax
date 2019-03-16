@@ -1,3 +1,5 @@
+import { Issue } from 'models/issue'
+
 export enum TIMER {
   START = 'trax/timer/START',
   STOP = 'trax/timer/STOP',
@@ -17,6 +19,7 @@ export interface Timer {
   selected?: boolean
   isRunning: boolean
   startedAt?: Date
+  issue?: Issue
   entries: TimerEntry[]
 }
 
@@ -27,6 +30,7 @@ export type Timers = {
 export type TimerAction = {
   readonly type: TIMER
   readonly id?: string
+  readonly issue?: Issue
 }
 
 export const defaultTimerState: Timer = {

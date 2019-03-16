@@ -90,7 +90,7 @@ class RepoItem extends React.Component<Props & Connected, State> {
 }
 
 const mapState = (state: any, { repo }: Props) => ({
-  track: repo && state.tracks[repo.nodeId]
+  track: repo && state.tracks[repo.id]
 })
 
 export default connect(mapState)(RepoItem)

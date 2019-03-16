@@ -76,6 +76,13 @@ li {
   margin: .5rem 0;
 }
 
+button {
+  background: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
 a {
   color: $link_normal;
   cursor: pointer;
@@ -99,6 +106,43 @@ a {
 
     svg {
       fill: $link_hover;
+    }
+  }
+}
+
+table {
+  border-spacing: 0 1rem;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+
+  th, td {
+    font-size: 1.4rem;
+    padding: 1rem 2rem;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  th {
+    font-weight: 600;
+  }
+
+  td {
+    background-color: #fff;
+    font-weight: 400;
+    height: 8rem;
+    padding: 1.5rem 2rem;
+    transition: background-color .3s;
+  }
+
+  tbody {
+    tr {
+      box-shadow: 0 3px 6px transparentize($brown, .95);
+      transition: box-shadow .3s;
+
+      &:hover {
+        box-shadow: 0 3px 8px transparentize($brown, .75);
+      }
     }
   }
 }

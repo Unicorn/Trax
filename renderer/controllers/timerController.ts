@@ -1,34 +1,37 @@
 import { TIMER, Timers, TimerAction, defaultTimerState } from 'models/timer'
+import { Issue } from 'models/issue'
 
-export const startTimer = (id: string) => ({
+export const startTimer = (issue: Issue) => ({
   type: TIMER.START,
-  id
+  issue
 })
 
-export const stopTimer = (id: string) => ({
+export const stopTimer = (issue: Issue) => ({
   type: TIMER.STOP,
-  id
+  issue
 })
 
-export const tickTimer = (id: string) => ({
+export const tickTimer = (issue: Issue) => ({
   type: TIMER.TICK,
-  id
+  issue
 })
 
 export const timerReducer = (state: Timers = {}, action: TimerAction) => {
-  const { id, type } = action
+  const { issue, type } = action
   const newState = { ...state }
 
-  if (!id || !type) return state
+  if (!issue || !type) return state
 
-  const timer = state[id] || defaultTimerState
+  const timer = state[issue.id] || defaultTimerState
+
+  console.log("timer", action.issue)
 
   switch (type)
   {
     case TIMER.START :
-      newState[id] = {
+      newState[issue.id] = {
         ...timer,
-        id,
+        issue,
         isRunning: true,
         startedAt: new Date(),
         duration: 0,
@@ -36,9 +39,9 @@ export const timerReducer = (state: Timers = {}, action: TimerAction) => {
       return newState
 
     case TIMER.STOP :
-      newState[id] = {
+      newState[issue.id] = {
         ...timer,
-        id,
+        issue,
         entries: timer.entries.concat([{
           startedAt: timer.startedAt!,
           stoppedAt: new Date(),
@@ -51,9 +54,9 @@ export const timerReducer = (state: Timers = {}, action: TimerAction) => {
       return newState
 
     case TIMER.TICK :
-      newState[id] = {
+      newState[issue.id] = {
         ...timer,
-        id,
+        issue,
         isRunning: true,
         duration: timer.duration + 1
       }

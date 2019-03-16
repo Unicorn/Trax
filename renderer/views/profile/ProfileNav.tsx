@@ -69,7 +69,7 @@ class ProfileNav extends React.Component<Connected, State> {
     const className = selected.index === i ? 'active' : ''
 
     return (
-      <button onClick={(e: any) => this._handleTabClick(e, login, i)} className={className}>
+      <button onClick={(e: any) => this._handleTabClick(e, login, i)} className={className} key={login}>
         <span>{login}</span>
       </button>
     )

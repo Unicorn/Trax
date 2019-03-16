@@ -1,11 +1,17 @@
 import * as React from 'react'
-import SettingsNav from 'views/settings/SettingsNav'
+import Tabbed from 'views/ui/Tabbed'
+import LaneSettings from 'views/settings/LaneSettings'
 
 const Settings: React.SFC<{}> = () => {
 
+  let content = {
+    'Board Settings': <LaneSettings />,
+    'test': null
+  }
+
   return (
     <section className="settings page">
-      <SettingsNav />
+      <Tabbed content={content} />
     </section>
   )
 }

@@ -9,7 +9,7 @@ import InvoiceIcon from 'views/ui/icons/InvoiceIcon'
 import { ROUTES } from 'config/constants'
 
 const Navigation = () => (
-  <nav className="drawer">
+  <nav className="main-navigation">
     <NavLink name={ROUTES.profile.name}><ProfileCard /></NavLink>
     <NavLink name={ROUTES.create.name}><CreateIcon /></NavLink>
     <NavLink name={ROUTES.board.name}><ListIcon /></NavLink>

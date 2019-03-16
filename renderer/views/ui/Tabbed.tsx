@@ -1,11 +1,17 @@
+import { keys } from 'lodash'
 import * as React from 'react'
-import LaneSettings from 'views/settings/LaneSettings'
+
+interface Props {
+  content: {
+    [key: string]: React.ReactNode
+  }
+}
 
 interface State {
   selected: number
 }
 
-class SettingsNav extends React.Component<{}, State> {
+class Tabbed extends React.Component<Props, State> {
 
   state = {
     selected: 0
@@ -28,28 +34,18 @@ class SettingsNav extends React.Component<{}, State> {
     )
   }
 
-  _renderPane(selected: number) {
-    switch(selected) {
-      case 0:
-        return <LaneSettings />
-      default:
-        return null
-    }
-  }
-
   render() {
     const { selected } = this.state
+    const { content } = this.props
+    const ids = keys(content)
 
     return (
       <div className="tabbed">
-        <nav className="controls">
-          <div className="tabs">
-            {this._renderTab('Project Board', 0)}
-            {this._renderTab('Test', 1)}
-          </div>
+        <nav className="tabs">
+          {ids.map((key, index) => this._renderTab(key, index))}
         </nav>
         <div className="pane">
-          {this._renderPane(selected)}
+          {content[ids[selected]]}
         </div>
       </div>
     )
@@ -57,4 +53,4 @@ class SettingsNav extends React.Component<{}, State> {
 
 }
 
-export default SettingsNav
+export default Tabbed
