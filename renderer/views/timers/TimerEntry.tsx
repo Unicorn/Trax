@@ -10,6 +10,8 @@ import { SWIMLANES } from 'config/constants'
 
 interface Props {
   timer: Timer
+  checked: boolean
+  handler: (e: React.FormEvent<HTMLInputElement>) => void
 }
 
 interface Connected {
@@ -17,7 +19,7 @@ interface Connected {
 }
 
 const TimerEntry: React.SFC<Props & Connected> = (props) => {
-  const { timer, issues } = props
+  const { timer, checked, handler, issues } = props
 
   if (!timer.issue)
     return null
@@ -27,7 +29,11 @@ const TimerEntry: React.SFC<Props & Connected> = (props) => {
 
   return (
     <tr>
-      <td><div className="input checkbox"><input type="checkbox" /></div></td>
+      <td>
+        <div className="input checkbox">
+          <input type="checkbox" value={timer.issue.id} onChange={handler} checked={checked} />
+        </div>
+      </td>
       <td><ExternalLink url={timer.issue.repositoryUrl} showIcon={false}>{timer.issue.ident}</ExternalLink></td>
       <td><ExternalLink url={timer.issue.htmlUrl} showIcon={false}>#{timer.issue.number}</ExternalLink></td>
       <td><LabelItem label={SWIMLANES[lane]} /></td>

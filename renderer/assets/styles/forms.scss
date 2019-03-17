@@ -303,8 +303,8 @@ input, textarea, select {
     width: 25px;
 
     &::after {
-      background: $eggshell;
-      border: 5px solid $eggshell;
+      background: darken($eggshell, 5%);
+      border: 5px solid darken($eggshell, 5%);
       border-radius: 1px;
       color: rgba(0, 0, 0, 0.5);
       content: ' ';

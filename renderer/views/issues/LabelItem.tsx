@@ -11,8 +11,6 @@ interface Props {
 const LabelItem: React.SFC<Props> = ({ label }) => {
   let name = replace(label.name, '-', '')
 
-  console.log("label", label)
-
   return (
     <span style={{ backgroundColor: `#${label.color}` }} key={name} className="label">
       {name}

@@ -83,7 +83,13 @@ class Board extends React.Component<Connected, State> {
 
         <div className="columns">
           <DragDropContext onDragEnd={this._onDragEnd}>
-            {lanes.map(lane => <Lane lane={lane} issues={issuesArr.filter((issue: Issue) => issue.lane === lane)} />)}
+            {lanes.map(lane => (
+              <Lane
+                key={lane}
+                lane={lane}
+                issues={issuesArr.filter((issue: Issue) => issue.lane === lane)}
+              />
+            ))}
           </DragDropContext>
         </div>
       </section>

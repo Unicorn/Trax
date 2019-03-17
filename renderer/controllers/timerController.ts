@@ -1,4 +1,4 @@
-import { TIMER, Timers, TimerAction, defaultTimerState } from 'models/timer'
+import { TIMER, Timers, TimerAction } from 'models/timer'
 import { Issue } from 'models/issue'
 
 export const startTimer = (issue: Issue) => ({
@@ -22,9 +22,7 @@ export const timerReducer = (state: Timers = {}, action: TimerAction) => {
 
   if (!issue || !type) return state
 
-  const timer = state[issue.id] || defaultTimerState
-
-  console.log("timer", action.issue)
+  const timer = state[issue.id]
 
   switch (type)
   {

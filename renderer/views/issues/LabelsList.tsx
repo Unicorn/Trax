@@ -14,7 +14,7 @@ const LabelsList: React.SFC<Props> = ({ labels, withoutLanes, lane }) => {
   if (items.length > 0)
     return (
       <div className="labels">
-        {items.map((label: Label) => <LabelItem label={label} />)}
+        {items.map((label: Label) => <LabelItem key={label.name} label={label} />)}
       </div>
     )
   else

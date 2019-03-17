@@ -6,7 +6,7 @@ import { formatClock } from 'helpers/stringHelper'
 import ExternalLink from 'views/ui/ExternalLink'
 
 import { Issue } from 'models/issue'
-import { Timer, defaultTimerState } from 'models/timer'
+import { Timer } from 'models/timer'
 import LabelsList from 'views/issues/LabelsList'
 import TimerButton from 'views/issues/TimerButton'
 
@@ -60,7 +60,7 @@ const Card: React.SFC<Props & Connected> = ({ dispatch, timer, issue, lane, inde
 }
 
 const mapState = (state: any, props: Props) => ({
-  timer: state.timers[props.issue.id] || { ...defaultTimerState, id: props.issue.id }
+  timer: state.timers[props.issue.id] || { isRunning: false, issue: props.issue, entries: 0, duration: 0 }
 })
 
 export default connect(mapState)(Card)

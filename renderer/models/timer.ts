@@ -13,13 +13,12 @@ export interface TimerEntry {
 }
 
 export interface Timer {
-  id: string | null
   duration: number
   invoiced?: boolean
   selected?: boolean
   isRunning: boolean
   startedAt?: Date
-  issue?: Issue
+  readonly issue: Issue
   entries: TimerEntry[]
 }
 
@@ -31,11 +30,4 @@ export type TimerAction = {
   readonly type: TIMER
   readonly id?: string
   readonly issue?: Issue
-}
-
-export const defaultTimerState: Timer = {
-  id: null,
-  isRunning: false,
-  duration: 0,
-  entries: [],
 }

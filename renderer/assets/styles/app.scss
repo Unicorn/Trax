@@ -324,6 +324,17 @@ header.title {
     font: 400 1.3rem/1.8rem $font_body;
   }
 
+  .label {
+    background: $eggshell;
+    border-radius: 1px;
+    color: rgba(0, 0, 0, 0.4);
+    display: inline-block;
+    font: 400 1rem $font_condensed;
+    margin: 0 .4rem 0 0;
+    padding: .3rem .5rem;
+    text-transform: uppercase;
+  }
+
   footer {
     align-items: center;
     background: lighten($eggshell, 5%);
@@ -365,17 +376,6 @@ header.title {
       padding-left: 1rem;
     }
   }
-}
-
-.card .label, table .label {
-  background: $eggshell;
-  border-radius: 1px;
-  color: rgba(0, 0, 0, 0.4);
-  display: inline-block;
-  font: 400 1rem $font_condensed;
-  margin: 0 .4rem 0 0;
-  padding: .3rem .5rem;
-  text-transform: uppercase;
 }
 
 .timer {
@@ -476,7 +476,7 @@ aside.help {
     background-color: darken($eggshell, 5%);
     border-bottom-right-radius: 100%;
     border-top-right-radius: 100%;
-    bottom: 3rem;
+    bottom: 2.3rem;
     cursor: pointer;
     height: 5rem;
     padding: 1.5rem;

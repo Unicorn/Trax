@@ -396,3 +396,26 @@ table.hoverable {
     z-index: 5;
   }
 }
+
+//
+// Action Bar
+//
+.action-bar {
+  background: lighten($eggshell, 3%);
+  bottom: -10rem;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+  left: 0;
+  right: 0;
+  padding: 3rem;
+  position: fixed;
+  text-align: center;
+  transition: bottom .3s;
+
+  .button {
+    margin: 0 2rem;
+  }
+
+  &.active {
+    bottom: 0;
+  }
+}
