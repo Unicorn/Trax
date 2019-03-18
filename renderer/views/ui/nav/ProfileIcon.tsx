@@ -5,7 +5,7 @@ interface Connected {
   avatar: string;
 }
 
-const ProfileCard: React.SFC<Connected> = ({ avatar }) => (
+const ProfileIcon: React.SFC<Connected> = ({ avatar }) => (
   <div className="profile">
     <img src={avatar} alt="Profile avatar" height="50px" width="50px" />
   </div>
@@ -15,4 +15,4 @@ const mapState = (state: any) => ({
   avatar: state.profile.avatarUrl
 })
 
-export default connect(mapState)(ProfileCard)
+export default connect(mapState)(ProfileIcon)

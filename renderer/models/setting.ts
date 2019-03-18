@@ -2,7 +2,7 @@ import { Lane } from 'config/constants'
 
 export const SET_SETTING = 'trax/settings/SET_SETTING'
 
-export type ActivePageValues = 'welcome' | 'create' | 'board' | 'profile' | 'report' | 'invoice' | 'settings'
+export type ActivePageValues = 'welcome' | 'profile' | 'create' | 'board' | 'timers' | 'invoices' | 'settings'
 
 export type ActiveLaneValues = Lane[]
 

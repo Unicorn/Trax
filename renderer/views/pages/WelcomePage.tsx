@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { requestAuth } from 'controllers/authController'
-import { AuthAction } from 'models/auth'
+import { AuthAction } from 'models'
+
 import ExternalLink from 'views/ui/ExternalLink'
 import Logo from 'views/ui/icons/Logo'
 
@@ -9,7 +10,7 @@ interface Actions {
   requestAuth: () => AuthAction
 }
 
-const Welcome: React.SFC<Actions> = ({ requestAuth }) => (
+const WelcomePage: React.SFC<Actions> = ({ requestAuth }) => (
   <main className="welcome">
     <div className="left">
       <ExternalLink className="logo" url="http://unicornagency.com" showIcon={false}>
@@ -50,4 +51,4 @@ const mapDispatch = ({
   requestAuth
 })
 
-export default connect(null, mapDispatch)(Welcome)
+export default connect(null, mapDispatch)(WelcomePage)

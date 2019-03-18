@@ -53,7 +53,7 @@ export interface CreateIssueRequest {
   milestone?: number
 }
 
-export interface IssuesSchema extends FetchedItems {
+export interface Issues extends FetchedItems {
   entities: {
     issues: {
       [key: string]: Issue
@@ -63,13 +63,13 @@ export interface IssuesSchema extends FetchedItems {
 
 export interface IssuesAction {
   type: GithubActions
-  payload?: IssuesSchema | Issue | CreateIssueRequest
+  payload?: Issues | Issue | CreateIssueRequest
   ident?: string
   from?: string
   to?: string
 }
 
-export const defaultState: IssuesSchema = {
+export const defaultIssueState: Issues = {
   isLoading: false,
   result: [],
   entities: {

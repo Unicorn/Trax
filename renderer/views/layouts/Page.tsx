@@ -1,16 +1,11 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { Auth } from 'models/auth'
-
-import Dashboard from 'views/layouts/Dashboard'
-import Welcome from 'views/layouts/Welcome'
-import Create from 'views/pages/Create'
-import Board from 'views/pages/Board'
-import Profile from 'views/pages/Profile'
-import Report from 'views/pages/Report'
-import Invoice from 'views/pages/Invoice'
-import Settings from 'views/pages/Settings'
 import { ROUTES } from 'config/constants'
+
+import * as Pages from 'views/pages'
+import Dashboard from 'views/layouts/Dashboard'
+import WelcomePage from 'views/pages/WelcomePage'
 
 interface Connected {
   auth: Auth
@@ -19,31 +14,31 @@ interface Connected {
 
 const Page: React.SFC<Connected> = ({ page, auth }) => {
   if (page === ROUTES.welcome.name && !auth.accessToken)
-    return <Welcome />
+    return <WelcomePage />
 
   var child = null
 
   switch(page) {
     case ROUTES.board.name :
-      child = <Board />
+      child = <Pages.BoardPage />
       break
     case ROUTES.create.name :
-      child = <Create />
+      child = <Pages.CreatePage />
       break
     case ROUTES.profile.name :
-      child = <Profile />
+      child = <Pages.ProfilePage />
       break
-    case ROUTES.report.name :
-      child = <Report />
+    case ROUTES.timers.name :
+      child = <Pages.TimersPage />
       break
-    case ROUTES.invoice.name :
-      child = <Invoice />
+    case ROUTES.invoices.name :
+      child = <Pages.InvoicesPage />
       break
     case ROUTES.settings.name :
-      child = <Settings/>
+      child = <Pages.SettingsPage/>
       break
     default :
-      child = <Board />
+      child = <Pages.BoardPage />
   }
 
   return <Dashboard>{child}</Dashboard>

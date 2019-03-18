@@ -1,20 +1,20 @@
 import { keys, trim } from 'lodash'
 import * as React from 'react'
 import { connect } from 'react-redux'
-
 import { DragDropContext, DropResult } from 'react-beautiful-dnd'
+
 import { issuesList, switchLanes } from 'controllers/issueController'
-import { TRACK, Tracks } from 'models/track'
-import { IssuesSchema, Issue } from 'models/issue'
+import { TRACK, Tracks, Issues, Issue } from 'models'
 import { issuesArray, filterIssues } from 'helpers/issueHelper'
+import { Lane as TLane } from 'config/constants'
+
 import Lane from 'views/issues/Lane'
 import SearchIssues from 'views/issues/SearchIssues'
-import { Lane as TLane } from 'config/constants'
 
 interface Connected {
   lanes: TLane[]
   tracks: Tracks
-  issues: IssuesSchema
+  issues: Issues
   dispatch: (action: any) => any
 }
 
@@ -22,7 +22,7 @@ interface State {
   issuesArr: Issue[]
 }
 
-class Board extends React.Component<Connected, State> {
+class BoardPage extends React.Component<Connected, State> {
 
   state = {
     issuesArr: []
@@ -104,4 +104,4 @@ const mapState = (state: any) => ({
   lanes: state.settings.lanes
 })
 
-export default connect(mapState)(Board)
+export default connect(mapState)(BoardPage)

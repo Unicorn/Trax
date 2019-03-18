@@ -1,11 +1,12 @@
 import { keys } from 'lodash'
 import * as React from 'react'
 import { connect } from 'react-redux'
+
+import { Tracks } from 'models'
+
 import ProfileHelp from 'views/profile/ProfileHelp'
 import ProfileNav from 'views/profile/ProfileNav'
-
 import RepoItem from 'views/repos/RepoItem'
-import { Tracks } from 'models/track'
 
 interface Connected {
   tracks: Tracks
@@ -25,7 +26,7 @@ const _renderTracks = (tracks: Tracks) => {
   )
 }
 
-const Profile: React.SFC<Connected> = (props) => {
+const ProfilePage: React.SFC<Connected> = (props) => {
   const { tracks } = props
 
   return (
@@ -51,4 +52,4 @@ const mapState = (state: any) => ({
   tracks: state.tracks
 })
 
-export default connect(mapState)(Profile)
+export default connect(mapState)(ProfilePage)

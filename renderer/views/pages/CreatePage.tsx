@@ -1,12 +1,14 @@
 import { keys, findKey } from 'lodash'
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { Editor } from 'views/ui/form/Editor'
-import { FormField, OptionsObject } from 'views/ui/form/FormField'
+
 import { issueCreate } from 'controllers/issueController'
 import { labelNames } from 'helpers/issueHelper'
-import { Tracks } from 'models/track'
+import { Tracks } from 'models'
 import { TYPES, SWIMLANES, PRIORITY } from 'config/constants'
+
+import { Editor } from 'views/ui/form/Editor'
+import { FormField, OptionsObject } from 'views/ui/form/FormField'
 
 interface Connected {
   tracks: Tracks
@@ -27,7 +29,7 @@ const defaultState = {
   body: ''
 }
 
-class Create extends React.Component<Connected, State> {
+class CreatePage extends React.Component<Connected, State> {
 
   state = defaultState
   repoOptions: OptionsObject = {}
@@ -163,4 +165,4 @@ const mapState = (state: any) => ({
   tracks: state.tracks
 })
 
-export default connect(mapState)(Create)
+export default connect(mapState)(CreatePage)

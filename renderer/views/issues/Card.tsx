@@ -2,7 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { Draggable, DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd'
 import { startTimer, stopTimer } from 'controllers/timerController'
-import { formatClock } from 'helpers/stringHelper'
+import { timerDuration } from 'helpers/timerHelper'
 import ExternalLink from 'views/ui/ExternalLink'
 
 import { Issue } from 'models/issue'
@@ -27,8 +27,6 @@ const Card: React.SFC<Props & Connected> = ({ dispatch, timer, issue, lane, inde
     timer.isRunning ? dispatch(stopTimer(issue)) : dispatch(startTimer(issue))
   }
 
-  let duration = timer.entries.length > 0 ? timer.entries.reduce((prev: any, curr: any) => prev + curr.duration, 0) : timer.duration
-
   return (
     <Draggable key={issue.id} draggableId={issue.id.toString()} index={index}>
       {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
@@ -40,7 +38,7 @@ const Card: React.SFC<Props & Connected> = ({ dispatch, timer, issue, lane, inde
         >
           <header>
             <strong>{`${issue.ident}/#${issue.number}`}</strong>
-            <span className="tracked">{formatClock(duration, true)}</span>
+            <span className="tracked">{timerDuration(timer, true)}</span>
           </header>
 
           <div className="description">

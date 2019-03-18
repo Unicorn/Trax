@@ -1,4 +1,4 @@
-import { TIMER, Timers, Timer, TimerAction } from 'models/timer'
+import { TIMER, Timers, TimerAction } from 'models/timer'
 import { Issue } from 'models/issue'
 
 export const startTimer = (issue: Issue) => ({

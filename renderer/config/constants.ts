@@ -14,6 +14,7 @@ export type Lane = 'backlog' | 'sprint' | 'started' | 'review' | 'complete'
 
 export type Routes = {
   [key: string]: {
+    component: string
     name: ActivePageValues
     path: string
   }
@@ -35,30 +36,37 @@ export const COLORS = {
 
 export const ROUTES: Routes = {
   welcome: {
+    component: 'WelcomePage',
     name: 'welcome',
     path: '/welcome',
   },
   create: {
+    component: 'CreatePage',
     name: 'create',
     path: '/create',
   },
   board: {
+    component: 'BoardPage',
     name: 'board',
     path: '/board',
   },
   profile: {
+    component: 'ProfilePage',
     name: 'profile',
     path: '/profile',
   },
-  report: {
-    name: 'report',
-    path: '/report',
+  timers: {
+    component: 'TimersPage',
+    name: 'timers',
+    path: '/timers',
   },
-  invoice: {
-    name: 'invoice',
-    path: '/invoice',
+  invoices: {
+    component: 'InvoicesPage',
+    name: 'invoices',
+    path: '/invoices',
   },
   settings: {
+    component: 'SettingsPage',
     name: 'settings',
     path: '/settings',
   },

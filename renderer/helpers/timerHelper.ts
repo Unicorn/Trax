@@ -7,6 +7,12 @@ export const timerDuration = (timer: Timer, format?: boolean) => {
   return format ? timerClock(duration, true) : duration
 }
 
+export const timersDuration = (timers: Timer[], format?: boolean) => {
+  let duration = timers.reduce((prev: any, curr: any) => prev + timerDuration(curr), 0)
+
+  return format ? timerClock(duration, true) : duration
+}
+
 export const timerClock = (duration: number, hideEmpty?: boolean) => {
   let hours = ('0' + Math.floor(duration / (60 * 60)).toString()).slice(-2)
   let minutes_divisor = duration % (60 * 60)

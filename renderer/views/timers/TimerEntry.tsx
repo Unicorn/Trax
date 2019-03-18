@@ -2,7 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { AppState } from 'models'
 import { Timer } from 'models/timer'
-import { IssuesSchema } from 'models/issue'
+import { Issues } from 'models/issue'
 import { timerDuration } from 'helpers/timerHelper'
 import LabelItem from 'views/issues/LabelItem'
 import ExternalLink from 'views/ui/ExternalLink'
@@ -15,7 +15,7 @@ interface Props {
 }
 
 interface Connected {
-  issues:  IssuesSchema
+  issues:  Issues
 }
 
 const TimerEntry: React.SFC<Props & Connected> = (props) => {

@@ -1,8 +1,9 @@
 import * as React from 'react'
+
 import Tabbed from 'views/ui/Tabbed'
 import LaneSettings from 'views/settings/LaneSettings'
 
-const Settings: React.SFC<{}> = () => {
+const SettingsPage: React.SFC<{}> = () => {
 
   let content = {
     'Board Settings': <LaneSettings />,
@@ -17,4 +18,4 @@ const Settings: React.SFC<{}> = () => {
 }
 
 
-export default Settings
+export default SettingsPage

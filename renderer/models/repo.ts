@@ -28,7 +28,7 @@ export interface ReposAction {
   login?: string
 }
 
-export const defaultState: Repos = {
+export const defaultRepoState: Repos = {
   isLoading: false,
   result: [],
   entities: {

@@ -1,8 +1,9 @@
 import { keys } from 'lodash'
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { Timers } from 'models/timer'
-import { INVOICE } from 'models/invoice'
+
+import { INVOICE, Timers } from 'models'
+
 import TimerEntry from 'views/timers/TimerEntry'
 import Help from 'views/layouts/Help'
 
@@ -15,7 +16,7 @@ interface State {
   selectedIds: string[]
 }
 
-class Report extends React.Component<Connected, State> {
+class ReportPage extends React.Component<Connected, State> {
 
   state = {
     selectedIds: []
@@ -93,4 +94,4 @@ const mapState = (state: any) => ({
   timers: state.timers,
 })
 
-export default connect(mapState)(Report)
+export default connect(mapState)(ReportPage)

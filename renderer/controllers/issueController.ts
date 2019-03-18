@@ -2,17 +2,17 @@ import { union, merge } from 'lodash'
 import { action } from 'helpers/reduxHelper'
 import {
   ISSUE,
-  IssuesSchema,
+  Issues,
   Issue,
   CreateIssueRequest,
   IssuesAction,
-  defaultState
+  defaultIssueState
 } from 'models/issue'
 import { Lane } from 'config/constants'
 
 export const issuesList = {
   request: (ident: string) => action(ISSUE.LIST.REQUEST, { ident }),
-  success: (payload: IssuesSchema) => action(ISSUE.LIST.SUCCESS, { payload }),
+  success: (payload: Issues) => action(ISSUE.LIST.SUCCESS, { payload }),
   failure: (payload: any) => action(ISSUE.LIST.FAILURE, { payload })
 }
 
@@ -22,12 +22,12 @@ export const issueCreate = {
   failure: (payload: any) => action(ISSUE.CREATE.FAILURE, { payload })
 }
 
-export const receiveIssues = (payload: IssuesSchema): IssuesAction => ({
+export const receiveIssues = (payload: Issues): IssuesAction => ({
   type: ISSUE.LIST.SUCCESS,
   payload
 })
 
-export const receiveIssue = (payload: IssuesSchema): IssuesAction => ({
+export const receiveIssue = (payload: Issues): IssuesAction => ({
   type: ISSUE.UPDATE.SUCCESS,
   payload
 })
@@ -39,7 +39,7 @@ export const switchLanes = (payload: Issue, from: string, to: string): IssuesAct
   to
 })
 
-export const issuesReducer = (state: IssuesSchema = defaultState, action: IssuesAction): IssuesSchema => {
+export const issuesReducer = (state: Issues = defaultIssueState, action: IssuesAction): Issues => {
   const { payload, type } = action
   const newState = { ...state }
   var issue
@@ -47,7 +47,7 @@ export const issuesReducer = (state: IssuesSchema = defaultState, action: Issues
   switch (type)
   {
     case ISSUE.LIST.SUCCESS :
-      let issues = payload as IssuesSchema
+      let issues = payload as Issues
       newState.entities.issues = merge(newState.entities.issues, issues.entities.issues)
       newState.result = union(newState.result, issues.result)
       return newState
@@ -61,7 +61,7 @@ export const issuesReducer = (state: IssuesSchema = defaultState, action: Issues
       return newState
 
     case ISSUE.UPDATE.SUCCESS :
-      issue = payload as IssuesSchema
+      issue = payload as Issues
       if (issue.result)
         newState.entities.issues[issue.result as string] = {
           ...newState.entities.issues[issue.result as string],

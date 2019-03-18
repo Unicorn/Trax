@@ -22,13 +22,13 @@ interface Props {
 }
 
 const _renderSelectOptions = (options?: OptionsObject) => {
-  let items = [<option />]
+  let items = [<option key="default" />]
 
   if (!options)
     return items
 
   Object.keys(options).forEach(k =>
-    items.push(<option value={k}>{options[k].label}</option>)
+    items.push(<option key={k} value={k}>{options[k].label}</option>)
   )
 
   return items
@@ -41,7 +41,7 @@ const _renderRadioOptions = (props: Props, options?: OptionsObject) => {
   const { name, selected, onChange } = props
 
   return Object.keys(options).map(k => (
-    <label className={selected === k ? 'active' : ''}>
+    <label key={k} className={selected === k ? 'active' : ''}>
       <input type="radio" name={name} value={k} checked={selected == k} onChange={onChange} />
       <span>{options[k].label}</span>
     </label>
