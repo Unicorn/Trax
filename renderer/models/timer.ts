@@ -4,6 +4,7 @@ export enum TIMER {
   START = 'trax/timer/START',
   STOP = 'trax/timer/STOP',
   TICK = 'trax/timer/TICK_TIMER',
+  DELETE = 'trax/timer/DELETE'
 }
 
 export interface TimerEntry {
@@ -13,8 +14,8 @@ export interface TimerEntry {
 }
 
 export interface Timer {
+  id: string
   duration: number
-  invoiced?: boolean
   selected?: boolean
   isRunning: boolean
   startedAt?: Date
@@ -29,5 +30,6 @@ export type Timers = {
 export type TimerAction = {
   readonly type: TIMER
   readonly id?: string
+  readonly timer?: Timer
   readonly issue?: Issue
 }

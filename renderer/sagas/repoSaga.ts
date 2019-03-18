@@ -1,4 +1,4 @@
-import { put, call, takeEvery } from 'redux-saga/effects'
+import { put, call, takeLatest } from 'redux-saga/effects'
 import { fetchRepos } from 'services/githubService'
 import { receiveRepos } from 'controllers/repoController'
 import { REPO, ReposAction } from 'models/repo'
@@ -11,5 +11,5 @@ function* watchReposRequest(action: ReposAction) {
 
 
 export default function* repoSaga() {
-  yield takeEvery(REPO.REQUEST, watchReposRequest)
+  yield takeLatest(REPO.REQUEST, watchReposRequest)
 }

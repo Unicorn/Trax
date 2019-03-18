@@ -1,4 +1,4 @@
-import { put, takeEvery } from 'redux-saga/effects'
+import { put, takeLatest } from 'redux-saga/effects'
 import { deleteAlert } from 'controllers/alertController'
 import { ALERT, AlertAction } from 'models/alert'
 
@@ -16,5 +16,5 @@ function* watchAlerts(action: AlertAction) {
 }
 
 export default function* alertSaga() {
-  yield takeEvery(ALERT.CREATE, watchAlerts)
+  yield takeLatest(ALERT.CREATE, watchAlerts)
 }

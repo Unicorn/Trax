@@ -1,4 +1,4 @@
-import { put, call, fork, takeEvery } from 'redux-saga/effects'
+import { put, call, fork, takeLatest } from 'redux-saga/effects'
 import { fetchIssues, fetchIssueCreate, fetchIssueUpdate } from 'services/githubService'
 import { createAlert } from 'controllers/alertController'
 import { issuesList, receiveIssue } from 'controllers/issueController'
@@ -75,7 +75,7 @@ function* watchIssueCreate(action: IssuesAction) {
 }
 
 export default function* issueSaga() {
-  yield takeEvery(ISSUE.CREATE.REQUEST, watchIssueCreate)
-  yield takeEvery(ISSUE.LIST.REQUEST, watchIssuesRequest)
-  yield takeEvery(ISSUE.UPDATE.REQUEST, watchIssueSwitchLanes)
+  yield takeLatest(ISSUE.CREATE.REQUEST, watchIssueCreate)
+  yield takeLatest(ISSUE.LIST.REQUEST, watchIssuesRequest)
+  yield takeLatest(ISSUE.UPDATE.REQUEST, watchIssueSwitchLanes)
 }

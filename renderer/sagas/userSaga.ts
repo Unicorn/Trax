@@ -1,4 +1,4 @@
-import { put, call, takeEvery } from 'redux-saga/effects'
+import { put, call, takeLatest } from 'redux-saga/effects'
 import { fetchProfile } from 'services/githubService'
 import { receiveProfile } from 'controllers/profileController'
 import { PROFILE, ProfileAction } from 'models/profile'
@@ -9,5 +9,5 @@ function* watchProfileRequest(_action: ProfileAction) {
 }
 
 export default function* userSaga() {
-  yield takeEvery(PROFILE.REQUEST, watchProfileRequest)
+  yield takeLatest(PROFILE.REQUEST, watchProfileRequest)
 }

@@ -1,5 +1,5 @@
 import { keys } from 'lodash'
-import { takeEvery, put } from 'redux-saga/effects'
+import { takeLatest, put } from 'redux-saga/effects'
 import { requestProfile } from 'controllers/profileController'
 import { issuesList } from 'controllers/issueController'
 
@@ -20,5 +20,5 @@ function* watchPersist(action: any) {
 }
 
 export default function* persistSaga() {
-  yield takeEvery('persist/REHYDRATE', watchPersist)
+  yield takeLatest('persist/REHYDRATE', watchPersist)
 }

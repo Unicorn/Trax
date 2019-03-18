@@ -1,4 +1,4 @@
-import { put, all, call, takeEvery } from 'redux-saga/effects'
+import { put, all, call, takeLatest } from 'redux-saga/effects'
 import { fetchCreateLabel, fetchRepoUsers, fetchRepoIssues } from 'services/githubService'
 import { updateTrack } from 'controllers/trackController'
 import { TrackAction } from 'models/track'
@@ -46,6 +46,6 @@ function* watchReloadTrack(action: TrackAction) {
 }
 
 export default function* trackSaga() {
-  yield takeEvery(TRACK.CREATE, watchCreateTrack)
-  yield takeEvery(TRACK.RELOAD, watchReloadTrack)
+  yield takeLatest(TRACK.CREATE, watchCreateTrack)
+  yield takeLatest(TRACK.RELOAD, watchReloadTrack)
 }

@@ -2,11 +2,13 @@ import { keys } from 'lodash'
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { Timers } from 'models/timer'
+import { INVOICE } from 'models/invoice'
 import TimerEntry from 'views/timers/TimerEntry'
 import Help from 'views/layouts/Help'
 
 interface Connected {
   timers: Timers
+  dispatch: (action: any) => void
 }
 
 interface State {
@@ -39,6 +41,14 @@ class Report extends React.Component<Connected, State> {
     this.setState({ selectedIds: input.checked ? timerIds : [] })
   }
 
+  _createInvoice = () => {
+    const { timers, dispatch } = this.props
+    const { selectedIds } = this.state
+    let invoice = { timers: selectedIds.map(id => timers[id]) }
+
+    dispatch({ type: INVOICE.CREATE, invoice })
+  }
+
   render() {
     const { timers } = this.props
     const { selectedIds } = this.state
@@ -64,7 +74,6 @@ class Report extends React.Component<Connected, State> {
                 timer={timers[key]}
                 key={key}
                 handler={this._checkboxHandler}
-                selectedIds={selectedIds}
                 checked={(selectedIds as string[]).includes(timers[key].issue.id.toString())}
               />
             ))}
@@ -72,7 +81,7 @@ class Report extends React.Component<Connected, State> {
         </table>
 
         <div className={`action-bar ${selectedIds.length > 0 && 'active'}`}>
-          <button className="brown basic button">Generate Invoice</button>
+          <button className="brown basic button" onClick={this._createInvoice}>Create Invoice</button>
           <button className="red basic button">Cancel</button>
         </div>
       </section>

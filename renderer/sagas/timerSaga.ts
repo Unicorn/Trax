@@ -1,5 +1,5 @@
 import { toPairs } from 'lodash'
-import { put, call, race, take, select, takeEvery } from 'redux-saga/effects'
+import { put, call, race, take, select, takeLatest } from 'redux-saga/effects'
 import { stopTimer, tickTimer } from 'controllers/timerController'
 import { TIMER, Timer, TimerAction } from 'models/timer'
 
@@ -18,7 +18,7 @@ function* watchTimers(action: TimerAction) {
 
   // Search for running timers and stop them
   const timers = yield select((state: any) => state.timers)
-  const runningTimers = toPairs(timers).map((t: [string, Object]) => t[1] as Timer).filter(t => t.id && t.isRunning)
+  const runningTimers = toPairs(timers).map((t: [string, Object]) => t[1] as Timer).filter(t => t.issue.id && t.isRunning)
   yield runningTimers.map(t => t.issue && put(stopTimer(t.issue)))
 
   // Listen for a TIMER.STOP action, otherwise start tickin!
@@ -37,5 +37,5 @@ function* watchTimers(action: TimerAction) {
 
 
 export default function* timerSaga() {
-  yield takeEvery(TIMER.START, watchTimers)
+  yield takeLatest(TIMER.START, watchTimers)
 }

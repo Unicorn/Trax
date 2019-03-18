@@ -1,6 +1,6 @@
 import { BrowserWindow } from 'electron'
 import { eventChannel, END } from 'redux-saga'
-import { put, call, take, takeEvery } from 'redux-saga/effects'
+import { put, call, take, takeLatest } from 'redux-saga/effects'
 import { camelizeKeys } from 'humps'
 import { receiveAuth } from 'controllers/authController'
 import { createAlert } from 'controllers/alertController'
@@ -103,7 +103,7 @@ function* watchAuthSuccess() {
 }
 
 export default function* authSaga() {
-  yield takeEvery(AUTH.LOGOUT, watchLogout)
-  yield takeEvery(AUTH.REQUEST, watchAuthRequest)
-  yield takeEvery(AUTH.SUCCESS, watchAuthSuccess)
+  yield takeLatest(AUTH.LOGOUT, watchLogout)
+  yield takeLatest(AUTH.REQUEST, watchAuthRequest)
+  yield takeLatest(AUTH.SUCCESS, watchAuthSuccess)
 }

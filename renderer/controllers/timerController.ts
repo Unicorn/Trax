@@ -1,4 +1,4 @@
-import { TIMER, Timers, TimerAction } from 'models/timer'
+import { TIMER, Timers, Timer, TimerAction } from 'models/timer'
 import { Issue } from 'models/issue'
 
 export const startTimer = (issue: Issue) => ({
@@ -16,6 +16,11 @@ export const tickTimer = (issue: Issue) => ({
   issue
 })
 
+export const deleteTimer = (issue: Issue) => ({
+  type: TIMER.DELETE,
+  issue
+})
+
 export const timerReducer = (state: Timers = {}, action: TimerAction) => {
   const { issue, type } = action
   const newState = { ...state }
@@ -29,6 +34,7 @@ export const timerReducer = (state: Timers = {}, action: TimerAction) => {
     case TIMER.START :
       newState[issue.id] = {
         ...timer,
+        id: issue.id,
         issue,
         isRunning: true,
         startedAt: new Date(),
@@ -39,6 +45,7 @@ export const timerReducer = (state: Timers = {}, action: TimerAction) => {
     case TIMER.STOP :
       newState[issue.id] = {
         ...timer,
+        id: issue.id,
         issue,
         entries: timer.entries.concat([{
           startedAt: timer.startedAt!,
@@ -58,6 +65,11 @@ export const timerReducer = (state: Timers = {}, action: TimerAction) => {
         isRunning: true,
         duration: timer.duration + 1
       }
+      return newState
+
+    case TIMER.DELETE :
+      console.log("Delete Timer", issue)
+      delete newState[issue.id]
       return newState
 
     default :
