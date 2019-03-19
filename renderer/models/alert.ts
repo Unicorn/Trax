@@ -1,19 +1,18 @@
+import { Resource } from './app'
+
 export enum ALERT {
   CREATE = 'trax/alert/CREATE_ALERT',
   DELETE = 'trax/alert/DELETE_ALERT'
 }
 
-export type Alert = {
-  key?: any
-  type: 'success' | 'warning' | 'error' | 'generic'
+export interface Alert extends Resource {
+  status: 'success' | 'warning' | 'error' | 'generic'
+  message: string
   dismissable?: boolean
   dismissAfter?: number
-  message: string
 }
 
-export type Alerts = Alert[]
-
 export type AlertAction = {
-  readonly type: ALERT.CREATE | ALERT.DELETE
-  readonly payload?: Alert
+  readonly type: ALERT
+  readonly payload: Alert
 }

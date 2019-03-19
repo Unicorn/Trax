@@ -5,7 +5,7 @@ export enum INVOICE {
 }
 
 export interface Invoice {
-  id?: string
+  key: string
   createdAt?: Date
   timers: Timer[]
 }
@@ -15,7 +15,6 @@ export interface Invoices {
 }
 
 export type InvoiceAction = {
-  readonly id?: string
   readonly type: INVOICE
-  readonly invoice?: Invoice
+  readonly payload: Invoice
 }

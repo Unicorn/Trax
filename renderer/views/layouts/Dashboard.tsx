@@ -2,7 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { logout } from 'controllers/authController'
 import Navigation from 'views/sections/Navigation'
-import Alerts from 'views/ui/alert/Alerts'
+import AlertsList from 'views/ui/alert/AlertsList'
 
 interface Props {
   children: React.ReactNode
@@ -26,7 +26,7 @@ const Dashboard: React.SFC<Props & Actions> = ({ children, logout }) => (
         </div>
       </header>
 
-      <Alerts />
+      <AlertsList />
 
       <Navigation />
     </div>

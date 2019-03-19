@@ -1,4 +1,6 @@
-import { ALERT, Alert, Alerts, AlertAction } from 'models/alert'
+import { Resources, initialState } from 'models/app'
+import { ALERT, Alert, AlertAction } from 'models/alert'
+import { v4 } from 'uuid'
 
 /**
  * Publish an alert
@@ -9,7 +11,7 @@ export const createAlert = (payload: Alert): AlertAction => ({
   type: ALERT.CREATE,
   payload: {
     ...payload,
-    key: payload.key || new Date().getTime().toString()
+    key: payload.key || v4()
   }
 })
 
@@ -21,19 +23,24 @@ export const deleteAlert = (payload: Alert): AlertAction => ({
   payload
 })
 
-export const alertsReducer = (state: Alerts = [], action: AlertAction): Alerts => {
-  const { payload, type } = action
-
-  if (!payload || !type) return state
+export const alertsReducer = (state: Resources = initialState, action: AlertAction): Resources => {
+  const { type, payload } = action
+  const newState = { ...state }
 
   switch (type) {
     case ALERT.CREATE:
-      return state.concat(payload)
+      newState.keys.push(payload.key)
+      newState.data[payload.key] = payload
+      break
 
     case ALERT.DELETE:
-      return state.filter(({ key }) => key !== payload.key)
+      newState.keys = newState.keys.filter(key => key !== payload.key)
+      delete newState.data[payload.key]
+      break
 
     default:
       return state
   }
+
+  return newState
 }

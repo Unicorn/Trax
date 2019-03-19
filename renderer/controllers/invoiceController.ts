@@ -1,31 +1,34 @@
+import { Resources, initialState } from 'models/app'
+import { INVOICE, Invoice, InvoiceAction } from 'models/invoice'
 import { v4 } from 'uuid'
-import { INVOICE, InvoiceAction, Invoices, Invoice } from 'models/invoice'
 
-export const createInvoice = (invoice: Invoice) => ({
+export const createInvoice = (payload: Invoice) => ({
   type: INVOICE.CREATE,
-  invoice
+  payload: {
+    ...payload,
+    key: payload.key || v4()
+  }
 })
 
-export const invoiceReducer = (state: Invoices = {}, action: InvoiceAction) => {
-  const { type, invoice } = action
+export const invoiceReducer = (state: Resources = initialState, action: InvoiceAction): Resources => {
+  const { type, payload } = action
   const newState = { ...state }
-  const id = action.id || v4()
-
-  if (!type || !invoice) return state
 
   switch (type)
   {
     case INVOICE.CREATE :
-      if (!invoice.timers) return state
+      if (!payload.timers) return state
 
-      newState[id] = {
-        id,
-        timers: invoice.timers,
+      newState.keys = newState.keys.filter(key => key !== payload.key)
+      newState.data[payload.key] = {
+        ...payload,
         createdAt: new Date()
       }
-      return newState
+      break
 
     default :
       return state
   }
+
+  return newState
 }

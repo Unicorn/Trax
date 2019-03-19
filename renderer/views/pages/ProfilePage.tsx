@@ -4,9 +4,11 @@ import { connect } from 'react-redux'
 
 import { Tracks } from 'models'
 
+import Tabbed from 'views/ui/Tabbed'
 import ProfileHelp from 'views/profile/ProfileHelp'
 import ProfileNav from 'views/profile/ProfileNav'
 import RepoItem from 'views/repos/RepoItem'
+import { GITHUB, listOrgs } from 'models/github'
 
 interface Connected {
   tracks: Tracks
@@ -27,7 +29,7 @@ const _renderTracks = (tracks: Tracks) => {
 }
 
 const ProfilePage: React.SFC<Connected> = (props) => {
-  const { tracks } = props
+  const { tracks, dispatch } = props
 
   return (
     <section className="profile page">
@@ -41,7 +43,7 @@ const ProfilePage: React.SFC<Connected> = (props) => {
           </div>
         </div>
         <div className="right column">
-          <ProfileNav />
+          <button onClick={() => dispatch(listOrgs())}>Get Orgs</button>
         </div>
       </div>
     </section>

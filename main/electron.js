@@ -65,7 +65,6 @@ var createWindow = function () {
         width: 900,
         height: 680,
         webPreferences: {
-            nativeWindowOpen: true,
             experimentalFeatures: true,
             contextIsolation: false,
             nodeIntegration: false,

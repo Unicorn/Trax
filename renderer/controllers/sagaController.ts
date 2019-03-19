@@ -10,6 +10,7 @@ import userSaga from 'sagas/userSaga'
 import repoSaga from 'sagas/repoSaga'
 import timerSaga from 'sagas/timerSaga'
 import trackSaga from 'sagas/trackSaga'
+import githubSaga from 'sagas/githubSaga'
 
 export default function* rootSaga() {
   yield all([
@@ -23,5 +24,6 @@ export default function* rootSaga() {
     repoSaga(),
     timerSaga(),
     trackSaga(),
+    githubSaga()
   ])
 }

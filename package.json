@@ -38,6 +38,7 @@
     }
   },
   "dependencies": {
+    "@octokit/rest": "^16.19.0",
     "electron-is-dev": "^1.0.1",
     "electron-log": "^3.0.1",
     "fuse.js": "^3.4.4",
