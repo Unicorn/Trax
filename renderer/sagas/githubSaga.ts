@@ -1,36 +1,53 @@
-import { takeLatest, call } from 'redux-saga/effects'
-import { GITHUB } from 'models/github'
-import * as Octokit from '@octokit/rest'
+import { takeLatest, call, put } from 'redux-saga/effects'
+import { GITHUB, octokit, GetReposForLogin } from 'models/github'
+import { createAlert } from 'controllers/alertController'
+import { updateOrgs, updateOrgRepos } from 'controllers/orgController'
+import { updateRepos } from 'controllers/repoController'
+import { normalizePayload } from 'models/app'
 
-export const octokit = new Octokit({
-  auth: `token ${localStorage.getItem("accessToken") || ''}`,
-  userAgent: 'octokit/rest.js v1.2.3',
-  previews: [],
-  baseUrl: 'https://api.github.com',
-  log: {
-    debug: console.log,
-    info: console.log,
-    warn: console.warn,
-    error: console.error
-  },
-  request: {
-    // request timeout in ms. 0 means no timeout
-    timeout: 0
+function* watchOrgsRequest(): Iterable<any> {
+  try {
+    let orgs = yield call(octokit.orgs.listForAuthenticatedUser)
+
+    if (!orgs.data)
+      throw new Error('Could not fetch org data')
+
+    yield put(updateOrgs(normalizePayload(orgs.data)))
   }
-})
+  catch (e) {
+    yield put(createAlert({
+      key: 'watchOrgsRequestError',
+      status: 'error',
+      message: `Error fetching user orgs: ${e.message}`,
+      dismissable: true
+    }))
+  }
+}
 
-// const Octokit = require('@octokit/rest')
-// const octokit = new Octokit ()
+function* watchReposRequest(action: GetReposForLogin): Iterable<any> {
+  const { login, key } = action
+  let repos
 
-function* watchOrgsRequest(action: { type: string }): Iterable<any> {
-  yield console.log("watchOrgsRequest", action, octokit)
+  try {
+    if (login === 'personal')
+      repos = yield call(octokit.repos.list, { per_page: 100 })
+    else
+      repos = yield call(octokit.repos.listForOrg, { org: login, per_page: 100 })
 
-  let orgs = yield call(octokit.orgs.listForAuthenticatedUser)
-
-  console.log("orgs for user", orgs)
-
+    yield put(updateOrgRepos({ key: key || login, data: normalizePayload(repos.data) }))
+    yield put(updateRepos(normalizePayload(repos.data)))
+  }
+  catch (e) {
+    yield put(createAlert({
+      key: 'watchReposRequestError',
+      status: 'error',
+      message: `Error fetching ${login} repos: ${e.message}`,
+      dismissable: true
+    }))
+  }
 }
 
 export default function* githubSaga(): Iterable<any> {
   yield takeLatest(GITHUB.ORGS.REQUEST, watchOrgsRequest)
+  yield takeLatest(GITHUB.REPOS.REQUEST, watchReposRequest)
 }

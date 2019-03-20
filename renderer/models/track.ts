@@ -1,6 +1,4 @@
-import { User } from 'models/user'
-import { Issue } from 'models/issue'
-import { Repo } from 'models/repo'
+import { Resource } from 'models/app'
 
 export enum TRACK {
   CREATE = 'trax/track/CREATE',
@@ -10,19 +8,15 @@ export enum TRACK {
   CLEAR =  'trax/track/CLEAR'
 }
 
-export interface Track {
+export interface Track extends Resource {
   active: boolean
   ident: string
-  repo: Repo
-  users: User[]
-  issues: Issue[]
-}
-
-export interface Tracks {
-  [key: string]: Track
+  repoId: string
+  userIds: string[]
+  issueIds: string[]
 }
 
 export interface TrackAction {
   type: TRACK
-  payload?: Track
+  payload: Track
 }

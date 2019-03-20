@@ -1,23 +1,61 @@
-import { ORG, Orgs, OrgsAction } from 'models/org'
+import { union, merge } from 'lodash'
+import * as OrgModel from 'models/org'
+import * as GithubModel from 'models/github'
+import { Repo } from 'models/repo'
+import { Resources, defaultState, normalizePayload } from 'models/app'
 
-export const requestOrgs = (): OrgsAction => ({
-  type: ORG.REQUEST,
-})
-
-export const receiveOrgs = (payload: Orgs): OrgsAction => ({
-  type: ORG.SUCCESS,
+export const updateOrgs = (payload: OrgModel.Org[]): OrgModel.UpdateOrgsAction => ({
+  type: OrgModel.ORGS.UPDATE,
   payload
 })
 
-export const orgsReducer = (state: Orgs = [], action: OrgsAction): Orgs => {
-  const { payload, type } = action
+export const updateOrgRepos = (payload: OrgModel.UpdateOrgPayload): OrgModel.UpdateOrgAction => ({
+  type: OrgModel.ORG.UPDATE_REPOS,
+  payload: {
+    key: payload.key,
+    data: normalizePayload(payload.data)
+  }
+})
 
-  switch (type)
-  {
-    case ORG.SUCCESS :
-      return payload || state
+const initialState = {
+  ...defaultState,
+  keys: ['personal'],
+  data: {
+    personal: {
+      login: 'personal',
+      nodeId: 'personal'
+    }
+  }
+}
 
-    default :
+export const orgsReducer = (state: Resources = initialState, action: OrgModel.OrgActions): Resources => {
+  const { type, payload } = action
+  const newState = { ...state }
+
+  switch (type) {
+    case GithubModel.GITHUB.ORGS.REQUEST :
+      newState.isLoading = true
+      return newState
+
+    case OrgModel.ORGS.UPDATE :
+      (payload as OrgModel.Org[]).forEach(org => {
+        newState.data[org.key] = merge(newState.data[org.key], org)
+        newState.keys = union(newState.keys, [org.key])
+      })
+      newState.isLoading = false
+      break
+
+    case OrgModel.ORG.UPDATE_REPOS :
+      let p = payload as OrgModel.UpdateOrgPayload
+      let repoIds = p.data.map((r: Repo) => r.nodeId)
+      let existingRepoIds = newState.data[p.key] && newState.data[p.key].repoIds || []
+      newState.data[p.key].repoIds = union(existingRepoIds, repoIds)
+      newState.isLoading = false
+      return newState
+
+    default:
       return state
   }
+
+  return newState
 }

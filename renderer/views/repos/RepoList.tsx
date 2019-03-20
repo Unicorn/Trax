@@ -1,12 +1,14 @@
 import * as React from 'react'
-import { denormalize } from 'normalizr'
-import { Repos, Repo } from 'models/repo'
+import { connect } from 'react-redux'
+
+import { AppState, Resources } from 'models/app'
+import { Repo } from 'models/repo'
 import RepoItem from 'views/repos/RepoItem'
 import Loadable from 'views/ui/Loadable'
-import { scheme } from 'models'
 
 interface Props {
-  repos: Repos
+  repos: Resources
+  repoIds?: string[]
 }
 
 const sortByRepoName = (a: any, b: any) => {
@@ -16,23 +18,28 @@ const sortByRepoName = (a: any, b: any) => {
   return aName < bName ? -1 : aName > bName ? 1 : 0
 }
 
-const renderRepos = (repos: Repos): React.ReactNode => {
-  const { result, entities } = repos
+const RepoList: React.SFC<Props> = ({ repos, repoIds }) => {
 
-  if (!result || result.length < 1 || !entities)
-    return null
+  const _renderRepos = () => {
+    if (!repoIds || repoIds.length < 1)
+      return null
 
-  const sorted = denormalize(result, scheme.repos, entities).sort(sortByRepoName)
+    let sorted = repoIds.map(id => repos.data[id]).sort(sortByRepoName)
 
-  return sorted.map((repo: Repo) => <RepoItem repo={repo} key={repo.id} />)
+    return sorted.map((repo: Repo) => repo && <RepoItem repo={repo} key={repo.key} />)
+  }
+
+  return (
+    <Loadable widgetName="repo-list" isLoading={repos.isLoading}>
+      <ul>
+        {_renderRepos()}
+      </ul>
+    </Loadable>
+  )
 }
 
-const RepoList: React.SFC<Props> = ({ repos }) => (
-  <Loadable widgetName="repo-list" isLoading={repos.isLoading}>
-    <ul>
-      {renderRepos(repos)}
-    </ul>
-  </Loadable>
-)
+const mapState = (state: AppState) => ({
+  repos: state.repos
+})
 
-export default RepoList
+export default connect(mapState)(RepoList)

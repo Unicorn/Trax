@@ -1,21 +1,37 @@
-export enum ORG {
-  REQUEST = 'trax/github/org/REQUEST',
-  SUCCESS = 'trax/github/org/SUCCESS',
-  FAILURE = 'trax/github/org/FAILURE'
+import { Resource } from './app'
+import { Repo } from './repo'
+
+export enum ORGS {
+  UPDATE = 'trax/orgs/update'
 }
 
-export interface Org {
+export enum ORG {
+  UPDATE_REPOS = 'trax/org/update/repos'
+}
+
+export interface Org extends Resource {
   login: string
   id: number
   nodeId: string
   avatarUrl: string
   name: string
   htmlUrl: string
+  repoIds?: string[]
 }
 
-export type Orgs = Org[]
+export interface UpdateOrgsAction {
+  type: ORGS
+  payload: Org[]
+}
 
-export interface OrgsAction {
+export interface UpdateOrgPayload {
+  key: string
+  data: Repo[]
+}
+
+export interface UpdateOrgAction {
   type: ORG
-  payload?: Orgs
+  payload: UpdateOrgPayload
 }
+
+export type OrgActions = UpdateOrgAction | UpdateOrgsAction

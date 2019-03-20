@@ -63,8 +63,6 @@ function* watchIssueCreate(action: IssuesAction) {
 
   const newIssue = yield call(fetchIssueCreate, request)
 
-  console.log("NEW ISSUES VALUE", newIssue)
-
   yield put(createAlert({
     type: 'success',
     dismissable: true,

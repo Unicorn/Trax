@@ -7,8 +7,6 @@ function* watchCreateInvoice(action: InvoiceAction) {
 
   if (!invoice) return
 
-  yield console.log('watchCreateInvoice')
-
   yield all(invoice.timers.map(timer => put(deleteTimer(timer.issue))))
 }
 

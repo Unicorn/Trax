@@ -1,6 +1,6 @@
-import { Resources, initialState } from 'models/app'
+import { union, merge } from 'lodash'
+import { Resources, defaultState } from 'models/app'
 import { ALERT, Alert, AlertAction } from 'models/alert'
-import { v4 } from 'uuid'
 
 /**
  * Publish an alert
@@ -9,10 +9,7 @@ import { v4 } from 'uuid'
  */
 export const createAlert = (payload: Alert): AlertAction => ({
   type: ALERT.CREATE,
-  payload: {
-    ...payload,
-    key: payload.key || v4()
-  }
+  payload
 })
 
 /**
@@ -23,14 +20,14 @@ export const deleteAlert = (payload: Alert): AlertAction => ({
   payload
 })
 
-export const alertsReducer = (state: Resources = initialState, action: AlertAction): Resources => {
+export const alertsReducer = (state: Resources = defaultState, action: AlertAction): Resources => {
   const { type, payload } = action
   const newState = { ...state }
 
   switch (type) {
     case ALERT.CREATE:
-      newState.keys.push(payload.key)
-      newState.data[payload.key] = payload
+      newState.keys = union(newState.keys, payload.key)
+      newState.data[payload.key] = merge(newState.data[payload.key], payload)
       break
 
     case ALERT.DELETE:

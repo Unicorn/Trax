@@ -68,7 +68,6 @@ export const timerReducer = (state: Timers = {}, action: TimerAction) => {
       return newState
 
     case TIMER.DELETE :
-      console.log("Delete Timer", issue)
       delete newState[issue.id]
       return newState
 

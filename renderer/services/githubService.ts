@@ -11,18 +11,6 @@ interface Request {
   params?: any
 }
 
-const getNextPageUrl = (response: any) => {
-  const link = response.headers.get('link')
-
-  if (!link) return null
-
-  const nextLink = link.split(',').find((s: Array<string>) => s.indexOf('rel="next"') > -1)
-
-  if (!nextLink) return null
-
-  return nextLink.split(';')[0].slice(1, -1)
-}
-
 // Fetches an API response and normalizes the result JSON according to scheme.
 // This makes every API response have the same shape, regardless of how nested it was.
 export const github = (endpoint: any, options?: any, schema?: any): Promise<any> => {
@@ -49,9 +37,7 @@ export const github = (endpoint: any, options?: any, schema?: any): Promise<any>
       if (!schema)
         return <any>camelizedJson
 
-      const nextPageUrl = getNextPageUrl(response)
-
-      return <any>_.merge({ ...request.params }, normalize(camelizedJson, schema), { nextPageUrl })
+      return <any>_.merge({ ...request.params }, normalize(camelizedJson, schema))
     })
     .then(
       (response: Response) => response,
@@ -61,10 +47,7 @@ export const github = (endpoint: any, options?: any, schema?: any): Promise<any>
 
 // api services
 export const fetchProfile = () => github('user')
-export const fetchOrgs = () => github('user/orgs')
-export const fetchRepos = (login?: string) => github(login ? `orgs/${login}/repos` : 'user/repos', null, scheme.repos)
-export const fetchCreateProject = ({ owner, repo }: any, request: any) => github(`repos/${owner}/${repo}/projects`, request)
-export const fetchCreateLabel = ({ owner, repo }: any, request: any) => github(`repos/${owner}/${repo}/labels`, request)
+export const fetchCreateLabel = (ident: string, request: any) => github(`repos/${ident}/labels`, request)
 export const fetchRepoUsers = (ident: string) => github(`repos/${ident}/assignees`)
 export const fetchRepoIssues = (ident: string) => github(`repos/${ident}/issues`)
 

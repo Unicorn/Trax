@@ -1,7 +1,7 @@
-import { keys } from 'lodash'
 import * as React from 'react'
 
 interface Props {
+  tabHandler?: (name: string, index: number) => void
   content: {
     [key: string]: React.ReactNode
   }
@@ -14,22 +14,41 @@ interface State {
 class Tabbed extends React.Component<Props, State> {
 
   state = {
-    selected: 0
+    selected: -1
   }
 
-  _handleTabClick(e: any, i: number) {
+  componentWillReceiveProps(props: Props) {
+    // Only run this once
+    if (this.state.selected >= 0)
+      return
+
+    const { content, tabHandler } = props
+    let key = Object.keys(content)[0]
+
+    this.setState({ selected: 0 })
+
+    if (key && tabHandler)
+      tabHandler(key, 0)
+  }
+
+  _handleTabClick = (e: React.FormEvent<HTMLButtonElement>) => {
+    const { tabHandler } = this.props
+    const input = e.currentTarget
     e.preventDefault()
 
-    this.setState({ selected: i })
+    if (tabHandler)
+      tabHandler(input.name, parseInt(input.value))
+
+    this.setState({ selected: parseInt(e.currentTarget.value) })
   }
 
-  _renderTab(login: string, i: number) {
+  _renderTab(tabText: string, i: number) {
     const { selected } = this.state
     const className = selected === i ? 'active' : ''
 
     return (
-      <button onClick={(e: any) => this._handleTabClick(e, i)} className={className}>
-        <span>{login}</span>
+      <button key={`tab-${i}`} onClick={this._handleTabClick} className={className} name={tabText} value={i}>
+        <span>{tabText}</span>
       </button>
     )
   }
@@ -37,7 +56,7 @@ class Tabbed extends React.Component<Props, State> {
   render() {
     const { selected } = this.state
     const { content } = this.props
-    const ids = keys(content)
+    const ids = Object.keys(content)
 
     return (
       <div className="tabbed">

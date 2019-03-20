@@ -1,57 +1,96 @@
-import { keys } from 'lodash'
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import { Tracks } from 'models'
-
 import Tabbed from 'views/ui/Tabbed'
 import ProfileHelp from 'views/profile/ProfileHelp'
-import ProfileNav from 'views/profile/ProfileNav'
+import RepoList from 'views/repos/RepoList'
 import RepoItem from 'views/repos/RepoItem'
-import { GITHUB, listOrgs } from 'models/github'
+import { AppState, toArray, Resources } from 'models/app'
+import { Org } from 'models/org'
+import { Track } from 'models/track'
+import { getOrgs, getReposForLogin } from 'models/github'
 
 interface Connected {
-  tracks: Tracks
+  tracks: Resources
+  repos: Resources
+  orgs: Resources
   dispatch: (action: any) => any
 }
 
-const _renderTracks = (tracks: Tracks) => {
-  let items = keys(tracks)
-
-  if (items.length < 1)
-    return <p>Nothing tracked yet. Select a repo to track.</p>
-
-  return (
-    <ul>
-      {items.filter(key => tracks[key].active).map(key => <RepoItem repo={tracks[key].repo} key={key} />)}
-    </ul>
-  )
+interface State {
+  content: { [key: string]: any }
+  logins: { [key: string]: string }
 }
 
-const ProfilePage: React.SFC<Connected> = (props) => {
-  const { tracks, dispatch } = props
+class ProfilePage extends React.Component<Connected, State> {
 
-  return (
-    <section className="profile page">
-      <ProfileHelp />
+  state = {
+    content: {},
+    logins: {}
+  }
 
-      <div className="columns golden-ratio">
-        <div className="left column">
-          <div className="scroll">
-            <h2>Tracked Repositories</h2>
-            {_renderTracks(tracks)}
+  componentWillMount() {
+    this.props.dispatch(getOrgs())
+  }
+
+  componentWillReceiveProps(props: Connected) {
+    const newState: State = { ...this.state }
+    const orgArr = toArray(props.orgs) as Org[]
+
+    orgArr.forEach((org: any) => {
+      newState.content[org.login] = <RepoList repoIds={org.repoIds} />
+      newState.logins[org.login] = org.nodeId
+    })
+
+    this.setState(newState)
+  }
+
+  _renderTracks = () => {
+    const { tracks, repos }: Connected = this.props
+
+    if (tracks.keys.length < 1)
+      return <p>Nothing tracked yet. Select a repo to track.</p>
+
+    const activeTracks = (toArray(tracks) as Track[]).filter(track => track.active)
+
+    return (
+      <ul>
+        {activeTracks.map(track => <RepoItem repo={repos.data[track.repoId]} key={track.key} />)}
+      </ul>
+    )
+  }
+
+  _tabHandler = (login: string, _: number) => {
+    const { logins } = this.state as State
+    const key: string = logins[login]
+    this.props.dispatch(getReposForLogin(login, key))
+  }
+
+  render() {
+    return (
+      <section className="profile page">
+        <ProfileHelp />
+
+        <div className="columns golden-ratio">
+          <div className="left column">
+            <div className="scroll">
+              <h2>Tracked Repositories</h2>
+              {this._renderTracks()}
+            </div>
+          </div>
+          <div className="right column">
+            <Tabbed content={this.state.content} tabHandler={this._tabHandler} />
           </div>
         </div>
-        <div className="right column">
-          <button onClick={() => dispatch(listOrgs())}>Get Orgs</button>
-        </div>
-      </div>
-    </section>
-  )
+      </section>
+    )
+  }
 }
 
-const mapState = (state: any) => ({
-  tracks: state.tracks
+const mapState = (state: AppState) => ({
+  tracks: state.tracks,
+  repos: state.repos,
+  orgs: state.orgs
 })
 
 export default connect(mapState)(ProfilePage)

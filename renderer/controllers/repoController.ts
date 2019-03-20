@@ -1,31 +1,34 @@
-import { REPO, Repos, ReposAction, defaultRepoState } from 'models/repo'
+import { union, merge } from 'lodash'
+import { defaultState, Resources } from 'models/app'
+import * as RepoModel from 'models/repo'
+import * as GithubModel from 'models/github'
 
-export const requestUserRepos = (): ReposAction => ({
-  type: REPO.REQUEST,
-})
-
-export const requestOrgRepos = (login: string): ReposAction => ({
-  type: REPO.REQUEST,
-  login
-})
-
-export const receiveRepos = (payload: Repos): ReposAction => ({
-  type: REPO.SUCCESS,
+export const updateRepos = (payload: RepoModel.Repo[]): RepoModel.UpdateReposAction => ({
+  type: RepoModel.REPOS.UPDATE,
   payload
 })
 
-export const reposReducer = (state: Repos = defaultRepoState, action: ReposAction): Repos => {
-  const { payload, type } = action
+export const reposReducer = (state: Resources = defaultState, action: RepoModel.RepoActions): Resources => {
+  const { type, payload } = action
+  const newState = { ...state }
 
   switch (type)
   {
-    case REPO.REQUEST :
-      return { ...state, isLoading: true }
+    case GithubModel.GITHUB.REPOS.REQUEST :
+      newState.isLoading = true
+      return newState
 
-    case REPO.SUCCESS :
-      return payload ? { isLoading: false, ...payload } : state
+    case RepoModel.REPOS.UPDATE :
+      (payload as RepoModel.Repo[]).forEach(repo => {
+        newState.data[repo.key] = merge(newState.data[repo.key], repo)
+        newState.keys = union(newState.keys, [repo.key])
+      })
+      newState.isLoading = false
+      break
 
     default :
       return state
   }
+
+  return newState
 }

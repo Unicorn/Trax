@@ -1,4 +1,4 @@
-import { Resources, initialState } from 'models/app'
+import { Resources, defaultState } from 'models/app'
 import { INVOICE, Invoice, InvoiceAction } from 'models/invoice'
 import { v4 } from 'uuid'
 
@@ -10,7 +10,7 @@ export const createInvoice = (payload: Invoice) => ({
   }
 })
 
-export const invoiceReducer = (state: Resources = initialState, action: InvoiceAction): Resources => {
+export const invoiceReducer = (state: Resources = defaultState, action: InvoiceAction): Resources => {
   const { type, payload } = action
   const newState = { ...state }
 
