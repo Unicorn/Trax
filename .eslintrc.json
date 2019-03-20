@@ -1,7 +1,12 @@
 {
-  "parser": "typescript-eslint-parser",
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
   "parserOptions": {
-    "ecmaVersion": 7,
+    "ecmaVersion": 2018,
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true,
@@ -13,5 +18,18 @@
     "amd": true,
     "es6": true,
     "node": true
+  },
+  "rules": {
+    "@typescript-eslint/indent": ["error", 2],
+    "@typescript-eslint/member-delimiter-style": {
+      "multiline": {
+        "delimeter": "none"
+      }
+    }
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }
