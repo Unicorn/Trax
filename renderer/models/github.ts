@@ -19,11 +19,17 @@ export const octokit = new Octokit({
 
 
 export const GITHUB = {
+  ISSUES: {
+    REQUEST: 'trax/github/issues/request'
+  },
   ORGS: {
     REQUEST: 'trax/github/orgs/request'
   },
   REPOS: {
     REQUEST: 'trax/github/repos/request'
+  },
+  USERS: {
+    REQUEST: 'trax/github/users/request'
   }
 }
 

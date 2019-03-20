@@ -1,17 +1,13 @@
-import { FetchedItems } from 'models'
-import { createActionName, GithubActions } from 'helpers/reduxHelper'
-import { Users, User } from 'models/user'
+import { Resource } from './app'
+import { User } from 'models/user'
 import { Labels } from 'models/label'
-import { Milestone } from 'models/milestone'
 import { Lane } from 'config/constants'
 
-export const ISSUE = Object.assign({},
-  createActionName('ISSUE', 'CREATE'),
-  createActionName('ISSUE', 'LIST'),
-  createActionName('ISSUE', 'UPDATE')
-)
+export enum ISSUES {
+  UPDATE = 'trax/issues/update'
+}
 
-export interface Issue {
+export interface Issue extends Resource {
   ident: string
   lane: Lane
   id: string
@@ -28,9 +24,6 @@ export interface Issue {
   body: string
   user: User
   labels: Labels
-  assignee: User
-  assignees: Users
-  milestone: Milestone
   locked: boolean
   activeLockReason: string
   comments: number
@@ -45,34 +38,7 @@ export interface Issue {
   updatedAt: string | null
 }
 
-export interface CreateIssueRequest {
-  title: string
-  body: string
-  labels: string[]
-  assignees: string[]
-  milestone?: number
-}
-
-export interface Issues extends FetchedItems {
-  entities: {
-    issues: {
-      [key: string]: Issue
-    }
-  }
-}
-
-export interface IssuesAction {
-  type: GithubActions
-  payload?: Issues | Issue | CreateIssueRequest
-  ident?: string
-  from?: string
-  to?: string
-}
-
-export const defaultIssueState: Issues = {
-  isLoading: false,
-  result: [],
-  entities: {
-    issues: {}
-  }
+export interface UpdateIssuesAction {
+  type: ISSUES
+  payload: Issue[]
 }

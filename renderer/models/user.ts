@@ -1,4 +1,10 @@
-export interface User {
+import { Resource } from './app'
+
+export enum USERS {
+  UPDATE = 'trax/users/update'
+}
+
+export interface User extends Resource {
   login: string
   id: number
   nodeId: string
@@ -19,4 +25,7 @@ export interface User {
   siteAdmin: boolean
 }
 
-export type Users = User[]
+export interface UpdateUsersAction {
+  type: USERS
+  payload: User[]
+}

@@ -14,6 +14,7 @@ import { reposReducer } from 'controllers/repoController'
 import { settingsReducer } from 'controllers/settingController'
 import { timerReducer } from 'controllers/timerController'
 import { trackReducer } from 'controllers/trackController'
+import { usersReducer } from 'controllers/userController'
 
 const saga = createSagaMiddleware()
 
@@ -34,6 +35,7 @@ const rootReducer = persistCombineReducers<any>(persistConfig, {
   settings: settingsReducer,
   timers: timerReducer,
   tracks: trackReducer,
+  users: usersReducer
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

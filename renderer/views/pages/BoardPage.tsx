@@ -1,10 +1,8 @@
-import { keys, trim } from 'lodash'
+import { trim } from 'lodash'
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 
-import { issuesList, switchLanes } from 'controllers/issueController'
-import { TRACK, Tracks, Issues, Issue } from 'models'
 import { issuesArray, filterIssues } from 'helpers/issueHelper'
 import { Lane as TLane } from 'config/constants'
 
@@ -13,8 +11,6 @@ import SearchIssues from 'views/issues/SearchIssues'
 
 interface Connected {
   lanes: TLane[]
-  tracks: Tracks
-  issues: Issues
   dispatch: (action: any) => any
 }
 
@@ -26,15 +22,6 @@ class BoardPage extends React.Component<Connected, State> {
 
   state = {
     issuesArr: []
-  }
-
-  componentWillMount() {
-    const { dispatch, tracks } = this.props
-
-    keys(tracks).forEach(key => {
-      dispatch({ type: TRACK.RELOAD })
-      dispatch(issuesList.request(tracks[key].ident))
-    })
   }
 
   componentWillReceiveProps(props: Connected) {
@@ -52,17 +39,17 @@ class BoardPage extends React.Component<Connected, State> {
   }
 
   _onDragEnd = (result: DropResult) => {
-    const { dispatch, issues: { entities } } = this.props
-    const { source, destination, draggableId } = result
-
-    if (!destination || !entities)
-      return
-
-    // If the issue changed lanes
-    if (entities && source.droppableId !== destination.droppableId) {
-      let issue = entities.issues[parseInt(draggableId)]
-      dispatch(switchLanes(issue, source.droppableId, destination.droppableId))
-    }
+    // const { dispatch, issues: { entities } } = this.props
+    // const { source, destination, draggableId } = result
+    //
+    // if (!destination || !entities)
+    //   return
+    //
+    // // If the issue changed lanes
+    // if (entities && source.droppableId !== destination.droppableId) {
+    //   let issue = entities.issues[parseInt(draggableId)]
+    //   dispatch(switchLanes(issue, source.droppableId, destination.droppableId))
+    // }
   }
 
   render() {

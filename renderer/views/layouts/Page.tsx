@@ -38,7 +38,7 @@ const Page: React.SFC<Connected> = ({ page, auth }) => {
       child = <Pages.SettingsPage/>
       break
     default :
-      child = <Pages.BoardPage />
+      child = <Pages.ProfilePage />
   }
 
   return <Dashboard>{child}</Dashboard>
