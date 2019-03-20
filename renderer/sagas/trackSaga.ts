@@ -1,6 +1,6 @@
 import { put, all, call, takeLatest } from 'redux-saga/effects'
 import { RequestOptions } from '@octokit/rest'
-import { fetchCreateLabel, fetchRepoUsers, fetchRepoIssues } from 'services/githubService'
+import { fetchCreateLabel } from 'services/githubService'
 import { updateTrack } from 'controllers/trackController'
 import { updateUsers } from 'controllers/userController'
 import { createAlert } from 'controllers/alertController'
@@ -33,8 +33,6 @@ const labelRequests = (): RequestOptions[] => {
 }
 
 function* watchCreateTrack(action: TrackAction) {
-  const [owner, repo] = action.payload.ident.split('/')
-
   try {
     yield all(labelRequests().map(r => call(fetchCreateLabel, action.payload.ident, r)))
     yield call(watchReloadTrack, action)
@@ -50,19 +48,21 @@ function* watchCreateTrack(action: TrackAction) {
 }
 
 function* watchReloadTrack({ payload }: TrackAction) {
-  const [owner, repo] = payload.key.split('/')
+  const [owner, repo] = payload.ident.split('/')
 
   try {
     const users = yield call(octokit.issues.listAssignees, { owner, repo, per_page: 100 })
-    const issues = yield call(fetchRepoIssues, payload.ident)
+    const issues = yield call(octokit.issues.listForRepo, { owner, repo, per_page: 100 })
+    const normalizedUsers = users.data.map((user: User) => normalizePayload({ ...user, ident: payload.ident }))
+    const normalizedIssues = issues.data.map((issue: Issue) => normalizePayload({ ...issue, ident: payload.ident }))
 
-    yield put(updateUsers(normalizePayload(users.data)))
-    yield put(updateIssues(normalizePayload(issues.data)))
+    yield put(updateUsers(normalizedUsers))
+    yield put(updateIssues(normalizedIssues))
 
     yield put(updateTrack({
       ...payload,
-      userIds: users.map((user: User) => user.nodeId),
-      issueIds: issues.map((issue: Issue) => issue.nodeId)
+      userIds: normalizedUsers.map((user: User) => user.nodeId),
+      issueIds: normalizedIssues.map((issue: Issue) => issue.nodeId)
     }))
   }
   catch (e) {
@@ -77,5 +77,5 @@ function* watchReloadTrack({ payload }: TrackAction) {
 
 export default function* trackSaga() {
   yield takeLatest(TRACK.CREATE, watchCreateTrack)
-  // yield takeLatest(TRACK.RELOAD, watchReloadTrack)
+  yield takeLatest(TRACK.RELOAD, watchReloadTrack)
 }

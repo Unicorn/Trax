@@ -48,8 +48,6 @@ export const github = (endpoint: any, options?: any, schema?: any): Promise<any>
 // api services
 export const fetchProfile = () => github('user')
 export const fetchCreateLabel = (ident: string, request: any) => github(`repos/${ident}/labels`, request)
-export const fetchRepoUsers = (ident: string) => github(`repos/${ident}/assignees`)
-export const fetchRepoIssues = (ident: string) => github(`repos/${ident}/issues`)
 
 export const fetchIssues = (request: Request) => {
   const { params: { owner, repo } } = request

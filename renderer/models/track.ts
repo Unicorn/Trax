@@ -1,4 +1,4 @@
-import { Resource } from 'models/app'
+import { Resources, Resource } from 'models/app'
 
 export enum TRACK {
   CREATE = 'trax/track/CREATE',
@@ -14,6 +14,12 @@ export interface Track extends Resource {
   repoId: string
   userIds: string[]
   issueIds: string[]
+}
+
+export interface Tracks extends Resources {
+  data: {
+    [key: string]: Track
+  }
 }
 
 export interface TrackAction {

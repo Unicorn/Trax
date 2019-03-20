@@ -1,11 +1,11 @@
 import { union, merge } from 'lodash'
+import { Resources, defaultState } from 'models/app'
 import * as IssueModel from 'models/issue'
 import * as GithubModel from 'models/github'
-import { Resources, defaultState } from 'models/app'
 
 export const updateIssues = (payload: IssueModel.Issue[]): IssueModel.UpdateIssuesAction => ({
   type: IssueModel.ISSUES.UPDATE,
-  payload
+  payload: payload.map(IssueModel.normalizeIssue)
 })
 
 export const issuesReducer = (state: Resources = defaultState, action: IssueModel.UpdateIssuesAction): Resources => {

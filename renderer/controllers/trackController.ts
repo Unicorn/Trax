@@ -3,6 +3,11 @@ import { defaultState, Resources } from 'models/app'
 import * as TrackModel from 'models/track'
 import { Repo } from 'models/repo'
 
+export const reloadTrack = (payload: TrackModel.Track): TrackModel.TrackAction => ({
+  type: TrackModel.TRACK.RELOAD,
+  payload
+})
+
 export const createTrack = (payload: Repo): TrackModel.TrackAction => ({
   type: TrackModel.TRACK.CREATE,
   payload: {

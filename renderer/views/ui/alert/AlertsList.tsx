@@ -22,7 +22,7 @@ const AlertsList: React.SFC<Props & Actions> = (props) => {
 
   return (
     <div className="alerts">
-      {alerts.map((alert: Alert) => <AlertItem alert={alert} dismissHandler={deleteAlert} key={alert.key} />)}
+      {alerts.map(alert => <AlertItem alert={alert} dismissHandler={deleteAlert} key={alert.key} />)}
     </div>
   )
 }

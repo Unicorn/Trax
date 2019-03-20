@@ -1,7 +1,7 @@
-import { Resource } from './app'
+import { Resources, Resource } from './app'
 import { User } from 'models/user'
 import { Labels } from 'models/label'
-import { Lane } from 'config/constants'
+import { LANES, Lane } from 'config/constants'
 
 export enum ISSUES {
   UPDATE = 'trax/issues/update'
@@ -38,7 +38,19 @@ export interface Issue extends Resource {
   updatedAt: string | null
 }
 
+export interface Issues extends Resources {
+  data: {
+    [key: string]: Issue
+  }
+}
+
 export interface UpdateIssuesAction {
   type: ISSUES
   payload: Issue[]
+}
+
+export const normalizeIssue = (issue: Issue): Issue => {
+  const labels = issue.labels.filter(l => LANES.includes(l.name as Lane))
+  const lane: Lane = labels.length > 0 ? labels[0].name as Lane : 'backlog'
+  return { ...issue, lane }
 }

@@ -26,7 +26,7 @@ export const alertsReducer = (state: Resources = defaultState, action: AlertActi
 
   switch (type) {
     case ALERT.CREATE:
-      newState.keys = union(newState.keys, payload.key)
+      newState.keys = union(newState.keys, [payload.key])
       newState.data[payload.key] = merge(newState.data[payload.key], payload)
       break
 
