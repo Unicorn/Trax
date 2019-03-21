@@ -1,7 +1,7 @@
 import { Timer } from 'models/timer'
 
 export enum INVOICE {
-  CREATE = 'trax/invoice/CREATE',
+  CREATE = 'trax/invoice/CREATE'
 }
 
 export interface Invoice {
@@ -14,7 +14,7 @@ export interface Invoices {
   [key: string]: Invoice
 }
 
-export type InvoiceAction = {
+export interface InvoiceAction {
   readonly type: INVOICE
   readonly payload: Invoice
 }

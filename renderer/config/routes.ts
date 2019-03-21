@@ -12,7 +12,7 @@ export default [
   {
     path: ROUTES.welcome.path,
     exact: true,
-    component: WelcomePage,
+    component: WelcomePage
   },
   {
     component: Dashboard,
@@ -23,7 +23,7 @@ export default [
       { path: ROUTES.profile.path, component: ProfilePage },
       { path: ROUTES.timers.path, component: TimersPage },
       { path: ROUTES.invoices.path, component: InvoicesPage },
-      { path: ROUTES.settings.path, component: SettingsPage },
-    ],
-  },
+      { path: ROUTES.settings.path, component: SettingsPage }
+    ]
+  }
 ]

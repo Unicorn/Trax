@@ -12,21 +12,20 @@ export const reposReducer = (state: Resources = defaultState, action: RepoModel.
   const { type, payload } = action
   const newState = { ...state }
 
-  switch (type)
-  {
-    case GithubModel.GITHUB.REPOS.REQUEST :
+  switch (type) {
+    case GithubModel.GITHUB.REPOS.REQUEST:
       newState.isLoading = true
       return newState
 
-    case RepoModel.REPOS.UPDATE :
-      (payload as RepoModel.Repo[]).forEach(repo => {
+    case RepoModel.REPOS.UPDATE:
+      ;(payload as RepoModel.Repo[]).forEach(repo => {
         newState.data[repo.key] = merge(newState.data[repo.key], repo)
         newState.keys = union(newState.keys, [repo.key])
       })
       newState.isLoading = false
       break
 
-    default :
+    default:
       return state
   }
 

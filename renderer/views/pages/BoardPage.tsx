@@ -4,19 +4,20 @@ import { connect } from 'react-redux'
 import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 
 import { AppState, toArray } from 'models/app'
-import { issuesArray, filterIssues } from 'helpers/issueHelper'
+import { filterIssues } from 'helpers/issueHelper'
 import { reloadTrack } from 'controllers/trackController'
 import { Tracks, Track } from 'models/track'
 import { Issues, Issue } from 'models/issue'
-import { Lane as TLane } from 'config/constants'
+import { updateIssueLane } from 'models/github'
+import { Lane } from 'config/constants'
 
-import Lane from 'views/issues/Lane'
+import IssuesLane from 'views/issues/IssuesLane'
 import SearchIssues from 'views/issues/SearchIssues'
 
 interface Connected {
   tracks: Tracks
   issues: Issues
-  lanes: TLane[]
+  lanes: Lane[]
   dispatch: (action: any) => any
 }
 
@@ -47,8 +48,6 @@ class BoardPage extends React.Component<Connected, State> {
     newState.filteredIssues = union(newState.filteredIssues, issueIds.map(id => props.issues.data[id]))
     newState.allIssues = newState.filteredIssues
 
-    console.log("newState", tracksArr, newState)
-
     this.setState(newState)
   }
 
@@ -72,8 +71,7 @@ class BoardPage extends React.Component<Connected, State> {
     // If the issue changed lanes
     if (source.droppableId !== destination.droppableId) {
       let issue = issues.data[draggableId]
-      console.log("switchLanes", source.droppableId, destination.droppableId)
-      // dispatch(switchLanes(issue, source.droppableId, destination.droppableId))
+      dispatch(updateIssueLane(issue, destination.droppableId as Lane))
     }
   }
 
@@ -98,10 +96,10 @@ class BoardPage extends React.Component<Connected, State> {
         <div className="columns">
           <DragDropContext onDragEnd={this._onDragEnd}>
             {lanes.map(lane => (
-              <Lane
+              <IssuesLane
                 key={lane}
                 lane={lane}
-                issues={filteredIssues.filter((issue: Issue) => issue.lane === lane)}
+                issues={filteredIssues.filter((issue: Issue) => issue && issue.lane === lane)}
               />
             ))}
           </DragDropContext>

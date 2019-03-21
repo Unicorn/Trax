@@ -1,12 +1,5 @@
 import { LANES } from 'config/constants'
-import {
-  SET_SETTING,
-  Setting,
-  Settings,
-  ActivePageValues,
-  ActiveLaneValues,
-  SettingsAction
-} from 'models/setting'
+import { SET_SETTING, Setting, Settings, ActivePageValues, ActiveLaneValues, SettingsAction } from 'models/setting'
 
 export const updateSetting = (payload: Setting): SettingsAction => ({
   type: SET_SETTING,
@@ -28,10 +21,7 @@ const initialState: Settings = {
   lanes: LANES
 }
 
-export const settingsReducer = (
-  state: Settings = initialState,
-  action: SettingsAction
-) => {
+export const settingsReducer = (state: Settings = initialState, action: SettingsAction) => {
   const { payload, type } = action
   let newState = { ...state }
 

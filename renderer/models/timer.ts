@@ -8,9 +8,9 @@ export enum TIMER {
 }
 
 export interface TimerEntry {
-  startedAt: Date;
-  stoppedAt: Date;
-  duration: number;
+  startedAt: Date
+  stoppedAt: Date
+  duration: number
 }
 
 export interface Timer {
@@ -23,11 +23,11 @@ export interface Timer {
   entries: TimerEntry[]
 }
 
-export type Timers = {
+export interface Timers {
   [key: string]: Timer
 }
 
-export type TimerAction = {
+export interface TimerAction {
   readonly type: TIMER
   readonly id?: string
   readonly timer?: Timer

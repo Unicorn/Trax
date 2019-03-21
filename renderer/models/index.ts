@@ -32,14 +32,13 @@ const milestoneSchema = new schema.Entity('milestones', {
   creator: userSchema
 })
 
-
 const issueSchema = new schema.Entity(
   'issues',
   {
     assignee: userSchema,
     assignees: [userSchema],
     milestone: milestoneSchema,
-    user: userSchema,
+    user: userSchema
   },
   {
     processStrategy: (issue: Issue, _parent, _key) => {
@@ -54,7 +53,6 @@ const issueSchema = new schema.Entity(
 )
 
 const repoSchema = new schema.Entity('repos')
-
 
 export const scheme = {
   assignee: assigneeSchema,

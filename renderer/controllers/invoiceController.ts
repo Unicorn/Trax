@@ -14,9 +14,8 @@ export const invoiceReducer = (state: Resources = defaultState, action: InvoiceA
   const { type, payload } = action
   const newState = { ...state }
 
-  switch (type)
-  {
-    case INVOICE.CREATE :
+  switch (type) {
+    case INVOICE.CREATE:
       if (!payload.timers) return state
 
       newState.keys = newState.keys.filter(key => key !== payload.key)
@@ -26,7 +25,7 @@ export const invoiceReducer = (state: Resources = defaultState, action: InvoiceA
       }
       break
 
-    default :
+    default:
       return state
   }
 

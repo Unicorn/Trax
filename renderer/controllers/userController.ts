@@ -13,12 +13,12 @@ export const usersReducer = (state: Resources = defaultState, action: UserModel.
   const newState = { ...state }
 
   switch (type) {
-    case GithubModel.GITHUB.USERS.REQUEST :
+    case GithubModel.GITHUB.USERS.REQUEST:
       newState.isLoading = true
       return newState
 
-    case UserModel.USERS.UPDATE :
-      (payload as UserModel.User[]).forEach(r => {
+    case UserModel.USERS.UPDATE:
+      ;(payload as UserModel.User[]).forEach(r => {
         newState.data[r.key] = merge(newState.data[r.key], r)
         newState.keys = union(newState.keys, [r.key])
       })

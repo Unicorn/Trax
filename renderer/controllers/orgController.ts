@@ -33,22 +33,22 @@ export const orgsReducer = (state: Resources = initialState, action: OrgModel.Or
   const newState = { ...state }
 
   switch (type) {
-    case GithubModel.GITHUB.ORGS.REQUEST :
+    case GithubModel.GITHUB.ORGS.REQUEST:
       newState.isLoading = true
       return newState
 
-    case OrgModel.ORGS.UPDATE :
-      (payload as OrgModel.Org[]).forEach(org => {
+    case OrgModel.ORGS.UPDATE:
+      ;(payload as OrgModel.Org[]).forEach(org => {
         newState.data[org.key] = merge(newState.data[org.key], org)
         newState.keys = union(newState.keys, [org.key])
       })
       newState.isLoading = false
       break
 
-    case OrgModel.ORG.UPDATE_REPOS :
+    case OrgModel.ORG.UPDATE_REPOS:
       let p = payload as OrgModel.UpdateOrgPayload
       let repoIds = p.data.map((r: Repo) => r.nodeId)
-      let existingRepoIds = newState.data[p.key] && newState.data[p.key].repoIds || []
+      let existingRepoIds = (newState.data[p.key] && newState.data[p.key].repoIds) || []
       newState.data[p.key].repoIds = union(existingRepoIds, repoIds)
       newState.isLoading = false
       return newState

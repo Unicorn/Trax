@@ -22,7 +22,7 @@ const renderIssues = (issues: Issue[], lane: string) => {
   ))
 }
 
-const Lane: React.SFC<Props> = ({ lane, issues }) => {
+const IssuesLan: React.SFC<Props> = ({ lane, issues }) => {
   return (
     <Droppable droppableId={lane}>
       {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
@@ -31,10 +31,11 @@ const Lane: React.SFC<Props> = ({ lane, issues }) => {
           <div className="inner">
             {renderIssues(issues, lane)}
           </div>
+          {provided.placeholder}
         </div>
       )}
     </Droppable>
   )
 }
 
-export default Lane
+export default IssuesLan

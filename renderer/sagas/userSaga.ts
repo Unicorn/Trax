@@ -1,11 +1,12 @@
 import { put, call, takeLatest } from 'redux-saga/effects'
-import { fetchProfile } from 'services/githubService'
 import { receiveProfile } from 'controllers/profileController'
+import { normalizePayload } from 'models/app'
 import { PROFILE, ProfileAction } from 'models/profile'
+import { octokit } from 'models/github'
 
 function* watchProfileRequest(_action: ProfileAction) {
-  const profile = yield call(fetchProfile)
-  yield put(receiveProfile(profile))
+  const profile = yield call(octokit.users.getAuthenticated)
+  yield put(receiveProfile(normalizePayload(profile.data)))
 }
 
 export default function* userSaga() {

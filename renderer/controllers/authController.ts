@@ -1,7 +1,7 @@
 import { AUTH, Auth, AuthAction } from 'models/auth'
 
 export const requestAuth = (): AuthAction => ({
-  type: AUTH.REQUEST,
+  type: AUTH.REQUEST
 })
 
 export const receiveAuth = (payload: Auth): AuthAction => ({
@@ -16,15 +16,14 @@ export const logout = (): AuthAction => ({
 export const authReducer = (state: Auth = {}, action: AuthAction): Auth => {
   const { payload, type } = action
 
-  switch (type)
-  {
-    case AUTH.LOGOUT :
+  switch (type) {
+    case AUTH.LOGOUT:
       return {}
 
-    case AUTH.SUCCESS :
+    case AUTH.SUCCESS:
       return { ...state, ...payload }
 
-    default :
+    default:
       return state
   }
 }

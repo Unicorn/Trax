@@ -9,18 +9,18 @@ function* watchOrgsRequest(): Iterable<any> {
   try {
     let orgs = yield call(octokit.orgs.listForAuthenticatedUser)
 
-    if (!orgs.data)
-      throw new Error('Could not fetch org data')
+    if (!orgs.data) throw new Error('Could not fetch org data')
 
     yield put(updateOrgs(normalizePayload(orgs.data)))
-  }
-  catch (e) {
-    yield put(createAlert({
-      key: 'watchOrgsRequestError',
-      status: 'error',
-      message: `Error fetching user orgs: ${e.message}`,
-      dismissable: true
-    }))
+  } catch (e) {
+    yield put(
+      createAlert({
+        key: 'watchOrgsRequestError',
+        status: 'error',
+        message: `Error fetching user orgs: ${e.message}`,
+        dismissable: true
+      })
+    )
   }
 }
 
@@ -29,21 +29,20 @@ function* watchReposRequest(action: GetReposForLogin): Iterable<any> {
   let repos
 
   try {
-    if (login === 'personal')
-      repos = yield call(octokit.repos.list, { per_page: 100 })
-    else
-      repos = yield call(octokit.repos.listForOrg, { org: login, per_page: 100 })
+    if (login === 'personal') repos = yield call(octokit.repos.list, { per_page: 100 })
+    else repos = yield call(octokit.repos.listForOrg, { org: login, per_page: 100 })
 
     yield put(updateOrgRepos({ key: key || login, data: normalizePayload(repos.data) }))
     yield put(updateRepos(normalizePayload(repos.data)))
-  }
-  catch (e) {
-    yield put(createAlert({
-      key: 'watchReposRequestError',
-      status: 'error',
-      message: `Error fetching ${login} repos: ${e.message}`,
-      dismissable: true
-    }))
+  } catch (e) {
+    yield put(
+      createAlert({
+        key: 'watchReposRequestError',
+        status: 'error',
+        message: `Error fetching ${login} repos: ${e.message}`,
+        dismissable: true
+      })
+    )
   }
 }
 

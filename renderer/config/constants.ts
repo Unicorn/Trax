@@ -1,18 +1,18 @@
 import { ActivePageValues } from 'models/setting'
 
-export type Swimlane = {
+interface Swimlane {
   label: string
   name: Lane
   color: string
 }
 
-export type Swimlanes = {
-  [key: string]: Swimlane;
+interface Swimlanes {
+  [key: string]: Swimlane
 }
 
 export type Lane = 'backlog' | 'sprint' | 'started' | 'review' | 'complete'
 
-export type Routes = {
+export interface Routes {
   [key: string]: {
     component: string
     name: ActivePageValues
@@ -31,95 +31,95 @@ export const COLORS = {
   cyan: '48B1C6',
   teal: '51B294',
   red: 'B33C3C',
-  pink: 'E068DB',
+  pink: 'E068DB'
 }
 
 export const ROUTES: Routes = {
   welcome: {
     component: 'WelcomePage',
     name: 'welcome',
-    path: '/welcome',
+    path: '/welcome'
   },
   create: {
     component: 'CreatePage',
     name: 'create',
-    path: '/create',
+    path: '/create'
   },
   board: {
     component: 'BoardPage',
     name: 'board',
-    path: '/board',
+    path: '/board'
   },
   profile: {
     component: 'ProfilePage',
     name: 'profile',
-    path: '/profile',
+    path: '/profile'
   },
   timers: {
     component: 'TimersPage',
     name: 'timers',
-    path: '/timers',
+    path: '/timers'
   },
   invoices: {
     component: 'InvoicesPage',
     name: 'invoices',
-    path: '/invoices',
+    path: '/invoices'
   },
   settings: {
     component: 'SettingsPage',
     name: 'settings',
-    path: '/settings',
-  },
+    path: '/settings'
+  }
 }
 
 export const SWIMLANES: Swimlanes = {
   backlog: {
     label: 'Backlog',
     name: 'backlog',
-    color: COLORS.pink,
+    color: COLORS.pink
   },
   sprint: {
     label: 'Sprint',
     name: 'sprint',
-    color: COLORS.cyan,
+    color: COLORS.cyan
   },
   started: {
     label: 'Started',
     name: 'started',
-    color: COLORS.orange,
+    color: COLORS.orange
   },
   review: {
     label: 'Review',
     name: 'review',
-    color: COLORS.blue,
+    color: COLORS.blue
   },
   complete: {
     label: 'Complete',
     name: 'complete',
-    color: COLORS.green,
-  },
+    color: COLORS.green
+  }
 }
 
 export const TYPES = {
   epic: {
     label: 'Epic',
     name: '---epic',
-    color: '#7E5ADD'
+    color: '7E5ADD'
   },
   story: {
     label: 'Story',
     name: '--story',
-    color: '#AA8FEF'
+    color: 'AA8FEF'
   },
   feature: {
     label: 'Feature',
     name: '-feature',
-    color: '#D0C1F9'
+    color: 'D0C1F9'
   },
   bug: {
     label: 'Bug',
     name: '-bug',
-    color: '#D0C1F9'
+    color: 'D0C1F9'
   }
 }
 
@@ -127,17 +127,17 @@ export const PRIORITY = {
   high: {
     label: 'High',
     name: '!!!',
-    color: '#DD5A5A'
+    color: 'DD5A5A'
   },
   medium: {
     label: 'Medium',
     name: '!!',
-    color: '#E79595'
+    color: 'E79595'
   },
   low: {
     label: 'Low',
     name: '!',
-    color: '#F9D4D4'
+    color: 'F9D4D4'
   }
 }
 
@@ -155,17 +155,15 @@ export const LABELS: ILABEL = {
   ...PRIORITY
 }
 
-export const LANES: Lane[] = Object
-  .keys(SWIMLANES as Swimlanes)
-  .map((key: string) => (SWIMLANES[key] as Swimlane).name as Lane)
+export const LANES: Lane[] = Object.keys(SWIMLANES as Swimlanes).map((key: string) => (SWIMLANES[key] as Swimlane).name as Lane)
 
 export const MICROSERVICE = {
   API: 'https://trax-go.herokuapp.com'
 }
 
 export const GITHUB = {
-  API:        'https://api.github.com/',
-  HOST:       'https://github.com',
-  CLIENT_ID:  '67c705a18a7b8576a4c1',
-  SCOPE:      'user,public_repo,repo,repo_deployment,notifications',
+  API: 'https://api.github.com/',
+  HOST: 'https://github.com',
+  CLIENT_ID: '67c705a18a7b8576a4c1',
+  SCOPE: 'user,public_repo,repo,repo_deployment,notifications'
 }

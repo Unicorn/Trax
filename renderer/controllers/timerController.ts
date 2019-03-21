@@ -29,36 +29,37 @@ export const timerReducer = (state: Timers = {}, action: TimerAction) => {
 
   const timer = state[issue.id]
 
-  switch (type)
-  {
-    case TIMER.START :
+  switch (type) {
+    case TIMER.START:
       newState[issue.id] = {
         ...timer,
         id: issue.id,
         issue,
         isRunning: true,
         startedAt: new Date(),
-        duration: 0,
+        duration: 0
       }
       return newState
 
-    case TIMER.STOP :
+    case TIMER.STOP:
       newState[issue.id] = {
         ...timer,
         id: issue.id,
         issue,
-        entries: timer.entries.concat([{
-          startedAt: timer.startedAt!,
-          stoppedAt: new Date(),
-          duration: timer.duration
-        }]),
+        entries: timer.entries.concat([
+          {
+            startedAt: timer.startedAt!,
+            stoppedAt: new Date(),
+            duration: timer.duration
+          }
+        ]),
         isRunning: false,
         startedAt: undefined,
-        duration: 0,
+        duration: 0
       }
       return newState
 
-    case TIMER.TICK :
+    case TIMER.TICK:
       newState[issue.id] = {
         ...timer,
         issue,
@@ -67,11 +68,11 @@ export const timerReducer = (state: Timers = {}, action: TimerAction) => {
       }
       return newState
 
-    case TIMER.DELETE :
+    case TIMER.DELETE:
       delete newState[issue.id]
       return newState
 
-    default :
+    default:
       return state
   }
 }

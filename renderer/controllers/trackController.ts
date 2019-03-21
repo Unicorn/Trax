@@ -40,21 +40,20 @@ export const trackReducer = (state: Resources = defaultState, action: TrackModel
 
   let newState = { ...state }
 
-  switch (type)
-  {
-    case TrackModel.TRACK.CREATE :
-    case TrackModel.TRACK.RELOAD :
-    case TrackModel.TRACK.UPDATE :
+  switch (type) {
+    case TrackModel.TRACK.CREATE:
+    case TrackModel.TRACK.RELOAD:
+    case TrackModel.TRACK.UPDATE:
       newState.keys = union(newState.keys, [payload.key])
       newState.data[payload.key] = merge(newState.data[payload.key], payload)
       break
 
-    case TrackModel.TRACK.DELETE :
+    case TrackModel.TRACK.DELETE:
       newState.keys = newState.keys.filter(key => key !== payload.key)
       delete newState.data[payload.key]
       break
 
-    default :
+    default:
       return state
   }
 

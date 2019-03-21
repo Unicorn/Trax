@@ -17,7 +17,6 @@ declare global {
 }
 
 const createAuthWindow = () => {
-
   // Build the OAuth consent page URL
   const win = new window.BrowserWindow({
     width: 600,
@@ -25,8 +24,8 @@ const createAuthWindow = () => {
     show: true,
     titleBarStyle: 'hiddenInset',
     webPreferences: {
-      nodeIntegration: false,
-    },
+      nodeIntegration: false
+    }
   })
 
   const githubUrl = `${GITHUB.HOST}/login/oauth/authorize?`
@@ -39,8 +38,8 @@ const createAuthWindow = () => {
 
 const parseGithubAuth = (rawURL: string): any => {
   const url = new URL(rawURL)
-  const code = url.searchParams.get("code")
-  const error = url.searchParams.get("error")
+  const code = url.searchParams.get('code')
+  const error = url.searchParams.get('error')
 
   return { code, error }
 }
@@ -49,7 +48,7 @@ const getGithubAuthCode = () => {
   const contents = window.authWindow.webContents
 
   return eventChannel(emit => {
-    const filter = { urls: [ `${MICROSERVICE.API}/*`] }
+    const filter = { urls: [`${MICROSERVICE.API}/*`] }
     contents.session.webRequest.onBeforeRequest(filter, (details, callback) => {
       const { code, error } = parseGithubAuth(details.url)
       emit({ code, error })
@@ -61,17 +60,14 @@ const getGithubAuthCode = () => {
   })
 }
 
-const getGithubAuthToken = (code: string) => {
+const getGithubAuthToken = async (code: string) => {
   return fetch(`${MICROSERVICE.API}/auth?code=${code}`)
     .then(response => response.json().then(json => ({ json, response })))
     .then(({ json, response }: any) => {
-      localStorage.setItem("accessToken", json["access_token"])
+      localStorage.setItem('accessToken', json['access_token'])
       return response.ok ? <any>camelizeKeys(json) : Promise.reject(json)
     })
-    .then(
-      (response: Response) => ({ ...response }),
-      (error: Error) => ({error: error.message || 'Something bad happened'})
-    )
+    .then((response: Response) => ({ ...response }), (error: Error) => ({ error: error.message || 'Something bad happened' }))
 }
 
 function* watchLogout() {
@@ -84,11 +80,14 @@ function* watchAuthRequest() {
   const { code, error } = yield take(authCode)
 
   if (error) {
-    yield put(createAlert({
-      type: 'error',
-      dismissable: true,
-      message:  "Oops! Something went wrong and we couldn't log you in using Github. Please try again."
-    }))
+    yield put(
+      createAlert({
+        key: 'watchAuthRequestError',
+        status: 'error',
+        dismissable: true,
+        message: "Oops! Something went wrong and we couldn't log you in using Github. Please try again."
+      })
+    )
 
     return
   }

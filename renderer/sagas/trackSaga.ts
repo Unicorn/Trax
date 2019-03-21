@@ -1,6 +1,5 @@
 import { put, all, call, takeLatest } from 'redux-saga/effects'
-import { RequestOptions } from '@octokit/rest'
-import { fetchCreateLabel } from 'services/githubService'
+
 import { updateTrack } from 'controllers/trackController'
 import { updateUsers } from 'controllers/userController'
 import { createAlert } from 'controllers/alertController'
@@ -13,37 +12,23 @@ import { TRACK } from 'models/track'
 import { LABELS } from 'config/constants'
 import { octokit } from 'models/github'
 
-const labelRequests = (): RequestOptions[] => {
-  const requests: RequestOptions[] = []
-
-  Object.keys(LABELS).forEach(key => {
-    requests.push({
-      method: 'POST',
-      headers: {
-        Accept: 'application/vnd.github.symmetra-preview+json',
-      },
-      body: {
-        name: LABELS[key].name,
-        color: LABELS[key].color
-      }
-    })
-  })
-
-  return requests
-}
-
 function* watchCreateTrack(action: TrackAction) {
+  const [owner, repo] = action.payload.ident.split('/')
+
   try {
-    yield all(labelRequests().map(r => call(fetchCreateLabel, action.payload.ident, r)))
-    yield call(watchReloadTrack, action)
-  }
-  catch (e) {
-    yield put(createAlert({
-      key: 'watchCreateTrackError',
-      status: 'error',
-      message: `Error creating track: ${e.message}`,
-      dismissable: true
+    yield all(Object.keys(LABELS).map(key => {
+      return call(octokit.issues.createLabel, { owner, repo, name: LABELS[key].name, color: LABELS[key].color})
     }))
+    yield call(watchReloadTrack, action)
+  } catch (e) {
+    yield put(
+      createAlert({
+        key: 'watchCreateTrackError',
+        status: 'error',
+        message: `Error creating track: ${e.message}`,
+        dismissable: true
+      })
+    )
   }
 }
 
@@ -59,19 +44,22 @@ function* watchReloadTrack({ payload }: TrackAction) {
     yield put(updateUsers(normalizedUsers))
     yield put(updateIssues(normalizedIssues))
 
-    yield put(updateTrack({
-      ...payload,
-      userIds: normalizedUsers.map((user: User) => user.nodeId),
-      issueIds: normalizedIssues.map((issue: Issue) => issue.nodeId)
-    }))
-  }
-  catch (e) {
-    yield put(createAlert({
-      key: 'watchReloadTrackError',
-      status: 'error',
-      message: `Error reloading track: ${e.message}`,
-      dismissable: true
-    }))
+    yield put(
+      updateTrack({
+        ...payload,
+        userIds: normalizedUsers.map((user: User) => user.nodeId),
+        issueIds: normalizedIssues.map((issue: Issue) => issue.nodeId)
+      })
+    )
+  } catch (e) {
+    yield put(
+      createAlert({
+        key: 'watchReloadTrackError',
+        status: 'error',
+        message: `Error reloading track: ${e.message}`,
+        dismissable: true
+      })
+    )
   }
 }
 

@@ -5,7 +5,7 @@ export enum TRACK {
   UPDATE = 'trax/track/UPDATE',
   DELETE = 'trax/track/DELETE',
   RELOAD = 'trax/track/RELOAD',
-  CLEAR =  'trax/track/CLEAR'
+  CLEAR = 'trax/track/CLEAR'
 }
 
 export interface Track extends Resource {

@@ -2,7 +2,7 @@ const REQUEST = 'REQUEST'
 const SUCCESS = 'SUCCESS'
 const FAILURE = 'FAILURE'
 
-export type GithubActions = {
+export interface GithubActions {
   [key: string]: string
 }
 

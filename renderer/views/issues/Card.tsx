@@ -28,7 +28,7 @@ const Card: React.SFC<Props & Connected> = ({ dispatch, timer, issue, lane, inde
   }
 
   return (
-    <Draggable key={issue.id} draggableId={issue.id.toString()} index={index}>
+    <Draggable key={issue.key} draggableId={issue.key} index={index}>
       {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
         <div
           className={`card ${timer.isRunning && 'active'} ${snapshot.isDragging && 'dragging'}`}

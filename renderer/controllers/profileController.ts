@@ -1,7 +1,7 @@
 import { PROFILE, Profile, ProfileAction, profileState } from 'models/profile'
 
 export const requestProfile = (): ProfileAction => ({
-  type: PROFILE.REQUEST,
+  type: PROFILE.REQUEST
 })
 
 export const receiveProfile = (payload: Profile): ProfileAction => ({
@@ -12,12 +12,13 @@ export const receiveProfile = (payload: Profile): ProfileAction => ({
 export const profileReducer = (state: Profile = profileState, action: ProfileAction): Profile => {
   const { payload, type } = action
 
-  switch (type)
-  {
-    case PROFILE.SUCCESS :
+
+  switch (type) {
+    case PROFILE.SUCCESS:
+      console.log("payload", payload)
       return payload || state
 
-    default :
+    default:
       return state
   }
 }

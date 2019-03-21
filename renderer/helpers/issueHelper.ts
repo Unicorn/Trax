@@ -19,7 +19,7 @@ export const filterIssues = (text: string, issues: Issue[]): Issue[] => {
     distance: 10,
     maxPatternLength: 32,
     minMatchCharLength: 1,
-    keys: ['title', 'number', 'repo'],
+    keys: ['title', 'number', 'repo']
   }
 
   const fuse = new Fuse(issues, options)

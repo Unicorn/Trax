@@ -6,13 +6,13 @@ export type ActivePageValues = 'welcome' | 'profile' | 'create' | 'board' | 'tim
 
 export type ActiveLaneValues = Lane[]
 
-type ActivePage = {
+interface ActivePage {
   key: 'page'
   value: ActivePageValues
 }
 
-type ActiveLanes = {
-  key: 'lanes',
+interface ActiveLanes {
+  key: 'lanes'
   value: ActiveLaneValues
 }
 

@@ -17,14 +17,14 @@ export interface Resources {
 }
 
 export interface AppState {
-  alerts: Resources,
-  auth: Auth,
-  invoices: Resources,
-  issues: Resources,
-  labels: Resources,
+  alerts: Resources
+  auth: Auth
+  invoices: Resources
+  issues: Resources
+  labels: Resources
   milestones: Resources
   orgs: Resources
-  profile: Profile,
+  profile: Profile
   repos: Resources
   settings: Resources
   timers: Resources
@@ -44,8 +44,7 @@ export const scrubPayload = (payload: any): any => {
 }
 
 export const normalizePayload = (payload: any): any => {
-  if (Array.isArray(payload))
-    return payload.map((r: any) => ({ ...scrubPayload(camelizeKeys(r)) }))
+  if (Array.isArray(payload)) return payload.map((r: any) => ({ ...scrubPayload(camelizeKeys(r)) }))
 
   return scrubPayload(camelizeKeys(payload))
 }

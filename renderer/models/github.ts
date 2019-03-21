@@ -1,7 +1,11 @@
 import * as Octokit from '@octokit/rest'
+import { ISSUE, Issue } from 'models/issue'
+import { Lane } from 'config/constants'
 
 export const octokit = new Octokit({
-  auth: `token ${localStorage.getItem("accessToken") || ''}`,
+  auth () {
+    return `token ${localStorage.getItem('accessToken') || ''}`
+  },
   userAgent: 'octokit/rest.js v1.2.3',
   previews: [],
   baseUrl: 'https://api.github.com',
@@ -17,10 +21,12 @@ export const octokit = new Octokit({
   }
 })
 
-
 export const GITHUB = {
   ISSUES: {
     REQUEST: 'trax/github/issues/request'
+  },
+  ISSUE: {
+    REQUEST: 'trax/github/issue/request'
   },
   ORGS: {
     REQUEST: 'trax/github/orgs/request'
@@ -38,7 +44,7 @@ export const getOrgs = () => ({
 })
 
 export interface GetReposForLogin {
-  type: string,
+  type: string
   login: string
   key: string
 }
@@ -47,4 +53,16 @@ export const getReposForLogin = (login: string, key: string): GetReposForLogin =
   type: GITHUB.REPOS.REQUEST,
   login,
   key
+})
+
+export interface UpdateIssueLaneAction {
+  type: ISSUE
+  payload: Issue
+  to: Lane
+}
+
+export const updateIssueLane = (payload: Issue, to: Lane): UpdateIssueLaneAction => ({
+  type: ISSUE.UPDATE_LANE,
+  payload,
+  to
 })

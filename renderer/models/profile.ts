@@ -17,8 +17,8 @@ export interface ProfileAction {
 }
 
 export const profileState = {
-  login: "octocat",
+  login: 'octocat',
   id: 583231,
-  nodeId: "MDQ6VXNlcjU4MzIzMQ==",
-  avatarUrl: "https://avatars3.githubusercontent.com/u/583231?v=4",
+  nodeId: 'MDQ6VXNlcjU4MzIzMQ==',
+  avatarUrl: 'https://avatars3.githubusercontent.com/u/583231?v=4'
 }
