@@ -1,11 +1,11 @@
-import { put, call, takeLatest } from 'redux-saga/effects'
+import { put, call, takeLatest, ForkEffect, PutEffect, CallEffect } from 'redux-saga/effects'
 import * as IssueModel from 'models/issue'
 import { octokit, UpdateIssueLaneAction } from 'models/github'
 import { createAlert } from 'controllers/alertController'
 import { updateIssue } from 'controllers/issueController'
 import { LANES, Lane } from 'config/constants'
 
-function* watchUpdateIssueLane(action: UpdateIssueLaneAction): Iterable<any> {
+function* watchUpdateIssueLane(action: UpdateIssueLaneAction): Iterable<CallEffect | PutEffect> {
   const { payload, to } = action
   const [owner, repo] = payload.ident.split('/')
   const newIssue = { ...payload }
@@ -18,8 +18,7 @@ function* watchUpdateIssueLane(action: UpdateIssueLaneAction): Iterable<any> {
     newIssue.labels = newLabels.data
     newIssue.lane = to
     yield put(updateIssue(newIssue))
-  }
-  catch (e) {
+  } catch (e) {
     yield put(
       createAlert({
         key: 'watchUpdateIssueLaneError',
@@ -31,6 +30,6 @@ function* watchUpdateIssueLane(action: UpdateIssueLaneAction): Iterable<any> {
   }
 }
 
-export default function* issueSaga() {
+export default function* issueSaga(): Iterable<ForkEffect> {
   yield takeLatest(IssueModel.ISSUE.UPDATE_LANE, watchUpdateIssueLane)
 }

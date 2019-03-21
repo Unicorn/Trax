@@ -141,7 +141,7 @@ export const PRIORITY = {
   }
 }
 
-interface ILABEL {
+interface LabelsType {
   [key: string]: {
     label: string
     name: string
@@ -149,7 +149,7 @@ interface ILABEL {
   }
 }
 
-export const LABELS: ILABEL = {
+export const LABELS: LabelsType = {
   ...SWIMLANES,
   ...TYPES,
   ...PRIORITY

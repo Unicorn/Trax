@@ -1,4 +1,4 @@
-import { Resource } from './app'
+import { Resources, Resource } from './app'
 
 export enum REPOS {
   UPDATE = 'trax/repos/update'
@@ -10,6 +10,12 @@ export interface Repo extends Resource {
   nodeId: string
   fullName: string
   htmlUrl: string
+}
+
+export interface Repos extends Resources {
+  data: {
+    [key: string]: Repo
+  }
 }
 
 export interface UpdateReposAction {

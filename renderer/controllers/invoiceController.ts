@@ -2,7 +2,7 @@ import { Resources, defaultState } from 'models/app'
 import { INVOICE, Invoice, InvoiceAction } from 'models/invoice'
 import { v4 } from 'uuid'
 
-export const createInvoice = (payload: Invoice) => ({
+export const createInvoice = (payload: Invoice): InvoiceAction => ({
   type: INVOICE.CREATE,
   payload: {
     ...payload,

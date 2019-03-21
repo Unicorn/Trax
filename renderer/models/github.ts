@@ -3,7 +3,7 @@ import { ISSUE, Issue } from 'models/issue'
 import { Lane } from 'config/constants'
 
 export const octokit = new Octokit({
-  auth () {
+  auth() {
     return `token ${localStorage.getItem('accessToken') || ''}`
   },
   userAgent: 'octokit/rest.js v1.2.3',
@@ -39,7 +39,7 @@ export const GITHUB = {
   }
 }
 
-export const getOrgs = () => ({
+export const getOrgs = (): { type: string } => ({
   type: GITHUB.ORGS.REQUEST
 })
 

@@ -1,4 +1,4 @@
-import { put, takeLatest } from 'redux-saga/effects'
+import { put, takeLatest, ForkEffect } from 'redux-saga/effects'
 import { deleteAlert } from 'controllers/alertController'
 import { ALERT, AlertAction } from 'models/alert'
 
@@ -15,6 +15,6 @@ function* watchAlerts(action: AlertAction) {
   return
 }
 
-export default function* alertSaga() {
+export default function* alertSaga(): Iterable<ForkEffect> {
   yield takeLatest(ALERT.CREATE, watchAlerts)
 }

@@ -43,7 +43,7 @@ export const scrubPayload = (payload: any): any => {
   return { ...payload, key }
 }
 
-export const normalizePayload = (payload: any): any => {
+export const normalizePayload = (payload: Resource | Resources): Resource | Resource[] => {
   if (Array.isArray(payload)) return payload.map((r: any) => ({ ...scrubPayload(camelizeKeys(r)) }))
 
   return scrubPayload(camelizeKeys(payload))

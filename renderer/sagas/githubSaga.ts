@@ -1,11 +1,11 @@
-import { takeLatest, call, put } from 'redux-saga/effects'
+import { takeLatest, call, put, ForkEffect, CallEffect, PutEffect } from 'redux-saga/effects'
 import { GITHUB, octokit, GetReposForLogin } from 'models/github'
 import { createAlert } from 'controllers/alertController'
 import { updateOrgs, updateOrgRepos } from 'controllers/orgController'
 import { updateRepos } from 'controllers/repoController'
 import { normalizePayload } from 'models/app'
 
-function* watchOrgsRequest(): Iterable<any> {
+function* watchOrgsRequest(): Iterable<CallEffect | PutEffect> {
   try {
     let orgs = yield call(octokit.orgs.listForAuthenticatedUser)
 
@@ -24,7 +24,7 @@ function* watchOrgsRequest(): Iterable<any> {
   }
 }
 
-function* watchReposRequest(action: GetReposForLogin): Iterable<any> {
+function* watchReposRequest(action: GetReposForLogin): Iterable<CallEffect | PutEffect> {
   const { login, key } = action
   let repos
 
@@ -46,7 +46,7 @@ function* watchReposRequest(action: GetReposForLogin): Iterable<any> {
   }
 }
 
-export default function* githubSaga(): Iterable<any> {
+export default function* githubSaga(): Iterable<ForkEffect> {
   yield takeLatest(GITHUB.ORGS.REQUEST, watchOrgsRequest)
   yield takeLatest(GITHUB.REPOS.REQUEST, watchReposRequest)
 }

@@ -1,6 +1,6 @@
 import { BrowserWindow } from 'electron'
 import { eventChannel, END } from 'redux-saga'
-import { put, call, take, takeLatest } from 'redux-saga/effects'
+import { put, call, take, takeLatest, ForkEffect, PutEffect, CallEffect, TakeEffect } from 'redux-saga/effects'
 import { camelizeKeys } from 'humps'
 import { receiveAuth } from 'controllers/authController'
 import { createAlert } from 'controllers/alertController'
@@ -65,16 +65,16 @@ const getGithubAuthToken = async (code: string) => {
     .then(response => response.json().then(json => ({ json, response })))
     .then(({ json, response }: any) => {
       localStorage.setItem('accessToken', json['access_token'])
-      return response.ok ? <any>camelizeKeys(json) : Promise.reject(json)
+      return response.ok ? (camelizeKeys(json) as any) : Promise.reject(json)
     })
     .then((response: Response) => ({ ...response }), (error: Error) => ({ error: error.message || 'Something bad happened' }))
 }
 
-function* watchLogout() {
+function* watchLogout(): Iterable<PutEffect> {
   yield put(setPage('welcome'))
 }
 
-function* watchAuthRequest() {
+function* watchAuthRequest(): Iterable<void | TakeEffect | CallEffect | PutEffect> {
   yield createAuthWindow()
   const authCode = yield call(getGithubAuthCode)
   const { code, error } = yield take(authCode)
@@ -97,11 +97,11 @@ function* watchAuthRequest() {
   yield put(receiveAuth(auth))
 }
 
-function* watchAuthSuccess() {
+function* watchAuthSuccess(): Iterable<PutEffect> {
   yield put(requestProfile())
 }
 
-export default function* authSaga() {
+export default function* authSaga(): Iterable<ForkEffect> {
   yield takeLatest(AUTH.LOGOUT, watchLogout)
   yield takeLatest(AUTH.REQUEST, watchAuthRequest)
   yield takeLatest(AUTH.SUCCESS, watchAuthSuccess)

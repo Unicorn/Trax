@@ -26,7 +26,7 @@ export const issuesReducer = (state: Resources = defaultState, action: IssueMode
       return newState
 
     case IssueModel.ISSUES.UPDATE:
-      (payload as IssueModel.Issue[]).forEach(r => {
+      ;(payload as IssueModel.Issue[]).forEach(r => {
         newState.data[r.key] = merge(newState.data[r.key], r)
         newState.keys = union(newState.keys, [r.key])
       })

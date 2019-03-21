@@ -1,15 +1,6 @@
 import * as Fuse from 'fuse.js'
-import { Issues, Issue } from 'models'
-import { LANES, LABELS, Lane } from 'config/constants'
-
-// export const issuesWithoutLanes = (issues: Issues) => {
-//   const arr = issuesArray(issues)
-//
-//   if (arr.length < 1)
-//     return []
-//
-//   return arr.filter((i: Issue) => i.labels.filter(l => LANES.includes(l.name as Lane)).length === 0)
-// }
+import { Issue } from 'models/issue'
+import { LABELS } from 'config/constants'
 
 export const filterIssues = (text: string, issues: Issue[]): Issue[] => {
   const options = {

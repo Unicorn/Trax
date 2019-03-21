@@ -1,5 +1,5 @@
 import { toPairs } from 'lodash'
-import { put, call, race, take, select, takeLatest } from 'redux-saga/effects'
+import { put, call, race, take, select, takeLatest, ForkEffect } from 'redux-saga/effects'
 import { stopTimer, tickTimer } from 'controllers/timerController'
 import { TIMER, Timer, TimerAction } from 'models/timer'
 
@@ -9,7 +9,7 @@ const wait = (ms: number) =>
     setTimeout(() => resolve(), ms)
   })
 
-function* watchTimers(action: TimerAction) {
+function* watchTimers(action: TimerAction): Iterable<any> {
   const { issue } = action
 
   if (!issue) return
@@ -19,6 +19,7 @@ function* watchTimers(action: TimerAction) {
   const runningTimers = toPairs(timers)
     .map((t: [string, Record<string, any>]) => t[1] as Timer)
     .filter(t => t.issue.id && t.isRunning)
+
   yield runningTimers.map(t => t.issue && put(stopTimer(t.issue)))
 
   // Listen for a TIMER.STOP action, otherwise start tickin!
@@ -33,6 +34,6 @@ function* watchTimers(action: TimerAction) {
   }
 }
 
-export default function* timerSaga() {
+export default function* timerSaga(): Iterable<ForkEffect> {
   yield takeLatest(TIMER.START, watchTimers)
 }

@@ -48,7 +48,7 @@ export const timerReducer = (state: Timers = {}, action: TimerAction) => {
         issue,
         entries: timer.entries.concat([
           {
-            startedAt: timer.startedAt!,
+            startedAt: timer.startedAt || new Date(),
             stoppedAt: new Date(),
             duration: timer.duration
           }

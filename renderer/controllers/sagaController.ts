@@ -1,4 +1,4 @@
-import { all } from 'redux-saga/effects'
+import { all, AllEffect, ForkEffect } from 'redux-saga/effects'
 
 import alertSaga from 'sagas/alertSaga'
 import authSaga from 'sagas/authSaga'
@@ -10,6 +10,6 @@ import trackSaga from 'sagas/trackSaga'
 import issueSaga from 'sagas/issueSaga'
 import githubSaga from 'sagas/githubSaga'
 
-export default function* rootSaga() {
+export default function* rootSaga(): Iterable<AllEffect<Iterable<ForkEffect>>> {
   yield all([alertSaga(), authSaga(), invoiceSaga(), persistSaga(), userSaga(), timerSaga(), trackSaga(), githubSaga(), issueSaga()])
 }

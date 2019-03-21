@@ -1,15 +1,25 @@
-import { takeLatest, put, all } from 'redux-saga/effects'
+import { takeLatest, put, all, ForkEffect, AllEffect, PutEffect } from 'redux-saga/effects'
 import { INVOICE, InvoiceAction } from 'models/invoice'
 import { deleteTimer } from 'controllers/timerController'
+import { createAlert } from 'controllers/alertController'
 
-function* watchCreateInvoice(action: InvoiceAction) {
-  const { invoice } = action
+function* watchCreateInvoice(action: InvoiceAction): Iterable<AllEffect<PutEffect> | PutEffect> {
+  const { payload } = action
 
-  if (!invoice) return
-
-  yield all(invoice.timers.map(timer => put(deleteTimer(timer.issue))))
+  try {
+    yield all(payload.timers.map(timer => put(deleteTimer(timer.issue))))
+  } catch (e) {
+    yield put(
+      createAlert({
+        key: 'watchCreateInvoiceError',
+        status: 'error',
+        message: `Error reloading track: ${e.message}`,
+        dismissable: true
+      })
+    )
+  }
 }
 
-export default function* invoiceSaga() {
+export default function* invoiceSaga(): Iterable<ForkEffect> {
   yield takeLatest(INVOICE.CREATE, watchCreateInvoice)
 }
