@@ -6,7 +6,7 @@ import { timerDuration } from 'helpers/timerHelper'
 import ExternalLink from 'views/ui/ExternalLink'
 
 import { Issue } from 'models/issue'
-import { Timer } from 'models/timer'
+import { Timers, defaultTimer } from 'models/timer'
 import LabelsList from 'views/issues/LabelsList'
 import TimerButton from 'views/issues/TimerButton'
 
@@ -17,14 +17,18 @@ interface Props {
 }
 
 interface Connected {
-  timer: Timer
+  timers: Timers
   dispatch: (action: any) => any
 }
 
-const Card: React.SFC<Props & Connected> = ({ dispatch, timer, issue, lane, index }) => {
+const Card: React.SFC<Props & Connected> = (props) => {
+
+  const { dispatch, timers, issue, lane, index } = props
+
+  const timer = timers.data[issue.key] || { ...defaultTimer, key: issue.key, issue }
 
   const _timerHandler = () => {
-    timer.isRunning ? dispatch(stopTimer(issue)) : dispatch(startTimer(issue))
+    timer.isRunning ? dispatch(stopTimer(timer)) : dispatch(startTimer(timer))
   }
 
   return (
@@ -57,8 +61,8 @@ const Card: React.SFC<Props & Connected> = ({ dispatch, timer, issue, lane, inde
   )
 }
 
-const mapState = (state: any, props: Props) => ({
-  timer: state.timers[props.issue.id] || { isRunning: false, issue: props.issue, entries: 0, duration: 0 }
+const mapState = (state: any, { issue }: Props) => ({
+  timers: state.timers
 })
 
 export default connect(mapState)(Card)

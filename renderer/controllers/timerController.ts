@@ -1,78 +1,104 @@
-import { TIMER, Timers, TimerAction } from 'models/timer'
-import { Issue } from 'models/issue'
+import { union, merge } from 'lodash'
+import { defaultState } from 'models/app'
+import * as TimerModel from 'models/timer'
 
-export const startTimer = (issue: Issue) => ({
-  type: TIMER.START,
-  issue
+export const startTimer = (payload: TimerModel.Timer) => ({
+  type: TimerModel.TIMER.START,
+  payload
 })
 
-export const stopTimer = (issue: Issue) => ({
-  type: TIMER.STOP,
-  issue
+export const restartTimer = (payload: TimerModel.Timer) => ({
+  type: TimerModel.TIMER.RESTART,
+  payload
 })
 
-export const tickTimer = (issue: Issue) => ({
-  type: TIMER.TICK,
-  issue
+export const stopTimer = (payload: TimerModel.Timer) => ({
+  type: TimerModel.TIMER.STOP,
+  payload
 })
 
-export const deleteTimer = (issue: Issue) => ({
-  type: TIMER.DELETE,
-  issue
+export const tickTimer = (payload: TimerModel.Timer) => ({
+  type: TimerModel.TIMER.TICK,
+  payload
 })
 
-export const timerReducer = (state: Timers = {}, action: TimerAction) => {
-  const { issue, type } = action
+export const resetTimer = (payload: TimerModel.Timer) => ({
+  type: TimerModel.TIMER.RESET,
+  payload
+})
+
+export const deleteTimer = (payload: TimerModel.Timer) => ({
+  type: TimerModel.TIMER.DELETE,
+  payload
+})
+
+export const timerReducer = (state: TimerModel.Timers = defaultState, action: TimerModel.TimerAction) => {
+  const { type, payload } = action
+
+  if (!payload || !type) return state
+
   const newState = { ...state }
 
-  if (!issue || !type) return state
-
-  const timer = state[issue.id]
-
   switch (type) {
-    case TIMER.START:
-      newState[issue.id] = {
-        ...timer,
-        id: issue.id,
-        issue,
+    case TimerModel.TIMER.START:
+      newState.keys = union(newState.keys, [payload.key])
+      newState.data[payload.key] = merge(newState.data[payload.key], {
+        ...payload,
         isRunning: true,
-        startedAt: new Date(),
-        duration: 0
-      }
-      return newState
+        startedAt: new Date()
+      })
+      break
 
-    case TIMER.STOP:
-      newState[issue.id] = {
-        ...timer,
-        id: issue.id,
-        issue,
-        entries: timer.entries.concat([
+    case TimerModel.TIMER.RESTART:
+      newState.keys = union(newState.keys, [payload.key])
+      newState.data[payload.key] = merge(newState.data[payload.key], {
+        ...payload,
+        duration: Math.round((new Date().getTime() - new Date(payload.startedAt || new Date()).getTime()) / 1000)
+      })
+      break
+
+    case TimerModel.TIMER.STOP:
+      newState.keys = union(newState.keys, [payload.key])
+      newState.data[payload.key] = merge(newState.data[payload.key], {
+        ...payload,
+        entries: payload.entries.concat([
           {
-            startedAt: timer.startedAt || new Date(),
+            startedAt: payload.startedAt,
             stoppedAt: new Date(),
-            duration: timer.duration
+            duration: payload.duration
           }
         ]),
         isRunning: false,
-        startedAt: undefined,
+        startedAt: null,
         duration: 0
-      }
-      return newState
+      })
+      break
 
-    case TIMER.TICK:
-      newState[issue.id] = {
-        ...timer,
-        issue,
+    case TimerModel.TIMER.TICK:
+      newState.data[payload.key] = merge(newState.data[payload.key], {
+        ...payload,
         isRunning: true,
-        duration: timer.duration + 1
-      }
-      return newState
+        duration: payload.duration + 1
+      })
+      break
 
-    case TIMER.DELETE:
-      delete newState[issue.id]
-      return newState
+    case TimerModel.TIMER.RESET:
+      newState.keys = union(newState.keys, [payload.key])
+      newState.data[payload.key] = merge(newState.data[payload.key], {
+        ...payload,
+        isRunning: false,
+        duration: 0
+      })
+      break
+
+    case TimerModel.TIMER.DELETE:
+      newState.keys = newState.keys.filter(key => key !== payload.key)
+      delete newState.data[payload.key]
+      break
 
     default:
       return state
   }
+
+  return newState
 }

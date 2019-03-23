@@ -1,35 +1,46 @@
+import { v4 } from 'uuid'
+import { Resources, Resource } from 'models/app'
 import { Issue } from 'models/issue'
 
 export enum TIMER {
-  START = 'trax/timer/START',
-  STOP = 'trax/timer/STOP',
-  TICK = 'trax/timer/TICK_TIMER',
-  DELETE = 'trax/timer/DELETE'
+  START = 'trax/timer/start',
+  RESTART = 'trax/timer/restart',
+  STOP = 'trax/timer/stop',
+  TICK = 'trax/timer/tick',
+  RESET = 'trax/timer/reset',
+  DELETE = 'trax/timer/delete'
+}
+
+export const defaultTimer: Timer = {
+  key: v4(),
+  isRunning: false,
+  issue: null,
+  entries: [],
+  duration: 0,
+  startedAt: null
 }
 
 export interface TimerEntry {
-  startedAt: Date
-  stoppedAt: Date
+  startedAt: null | Date
+  stoppedAt: null | Date
   duration: number
 }
 
-export interface Timer {
-  id: string
+export interface Timer extends Resource {
   duration: number
-  selected?: boolean
   isRunning: boolean
-  startedAt?: Date
-  readonly issue: Issue
+  readonly issue: null | Issue
   entries: TimerEntry[]
+  startedAt: null | Date
 }
 
-export interface Timers {
-  [key: string]: Timer
+export interface Timers extends Resources {
+  data: {
+    [key: string]: Timer
+  }
 }
 
 export interface TimerAction {
   readonly type: TIMER
-  readonly id?: string
-  readonly timer?: Timer
-  readonly issue?: Issue
+  readonly payload: Timer
 }

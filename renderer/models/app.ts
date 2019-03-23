@@ -3,6 +3,7 @@ import { camelizeKeys } from 'humps'
 
 import { Auth } from './auth'
 import { Profile } from './profile'
+import { Timers } from 'models/timer'
 
 export interface Resource {
   key: string
@@ -27,7 +28,7 @@ export interface AppState {
   profile: Profile
   repos: Resources
   settings: Resources
-  timers: Resources
+  timers: Timers
   tracks: Resources
 }
 

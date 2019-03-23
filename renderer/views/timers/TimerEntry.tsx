@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { AppState } from 'models'
+import { AppState } from 'models/app'
 import { Timer } from 'models/timer'
 import { Issues } from 'models/issue'
 import { timerDuration } from 'helpers/timerHelper'
@@ -24,7 +24,7 @@ const TimerEntry: React.SFC<Props & Connected> = (props) => {
   if (!timer.issue)
     return null
 
-  const issue = issues.entities.issues[timer.issue.id]
+  const issue = issues.data[timer.issue.key]
   const lane = issue && issue.lane || ''
 
   return (

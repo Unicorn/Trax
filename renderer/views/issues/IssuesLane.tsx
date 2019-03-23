@@ -14,7 +14,7 @@ const renderIssues = (issues: Issue[], lane: string) => {
 
   return issues.map((issue, index) => (
     <Card
-      key={issue.id}
+      key={issue.key}
       issue={issue}
       lane={lane}
       index={index}
@@ -22,7 +22,7 @@ const renderIssues = (issues: Issue[], lane: string) => {
   ))
 }
 
-const IssuesLan: React.SFC<Props> = ({ lane, issues }) => {
+const IssuesLane: React.SFC<Props> = ({ lane, issues }) => {
   return (
     <Droppable droppableId={lane}>
       {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
@@ -38,4 +38,4 @@ const IssuesLan: React.SFC<Props> = ({ lane, issues }) => {
   )
 }
 
-export default IssuesLan
+export default IssuesLane

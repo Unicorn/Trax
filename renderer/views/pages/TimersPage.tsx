@@ -37,7 +37,7 @@ class ReportPage extends React.Component<Connected, State> {
 
   _selectHandler = (e: React.FormEvent<HTMLInputElement>) => {
     const { timers } = this.props
-    let timerIds = keys(timers).map((key: string) => timers[key].issue.id.toString())
+    let timerIds = timers.keys
     let input = e.currentTarget
 
     this.setState({ selectedIds: input.checked ? timerIds : [] })
@@ -71,12 +71,12 @@ class ReportPage extends React.Component<Connected, State> {
             </tr>
           </thead>
           <tbody>
-            {keys(timers).map((key: string) => (
+            {timers.keys.map((key: string) => (
               <TimerEntry
-                timer={timers[key]}
+                timer={timers.data[key]}
                 key={key}
                 handler={this._checkboxHandler}
-                checked={(selectedIds as string[]).includes(timers[key].issue.id.toString())}
+                checked={(selectedIds as string[]).includes(key)}
               />
             ))}
           </tbody>
