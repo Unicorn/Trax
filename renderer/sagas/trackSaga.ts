@@ -1,4 +1,4 @@
-import { put, all, call, takeLatest, ForkEffect, CallEffect, PutEffect, AllEffect } from 'redux-saga/effects'
+import { put, all, call, takeEvery, ForkEffect, CallEffect, PutEffect, AllEffect } from 'redux-saga/effects'
 
 import { updateTrack } from 'controllers/trackController'
 import { updateUsers } from 'controllers/userController'
@@ -12,7 +12,11 @@ import { TRACK } from 'models/track'
 import { LABELS } from 'config/constants'
 import { octokit } from 'models/github'
 
-function* watchReloadTrack({ payload }: TrackAction): Iterable<CallEffect | PutEffect> {
+function* watchReloadTrack(action: TrackAction): Iterable<CallEffect | PutEffect> {
+  const { payload } = action
+
+  if (!payload) return
+
   const [owner, repo] = payload.ident.split('/')
 
   try {
@@ -44,7 +48,11 @@ function* watchReloadTrack({ payload }: TrackAction): Iterable<CallEffect | PutE
 }
 
 function* watchCreateTrack(action: TrackAction): Iterable<AllEffect<CallEffect> | CallEffect | PutEffect> {
-  const [owner, repo] = action.payload.ident.split('/')
+  const { payload } = action
+
+  if (!payload) return
+
+  const [owner, repo] = payload.ident.split('/')
 
   try {
     yield all(
@@ -66,6 +74,6 @@ function* watchCreateTrack(action: TrackAction): Iterable<AllEffect<CallEffect> 
 }
 
 export default function* trackSaga(): Iterable<ForkEffect> {
-  yield takeLatest(TRACK.CREATE, watchCreateTrack)
-  yield takeLatest(TRACK.RELOAD, watchReloadTrack)
+  yield takeEvery(TRACK.CREATE, watchCreateTrack)
+  yield takeEvery(TRACK.RELOAD, watchReloadTrack)
 }

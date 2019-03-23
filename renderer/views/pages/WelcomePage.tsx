@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { requestAuth } from 'controllers/authController'
-import { AuthAction } from 'models'
+import { AuthAction } from 'models/auth'
 
 import ExternalLink from 'views/ui/ExternalLink'
 import Logo from 'views/ui/icons/Logo'

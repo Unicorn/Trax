@@ -3,7 +3,7 @@
   "homepage": "./",
   "author": "Unicorn LLC <hello@unicorn.xxx>",
   "description": "A desktop application for managing Github Projects",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "private": true,
   "main": "main/electron.js",
   "productName": "Trax",

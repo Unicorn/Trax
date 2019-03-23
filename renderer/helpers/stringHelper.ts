@@ -7,7 +7,7 @@ export const randString = (length?: number): string => {
   return result
 }
 
-export const parameterize = (text: string) => {
+export const parameterize = (text: string): string => {
   return text
     .trim()
     .toLowerCase()

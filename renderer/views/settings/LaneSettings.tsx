@@ -34,6 +34,7 @@ const LaneSettings: React.SFC<Connected & Actions> = (props) => {
       <h2>Show Lanes:</h2>
       {LANES.map(lane =>
         <FormField
+          key={lane}
           name={lane}
           type="toggle"
           label={lane}

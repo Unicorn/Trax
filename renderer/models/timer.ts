@@ -42,5 +42,5 @@ export interface Timers extends Resources {
 
 export interface TimerAction {
   readonly type: TIMER
-  readonly payload: Timer
+  readonly payload?: Timer
 }

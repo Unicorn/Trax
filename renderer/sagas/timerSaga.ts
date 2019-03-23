@@ -1,4 +1,20 @@
-import { select, all, put, call, race, take, takeLatest, ForkEffect, AllEffect, SelectEffect, PutEffect, RaceEffect, TakeEffect, CallEffect } from 'redux-saga/effects'
+import {
+  select,
+  all,
+  put,
+  call,
+  take,
+  takeLatest,
+  ForkEffect,
+  AllEffect,
+  SelectEffect,
+  PutEffect,
+  CallEffect,
+  fork,
+  cancel,
+  TakeEffect,
+  CancelEffect
+} from 'redux-saga/effects'
 import { AppState, toArray } from 'models/app'
 import { stopTimer, tickTimer } from 'controllers/timerController'
 import { TIMER, Timer, TimerAction } from 'models/timer'
@@ -9,25 +25,41 @@ const wait = (ms: number) =>
     setTimeout(() => resolve(), ms)
   })
 
-function* watchTimers({ payload }: TimerAction): Iterable<RaceEffect<TakeEffect | CallEffect> | PutEffect> {
-  // Listen for a TIMER.STOP action, otherwise start tickin!
+function* tick(action: TimerAction): Iterable<CallEffect | PutEffect> {
+  const { payload } = action
+
+  if (!payload) return
+
   while (true) {
-    const currentTimer = yield race({
-      stopped: take((action: any) => {
-        console.log("take action", action)
-        return action.type === TIMER.STOP && action.payload.key === payload.key
-      }),
-      tick: call(wait, 1000)
+    yield call(wait, 1000)
+    yield put(tickTimer(payload))
+  }
+}
+
+function* watchTimers(action: TimerAction): Iterable<ForkEffect | TakeEffect | CancelEffect> {
+  const { payload } = action
+
+  if (!payload) return
+
+  while (true) {
+    const timerTick = yield fork(tick, action)
+
+    yield take((a: any) => {
+      return a.type === TIMER.STOP && a.payload && a.payload.key && a.payload.key === payload.key
     })
 
-    if (!currentTimer.stopped) yield put(tickTimer(payload))
-    else break
+    yield cancel(timerTick)
+    break
   }
 }
 
 function* watchStartTimer(action: TimerAction): Iterable<SelectEffect | AllEffect<PutEffect> | CallEffect> {
+  const { payload } = action
+
+  if (!payload) return
+
   const timers = yield select((state: AppState) => state.timers)
-  const runningTimers = (toArray(timers) as Timer[]).filter(timer => timer.key !== action.payload.key && timer.isRunning && timer.startedAt)
+  const runningTimers = (toArray(timers) as Timer[]).filter(timer => timer.key !== payload.key && timer.isRunning && timer.startedAt)
 
   yield all(runningTimers.map(timer => put(stopTimer(timer))))
   yield call(watchTimers, action)
@@ -35,5 +67,4 @@ function* watchStartTimer(action: TimerAction): Iterable<SelectEffect | AllEffec
 
 export default function* timerSaga(): Iterable<ForkEffect> {
   yield takeLatest(TIMER.START, watchStartTimer)
-  yield takeLatest(TIMER.RESTART, watchTimers)
 }

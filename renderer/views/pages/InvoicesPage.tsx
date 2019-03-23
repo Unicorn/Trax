@@ -1,8 +1,8 @@
-import { keys } from 'lodash'
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import { AppState, Invoices } from 'models'
+import { AppState, toArray } from 'models/app'
+import { Invoices, Invoice } from 'models/invoice'
 import { timersDuration } from 'helpers/timerHelper'
 
 interface Connected {
@@ -10,7 +10,7 @@ interface Connected {
 }
 
 const InvoicesPage: React.SFC<Connected> = (props) => {
-  const invoices = keys(props.invoices).map(key => props.invoices[key])
+  const invoices: Invoice[] = toArray(props.invoices) as Invoice[]
 
   return (
     <section className="invoice page">
@@ -25,11 +25,11 @@ const InvoicesPage: React.SFC<Connected> = (props) => {
           </tr>
         </thead>
         <tbody>
-          {invoices.map(i => (
-            <tr>
-              <td>{i.id}</td>
-              <td>{i.createdAt}</td>
-              <td>{timersDuration(i.timers, true)}</td>
+          {invoices.map(invoice => (
+            <tr key={invoice.key}>
+              <td>{invoice.key}</td>
+              <td>{(new Date(invoice.createdAt || '')).toString()}</td>
+              <td>{timersDuration(invoice.timers, true)}</td>
             </tr>
           ))}
         </tbody>

@@ -24,5 +24,5 @@ export interface Tracks extends Resources {
 
 export interface TrackAction {
   type: TRACK
-  payload: Track
+  payload?: Track
 }

@@ -79,8 +79,6 @@ class BoardPage extends React.Component<Connected, State> {
     const { lanes } = this.props
     const { filteredIssues } = this.state
 
-    console.log("filteredIssues", filteredIssues)
-
     return (
       <section className="board">
         <header className="search">

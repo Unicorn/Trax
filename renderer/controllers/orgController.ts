@@ -28,8 +28,11 @@ const initialState = {
   }
 }
 
-export const orgsReducer = (state: Resources = initialState, action: OrgModel.OrgActions): Resources => {
+export const orgsReducer = (state: Resources = initialState, action: OrgModel.OrgActions): OrgModel.Orgs => {
   const { type, payload } = action
+
+  if (!type || !payload) return state
+
   const newState = { ...state }
 
   switch (type) {

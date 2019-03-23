@@ -51,11 +51,11 @@ export interface Issues extends Resources {
 
 export interface IssueAction {
   type: ISSUES | ISSUE
-  payload: Issue[] | Issue
+  payload?: Issue[] | Issue
 }
 
 export const normalizeIssue = (issue: Issue): Issue => {
   const labels = issue.labels.filter(l => LANES.includes(l.name as Lane))
   const lane: Lane = labels.length > 0 ? (labels[0].name as Lane) : 'backlog'
-  return normalizePayload({ ...issue, lane })
+  return normalizePayload({ ...issue, lane }) as Issue
 }

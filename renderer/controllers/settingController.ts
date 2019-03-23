@@ -21,7 +21,7 @@ const initialState: Settings = {
   lanes: LANES
 }
 
-export const settingsReducer = (state: Settings = initialState, action: SettingsAction) => {
+export const settingsReducer = (state: Settings = initialState, action: SettingsAction): Settings => {
   const { payload, type } = action
   let newState = { ...state }
 

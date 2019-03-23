@@ -1,9 +1,9 @@
-import { keys } from 'lodash'
 import * as React from 'react'
 import { connect } from 'react-redux'
+import { v4 } from 'uuid'
 
 import { Timers } from 'models/timer'
-import { INVOICE } from 'models/invoice'
+import { createInvoice } from 'controllers/invoiceController'
 
 import TimerEntry from 'views/timers/TimerEntry'
 import Help from 'views/layouts/Help'
@@ -14,17 +14,17 @@ interface Connected {
 }
 
 interface State {
-  selectedIds: string[]
+  selectedKeys: string[]
 }
 
 class ReportPage extends React.Component<Connected, State> {
 
   state = {
-    selectedIds: []
+    selectedKeys: []
   }
 
   _checkboxHandler = (e: React.FormEvent<HTMLInputElement>) => {
-    let timerIds: string[] = [...this.state.selectedIds]
+    let timerIds: string[] = [...this.state.selectedKeys]
     let input = e.currentTarget
 
     if (input.checked)
@@ -32,7 +32,7 @@ class ReportPage extends React.Component<Connected, State> {
     else
       timerIds = timerIds.filter(t => t !== input.value)
 
-    this.setState({ selectedIds: timerIds })
+    this.setState({ selectedKeys: timerIds })
   }
 
   _selectHandler = (e: React.FormEvent<HTMLInputElement>) => {
@@ -40,20 +40,20 @@ class ReportPage extends React.Component<Connected, State> {
     let timerIds = timers.keys
     let input = e.currentTarget
 
-    this.setState({ selectedIds: input.checked ? timerIds : [] })
+    this.setState({ selectedKeys: input.checked ? timerIds : [] })
   }
 
   _createInvoice = () => {
     const { timers, dispatch } = this.props
-    const { selectedIds } = this.state
-    let invoice = { timers: selectedIds.map(id => timers[id]) }
+    const { selectedKeys } = this.state
+    let invoice = { timers: selectedKeys.map(key => timers.data[key]), key: v4()}
 
-    dispatch({ type: INVOICE.CREATE, invoice })
+    dispatch(createInvoice(invoice))
   }
 
   render() {
     const { timers } = this.props
-    const { selectedIds } = this.state
+    const { selectedKeys } = this.state
 
     return (
       <section className="report page">
@@ -76,13 +76,13 @@ class ReportPage extends React.Component<Connected, State> {
                 timer={timers.data[key]}
                 key={key}
                 handler={this._checkboxHandler}
-                checked={(selectedIds as string[]).includes(key)}
+                checked={(selectedKeys as string[]).includes(key)}
               />
             ))}
           </tbody>
         </table>
 
-        <div className={`action-bar ${selectedIds.length > 0 && 'active'}`}>
+        <div className={`action-bar ${selectedKeys.length > 0 && 'active'}`}>
           <button className="brown basic button" onClick={this._createInvoice}>Create Invoice</button>
           <button className="red basic button">Cancel</button>
         </div>

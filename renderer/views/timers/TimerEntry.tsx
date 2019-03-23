@@ -31,7 +31,7 @@ const TimerEntry: React.SFC<Props & Connected> = (props) => {
     <tr>
       <td>
         <div className="input checkbox">
-          <input type="checkbox" value={timer.issue.id} onChange={handler} checked={checked} />
+          <input type="checkbox" value={timer.key} onChange={handler} checked={checked} />
         </div>
       </td>
       <td><ExternalLink url={timer.issue.repositoryUrl} showIcon={false}>{timer.issue.ident}</ExternalLink></td>

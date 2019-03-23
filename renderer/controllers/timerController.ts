@@ -2,40 +2,40 @@ import { union, merge } from 'lodash'
 import { defaultState } from 'models/app'
 import * as TimerModel from 'models/timer'
 
-export const startTimer = (payload: TimerModel.Timer) => ({
+export const startTimer = (payload: TimerModel.Timer): TimerModel.TimerAction => ({
   type: TimerModel.TIMER.START,
   payload
 })
 
-export const restartTimer = (payload: TimerModel.Timer) => ({
+export const restartTimer = (payload: TimerModel.Timer): TimerModel.TimerAction => ({
   type: TimerModel.TIMER.RESTART,
   payload
 })
 
-export const stopTimer = (payload: TimerModel.Timer) => ({
+export const stopTimer = (payload: TimerModel.Timer): TimerModel.TimerAction => ({
   type: TimerModel.TIMER.STOP,
   payload
 })
 
-export const tickTimer = (payload: TimerModel.Timer) => ({
+export const tickTimer = (payload: TimerModel.Timer): TimerModel.TimerAction => ({
   type: TimerModel.TIMER.TICK,
   payload
 })
 
-export const resetTimer = (payload: TimerModel.Timer) => ({
+export const resetTimer = (payload: TimerModel.Timer): TimerModel.TimerAction => ({
   type: TimerModel.TIMER.RESET,
   payload
 })
 
-export const deleteTimer = (payload: TimerModel.Timer) => ({
+export const deleteTimer = (payload: TimerModel.Timer): TimerModel.TimerAction => ({
   type: TimerModel.TIMER.DELETE,
   payload
 })
 
-export const timerReducer = (state: TimerModel.Timers = defaultState, action: TimerModel.TimerAction) => {
+export const timerReducer = (state: TimerModel.Timers = defaultState, action: TimerModel.TimerAction): TimerModel.Timers => {
   const { type, payload } = action
 
-  if (!payload || !type) return state
+  if (!type || !payload) return state
 
   const newState = { ...state }
 
@@ -78,7 +78,7 @@ export const timerReducer = (state: TimerModel.Timers = defaultState, action: Ti
       newState.data[payload.key] = merge(newState.data[payload.key], {
         ...payload,
         isRunning: true,
-        duration: payload.duration + 1
+        duration: newState.data[payload.key].duration + 1
       })
       break
 

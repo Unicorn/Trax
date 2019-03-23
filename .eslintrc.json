@@ -25,7 +25,8 @@
       "multiline": {
         "delimeter": "none"
       }
-    }
+    },
+    "@typescript-eslint/camelcase": ["error", { "allow": ["per_page"] }]
   },
   "settings": {
     "react": {

@@ -10,6 +10,9 @@ export const updateRepos = (payload: RepoModel.Repo[]): RepoModel.UpdateReposAct
 
 export const reposReducer = (state: Resources = defaultState, action: RepoModel.RepoActions): Resources => {
   const { type, payload } = action
+
+  if (!type || !payload) return state
+
   const newState = { ...state }
 
   switch (type) {

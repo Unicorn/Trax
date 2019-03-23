@@ -1,4 +1,4 @@
-import { Timer } from 'models/Timer'
+import { Timer, TimerEntry } from 'models/Timer'
 
 export const timerClock = (duration: number, hideEmpty?: boolean): string => {
   let hours = ('0' + Math.floor(duration / (60 * 60)).toString()).slice(-2)
@@ -13,13 +13,13 @@ export const timerClock = (duration: number, hideEmpty?: boolean): string => {
 
 export const timerDuration = (timer: Timer, format?: boolean): number | string => {
   const { entries } = timer
-  let duration = entries && entries.length > 0 ? entries.reduce((prev: any, curr: any) => prev + curr.duration, 0) : timer.duration
+  let duration = entries.length > 0 ? entries.reduce((prev: number, curr: TimerEntry) => prev + curr.duration, 0) : timer.duration
 
   return format ? timerClock(duration, true) : duration
 }
 
 export const timersDuration = (timers: Timer[], format?: boolean): number | string => {
-  let duration = timers.reduce((prev: any, curr: any) => prev + timerDuration(curr), 0)
+  let duration = timers.reduce((prev: number, curr: Timer) => prev + (timerDuration(curr) as number), 0)
 
   return format ? timerClock(duration, true) : duration
 }

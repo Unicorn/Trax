@@ -3,7 +3,13 @@ import { camelizeKeys } from 'humps'
 
 import { Auth } from './auth'
 import { Profile } from './profile'
-import { Timers } from 'models/timer'
+import { Alert, Alerts } from './alert'
+import { Issue, Issues } from './issue'
+import { Invoice, Invoices } from './invoice'
+import { Orgs, Org } from './org'
+import { Timer, Timers } from './timer'
+import { Track, Tracks } from './track'
+import { Settings } from './setting'
 
 export interface Resource {
   key: string
@@ -17,6 +23,9 @@ export interface Resources {
   }
 }
 
+export type ModelResource = Alert | Issue | Invoice | Org | Timer | Track
+export type ModelResources = Alerts | Issues | Invoices | Orgs | Timers | Tracks
+
 export interface AppState {
   alerts: Resources
   auth: Auth
@@ -27,7 +36,7 @@ export interface AppState {
   orgs: Resources
   profile: Profile
   repos: Resources
-  settings: Resources
+  settings: Settings
   timers: Timers
   tracks: Resources
 }
@@ -44,12 +53,12 @@ export const scrubPayload = (payload: any): any => {
   return { ...payload, key }
 }
 
-export const normalizePayload = (payload: Resource | Resources): Resource | Resource[] => {
+export const normalizePayload = (payload: any): any => {
   if (Array.isArray(payload)) return payload.map((r: any) => ({ ...scrubPayload(camelizeKeys(r)) }))
 
   return scrubPayload(camelizeKeys(payload))
 }
 
-export const toArray = (resources: Resources): Resource[] => {
+export const toArray = (resources: ModelResources): ModelResource[] => {
   return resources.keys.map(key => resources.data[key])
 }

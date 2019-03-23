@@ -1,24 +1,24 @@
+import { union } from 'lodash'
 import { Resources, defaultState } from 'models/app'
 import { INVOICE, Invoice, InvoiceAction } from 'models/invoice'
-import { v4 } from 'uuid'
 
 export const createInvoice = (payload: Invoice): InvoiceAction => ({
   type: INVOICE.CREATE,
-  payload: {
-    ...payload,
-    key: payload.key || v4()
-  }
+  payload
 })
 
 export const invoiceReducer = (state: Resources = defaultState, action: InvoiceAction): Resources => {
   const { type, payload } = action
+
+  if (!type || !payload) return state
+
   const newState = { ...state }
 
   switch (type) {
     case INVOICE.CREATE:
       if (!payload.timers) return state
 
-      newState.keys = newState.keys.filter(key => key !== payload.key)
+      newState.keys = union(newState.keys, [payload.key])
       newState.data[payload.key] = {
         ...payload,
         createdAt: new Date()

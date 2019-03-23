@@ -6,8 +6,10 @@ import { createAlert } from 'controllers/alertController'
 function* watchCreateInvoice(action: InvoiceAction): Iterable<AllEffect<PutEffect> | PutEffect> {
   const { payload } = action
 
+  if (!payload) return
+
   try {
-    yield all(payload.timers.map(timer => put(deleteTimer(timer.issue))))
+    yield all(payload.timers.map(timer => put(deleteTimer(timer))))
   } catch (e) {
     yield put(
       createAlert({

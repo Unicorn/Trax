@@ -18,6 +18,6 @@ export const filterIssues = (text: string, issues: Issue[]): Issue[] => {
   return fuse.search(text)
 }
 
-export const labelNames = (labels: string[]) => {
+export const labelNames = (labels: string[]): string[] => {
   return labels.filter(l => l !== '').map(l => LABELS[l].name)
 }

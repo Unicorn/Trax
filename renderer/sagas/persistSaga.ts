@@ -2,7 +2,7 @@ import { takeLatest, put, all, ForkEffect, PutEffect, AllEffect } from 'redux-sa
 import { RehydrateAction } from 'redux-persist'
 import { toArray } from 'models/app'
 import { requestProfile } from 'controllers/profileController'
-import { restartTimer, resetTimer } from 'controllers/timerController'
+import { stopTimer, resetTimer } from 'controllers/timerController'
 import { AppState } from 'models/app'
 import { Timer } from 'models/timer'
 
@@ -13,7 +13,7 @@ function* watchPersist({ payload }: RehydrateAction<AppState>): Iterable<PutEffe
   const runningTimers = (toArray(payload.timers) as Timer[]).filter(timer => timer.isRunning && timer.startedAt)
   const invalidTimers = (toArray(payload.timers) as Timer[]).filter(timer => timer.isRunning && !timer.startedAt)
 
-  yield all(runningTimers.map(timer => put(restartTimer(timer))))
+  yield all(runningTimers.map(timer => put(stopTimer(timer))))
   yield all(invalidTimers.map(timer => put(resetTimer(timer))))
 }
 

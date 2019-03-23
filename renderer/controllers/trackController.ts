@@ -34,11 +34,11 @@ export const deleteTrack = (payload: TrackModel.Track): TrackModel.TrackAction =
 })
 
 export const trackReducer = (state: Resources = defaultState, action: TrackModel.TrackAction): Resources => {
-  const { payload, type } = action
+  const { type, payload } = action
 
-  if (!payload || !type) return state
+  if (!type || !payload) return state
 
-  let newState = { ...state }
+  const newState = { ...state }
 
   switch (type) {
     case TrackModel.TRACK.CREATE:

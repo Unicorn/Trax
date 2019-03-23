@@ -10,6 +10,9 @@ export const updateUsers = (payload: UserModel.User[]): UserModel.UpdateUsersAct
 
 export const usersReducer = (state: Resources = defaultState, action: UserModel.UpdateUsersAction): Resources => {
   const { type, payload } = action
+
+  if (!type || !payload) return state
+
   const newState = { ...state }
 
   switch (type) {

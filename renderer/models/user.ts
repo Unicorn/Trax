@@ -27,5 +27,5 @@ export interface User extends Resource {
 
 export interface UpdateUsersAction {
   type: USERS
-  payload: User[]
+  payload?: User[]
 }

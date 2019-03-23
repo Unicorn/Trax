@@ -14,7 +14,6 @@ export const profileReducer = (state: Profile = profileState, action: ProfileAct
 
   switch (type) {
     case PROFILE.SUCCESS:
-      console.log('payload', payload)
       return payload || state
 
     default:

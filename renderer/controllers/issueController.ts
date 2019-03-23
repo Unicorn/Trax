@@ -13,7 +13,7 @@ export const updateIssue = (payload: IssueModel.Issue): IssueModel.IssueAction =
   payload
 })
 
-export const issuesReducer = (state: Resources = defaultState, action: IssueModel.IssueAction): Resources => {
+export const issuesReducer = (state: Resources = defaultState, action: IssueModel.IssueAction): IssueModel.Issues => {
   const { type, payload } = action
 
   if (!type || !payload) return state

@@ -1,10 +1,8 @@
-import { keys, findKey } from 'lodash'
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import { issueCreate } from 'controllers/issueController'
 import { labelNames } from 'helpers/issueHelper'
-import { Tracks } from 'models'
+import { Tracks } from 'models/track'
 import { TYPES, SWIMLANES, PRIORITY } from 'config/constants'
 
 import { Editor } from 'views/ui/form/Editor'
@@ -39,7 +37,6 @@ class CreatePage extends React.Component<Connected, State> {
     e.preventDefault()
 
     const { title, type, lane, priority, assignee, repo, body } = this.state
-    const { dispatch } = this.props
 
     let payload = {
       title,
@@ -48,7 +45,8 @@ class CreatePage extends React.Component<Connected, State> {
       assignees: [assignee],
     }
 
-    dispatch(issueCreate.request(repo, payload))
+    // @TODO: finish connecting this function
+    console.log("CREATE ISSUE HERE", payload, repo)
 
     this.setState(defaultState)
   }
@@ -67,28 +65,28 @@ class CreatePage extends React.Component<Connected, State> {
     this.setState(newData)
   }
 
-  _repoSelectHandler = (e: React.FormEvent<HTMLSelectElement>) => {
-    const { tracks } = this.props
-    let value = e.currentTarget.value
-    let trackKey = findKey(tracks, { ident: value })
-    this.setState({ repo: value })
-
-    if (trackKey) {
-      tracks[trackKey].users.forEach(u => {
-        this.userOptions[u.login] = { label: u.login }
-      })
-    }
-  }
+  // _repoSelectHandler = (e: React.FormEvent<HTMLSelectElement>) => {
+  //   const { tracks } = this.props
+  //   let value = e.currentTarget.value
+  //   let trackKey = findKey(tracks, { ident: value })
+  //   this.setState({ repo: value })
+  //
+  //   if (trackKey) {
+  //     tracks[trackKey].users.forEach(u => {
+  //       this.userOptions[u.login] = { label: u.login }
+  //     })
+  //   }
+  // }
 
   render() {
-    const { tracks } = this.props
+    // const { tracks } = this.props
     const { type, priority, lane, assignee } = this.state
 
-    keys(tracks).forEach(key => {
-      this.repoOptions[tracks[key].ident] = {
-        label: tracks[key].ident
-      }
-    })
+    // keys(tracks).forEach(key => {
+    //   this.repoOptions[tracks[key].ident] = {
+    //     label: tracks[key].ident
+    //   }
+    // })
 
     return (
       <section className="create page">
@@ -101,7 +99,7 @@ class CreatePage extends React.Component<Connected, State> {
               type="select"
               label="Repo"
               options={this.repoOptions}
-              onChange={this._repoSelectHandler}
+              // onChange={this._repoSelectHandler}
               required
             />
 
