@@ -1,8 +1,11 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
+import { AppState } from 'models/app'
 import { labelNames } from 'helpers/issueHelper'
+import { createIssueRequest } from 'controllers/issueController'
 import { Tracks } from 'models/track'
+import { Users } from 'models/user'
 import { TYPES, SWIMLANES, PRIORITY } from 'config/constants'
 
 import { Editor } from 'views/ui/form/Editor'
@@ -10,6 +13,7 @@ import { FormField, OptionsObject } from 'views/ui/form/FormField'
 
 interface Connected {
   tracks: Tracks
+  users: Users
   dispatch: (action: any) => any
 }
 
@@ -23,7 +27,7 @@ const defaultState = {
   lane: 'backlog',
   priority: '',
   assignee: '',
-  repo: '',
+  ident: '',
   body: ''
 }
 
@@ -36,18 +40,19 @@ class CreatePage extends React.Component<Connected, State> {
   _submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    const { title, type, lane, priority, assignee, repo, body } = this.state
+    const { title, type, lane, priority, assignee, ident, body } = this.state
+    const [owner, repo] = ident.split('/')
 
     let payload = {
       title,
       body,
+      owner,
+      repo,
       labels: labelNames([type, priority, lane]),
       assignees: [assignee],
     }
 
-    // @TODO: finish connecting this function
-    console.log("CREATE ISSUE HERE", payload, repo)
-
+    this.props.dispatch(createIssueRequest(payload))
     this.setState(defaultState)
   }
 
@@ -65,28 +70,29 @@ class CreatePage extends React.Component<Connected, State> {
     this.setState(newData)
   }
 
-  // _repoSelectHandler = (e: React.FormEvent<HTMLSelectElement>) => {
-  //   const { tracks } = this.props
-  //   let value = e.currentTarget.value
-  //   let trackKey = findKey(tracks, { ident: value })
-  //   this.setState({ repo: value })
-  //
-  //   if (trackKey) {
-  //     tracks[trackKey].users.forEach(u => {
-  //       this.userOptions[u.login] = { label: u.login }
-  //     })
-  //   }
-  // }
+  _repoSelectHandler = (e: React.FormEvent<HTMLSelectElement>) => {
+    const { tracks, users } = this.props
+    let ident = e.currentTarget.value
+    this.setState({ ident })
+
+    if (tracks.data[ident]) {
+      tracks.data[ident].userIds.forEach(id => {
+        let user = users.data[id]
+        if (user)
+          this.userOptions[user.login] = { label: user.login }
+      })
+    }
+  }
 
   render() {
-    // const { tracks } = this.props
+    const { tracks } = this.props
     const { type, priority, lane, assignee } = this.state
 
-    // keys(tracks).forEach(key => {
-    //   this.repoOptions[tracks[key].ident] = {
-    //     label: tracks[key].ident
-    //   }
-    // })
+    tracks.keys.forEach(key => {
+      this.repoOptions[tracks.data[key].ident] = {
+        label: tracks.data[key].ident
+      }
+    })
 
     return (
       <section className="create page">
@@ -95,11 +101,11 @@ class CreatePage extends React.Component<Connected, State> {
             <h1>Create Issue</h1>
 
             <FormField
-              name="repo"
+              name="ident"
               type="select"
               label="Repo"
               options={this.repoOptions}
-              // onChange={this._repoSelectHandler}
+              onChange={this._repoSelectHandler}
               required
             />
 
@@ -159,8 +165,9 @@ class CreatePage extends React.Component<Connected, State> {
   }
 }
 
-const mapState = (state: any) => ({
-  tracks: state.tracks
+const mapState = (state: AppState) => ({
+  tracks: state.tracks,
+  users: state.users
 })
 
 export default connect(mapState)(CreatePage)

@@ -3,11 +3,16 @@ import { User } from 'models/user'
 import { Labels } from 'models/label'
 import { LANES, Lane } from 'config/constants'
 
+/**
+ * Core Definitions
+**/
 export enum ISSUES {
   UPDATE = 'trax/issues/update'
 }
 
 export enum ISSUE {
+  CREATE = 'trax/issue/create',
+  CREATE_REQUEST = 'trax/issue/create/request',
   UPDATE = 'trax/issue/update',
   UPDATE_LANE = 'trax/issue/update_lane'
 }
@@ -49,13 +54,35 @@ export interface Issues extends Resources {
   }
 }
 
+/**
+ * ACTIONS and Action Types
+**/
+export interface CreateIssuePayload {
+  owner: string
+  repo: string
+  title: string
+  body?: string
+  assignee?: string
+  milestone?: number
+  labels?: string[]
+  assignees?: string[]
+}
+
+export interface CreateIssueAction {
+  type: ISSUE,
+  payload: CreateIssuePayload
+}
+
 export interface IssueAction {
   type: ISSUES | ISSUE
   payload?: Issue[] | Issue
 }
 
+/**
+ * Normalizers and Helper Functions
+**/
 export const normalizeIssue = (issue: Issue): Issue => {
-  const labels = issue.labels.filter(l => LANES.includes(l.name as Lane))
-  const lane: Lane = labels.length > 0 ? (labels[0].name as Lane) : 'backlog'
+  const labels = issue.labels && issue.labels.filter(l => LANES.includes(l.name as Lane))
+  const lane: Lane = labels && labels.length > 0 ? (labels[0].name as Lane) : 'backlog'
   return normalizePayload({ ...issue, lane }) as Issue
 }

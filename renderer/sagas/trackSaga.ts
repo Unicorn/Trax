@@ -36,14 +36,7 @@ function* watchReloadTrack(action: TrackAction): Iterable<CallEffect | PutEffect
       })
     )
   } catch (e) {
-    yield put(
-      createAlert({
-        key: 'watchReloadTrackError',
-        status: 'error',
-        message: `Error reloading track: ${e.message}`,
-        dismissable: true
-      })
-    )
+    console.log("Ignoring errors for create tracks:", e.message)
   }
 }
 
@@ -62,14 +55,7 @@ function* watchCreateTrack(action: TrackAction): Iterable<AllEffect<CallEffect> 
     )
     yield call(watchReloadTrack, action)
   } catch (e) {
-    yield put(
-      createAlert({
-        key: 'watchCreateTrackError',
-        status: 'error',
-        message: `Error creating track: ${e.message}`,
-        dismissable: true
-      })
-    )
+    console.log("error", e.response)
   }
 }
 

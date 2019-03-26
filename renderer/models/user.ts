@@ -1,4 +1,4 @@
-import { Resource } from './app'
+import { Resource, Resources } from './app'
 
 export enum USERS {
   UPDATE = 'trax/users/update'
@@ -23,6 +23,12 @@ export interface User extends Resource {
   receivedEventsUrl: string
   type: string
   siteAdmin: boolean
+}
+
+export interface Users extends Resources {
+  data: {
+    [key: string]: User
+  }
 }
 
 export interface UpdateUsersAction {

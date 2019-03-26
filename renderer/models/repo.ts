@@ -10,6 +10,7 @@ export interface Repo extends Resource {
   nodeId: string
   fullName: string
   htmlUrl: string
+  ownerId: string
 }
 
 export interface Repos extends Resources {

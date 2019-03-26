@@ -10,6 +10,7 @@ import { Orgs, Org } from './org'
 import { Timer, Timers } from './timer'
 import { Track, Tracks } from './track'
 import { Settings } from './setting'
+import { Users } from './user'
 
 export interface Resource {
   key: string
@@ -39,6 +40,7 @@ export interface AppState {
   settings: Settings
   timers: Timers
   tracks: Resources
+  users: Users
 }
 
 export const defaultState: Resources = {
