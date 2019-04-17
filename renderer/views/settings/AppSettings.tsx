@@ -14,8 +14,10 @@ const AppSettings: React.SFC<Props> = (props) => {
   return (
     <div>
       <p>Current Version: {window.app.version}</p>
-      <button className="yellow button" onClick={logout}>Logout</button>
-      <button className="red button" onClick={resetApp}>Reset Application Data</button>
+      <button className="small yellow button" onClick={logout}>Logout</button>
+      <br />
+      <br />
+      <button className="small red button" onClick={resetApp}>Reset Application Data</button>
     </div>
   )
 }
