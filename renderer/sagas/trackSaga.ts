@@ -9,7 +9,7 @@ import { User } from 'models/user'
 import { Issue } from 'models/issue'
 import { TRACK } from 'models/track'
 import { LABELS } from 'config/constants'
-import { octokit } from 'models/github'
+import { octokit, getIssues, receivedIssues } from 'models/github'
 
 function* watchReloadTrack(action: TrackAction): Iterable<CallEffect | PutEffect> {
   const { payload } = action
@@ -19,6 +19,7 @@ function* watchReloadTrack(action: TrackAction): Iterable<CallEffect | PutEffect
   const [owner, repo] = payload.ident.split('/')
 
   try {
+    yield put(getIssues())
     const users = yield call(octokit.issues.listAssignees, { owner, repo, per_page: 100 })
     const issues = yield call(octokit.issues.listForRepo, { owner, repo, per_page: 100 })
     const normalizedUsers = users.data.map((user: User) => normalizePayload({ ...user, ident: payload.ident }))
@@ -34,6 +35,8 @@ function* watchReloadTrack(action: TrackAction): Iterable<CallEffect | PutEffect
         issueIds: normalizedIssues.map((issue: Issue) => issue.nodeId)
       })
     )
+
+    yield put(receivedIssues())
   } catch (e) {
     console.log("Ignoring errors for create tracks:", e.message)
   }

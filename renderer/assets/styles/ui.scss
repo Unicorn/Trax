@@ -10,7 +10,9 @@ header.toolbar {
   border-bottom: 1px solid rgba(255, 255, 255, 0.6);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
   color: $eggshell;
-  display: block;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
   flex-direction: row;
   font-size: 1.4rem;
   height: $toolbar_height;
@@ -19,12 +21,15 @@ header.toolbar {
   z-index: 300;
 
   .actions {
-    padding: 0 .5rem;
-    float: right;
+    padding: 0 1rem;
 
     button {
-      margin: .6rem 0 0 1rem;
+      margin: 0 0 0 1rem;
       padding: 0;
+
+      &.spin svg {
+        @extend %animate-spin;
+      }
     }
 
     svg {

@@ -43,12 +43,6 @@ class BoardPage extends React.Component<Connected, State> {
   _renderSearch = () => (
     <header className="search">
       <SearchIssues handler={this._filterIssues} />
-
-      <div className="actions">
-        <button className="brown basic micro button" onClick={this._reload}>
-          Reload
-        </button>
-      </div>
     </header>
   )
 

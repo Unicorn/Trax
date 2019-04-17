@@ -26,14 +26,18 @@ export const updateIssue = (payload: IssueModel.Issue): IssueModel.IssueAction =
 export const issuesReducer = (state: Resources = defaultState, action: IssueModel.IssueAction): IssueModel.Issues => {
   const { type, payload } = action
 
-  if (!type || !payload) return state
+  if (!type) return state
 
   const newState = { ...state }
 
   switch (type) {
-    case GithubModel.GITHUB.ISSUE.REQUEST:
+    case GithubModel.GITHUB.ISSUES.REQUEST:
       newState.isLoading = true
-      return newState
+      break
+
+    case GithubModel.GITHUB.ISSUES.SUCCESS:
+      newState.isLoading = false
+      break
 
     case IssueModel.ISSUE.CREATE:
       newState.keys = union(newState.keys, [(payload as IssueModel.Issue).key])
@@ -45,7 +49,6 @@ export const issuesReducer = (state: Resources = defaultState, action: IssueMode
         newState.keys = union(newState.keys, [r.key])
         newState.data[r.key] = merge(newState.data[r.key], r)
       })
-      newState.isLoading = false
       break
 
     case IssueModel.ISSUE.UPDATE:

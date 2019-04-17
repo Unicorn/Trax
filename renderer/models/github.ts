@@ -23,7 +23,8 @@ export const octokit = new Octokit({
 
 export const GITHUB = {
   ISSUES: {
-    REQUEST: 'trax/github/issues/request'
+    REQUEST: 'trax/github/issues/request',
+    SUCCESS: 'trax/github/issues/success'
   },
   ISSUE: {
     REQUEST: 'trax/github/issue/request'
@@ -42,6 +43,16 @@ export const GITHUB = {
 export const getOrgs = (): { type: string } => ({
   type: GITHUB.ORGS.REQUEST
 })
+
+export const getIssues = (): { type: string } => ({
+  type: GITHUB.ISSUES.REQUEST
+})
+
+export const receivedIssues = (): { type: string } => ({
+  type: GITHUB.ISSUES.SUCCESS
+})
+
+
 
 export interface GetReposForLogin {
   type: string

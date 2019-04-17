@@ -1,6 +1,7 @@
 import { Resources, Resource } from 'models/app'
 
 export enum TRACK {
+  REQUEST = 'trax/track/REQUEST',
   CREATE = 'trax/track/CREATE',
   UPDATE = 'trax/track/UPDATE',
   DELETE = 'trax/track/DELETE',

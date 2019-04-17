@@ -7,6 +7,8 @@ import { LANES, Lane } from 'config/constants'
  * Core Definitions
 **/
 export enum ISSUES {
+  REQUEST_START = 'trax/issues/request/start',
+  REQUEST_SUCCESS = 'trax/issues/request/success',
   UPDATE = 'trax/issues/update'
 }
 
