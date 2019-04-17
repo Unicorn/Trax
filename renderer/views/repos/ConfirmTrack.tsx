@@ -17,7 +17,7 @@ const ConfirmTrack: React.SFC<Props> = ({ cancel, handler }) => (
         <UncheckIcon />
       </button>
     </div>
-    <span className="title">Install Trax on this repository?</span>
+    <span className="title">Use Trax with this repository?</span>
   </div>
 )
 
