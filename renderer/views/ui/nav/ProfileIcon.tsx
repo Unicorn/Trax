@@ -5,9 +5,14 @@ interface Connected {
   avatar: string;
 }
 
+const _errorHandler = (e: React.SyntheticEvent<HTMLImageElement>) => {
+  console.log("error loading profile image", e)
+  e.currentTarget.setAttribute('src', '')
+}
+
 const ProfileIcon: React.SFC<Connected> = ({ avatar }) => (
   <div className="profile">
-    <img src={avatar} alt="Profile avatar" height="50px" width="50px" />
+    <img src={avatar} alt="Profile avatar" height="50px" width="50px" onError={_errorHandler} />
   </div>
 )
 

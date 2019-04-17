@@ -12,6 +12,10 @@ import { Track, Tracks } from './track'
 import { Settings } from './setting'
 import { Users } from './user'
 
+export enum APP {
+  RESET = 'trax/app/reset'
+}
+
 export interface Resource {
   key: string
 }
@@ -49,6 +53,14 @@ export const defaultState: Resources = {
   data: {}
 }
 
+//
+// Actions
+//
+export const resetApp = () => ({ type: APP.RESET })
+
+//
+// Helpers
+//
 export const scrubPayload = (payload: any): any => {
   let key: string = payload.nodeId || payload.id || v4()
 

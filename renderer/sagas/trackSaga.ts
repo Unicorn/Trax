@@ -2,7 +2,6 @@ import { put, all, call, takeEvery, ForkEffect, CallEffect, PutEffect, AllEffect
 
 import { updateTrack } from 'controllers/trackController'
 import { updateUsers } from 'controllers/userController'
-import { createAlert } from 'controllers/alertController'
 import { updateIssues } from 'controllers/issueController'
 import { normalizePayload } from 'models/app'
 import { TrackAction } from 'models/track'

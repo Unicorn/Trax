@@ -43,7 +43,7 @@ module.exports = {
 
       // Url loader handles fonts and such
       {
-        test: /\.woff2$/,
+        test: /\.woff2|\.ttf$/,
         loader: 'url-loader'
       },
 

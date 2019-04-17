@@ -407,32 +407,28 @@ section.settings {
 // WELCOME PAGE
 //
 main.welcome {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  margin: 0 auto;
-  max-width: 140rem;
-  padding-top: 10rem;
-  width: 96%;
-
-  .left, .right {
-    max-width: 50%;
-  }
-
-  .left {
-    padding-top: 10rem;
+  header {
+    background: $dark_brown;
+    border-bottom: 1px solid $brown;
+    box-shadow: inset -5px 0 5px rgba(0, 0, 0, 0.5);
+    padding: 4rem;
     text-align: center;
+
+    svg {
+      max-width: 30rem;
+      width: 90%;
+    }
   }
 
-  .button {
-    display: inline-block;
-    margin: 3rem 0 0;
+  .large.button {
+    margin: 4rem auto;
   }
 
-  .logo {
-    display: block;
+  section {
     margin: 0 auto;
-    width: 250px;
+    max-width: 120rem;
+    padding: 0 10%;
+    width: 80%;
   }
 }
 

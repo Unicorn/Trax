@@ -1,5 +1,5 @@
 import { union, merge } from 'lodash'
-import { Resources, defaultState, isArray } from 'models/app'
+import { Resources, defaultState } from 'models/app'
 import * as IssueModel from 'models/issue'
 import * as GithubModel from 'models/github'
 

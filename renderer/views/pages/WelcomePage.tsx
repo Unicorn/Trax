@@ -2,9 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { requestAuth } from 'controllers/authController'
 import { AuthAction } from 'models/auth'
-
-import ExternalLink from 'views/ui/ExternalLink'
-import Logo from 'views/ui/icons/Logo'
+import LogoNeon from 'views/ui/icons/LogoNeon'
 
 interface Actions {
   requestAuth: () => AuthAction
@@ -12,15 +10,13 @@ interface Actions {
 
 const WelcomePage: React.SFC<Actions> = ({ requestAuth }) => (
   <main className="welcome">
-    <div className="left">
-      <ExternalLink className="logo" url="http://unicornagency.com" showIcon={false}>
-        <Logo />
-      </ExternalLink>
+    <header className="hero">
+      <LogoNeon />
+    </header>
 
-      <button className="large basic teal button" onClick={requestAuth}>Login with Github</button>
-    </div>
+    <button className="large basic teal button" onClick={requestAuth}>Login with Github</button>
 
-    <div className="right">
+    <section>
       <h2>Mission</h2>
       <p>
         Sometimes waiting for a product that you want and need in your life just doesn’t make sense. Your productivity suffers everyday without it, and hours are lost managing mundane tasks. We recognized the need for such a product when we calculated the debt of operations across our whole team. We had tremendous overhead with collecting hours and invoices from a myriad of contractors and employees.  In addition each developer on our team spends at least a couple hours a day navigating github repositories. The complexity of many users, with many repositories, with many tasks.. starts to become a significant cognitive load.
@@ -31,19 +27,7 @@ const WelcomePage: React.SFC<Actions> = ({ requestAuth }) => (
       <p>
         Trax lets you select any repo, from any organization and bring the issues of those repos into one kanban workflow. This lets you track your time against various dependencies you may have built for your organization, or even track maintenance and issues of completely unrelated repositories.
       </p>
-
-      <blockquote>
-        <p>
-          <em>
-            "One view to rule them all. One view to find them. One view to
-            bring them all and in Kanban bind them."
-          </em>
-        </p>
-        <p>
-          <strong>-- Lord of the Rings ripoff, aka: geek humor</strong>
-        </p>
-      </blockquote>
-    </div>
+    </section>
   </main>
 )
 
