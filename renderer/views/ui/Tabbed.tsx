@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useEffect, useState } from 'react'
 
 interface Props {
   tabHandler?: (name: string, index: number) => void
@@ -7,69 +8,54 @@ interface Props {
   }
 }
 
-interface State {
-  selected: number
-}
+const Tabbed: React.FunctionComponent<Props> = (props: Props) => {
+  const [ selected, handleSelected ] = useState( -1 )
+  const {
+    content
+  } = props
+  const ids = Object.keys(content)
 
-class Tabbed extends React.Component<Props, State> {
-
-  state = {
-    selected: -1
-  }
-
-  componentWillReceiveProps(props: Props) {
-    // Only run this once
-    if (this.state.selected >= 0)
-      return
+  useEffect(() => {
+    if (selected >= 0) return
 
     const { content, tabHandler } = props
     let key = Object.keys(content)[0]
 
-    this.setState({ selected: 0 })
+    handleSelected(0)
+    if (key && tabHandler) tabHandler(key, 0)
+  }, [props])
 
-    if (key && tabHandler)
-      tabHandler(key, 0)
-  }
+  function _handleTabClick(e: React.FormEvent<HTMLButtonElement>) {
+    const { tabHandler } = props
+    const { name, value } = e.currentTarget
 
-  _handleTabClick = (e: React.FormEvent<HTMLButtonElement>) => {
-    const { tabHandler } = this.props
-    const input = e.currentTarget
     e.preventDefault()
 
-    if (tabHandler)
-      tabHandler(input.name, parseInt(input.value))
+    if (tabHandler) tabHandler(name, parseInt(value))
 
-    this.setState({ selected: parseInt(e.currentTarget.value) })
+    handleSelected(parseInt(value))
   }
 
-  _renderTab(tabText: string, i: number) {
-    const { selected } = this.state
-    const className = selected === i ? 'active' : ''
+  return (
+    <div className="tabbed">
+      <nav className="tabs">
+        {ids.map((key, index) => {
 
-    return (
-      <button key={`tab-${i}`} onClick={this._handleTabClick} className={className} name={tabText} value={i}>
-        <span>{tabText}</span>
-      </button>
-    )
-  }
+          const className = selected === index ? 'active' : ''
 
-  render() {
-    const { selected } = this.state
-    const { content } = this.props
-    const ids = Object.keys(content)
+          return (
+            <button key={`tab-${index}`} onClick={_handleTabClick} className={className} name={key} value={index}>
+              <span>{key}</span>
+            </button>
+          ) 
 
-    return (
-      <div className="tabbed">
-        <nav className="tabs">
-          {ids.map((key, index) => this._renderTab(key, index))}
-        </nav>
-        <div className="pane">
-          {content[ids[selected]]}
-        </div>
+        })}
+      </nav>
+      <div className="pane">
+        {content[ids[selected]]}
       </div>
-    )
-  }
-
+    </div>
+  )
 }
 
 export default Tabbed
