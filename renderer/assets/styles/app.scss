@@ -12,6 +12,7 @@
 header.search {
   @extend %clearfix;
   background-color: darken($eggshell, 3%);
+  border-bottom: 1px solid darken($eggshell, 8%);
   height: 5rem;
   padding: 0;
 
@@ -38,6 +39,10 @@ header.search {
     float: right;
     padding: 1.2rem 2rem 0;
     text-align: right;
+
+    button {
+      margin-top: 0;
+    }
   }
 }
 
@@ -199,7 +204,6 @@ header.title {
 //
 .swimlane {
   background: #fbf9f4;
-  border-top: 2px solid;
   color: $brown;
   flex: 1;
   height: calc(100vh - 8.5rem);
@@ -209,26 +213,51 @@ header.title {
   &.backlog {
     background-color: transparentize($pink, 0.95);
     color: $pink;
+
+    .card header {
+      background-color: transparentize($pink, 0.9);
+      color: $pink;
+    }
   }
 
   &.sprint {
     background-color: transparentize($cyan, 0.95);
     color: $cyan;
+
+    .card header {
+      background-color: transparentize($cyan, 0.9);
+      color: $cyan;
+    }
   }
 
   &.started {
     background-color: transparentize($orange, 0.95);
     color: $orange;
+
+    .card header {
+      background-color: transparentize($orange, 0.9);
+      color: $orange;
+    }
   }
 
   &.review {
     background-color: transparentize($purple, 0.95);
     color: $purple;
+
+    .card header {
+      background-color: transparentize($purple, 0.9);
+      color: $purple;
+    }
   }
 
   &.complete {
     background-color: transparentize($green, 0.95);
     color: $green;
+
+    .card header {
+      background-color: transparentize($green, 0.9);
+      color: $green;
+    }
   }
 
   &.dragging-over {
@@ -260,8 +289,7 @@ header.title {
 .card {
   background: #fff;
   border-radius: 4px;
-  border: 1px solid transparent;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px transparentize($brown, .8), 0 5px 5px transparentize($brown, .9);
   cursor: move;
   margin: $item_spacing;
   min-height: 8rem;
@@ -271,7 +299,7 @@ header.title {
   width: 100%;
 
   &:hover {
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 1px 1px transparentize($brown, .7), 0 5px 5px transparentize($brown, 0.8);
 
     footer {
       height: 4.2rem;
@@ -279,7 +307,7 @@ header.title {
   }
 
   &.dragging {
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 3px transparentize($brown, 0.9), 0 8px 8px transparentize($brown, 0.5);
   }
 
   &.active {
@@ -288,10 +316,6 @@ header.title {
 
       button {
         opacity: 1;
-      }
-
-      .counter {
-        color: darken($eggshell, 25%);
       }
     }
   }
@@ -308,9 +332,9 @@ header.title {
     flex-wrap: nowrap;
     font: 400 1.2rem/1.8rem $font_condensed;
     justify-content: space-between;
+    height: 4.2rem;
 
     strong {
-      color: lighten($brown, 5%);
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -322,6 +346,7 @@ header.title {
     color: $brown;
     display: block;
     font: 400 1.3rem/1.8rem $font_body;
+    padding: 1.5rem 4%;
   }
 
   .label {
@@ -337,7 +362,7 @@ header.title {
 
   footer {
     align-items: center;
-    background: lighten($eggshell, 5%);
+    background: $eggshell;
     display: flex;
     flex-direction: row;
     height: 0;
@@ -366,12 +391,13 @@ header.title {
       svg {
         fill: $brown;
         height: 56px;
+        stroke: $eggshell;
         width: 56px;
       }
     }
 
     .counter {
-      color: darken($eggshell, 15%);
+      color: $brown;
       font: 1.2rem $font_monospace;
       padding-left: 1rem;
     }

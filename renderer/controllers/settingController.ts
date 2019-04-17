@@ -16,9 +16,15 @@ export const setLanes = (value: ActiveLaneValues): SettingsAction => ({
   payload: { key: 'lanes', value }
 })
 
+export const toggleShowSearch = (value: boolean): SettingsAction => ({
+  type: SET_SETTING,
+  payload: { key: 'showSearch', value }
+})
+
 const initialState: Settings = {
   page: 'welcome',
-  lanes: LANES
+  lanes: LANES,
+  showSearch: false
 }
 
 export const settingsReducer = (state: Settings = initialState, action: SettingsAction): Settings => {

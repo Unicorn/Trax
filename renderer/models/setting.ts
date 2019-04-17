@@ -16,11 +16,17 @@ interface ActiveLanes {
   value: ActiveLaneValues
 }
 
-export type Setting = ActivePage | ActiveLanes
+interface ShowSearch {
+  key: 'showSearch'
+  value: boolean
+}
+
+export type Setting = ActivePage | ActiveLanes | ShowSearch
 
 export interface Settings {
   page: ActivePageValues
   lanes: Lane[]
+  showSearch: boolean
 }
 
 export interface SettingsAction {

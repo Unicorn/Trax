@@ -104,22 +104,22 @@ export const TYPES = {
   epic: {
     label: 'Epic',
     name: '---epic',
-    color: '7E5ADD'
+    color: 'A789F6'
   },
   story: {
     label: 'Story',
     name: '--story',
-    color: 'AA8FEF'
+    color: 'C0ABF8'
   },
   feature: {
     label: 'Feature',
     name: '-feature',
-    color: 'D0C1F9'
+    color: 'DBCEFD'
   },
   bug: {
     label: 'Bug',
     name: '-bug',
-    color: 'D0C1F9'
+    color: 'DBCEFD'
   }
 }
 
@@ -127,17 +127,35 @@ export const PRIORITY = {
   high: {
     label: 'High',
     name: '!!!',
-    color: 'DD5A5A'
+    color: 'FF9898'
   },
   medium: {
     label: 'Medium',
     name: '!!',
-    color: 'E79595'
+    color: 'F7C6C6'
   },
   low: {
     label: 'Low',
     name: '!',
-    color: 'F9D4D4'
+    color: 'FFE9E9'
+  }
+}
+
+export const POINTS = {
+  five: {
+    label: 'five',
+    name: '•••••',
+    color: '51B294'
+  },
+  three: {
+    label: 'three',
+    name: '•••',
+    color: '51B294'
+  },
+  one: {
+    label: 'one',
+    name: '•',
+    color: '51B294'
   }
 }
 
@@ -152,7 +170,8 @@ interface LabelsType {
 export const LABELS: LabelsType = {
   ...SWIMLANES,
   ...TYPES,
-  ...PRIORITY
+  ...PRIORITY,
+  ...POINTS
 }
 
 export const LANES: Lane[] = Object.keys(SWIMLANES as Swimlanes).map((key: string) => (SWIMLANES[key] as Swimlane).name as Lane)

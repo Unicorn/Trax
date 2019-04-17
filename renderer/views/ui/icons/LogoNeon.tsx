@@ -47,16 +47,16 @@ const Logo: React.SFC<TIconProps> = (props) => {
                 </feMerge>
             </filter>
         </defs>
-      <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Neon-B" transform="translate(-33.000000, -30.000000)" fill-rule="nonzero">
+      <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+        <g id="Neon-B" transform="translate(-33.000000, -30.000000)" fillRule="nonzero">
           <g id="Group" transform="translate(43.000000, 40.000000)">
             <g id="TRAX">
-              <use fill="black" fill-opacity="1" filter="url(#filter-2)" href="#path-1"></use>
-              <use stroke="#7C30D4" stroke-width="1" fill="#D8B6FF" href="#path-1"></use>
+              <use fill="black" fillOpacity="1" filter="url(#filter-2)" href="#path-1"></use>
+              <use stroke="#7C30D4" strokeWidth="1" fill="#D8B6FF" href="#path-1"></use>
             </g>
             <g id="Combined-Shape">
-              <use fill="black" fill-opacity="1" filter="url(#filter-4)" href="#path-3"></use>
-              <use stroke="#30D4AD" stroke-width="1" fill="#B6FFE2" href="#path-3"></use>
+              <use fill="black" fillOpacity="1" filter="url(#filter-4)" href="#path-3"></use>
+              <use stroke="#30D4AD" strokeWidth="1" fill="#B6FFE2" href="#path-3"></use>
             </g>
           </g>
         </g>

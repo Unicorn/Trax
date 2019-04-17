@@ -18,6 +18,7 @@ interface Connected {
   tracks: Tracks
   issues: Issues
   lanes: Lane[]
+  showSearch: boolean
   dispatch: (action: any) => any
 }
 
@@ -33,10 +34,26 @@ class BoardPage extends React.Component<Connected, State> {
     filteredIssues: []
   }
 
-  componentWillMount() {
+  _reload = () => {
     const { dispatch, tracks } = this.props
     const tracksArr = toArray(tracks) as Track[]
     tracksArr.forEach(track => dispatch(reloadTrack(track)))
+  }
+
+  _renderSearch = () => (
+    <header className="search">
+      <SearchIssues handler={this._filterIssues} />
+
+      <div className="actions">
+        <button className="brown basic micro button" onClick={this._reload}>
+          Reload
+        </button>
+      </div>
+    </header>
+  )
+
+  componentWillMount() {
+    this._reload()
   }
 
   componentWillReceiveProps(props: Connected) {
@@ -76,20 +93,12 @@ class BoardPage extends React.Component<Connected, State> {
   }
 
   render() {
-    const { lanes } = this.props
+    const { lanes, showSearch } = this.props
     const { filteredIssues } = this.state
 
     return (
       <section className="board">
-        <header className="search">
-          <SearchIssues handler={this._filterIssues} />
-
-          <div className="actions">
-            <button className="brown basic micro button">
-              Reload
-            </button>
-          </div>
-        </header>
+        {showSearch && this._renderSearch()}
 
         <div className="columns">
           <DragDropContext onDragEnd={this._onDragEnd}>
@@ -111,7 +120,8 @@ class BoardPage extends React.Component<Connected, State> {
 const mapState = (state: AppState) => ({
   tracks: state.tracks,
   issues: state.issues,
-  lanes: state.settings.lanes
+  lanes: state.settings.lanes,
+  showSearch: state.settings.showSearch
 })
 
 export default connect(mapState)(BoardPage)

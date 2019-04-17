@@ -13,7 +13,7 @@ header.toolbar {
   display: block;
   flex-direction: row;
   font-size: 1.4rem;
-  height: 3.7rem;
+  height: $toolbar_height;
   position: fixed;
   width: 100%;
   z-index: 300;
@@ -23,7 +23,13 @@ header.toolbar {
     float: right;
 
     button {
-      margin-left: 1rem;
+      margin: .6rem 0 0 1rem;
+      padding: 0;
+    }
+
+    svg {
+      fill: $eggshell;
+      width: 2.6rem;
     }
   }
 }
