@@ -6,7 +6,7 @@ import { labelNames } from 'helpers/issueHelper'
 import { createIssueRequest } from 'controllers/issueController'
 import { Tracks } from 'models/track'
 import { Users } from 'models/user'
-import { TYPES, SWIMLANES, PRIORITY } from 'config/constants'
+import { TYPES, SWIMLANES, PRIORITY, POINTS } from 'config/constants'
 
 import { Editor } from 'views/ui/form/Editor'
 import { FormField, OptionsObject } from 'views/ui/form/FormField'
@@ -25,6 +25,7 @@ const defaultState = {
   title: '',
   type: '',
   lane: 'backlog',
+  points: '',
   priority: '',
   assignee: '',
   ident: '',
@@ -40,7 +41,7 @@ class CreatePage extends React.Component<Connected, State> {
   _submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    const { title, type, lane, priority, assignee, ident, body } = this.state
+    const { title, type, lane, points, priority, assignee, ident, body } = this.state
     const [owner, repo] = ident.split('/')
 
     let payload = {
@@ -48,7 +49,7 @@ class CreatePage extends React.Component<Connected, State> {
       body,
       owner,
       repo,
-      labels: labelNames([type, priority, lane]),
+      labels: labelNames([type, points, priority, lane]),
       assignees: [assignee],
     }
 
@@ -86,7 +87,7 @@ class CreatePage extends React.Component<Connected, State> {
 
   render() {
     const { tracks } = this.props
-    const { type, priority, lane, assignee } = this.state
+    const { type, priority, points, lane, assignee } = this.state
 
     tracks.keys.forEach(key => {
       this.repoOptions[tracks.data[key].ident] = {
@@ -124,6 +125,15 @@ class CreatePage extends React.Component<Connected, State> {
               label="Title"
               onChange={this._fieldHandler}
               required
+            />
+
+            <FormField
+              name="points"
+              type="group"
+              label="Points"
+              options={POINTS}
+              selected={points}
+              onChange={this._fieldHandler}
             />
 
             <FormField

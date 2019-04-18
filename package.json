@@ -3,7 +3,7 @@
   "homepage": "./",
   "author": "Unicorn Agency <hello@UnicornAgency.com>",
   "description": "A desktop application for managing Github Projects and Issues",
-  "version": "0.5.1",
+  "version": "0.5.3",
   "private": true,
   "main": "main/electron.js",
   "productName": "Trax",

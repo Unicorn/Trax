@@ -100,7 +100,7 @@ export const SWIMLANES: Swimlanes = {
   }
 }
 
-export const TYPES = {
+export const TYPES: LabelsType = {
   epic: {
     label: 'Epic',
     name: '---epic',
@@ -123,7 +123,7 @@ export const TYPES = {
   }
 }
 
-export const PRIORITY = {
+export const PRIORITY: LabelsType = {
   high: {
     label: 'High',
     name: '!!!',
@@ -141,19 +141,19 @@ export const PRIORITY = {
   }
 }
 
-export const POINTS = {
+export const POINTS: LabelsType = {
   five: {
-    label: 'five',
+    label: '5',
     name: '•••••',
     color: '51B294'
   },
   three: {
-    label: 'three',
+    label: '3',
     name: '•••',
     color: '51B294'
   },
   one: {
-    label: 'one',
+    label: '1',
     name: '•',
     color: '51B294'
   }
