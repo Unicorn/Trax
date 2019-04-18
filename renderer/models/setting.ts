@@ -16,17 +16,29 @@ interface ActiveLanes {
   value: ActiveLaneValues
 }
 
-interface ShowSearch {
-  key: 'showSearch'
+interface ShowBoardSearch {
+  key: 'showBoardSearch'
   value: boolean
 }
 
-export type Setting = ActivePage | ActiveLanes | ShowSearch
+interface ShowBoardHelp {
+  key: 'showBoardHelp'
+  value: boolean
+}
+
+interface FeaturePoints {
+  key: 'featurePoints'
+  value: boolean
+}
+
+export type Setting = ActivePage | ActiveLanes | ShowBoardSearch | ShowBoardHelp | FeaturePoints
 
 export interface Settings {
   page: ActivePageValues
   lanes: Lane[]
-  showSearch: boolean
+  showBoardSearch: boolean
+  showBoardHelp: boolean
+  featurePoints: boolean
 }
 
 export interface SettingsAction {

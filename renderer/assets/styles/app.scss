@@ -285,16 +285,24 @@ header.title {
   }
 
   big {
-    display: block;
+    align-items: baseline;
+    display: flex;
+    flex-direction: row;
     font: 1.8rem $font_header;
+    justify-content: space-between;
     text-transform: capitalize;
+
+    i {
+      font-size: 1.2rem;
+      text-transform: lowercase;
+    }
   }
 
   .inner {
     bottom: 0;
     left: 0;
     overflow-y: scroll;
-    padding: 4%;
+    padding: 4% 4% 10rem 4%;
     position: absolute;
     right: 0;
     top: 4rem;

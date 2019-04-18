@@ -22,12 +22,13 @@ interface Props {
 
 interface Connected {
   timers: Timers
+  featurePoints: boolean
   dispatch: (action: any) => any
 }
 
 const Card: React.SFC<Props & Connected> = (props) => {
 
-  const { dispatch, timers, issue, index } = props
+  const { dispatch, timers, featurePoints, issue, index } = props
 
   const timer = timers.data[issue.key] || { ...defaultTimer, key: issue.key, issue, startedAt: new Date() }
 
@@ -53,7 +54,7 @@ const Card: React.SFC<Props & Connected> = (props) => {
               <TypeIcon type={type} />
               {`${issue.ident}/#${issue.number}`}
             </strong>
-            {points > 0 && <PointsIcon points={points} />}
+            {featurePoints && points > 0 && <PointsIcon points={points} />}
           </header>
 
           <div className="description">
@@ -74,7 +75,8 @@ const Card: React.SFC<Props & Connected> = (props) => {
 }
 
 const mapState = (state: AppState) => ({
-  timers: state.timers
+  timers: state.timers,
+  featurePoints: state.settings.featurePoints
 })
 
 export default connect(mapState)(Card)

@@ -2,7 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 
 import Tabbed from 'views/ui/Tabbed'
-import ProfileHelp from 'views/profile/ProfileHelp'
+import ProfileHelp from 'views/help/ProfileHelp'
 import RepoList from 'views/repos/RepoList'
 import RepoItem from 'views/repos/RepoItem'
 import { AppState, toArray, Resources } from 'models/app'

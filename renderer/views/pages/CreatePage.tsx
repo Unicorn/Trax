@@ -14,6 +14,7 @@ import { FormField, OptionsObject } from 'views/ui/form/FormField'
 interface Connected {
   tracks: Tracks
   users: Users
+  featurePoints: boolean
   dispatch: (action: any) => any
 }
 
@@ -86,7 +87,7 @@ class CreatePage extends React.Component<Connected, State> {
   }
 
   render() {
-    const { tracks } = this.props
+    const { tracks, featurePoints } = this.props
     const { type, priority, points, lane, assignee } = this.state
 
     tracks.keys.forEach(key => {
@@ -127,14 +128,15 @@ class CreatePage extends React.Component<Connected, State> {
               required
             />
 
-            <FormField
-              name="points"
-              type="group"
-              label="Points"
-              options={POINTS}
-              selected={points}
-              onChange={this._fieldHandler}
-            />
+            {featurePoints &&
+              <FormField
+                name="points"
+                type="group"
+                label="Points"
+                options={POINTS}
+                selected={points}
+                onChange={this._fieldHandler}
+              />}
 
             <FormField
               name="priority"
@@ -177,7 +179,8 @@ class CreatePage extends React.Component<Connected, State> {
 
 const mapState = (state: AppState) => ({
   tracks: state.tracks,
-  users: state.users
+  users: state.users,
+  featurePoints: state.settings.featurePoints
 })
 
 export default connect(mapState)(CreatePage)
