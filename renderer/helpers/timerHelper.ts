@@ -4,11 +4,9 @@ export const timerClock = (duration: number, hideEmpty?: boolean): string => {
   let hours = ('0' + Math.floor(duration / (60 * 60)).toString()).slice(-2)
   let minutesDivisor = duration % (60 * 60)
   let minutes = ('0' + Math.floor(minutesDivisor / 60).toString()).slice(-2)
-  let secondsDevisor = minutesDivisor % 60
-  let seconds = ('0' + Math.ceil(secondsDevisor).toString()).slice(-2)
-  let formatted = `${hours}:${minutes}:${seconds}`
+  let formatted = `${hours}:${minutes}`
 
-  return duration > 0 ? formatted : hideEmpty ? '' : '00:00:00'
+  return duration > 0 ? formatted : hideEmpty ? '' : '00:00'
 }
 
 export const timerDuration = (timer: Timer, format?: boolean): number | string => {
@@ -22,4 +20,8 @@ export const timersDuration = (timers: Timer[], format?: boolean): number | stri
   let duration = timers.reduce((prev: number, curr: Timer) => prev + (timerDuration(curr) as number), 0)
 
   return format ? timerClock(duration, true) : duration
+}
+
+export const secondsLapsed = (start: Date): number => {
+  return Math.floor((Date.now() - start.getTime()) / 1000)
 }

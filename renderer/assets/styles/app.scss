@@ -206,7 +206,7 @@ header.title {
   background: #fbf9f4;
   color: $brown;
   flex: 1;
-  height: calc(100vh - 8.5rem);
+  height: calc(100vh - 3.7rem);
   padding: 1.5rem 1%;
   position: relative;
 
@@ -317,6 +317,10 @@ header.title {
       button {
         opacity: 1;
       }
+
+      .counter {
+        @extend %animate-blink;
+      }
     }
   }
 
@@ -362,7 +366,8 @@ header.title {
 
   footer {
     align-items: center;
-    background: $eggshell;
+    background: lighten($eggshell, 4%);
+    box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.04);
     display: flex;
     flex-direction: row;
     height: 0;

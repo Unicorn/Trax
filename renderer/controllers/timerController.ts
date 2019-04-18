@@ -1,6 +1,7 @@
 import { union, merge } from 'lodash'
 import { defaultState } from 'models/app'
 import * as TimerModel from 'models/timer'
+import { secondsLapsed } from 'helpers/timerHelper'
 
 export const startTimer = (payload: TimerModel.Timer): TimerModel.TimerAction => ({
   type: TimerModel.TIMER.START,
@@ -78,7 +79,7 @@ export const timerReducer = (state: TimerModel.Timers = defaultState, action: Ti
       newState.data[payload.key] = merge(newState.data[payload.key], {
         ...payload,
         isRunning: true,
-        duration: newState.data[payload.key].duration + 1
+        duration: payload.startedAt ? secondsLapsed(payload.startedAt) : newState.data[payload.key].duration + 1
       })
       break
 
