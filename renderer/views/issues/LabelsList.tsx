@@ -1,15 +1,15 @@
 import * as React from 'react'
 import { Label } from 'models/label'
 import LabelItem from './LabelItem'
+import { labelsWithoutCore } from 'helpers/labelHelper'
 
 interface Props {
   labels: Label[]
-  withoutLanes: boolean
-  lane: string
+  filterCoreLabels: boolean
 }
 
-const LabelsList: React.SFC<Props> = ({ labels, withoutLanes, lane }) => {
-  const items = withoutLanes ? labels.filter((label: Label) => label.name !== lane) : labels
+const LabelsList: React.SFC<Props> = ({ labels, filterCoreLabels }) => {
+  const items = filterCoreLabels ? labelsWithoutCore(labels) : labels
 
   if (items.length > 0)
     return (

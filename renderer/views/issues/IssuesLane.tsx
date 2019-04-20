@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Droppable, DroppableProvided, DroppableStateSnapshot } from 'react-beautiful-dnd'
 import Card from 'views/issues/Card'
 import { Issue } from 'models/issue'
+import { totalPoints } from 'helpers/issueHelper'
 
 interface Props {
   issues: Issue[]
@@ -27,7 +28,7 @@ const IssuesLane: React.SFC<Props> = ({ lane, issues }) => {
     <Droppable droppableId={lane}>
       {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
         <div className={`swimlane ${lane} ${snapshot.isDraggingOver && 'dragging-over'}`} ref={provided.innerRef}>
-          <big>{lane}</big>
+          <big><b>{lane}</b> <i>{totalPoints(issues)}</i></big>
           <div className="inner">
             {renderIssues(issues, lane)}
           </div>

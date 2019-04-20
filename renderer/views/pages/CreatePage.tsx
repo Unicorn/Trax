@@ -6,7 +6,7 @@ import { labelNames } from 'helpers/issueHelper'
 import { createIssueRequest } from 'controllers/issueController'
 import { Tracks } from 'models/track'
 import { Users } from 'models/user'
-import { TYPES, SWIMLANES, PRIORITY } from 'config/constants'
+import { TYPES, SWIMLANES, PRIORITY, POINTS } from 'config/constants'
 
 import { Editor } from 'views/ui/form/Editor'
 import { FormField, OptionsObject } from 'views/ui/form/FormField'
@@ -14,6 +14,7 @@ import { FormField, OptionsObject } from 'views/ui/form/FormField'
 interface Connected {
   tracks: Tracks
   users: Users
+  featurePoints: boolean
   dispatch: (action: any) => any
 }
 
@@ -25,6 +26,7 @@ const defaultState = {
   title: '',
   type: '',
   lane: 'backlog',
+  points: '',
   priority: '',
   assignee: '',
   ident: '',
@@ -40,7 +42,7 @@ class CreatePage extends React.Component<Connected, State> {
   _submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    const { title, type, lane, priority, assignee, ident, body } = this.state
+    const { title, type, lane, points, priority, assignee, ident, body } = this.state
     const [owner, repo] = ident.split('/')
 
     let payload = {
@@ -48,7 +50,7 @@ class CreatePage extends React.Component<Connected, State> {
       body,
       owner,
       repo,
-      labels: labelNames([type, priority, lane]),
+      labels: labelNames([type, points, priority, lane]),
       assignees: [assignee],
     }
 
@@ -85,8 +87,8 @@ class CreatePage extends React.Component<Connected, State> {
   }
 
   render() {
-    const { tracks } = this.props
-    const { type, priority, lane, assignee } = this.state
+    const { tracks, featurePoints } = this.props
+    const { type, priority, points, lane, assignee } = this.state
 
     tracks.keys.forEach(key => {
       this.repoOptions[tracks.data[key].ident] = {
@@ -125,6 +127,16 @@ class CreatePage extends React.Component<Connected, State> {
               onChange={this._fieldHandler}
               required
             />
+
+            {featurePoints &&
+              <FormField
+                name="points"
+                type="group"
+                label="Points"
+                options={POINTS}
+                selected={points}
+                onChange={this._fieldHandler}
+              />}
 
             <FormField
               name="priority"
@@ -167,7 +179,8 @@ class CreatePage extends React.Component<Connected, State> {
 
 const mapState = (state: AppState) => ({
   tracks: state.tracks,
-  users: state.users
+  users: state.users,
+  featurePoints: state.settings.featurePoints
 })
 
 export default connect(mapState)(CreatePage)

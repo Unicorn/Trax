@@ -12,6 +12,7 @@ import { Issues, Issue } from 'models/issue'
 import { updateIssueLane } from 'models/github'
 import { Lane } from 'config/constants'
 
+import BoardHelp from 'views/help/BoardHelp'
 import IssuesLane from 'views/issues/IssuesLane'
 import SearchIssues from 'views/issues/SearchIssues'
 
@@ -19,7 +20,8 @@ interface Connected {
   tracks: Tracks
   issues: Issues
   lanes: Lane[]
-  showSearch: boolean
+  showBoardSearch: boolean
+  showBoardHelp: boolean
   dispatch: (action: any) => any
 }
 
@@ -70,13 +72,13 @@ const BoardPage: React.FunctionComponent<Connected> = (props: Connected) => {
   }, [props])
 
   const {
-    lanes, showSearch
+    lanes, showBoardSearch
   } = props
 
   return (
 
     <section className="board">
-      { showSearch && <SearchIssues handler={ _filterIssues }/> }
+      { showBoardSearch && <SearchIssues handler={ _filterIssues }/> }
       <div className="columns">
         <DragDropContext onDragEnd={ _onDragEnd }>
           {lanes.map(lane => (
@@ -96,7 +98,8 @@ const mapState = (state: AppState) => ({
   tracks: state.tracks,
   issues: state.issues,
   lanes: state.settings.lanes,
-  showSearch: state.settings.showSearch
+  showBoardSearch: state.settings.showBoardSearch,
+  showBoardHelp: state.settings.showBoardHelp
 })
 
 export default connect(mapState)(BoardPage)

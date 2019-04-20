@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { logout } from 'controllers/authController'
 import { reloadTrack } from 'controllers/trackController'
-import { toggleShowSearch } from 'controllers/settingController'
+import { toggleShowBoardSearch } from 'controllers/settingController'
 import { SettingsAction } from 'models/setting'
 import { AppState, toArray } from 'models/app'
 import { Tracks, Track, TrackAction } from 'models/track'
@@ -21,15 +21,15 @@ interface Props {
 interface Actions {
   tracks: Tracks
   page: string
-  showSearch: boolean
+  showBoardSearch: boolean
   issuesLoading: boolean
   reloadTrack: (payload: Track) => TrackAction
-  toggleShowSearch: (value: boolean) => SettingsAction
+  toggleShowBoardSearch: (value: boolean) => SettingsAction
 }
 
 const Dashboard: React.SFC<Props & Actions> = (props) => {
 
-  const { children, tracks, page, showSearch, issuesLoading, reloadTrack, toggleShowSearch } = props
+  const { children, tracks, page, showBoardSearch, issuesLoading, reloadTrack, toggleShowBoardSearch } = props
 
   const _reloadTracks = () => {
     const tracksArr = toArray(tracks) as Track[]
@@ -37,7 +37,7 @@ const Dashboard: React.SFC<Props & Actions> = (props) => {
   }
 
   const _renderBoardActions = () => [
-    <button key="search" onClick={() => toggleShowSearch(!showSearch)}><SearchIcon /></button>,
+    <button key="search" onClick={() => toggleShowBoardSearch(!showBoardSearch)}><SearchIcon /></button>,
     <button key="loading" className={issuesLoading ? 'spin' : ''} onClick={_reloadTracks}><LoadingIcon /></button>
   ]
 
@@ -65,12 +65,12 @@ const Dashboard: React.SFC<Props & Actions> = (props) => {
 const mapState = (state: AppState) => ({
   tracks: state.tracks,
   page: state.settings.page,
-  showSearch: state.settings.showSearch,
+  showBoardSearch: state.settings.showBoardSearch,
   issuesLoading: state.issues.isLoading
 })
 
 const mapDispatch = ({
-  toggleShowSearch,
+  toggleShowBoardSearch,
   reloadTrack,
   logout
 })
