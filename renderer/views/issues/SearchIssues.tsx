@@ -5,11 +5,13 @@ interface Props {
 }
 
 const SearchIssues: React.SFC<Props> = ({ handler }) => (
-  <input
-    type="text"
-    placeholder="Search for tasks..."
-    onChange={handler}
-  />
+  <header className="search">
+    <input
+      type="text"
+      placeholder="Search for tasks..."
+      onChange={handler}
+    />
+  </header>
 )
 
 export default SearchIssues
