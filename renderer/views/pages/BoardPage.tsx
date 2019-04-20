@@ -12,7 +12,6 @@ import { Issues, Issue } from 'models/issue'
 import { updateIssueLane } from 'models/github'
 import { Lane } from 'config/constants'
 
-import BoardHelp from 'views/help/BoardHelp'
 import IssuesLane from 'views/issues/IssuesLane'
 import SearchIssues from 'views/issues/SearchIssues'
 
@@ -58,7 +57,7 @@ const BoardPage: React.FunctionComponent<Connected> = (props: Connected) => {
   }
 
   useEffect(() => {
-    return _reload()
+    _reload()
   }, [])
 
   useEffect(() => {
