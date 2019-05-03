@@ -19,6 +19,7 @@ Gemfile.lock
 *~
 
 # Folders
+node_modules
 /vendor
 bbin/
 bin/

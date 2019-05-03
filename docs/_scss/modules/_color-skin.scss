@@ -1,60 +1,32 @@
-/**
- *
- *  Color Skin
- *
- *  @package gleesik_module
- *
- *
- *
- *
- *  ##### Theme Colors Primary
- *  $blue: #21c2f8;
- *  $green: #2ecc71;
- *
- *  ##### Global Pallete
- *  $white: #fff;
- *  $black: #000;
- *  $black-transparent: rgba($black, 0.9);
- *  $light-blue: #f4f8f9;
- *
- *  ##### Primary & Secondary
- *  $primary: $blue; // This is primary theme color
- *  $secondary: #2c3e50;
- *
- *  ##### Global Text Color
- *  $global-text: #848484;
- *
- *  ##### Gray Pallete
- *  $light-gray: #e3e9ed;
- *  $simple-gray: #bdc3c7;
- *  $normal-gray: #464646;
- *  $dark-gray: #202020;
- *
- *
- *
- *
- **/
-
-// Theme Colors
-$blue: #21c2f8;
-$green: #2ecc71;
+$blue: #3C7CB3;
+$orange: #F85E10;
+$purple: #7C30D4;
+$green: #5FB42F;
+$yellow: #F0CF0F;
+$cyan: #48B1C6;
+$teal: #51B294;
+$red: #B33C3C;
+$pink: #E068DB;
+$eggshell: #F4F0E8;
+$creme: #fbf9f4;
+$brown: #99896F;
+$dark_brown: #231c10;
 
 // Global Pallete
-$white: #fff;
-$black: #000;
-$black-transparent:  rgba($black, 0.9);
+$white: $eggshell;
+$black: $dark_brown;
+$black-transparent:  tranprantize($dark_brown, 0.9);
 $light-blue: #f4f8f9;
 
 // Primary & Secondary
-$primary: $blue;
-$secondary: #2c3e50;
+$primary: $brown;
+$secondary: $teal;
 
 // Gray Pallete
-$text-gray: #848484;
-$light-gray: #e3e9ed;
-$simple-gray: #bdc3c7;
-$normal-gray: #464646;
-$dark-gray: #202020;
+$text-gray: $brown;
+$light-gray: $eggshell;
+$simple-gray: darken($eggshell, 10%);
+$normal-gray: $brown;
 
 // Global Text Color
 $global-text: darken($text-gray, 15%);
@@ -67,8 +39,8 @@ $section-bg: $white;
 $section-focus: $light-blue;
 
 // Footer Colors
-$footer-color: $text-gray;
-$footer-background-color: $dark-gray;
+$footer-color: $brown;
+$footer-background-color: $dark_brown;
 
 // Sidebar Colors [Widgets]
 $sidebar-header: $light-blue;

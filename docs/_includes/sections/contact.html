@@ -3,7 +3,7 @@
 
   <!-- Parallax Contact Image -->
   <div class="cover" data-scrollax="properties: { 'translateY': '48%' }">
-    <img src="{{ site.baseurl }}/images/contact-image.jpg" alt="Sera - One Page Template by Gleesik Wallpaper" />
+    <img src="{{ site.baseurl }}/images/contact-image.jpg" alt="Let's get a coffee sometime" />
   </div>
 
   <div class="container">
@@ -34,9 +34,6 @@
             <input type="text" name="name" placeholder="Name" />
           </div>
           <div class="col-md-6">
-            <input type="text" name="website" placeholder="Website" />
-          </div>
-          <div class="col-md-6">
             <input type="text" name="email" placeholder="Email" />
           </div>
           <div class="col-md-6">
@@ -55,36 +52,3 @@
 
   </div>
 </section>
-
-<!-- Google Map Embed -->
-<div class="google-map">
-
-  <script src="http://maps.googleapis.com/maps/api/js?key={{ site.key-api }}"></script>
-  <div style='overflow:hidden;height:490px;width:100%;'>
-      <div id='gmap_canvas' style='height:490px;width:100%;'></div>
-  </div>
-  <script type='text/javascript'>
-      function init_map() {
-          var myOptions = {
-              zoom: 10,
-              scrollwheel: false,
-              center: new google.maps.LatLng( {{ site.map-lat }}, {{ site.map-lng }} ),
-              mapTypeId: google.maps.MapTypeId.ROADMAP
-          };
-          map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);
-          marker = new google.maps.Marker({
-              map: map,
-              position: new google.maps.LatLng( {{ site.map-lat }}, {{ site.map-lng }} )
-          });
-          infowindow = new google.maps.InfoWindow({
-              content: '<span><strong>{{ site.map-text }}</strong><br>{{ site.map-text-location }}<br><span>'
-          });
-          google.maps.event.addListener(marker, 'click', function() {
-              infowindow.open(map, marker);
-          });
-          infowindow.open(map, marker);
-      }
-      google.maps.event.addDomListener(window, 'load', init_map);
-  </script>
-
-</div>

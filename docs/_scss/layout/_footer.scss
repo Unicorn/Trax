@@ -14,7 +14,7 @@ footer.site-footer {
 
   // Footer Information
   .footer-info {
-    padding: 80px 0;
+    padding: 40px 0 0;
 
     .footer-logo {
       position: relative;
@@ -27,18 +27,6 @@ footer.site-footer {
     .footer-info-text {
       font-size: 0.875rem;
       padding: 35px 0;
-    }
-
-    // Social Media Icons
-    .social-icons {
-      a  {
-        color: $global-text;
-
-        &:hover,
-        &:active {
-          color: $primary;
-        }
-      }
     }
   }
 

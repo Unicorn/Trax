@@ -81,7 +81,7 @@ header.site-header {
 
             &.current-menu-item {
               a {
-                color: $primary;
+                color: $teal;
                 position: relative;
 
                 &:before {
@@ -93,7 +93,7 @@ header.site-header {
                   left: 50%;
                   bottom: -10px;
                   transform: translateX(-50%);
-                  background-color: $primary;
+                  background-color: $teal;
                 }
               }
             }

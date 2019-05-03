@@ -3,7 +3,7 @@
 
   <!-- Parallax Image -->
   <div class="cover" data-scrollax="properties: { 'translateY': '48%' }">
-    <img src="{{ site.baseurl }}/images/features-parallax.jpg" alt="Parallax Features" />
+    <img src="{{ site.baseurl }}/images/features-parallax.png" alt="Screenshot of Trax App repos list" />
   </div>
 
   <div class="container">
@@ -13,13 +13,13 @@
 
       <!-- Section Header -->
       <header class="col-md-8 col-md-push-2 col-sm-12 section-header">
-        <h2>{{ site.core-title }}</h2>
+        <h2>Project management for github</h2>
         <hr class="normal">
       </header>
 
       <!-- Section Content -->
       <div class="col-md-8 col-md-push-2 col-sm-12 section-content">
-        <p>{{ site.core-description }}</p>
+        <p>Whether your a freelancer, SCRUM master, or team developer: if you use github then you will love Trax. With Trax you can properly manage multi-task your pet-projects, open source contributions, and clients!</p>
       </div>
 
     </div>
@@ -27,47 +27,47 @@
     <!-- Section Features -->
     <div class="row section-features">
 
-      <div class="col-md-4 col-sm-6 text-right">
-
-        {% for feature in site.core-features-left %}
-
-        <div class="feature">
-          <div class="text-wrap">
-            <h3>{{ feature.name }}</h3>
-            <p>{{ feature.description }}</p>
-          </div>
-          <div class="icon-wrap">
-            <div class="circle parent">
-              <i class="{{ feature.icon }} child-center"></i>
-            </div>
-          </div>
-        </div>
-
-        {% endfor %}
-
-      </div>
-
-      <div class="col-md-4 phone">
-        <img src="{{ site.baseurl }}/images/phone.png" alt="Phone Image" />
+      <div class="col-md-8 phone">
+        <img src="{{ site.baseurl }}/images/trax-features.png" alt="Features highlight of Trax App" />
       </div>
 
       <div class="col-md-4 col-sm-6 text-left">
 
-        {% for feature in site.core-features-right %}
-
         <div class="feature">
           <div class="text-wrap">
-            <h3>{{ feature.name }}</h3>
-            <p>{{ feature.description }}</p>
+            <h3>Velocity Planning</h3>
+            <p>Built-in velocity planning using a fibonacci weight scale and github issue labels.</p>
           </div>
           <div class="icon-wrap">
             <div class="circle parent">
-              <i class="{{ feature.icon }} child-center"></i>
+              <i class="pe-7s-graph child-center"></i>
             </div>
           </div>
         </div>
 
-        {% endfor %}
+        <div class="feature">
+          <div class="text-wrap">
+            <h3>Story Templates</h3>
+            <p>Use the default issue templates to create and distinguish: epics, stories, features and bugs.</p>
+          </div>
+          <div class="icon-wrap">
+            <div class="circle parent">
+              <i class="pe-7s-copy-file child-center"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="text-wrap">
+            <h3>Issue Timers</h3>
+            <p>Support for time tracking on any github issue in addition to generic timers.</p>
+          </div>
+          <div class="icon-wrap">
+            <div class="circle parent">
+              <i class="pe-7s-clock child-center"></i>
+            </div>
+          </div>
+        </div>
 
       </div>
 

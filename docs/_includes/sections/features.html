@@ -7,13 +7,13 @@
 
       <!-- Section Header -->
       <header class="col-md-8 col-md-push-2 col-sm-12 section-header">
-        <h2>{{ site.features-title }}</h2>
+        <h2>Application Features</h2>
         <hr class="normal">
       </header>
 
       <!-- Section Content -->
       <div class="col-md-8 col-md-push-2 col-sm-12 section-content">
-        <p>{{ site.features-description }}</p>
+        <p>Trax brings all your issues across multiple repos onto one Kanban style board. Velocity planning, invoice generation and time reports are all baked in. Use it as an all-in-one solution, or turn off the features you don't care about.</p>
       </div>
 
     </div>
@@ -21,23 +21,47 @@
     <!-- Features -->
     <div class="row features">
 
-      {% for feature in site.features %}
+      <div class="col-md-4 col-md-push-0 col-sm-8 col-sm-push-2 col-xs-10 col-xs-push-1 feature">
+        <div class="icon parent">
+          <div class="circle parent">
+            <div class="circle child-center">
+              <i class="pe-7s-way child-center"></i>
+            </div>
+          </div>
+        </div>
+        <div class="content text-center">
+          <h3>A single unified board</h3>
+          <p>Track issues across multiple github repos on a single board. Similar to github projects, but with more power and elegance.</p>
+        </div>
+      </div>
 
       <div class="col-md-4 col-md-push-0 col-sm-8 col-sm-push-2 col-xs-10 col-xs-push-1 feature">
         <div class="icon parent">
           <div class="circle parent">
             <div class="circle child-center">
-              <i class="{{ feature.icon }} child-center"></i>
+              <i class="pe-7s-hourglass child-center"></i>
             </div>
           </div>
         </div>
         <div class="content text-center">
-          <h3>{{ feature.title }}</h3>
-          <p>{{ feature.description }}</p>
+          <h3>Time tracking on issues</h3>
+          <p>Use your current github issues for time tracking, invoice generation, velocity planning, and burn rate reports.</p>
         </div>
       </div>
 
-      {% endfor %}
+      <div class="col-md-4 col-md-push-0 col-sm-8 col-sm-push-2 col-xs-10 col-xs-push-1 feature">
+        <div class="icon parent">
+          <div class="circle parent">
+            <div class="circle child-center">
+              <i class="pe-7s-cloud child-center"></i>
+            </div>
+          </div>
+        </div>
+        <div class="content text-center">
+          <h3>Work offline</h3>
+          <p>Tech nomads tend to wander. Trax synchronizes your data locally so you can manage issues and track time offline.</p>
+        </div>
+      </div>
 
     </div>
 
