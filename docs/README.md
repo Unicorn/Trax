@@ -1,23 +1,49 @@
-# Trax - [Read Announcement](https://medium.com/@UnicornAgency/coming-soon-a-desktop-app-for-time-tracking-and-agile-with-github-ccb846b8255c)
-Is a desktop app for managing time and tasks in a Kanban board. It has been built with:
+```
+=================================================
+=====     jekyll-gulp-sass-browser-sync     =====
+=================================================
+```
+A project including full setup for Jekyll, GulpJS, SASS, AutoPrefixer &amp; BrowserSync
 
-- Electron
-- React
-- Redux
-- Redux-Saga
-- Typescript
-- Webpack
+## System Preparation
 
-## Why we built Trax
+To use this project, you'll need the following things installed on your machine.
 
-![Screenshot of Profile](https://cdn-images-1.medium.com/max/2000/1*Y9rlATyXigaa0XVo2EoPVQ.png)
+1. [Jekyll](http://jekyllrb.com/) - `$ gem install jekyll`
+2. [Jekyll-Archives](http://jekyllrb.com) - `$ bundle install`
+3. [NodeJS](http://nodejs.org) - use the installer.
+4. [GulpJS](https://github.com/gulpjs/gulp) - `$ npm install -g gulp` (mac users may need sudo)
 
-Sometimes waiting for a product that you want and need in your life just doesn’t make sense. Your productivity suffers everyday without it, and hours are lost managing mundane tasks. We recognized the need for such a product when we calculated the debt of operations across our whole team. We had tremendous overhead with collecting hours and invoices from a myriad of contractors and employees. In addition each developer on our team spends at least a couple hours a day navigating github repositories. The complexity of many users, with many repositories, with many tasks.. starts to become a significant cognitive load.
+## Local Installation
 
-![Screenshot of Board](https://cdn-images-1.medium.com/max/2000/1*TZw7R4v6inNuz4TeRmj4yg.png)
+1. Inside the directory, run `npm install`.
+2. Enjoy
 
-## Running the application
-`yarn dev` will get everything started up in development, provided you have met the prerequisites. `yarn electron:build` will compile the application for regular use into the `dist` folder for install, or you can grab a prebuilt installer/app from the [Releases Page](/releases)
+## Usage
 
-## Contributing
-Fork and hack away, or open issues and help us organize bugs and features!
+**development mode**
+
+This will give you file watching, browser synchronisation, auto-rebuild, CSS injecting etc etc.
+
+```shell
+$ gulp
+```
+
+**jekyll**
+
+As this is just a Jekyll project, you can use any of the commands listed in their [docs](http://jekyllrb.com/docs/usage/)
+
+## Deploy with Gulp
+
+You can easily deploy your site build to a gh-pages branch. First, follow the instructions at [gulp-gh-pages](https://github.com/rowoot/gulp-gh-pages) to get your branch prepared for the deployment and to install the module. Then, in `gulpfile.js` you'll want to include something like the code below. `gulp.src()` needs to be the path to your final site folder, which by default will be `_site`. If you change the `destination` in your `_config.yml` file, be sure to reflect that in your gulpfile.
+
+
+
+```javascript
+var deploy = require("gulp-gh-pages");
+
+gulp.task("deploy", ["jekyll-build"], function () {
+    return gulp.src("./_site/**/*")
+        .pipe(deploy());
+});
+```

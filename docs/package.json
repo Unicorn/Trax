@@ -1,0 +1,34 @@
+{
+  "name": "sera-onepage",
+  "version": "1.1.0",
+  "description": "A project including full setup for Jekyll, GulpJS, SASS & BrowserSync",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniel Costrășel",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.23.5",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.1.0",
+    "gulp-sass": "^3.1.0"
+  },
+  "repository": {
+    "type": "template",
+    "url": "https://gleesik.ro/"
+  },
+  "keywords": [
+    "jekyll",
+    "gulp",
+    "sass",
+    "browsersync"
+  ],
+  "bugs": {
+    "url": "https://gleesik.ro/"
+  },
+  "homepage": "https://gleesik.ro/",
+  "dependencies": {
+    "gulp-gh-pages": "^0.5.4"
+  }
+}
