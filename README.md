@@ -1,4 +1,4 @@
-# Trax - [Read Announcement](https://medium.com/@UnicornAgency/coming-soon-a-desktop-app-for-time-tracking-and-agile-with-github-ccb846b8255c)
+# Trax: http://trax.management/
 Is a desktop app for managing time and tasks in a Kanban board. It has been built with:
 
 - Electron
