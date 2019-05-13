@@ -1,4 +1,4 @@
-@import 'constants.scss';
+@import '_variables';
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i|Cutive+Mono|Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i');
 
 //
@@ -31,8 +31,8 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 html, body {
-  background: $eggshell;
-  color: $brown;
+  background: color(neutral, 200);
+  color: color(neutral, 500);
   font-family: $font_body;
   font-size: 10px;
   font-weight: 500;
@@ -43,7 +43,7 @@ html, body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: darken($brown, 25%);
+  color: darken(color(neutral, 500), 25%);
   font-family: $font_header;
   font-weight: 500;
 }
@@ -94,7 +94,7 @@ a {
 
     .icon svg {
       display: inline-block;
-      fill: $teal;
+      fill: color(teal, 500);
       margin: .2rem 0 0 .3rem;
       transition: fill .2s;
       width: 1.2rem;
@@ -137,17 +137,17 @@ table {
 
   tbody {
     tr {
-      box-shadow: 0 3px 6px transparentize($brown, .95);
+      box-shadow: 0 3px 6px transparentize(color(neutral, 500), .95);
       transition: box-shadow .3s;
 
       &:hover {
-        box-shadow: 0 3px 8px transparentize($brown, .75);
+        box-shadow: 0 3px 8px transparentize(color(neutral, 500), .75);
       }
     }
   }
 
   .label {
-    background: $eggshell;
+    background: color(neutral, 200);
     border-radius: 1px;
     color: rgba(0, 0, 0, 0.4);
     display: inline-block;

@@ -1,12 +1,4 @@
-@import 'constants.scss';
-@import 'motion.scss';
-
-$input_background: lighten($eggshell, 6%);
-$input_font: 400 1.4rem $font_body;
-$input_letter_spacing: .05em;
-$input_color: $brown;
-$input_border_bottom: 2px solid lighten($brown, 30%);
-$input_padding: .8rem 1.2rem;
+@import '_variables';
 
 button {
   &.null {
@@ -42,18 +34,15 @@ input, textarea, select {
   text-align: left;
 }
 
+//
+// Fields
+//
 .field {
-  margin: 3rem 0 1rem;
+  margin: $input_spacing;
   position: relative;
   text-align: left;
 
-  &.actions {
-    .error {
-      padding-left: 2rem;
-    }
-  }
-
-  &.textarea, &.text {
+  &.textarea, &.text, &.email, &.password {
     label {
       pointer-events: none;
     }
@@ -87,11 +76,11 @@ input, textarea, select {
       }
 
       &:hover {
-        background-color: transparentize($yellow, .9);
+        background-color: transparentize(color(primary, 500), .9);
       }
 
       &.active {
-        background-color: $teal;
+        background-color: color(primary, 500);
         color: #fff;
       }
     }
@@ -111,7 +100,7 @@ input, textarea, select {
     }
 
     .slider {
-      background-color: $brown;
+      background-color: color(neutral, 500);
       border-radius: 1.3rem;
       height: 2.6rem;
       position: absolute;
@@ -123,7 +112,7 @@ input, textarea, select {
     }
 
     .slider:before {
-      background-color: $eggshell;
+      background-color: color(primary, 500);
       border-radius: 100%;
       bottom: .2rem;
       box-shadow: inset 0 2px 5px #fff;
@@ -137,7 +126,7 @@ input, textarea, select {
     }
 
     input:checked + .slider {
-      background-color: $teal;
+      background-color: color(primary, 500);
 
       &:before {
         left: 2.5rem;
@@ -145,7 +134,7 @@ input, textarea, select {
     }
 
     input:focus + .slider {
-      box-shadow: 0 0 1px $teal;
+      box-shadow: 0 0 1px color(primary, 500);
     }
   }
 
@@ -164,12 +153,12 @@ input, textarea, select {
 
     &:hover {
       svg {
-        fill: $brown;
+        fill: color(neutral, 500);
       }
     }
   }
 
-  input[type="text"], textarea, select {
+  input[type="text"], input[type="email"], input[type="password"], textarea, select {
     -webkit-appearance: none;
     background-color: $input_background;
     border-bottom: $input_border_bottom;
@@ -179,7 +168,7 @@ input, textarea, select {
     width: 100%;
 
     ~ span {
-      border-top: 2px solid lighten($brown, 30%);
+      border-top: 2px solid lighten(color(neutral, 500), 30%);
       bottom: 0;
       display: block;
       height: 0px;
@@ -192,23 +181,23 @@ input, textarea, select {
     }
 
     &:focus ~ span {
-      border-color: $brown;
+      border-color: color(neutral, 500);
       width: 100%;
     }
 
     &:focus + label, &:valid + label {
-      font-size: 1.2rem;
       bottom: 100%;
+      font-size: 1.2rem;
     }
 
     &:valid ~ span {
-      border-color: $teal;
+      border-color: color(primary, 500);
       width: 100%;
     }
 
     &:invalid ~ span {
-      border-color: $red;
-      color: $red;
+      border-color: color(red, 500);
+      color: color(red, 500);
     }
 
     + label {
@@ -217,6 +206,27 @@ input, textarea, select {
       bottom: .8rem;
       transition: font-size 0.2s ease, bottom 0.2s ease;
       z-index: 1;
+    }
+  }
+
+  &.valid {
+    input[type="text"] ~ span, input[type="email"] ~ span, input[type="password"] ~ span, textarea ~ span, select ~ span {
+      border-color: color(primary, 500);
+      width: 100%;
+    }
+  }
+
+  &.invalid {
+    input[type="text"] ~ span, input[type="email"] ~ span, input[type="password"] ~ span, textarea ~ span, select ~ span {
+      border-color: color(red, 500);
+      color: color(red, 500);
+    }
+  }
+
+  &.not-empty {
+    input[type="text"] + label, input[type="email"] + label, input[type="password"] + label, textarea + label, select + label {
+      bottom: 100%;
+      font-size: 1.2rem;
     }
   }
 
@@ -242,7 +252,7 @@ input, textarea, select {
     margin-top: 2rem;
 
     span {
-      color: $brown;
+      color: color(neutral, 500);
       font-size: 1.2rem;
       display: block;
       padding: .5rem 2rem 1rem 3rem;
@@ -256,8 +266,8 @@ input, textarea, select {
       width: 100%;
 
       &::after {
-        background: $eggshell;
-        border: 4px solid $eggshell;
+        background: color(primary, 500);
+        border: 4px solid color(primary, 500);
         border-radius: 100%;
         color: rgba(0, 0, 0, 0.5);
         content: ' ';
@@ -270,25 +280,26 @@ input, textarea, select {
 
       &:hover {
         ~ span {
-          color: darken($brown, 15%);
+          color: darken(color(neutral, 500), 15%);
           cursor: pointer;
         }
 
         &::after {
-          background: darken($eggshell, 10%);
+          background: darken(color(primary, 500), 10%);
         }
       }
     }
 
     input:checked {
       &::after {
-        background: $teal;
-        border-color: lighten($brown, 30%);
+        background: color(primary, 500);
+        border-color: lighten(color(neutral, 500), 30%);
         content: ' ';
       }
     }
   }
 }
+
 
 .input.checkbox {
   display: inline-block;
@@ -303,8 +314,8 @@ input, textarea, select {
     width: 25px;
 
     &::after {
-      background: darken($eggshell, 5%);
-      border: 5px solid darken($eggshell, 5%);
+      background: darken(color(neutral, 200), 5%);
+      border: 5px solid darken(color(neutral, 200), 5%);
       border-radius: 1px;
       color: rgba(0, 0, 0, 0.5);
       content: ' ';
@@ -317,20 +328,20 @@ input, textarea, select {
 
     &:hover {
       ~ span {
-        color: darken($brown, 15%);
+        color: darken(color(neutral, 500), 15%);
         cursor: pointer;
       }
 
       &::after {
-        background: darken($eggshell, 10%);
+        background: darken(color(neutral, 200), 10%);
       }
     }
   }
 
   input:checked {
     &::after {
-      background: $teal;
-      border-color: lighten($brown, 30%);
+      background: color(teal, 500);
+      border-color: lighten(color(neutral, 500), 30%);
       box-shadow: inset 0 4px 9px rgba(255, 255, 255, 0.2);
       content: ' ';
     }
@@ -369,7 +380,7 @@ input, textarea, select {
   background: #fff;
   border: none;
   border-radius: 4px;
-  color: $brown;
+  color: color(neutral, 500);
   cursor: pointer;
   font: 400 1.5rem $font_condensed;
   letter-spacing: .05rem;
@@ -424,12 +435,12 @@ input, textarea, select {
     padding: 0 .25rem;
   }
 
-  @include button-color(brown, $brown)
-  @include button-color(teal, $teal)
-  @include button-color(yellow, $yellow)
-  @include button-color(green, $green)
-  @include button-color(blue, $blue)
-  @include button-color(red, $red)
+  @include button-color(brown, color(neutral, 500))
+  @include button-color(teal, color(teal, 500))
+  @include button-color(yellow, color(yellow, 500))
+  @include button-color(green, color(green, 500))
+  @include button-color(blue, color(blue, 500))
+  @include button-color(red, color(red, 500))
 }
 
 
@@ -439,7 +450,7 @@ input, textarea, select {
 .field.select {
   .Select {
     background-color: $input_background;
-    border-bottom: 2px solid lighten($brown, 30%);
+    border-bottom: 2px solid lighten(color(neutral, 500), 30%);
     font-family: "Nunito", sans-serif;
     font-size: 1.6rem;
     height: 4rem;
@@ -482,7 +493,7 @@ input, textarea, select {
         width: 17px;
 
         &:hover {
-          color: $red;
+          color: color(red, 500);
         }
 
         .Select-clear {
@@ -503,7 +514,7 @@ input, textarea, select {
         padding-top: 2px;
 
         .Select-arrow {
-          border-color: $brown transparent transparent;
+          border-color: color(neutral, 500) transparent transparent;
           border-style: solid;
           border-width: 5px 5px 2.5px;
           display: inline-block;
@@ -535,7 +546,7 @@ input, textarea, select {
     }
 
     .Select-noresults {
-      color: lighten($brown, 15%);
+      color: lighten(color(neutral, 500), 15%);
       cursor: default;
       display: block;
       padding: 1rem;
@@ -543,7 +554,7 @@ input, textarea, select {
 
     .Select-menu-outer {
       background: #fff;
-      box-shadow: 0 2px 5px transparentize($brown, 0.5);
+      box-shadow: 0 2px 5px transparentize(color(neutral, 500), 0.5);
       left: 0;
       max-height: 200px;
       position: absolute;
@@ -561,11 +572,11 @@ input, textarea, select {
           padding: 1rem;
 
           &:hover {
-            background: $eggshell;
+            background: color(neutral, 200);
           }
 
           &.is-selected {
-            background: $teal;
+            background: color(teal, 500);
             color: #fff;
           }
         }
@@ -581,7 +592,7 @@ input, textarea, select {
     &.is-open {
       > .Select-control .Select-arrow {
         top: -4px;
-        border-color: transparent transparent $brown;
+        border-color: transparent transparent color(neutral, 500);
         border-width: 0 5px 5px;
       }
 

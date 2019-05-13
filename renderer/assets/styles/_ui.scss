@@ -1,15 +1,15 @@
-@import 'constants.scss';
+@import '_variables';
 
 //
 // Navigation
 //
 header.toolbar {
   -webkit-app-region: drag;
-  background-color: $brown;
+  background-color: color(neutral, 500);
   background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.6);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-  color: $eggshell;
+  color: color(neutral, 200);
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -33,7 +33,7 @@ header.toolbar {
     }
 
     svg {
-      fill: $eggshell;
+      fill: color(neutral, 200);
       width: 2.6rem;
     }
   }
@@ -56,14 +56,14 @@ header.toolbar {
   a, button {
     background: transparent;
     border: none;
-    color: $brown;
+    color: color(neutral, 500);
     display: block;
     margin: 2rem 0;
     padding: .5rem 1rem;
     text-align: center;
 
     svg {
-      fill: darken($eggshell, 10%);
+      fill: darken(color(neutral, 200), 10%);
       padding: 1rem 0;
       transition: fill .3s;
       width: 60%;
@@ -80,21 +80,21 @@ header.toolbar {
 
     &:hover {
       svg {
-        fill: $brown;
+        fill: color(neutral, 500);
       }
 
       img {
-        border-color: $brown;
+        border-color: color(neutral, 500);
       }
     }
 
     &.active {
       svg {
-        fill: $teal;
+        fill: color(teal, 500);
       }
 
       img {
-        border-color: $teal;
+        border-color: color(teal, 500);
       }
     }
   }
@@ -114,13 +114,13 @@ header.toolbar {
   padding: 1rem;
 
   &.error {
-    color: $red;
+    color: color(red, 500);
   }
 }
 
 .text {
   &.red {
-    color: $red;
+    color: color(red, 500);
   }
 }
 
@@ -128,7 +128,7 @@ header.toolbar {
 // TABLES
 //
 table.formatted {
-  background: $creme;
+  background: color(neutral, 100);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
 
   &.fluid {
@@ -143,7 +143,7 @@ table.formatted {
   }
 
   th {
-    border-bottom: $brown;
+    border-bottom: color(neutral, 500);
     font-family: $font_header;
     font-size: 1.5rem;
   }
@@ -159,7 +159,7 @@ table.formatted {
 table.striped {
   tr:nth-child(even) {
     td {
-      background: lighten($eggshell, 5.5%);
+      background: lighten(color(neutral, 200), 5.5%);
     }
   }
 }
@@ -167,7 +167,7 @@ table.striped {
 table.hoverable {
   tr:hover {
     td {
-      background: lighten($teal, 47%);
+      background: lighten(color(teal, 500), 47%);
     }
   }
 }
@@ -202,20 +202,20 @@ table.hoverable {
     }
 
     &.success {
-      background: $green;
-      border-color: darken($green, 8%);
+      background: color(green, 500);
+      border-color: darken(color(green, 500), 8%);
       color: #fff;
     }
 
     &.warning {
-      background: $yellow;
-      border-color: darken($yellow, 8%);
+      background: color(yellow, 500);
+      border-color: darken(color(yellow, 500), 8%);
       color: #fff;
     }
 
     &.error {
-      background: $red;
-      border-color: darken($red, 8%);
+      background: color(red, 500);
+      border-color: darken(color(red, 500), 8%);
       color: #fff;
     }
 
@@ -257,11 +257,11 @@ table.hoverable {
 
     &:hover {
       span {
-        color: darken($brown, 35%);
+        color: darken(color(neutral, 500), 35%);
       }
 
       svg {
-        fill: darken($brown, 35%);
+        fill: darken(color(neutral, 500), 35%);
       }
     }
 
@@ -273,7 +273,7 @@ table.hoverable {
     }
 
     svg {
-      fill: darken($eggshell, 15%);
+      fill: darken(color(neutral, 200), 15%);
       left: 0;
       position: absolute;
       top: .6rem;
@@ -298,11 +298,11 @@ table.hoverable {
   &.open {
     .trigger {
       span {
-        color: $teal;
+        color: color(teal, 500);
       }
 
       svg {
-        fill: $teal;
+        fill: color(teal, 500);
         width: 1.6rem;
       }
     }
@@ -324,7 +324,7 @@ table.hoverable {
   > button, label {
     background: rgba(0, 0, 0, 0.05);
     border: none;
-    color: $brown;
+    color: color(neutral, 500);
     display: inline-block;
     font: 700 1.2rem $font_header;
     margin: 0 .2rem 0 0;
@@ -337,7 +337,7 @@ table.hoverable {
     &:hover {
       background: rgba(0, 0, 0, 0.1);
       cursor: pointer;
-      color: darken($brown, 15%);
+      color: darken(color(neutral, 500), 15%);
     }
 
     &:first-child {
@@ -346,7 +346,7 @@ table.hoverable {
     }
 
     &.active {
-      background: $teal;
+      background: color(teal, 500);
       color: #fff;
       z-index: 3;
     }
@@ -375,7 +375,7 @@ table.hoverable {
 
 .tabbed {
   .pane {
-    background: $creme;
+    background: color(neutral, 100);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     height: calc(100vh - 14rem);
     padding: 2rem;
@@ -400,7 +400,7 @@ table.hoverable {
     top: 0;
     right: 0;
     left: 0;
-    background: transparentize($eggshell, 0.2);
+    background: transparentize(color(neutral, 200), 0.2);
     position: absolute;
     text-align: center;
     padding: 5rem;
@@ -412,7 +412,7 @@ table.hoverable {
 // Action Bar
 //
 .action-bar {
-  background: lighten($eggshell, 3%);
+  background: lighten(color(neutral, 200), 3%);
   bottom: -10rem;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
   left: 0;

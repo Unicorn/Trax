@@ -1,9 +1,9 @@
-@import 'constants';
-@import 'motion';
-@import 'html';
-@import 'forms';
-@import 'layout';
-@import 'ui';
+@import '_variables';
+@import '_animations';
+@import '_html';
+@import '_forms';
+@import '_layout';
+@import '_ui';
 @import 'profile';
 
 //
@@ -11,15 +11,15 @@
 //
 header.search {
   @extend %clearfix;
-  background-color: darken($eggshell, 3%);
-  border-bottom: 1px solid darken($eggshell, 8%);
+  background-color: darken(color(neutral, 200), 3%);
+  border-bottom: 1px solid darken(color(neutral, 200), 8%);
   height: 5rem;
   padding: 0;
 
   > input {
     background: transparent;
     border: none;
-    color: $brown;
+    color: color(neutral, 500);
     float: left;
     font-size: 1.5rem;
     font-weight: 300;
@@ -29,7 +29,7 @@ header.search {
   }
 
   input::-webkit-input-placeholder {
-    color: lighten($brown, 20%);
+    color: lighten(color(neutral, 500), 20%);
     font-size: 1.5rem;
     font-weight: 300;
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.1);
@@ -81,16 +81,16 @@ header.title {
       cursor: pointer;
 
       &:hover {
-        background: transparentize($blue, 0.95);
+        background: transparentize(color(blue, 500), 0.95);
         border: 1px solid #fff;
       }
 
       &:active {
-        background: transparentize($blue, 0.7);
+        background: transparentize(color(blue, 500), 0.7);
       }
 
       &.active {
-        background: transparentize($green, 0.8);
+        background: transparentize(color(green, 500), 0.8);
         border-color: #fff;
       }
     }
@@ -100,7 +100,7 @@ header.title {
 .item {
   @extend %clearfix;
   background: #fff;
-  color: $eggshell;
+  color: color(neutral, 200);
   display: flex;
   flex-direction: row;
   margin: 0 0 1px 0;
@@ -112,7 +112,7 @@ header.title {
   }
 
   &.tracked {
-    background: transparentize($green, 0.9);
+    background: transparentize(color(green, 500), 0.9);
     border-color: #fff;
   }
 
@@ -163,7 +163,7 @@ header.title {
 
       svg {
         cursor: pointer;
-        fill: lighten($brown, 15%);
+        fill: lighten(color(neutral, 500), 15%);
         height: auto;
         width: 100%;
       }
@@ -174,24 +174,24 @@ header.title {
       }
 
       &.active svg {
-        fill: $brown;
+        fill: color(neutral, 500);
       }
 
       &.confirm svg {
-       fill: $green;
+       fill: color(green, 500);
       }
 
       &.cancel svg {
-        fill: $red;
+        fill: color(red, 500);
       }
     }
   }
 
   .confirm.overlay {
     animation: slideRight 0.5s;
-    background: lighten($yellow, 40%);
+    background: lighten(color(yellow, 500), 40%);
     bottom: 0;
-    color: darken($yellow, 25%);
+    color: darken(color(yellow, 500), 25%);
     left: 0;
     position: absolute;
     right: 0;
@@ -204,79 +204,79 @@ header.title {
 //
 .swimlane {
   background: #fbf9f4;
-  color: $brown;
+  color: color(neutral, 500);
   flex: 1;
   height: calc(100vh - 3.7rem);
   padding: 1.5rem 1%;
   position: relative;
 
   &.backlog {
-    background-color: transparentize($pink, 0.95);
-    color: $pink;
+    background-color: transparentize(color(pink, 500), 0.95);
+    color: color(pink, 500);
 
     .card header {
-      background-color: transparentize($pink, 0.9);
-      color: $pink;
+      background-color: transparentize(color(pink, 500), 0.9);
+      color: color(pink, 500);
     }
 
     header svg {
-      fill: $pink;
+      fill: color(pink, 500);
     }
   }
 
   &.sprint {
-    background-color: transparentize($cyan, 0.95);
-    color: $cyan;
+    background-color: transparentize(color(cyan, 500), 0.95);
+    color: color(cyan, 500);
 
     .card header {
-      background-color: transparentize($cyan, 0.9);
-      color: $cyan;
+      background-color: transparentize(color(cyan, 500), 0.9);
+      color: color(cyan, 500);
     }
 
     header svg {
-      fill: $cyan;
+      fill: color(cyan, 500);
     }
   }
 
   &.started {
-    background-color: transparentize($orange, 0.95);
-    color: $orange;
+    background-color: transparentize(color(orange, 500), 0.95);
+    color: color(orange, 500);
 
     .card header {
-      background-color: transparentize($orange, 0.9);
-      color: $orange;
+      background-color: transparentize(color(orange, 500), 0.9);
+      color: color(orange, 500);
     }
 
     header svg {
-      fill: $orange;
+      fill: color(orange, 500);
     }
   }
 
   &.review {
-    background-color: transparentize($purple, 0.95);
-    color: $purple;
+    background-color: transparentize(color(purple, 500), 0.95);
+    color: color(purple, 500);
 
     .card header {
-      background-color: transparentize($purple, 0.9);
-      color: $purple;
+      background-color: transparentize(color(purple, 500), 0.9);
+      color: color(purple, 500);
     }
 
     header svg {
-      fill: $purple;
+      fill: color(purple, 500);
     }
   }
 
   &.complete {
-    background-color: transparentize($green, 0.95);
-    color: $green;
+    background-color: transparentize(color(green, 500), 0.95);
+    color: color(green, 500);
 
     .card header {
-      background-color: transparentize($green, 0.9);
-      color: $green;
+      background-color: transparentize(color(green, 500), 0.9);
+      color: color(green, 500);
     }
 
     header svg {
-      fill: $green;
+      fill: color(green, 500);
     }
   }
 
@@ -317,7 +317,7 @@ header.title {
 .card {
   background: #fff;
   border-radius: 4px;
-  box-shadow: 0 1px 1px transparentize($brown, .8), 0 5px 5px transparentize($brown, .9);
+  box-shadow: 0 1px 1px transparentize(color(neutral, 500), .8), 0 5px 5px transparentize(color(neutral, 500), .9);
   cursor: move;
   margin: $item_spacing;
   min-height: 8rem;
@@ -327,7 +327,7 @@ header.title {
   width: 100%;
 
   &:hover {
-    box-shadow: 0 1px 1px transparentize($brown, .7), 0 5px 5px transparentize($brown, 0.8);
+    box-shadow: 0 1px 1px transparentize(color(neutral, 500), .7), 0 5px 5px transparentize(color(neutral, 500), 0.8);
 
     footer {
       height: 4.2rem;
@@ -335,7 +335,7 @@ header.title {
   }
 
   &.dragging {
-    box-shadow: 0 2px 3px transparentize($brown, 0.9), 0 8px 8px transparentize($brown, 0.5);
+    box-shadow: 0 2px 3px transparentize(color(neutral, 500), 0.9), 0 8px 8px transparentize(color(neutral, 500), 0.5);
   }
 
   &.active {
@@ -358,7 +358,7 @@ header.title {
 
   header {
     align-items: center;
-    background: lighten($eggshell, 5%);
+    background: lighten(color(neutral, 200), 5%);
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -387,7 +387,7 @@ header.title {
   }
 
   .description {
-    color: $brown;
+    color: color(neutral, 500);
     display: block;
     padding: 0;
 
@@ -398,8 +398,8 @@ header.title {
   }
 
   .tracked {
-    border-bottom: 1px solid $eggshell;
-    color: darken($eggshell, 20%);
+    border-bottom: 1px solid color(neutral, 200);
+    color: darken(color(neutral, 200), 20%);
     display: flex;
     flex-direction: row;
     font-family: $font_condensed;
@@ -410,7 +410,7 @@ header.title {
   }
 
   .label {
-    background: $eggshell;
+    background: color(neutral, 200);
     border-radius: 1px;
     color: rgba(0, 0, 0, 0.4);
     display: inline-block;
@@ -422,7 +422,7 @@ header.title {
 
   footer {
     align-items: center;
-    background: lighten($eggshell, 4%);
+    background: lighten(color(neutral, 200), 4%);
     box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.04);
     display: flex;
     flex-direction: row;
@@ -450,15 +450,15 @@ header.title {
       }
 
       svg {
-        fill: $brown;
+        fill: color(neutral, 500);
         height: 56px;
-        stroke: $eggshell;
+        stroke: color(neutral, 200);
         width: 56px;
       }
     }
 
     .counter {
-      color: $brown;
+      color: color(neutral, 500);
       font: 1.2rem $font_monospace;
       padding-left: 1rem;
     }
@@ -495,8 +495,8 @@ section.settings {
 //
 main.welcome {
   header {
-    background: $dark_brown;
-    border-bottom: 1px solid $brown;
+    background: color(neutral, 900);
+    border-bottom: 1px solid color(neutral, 500);
     box-shadow: inset -5px 0 5px rgba(0, 0, 0, 0.5);
     padding: 4rem;
     text-align: center;
@@ -532,7 +532,7 @@ aside.help {
 
   &::before {
     backdrop-filter: blur(4px);
-    background-color: transparentize($brown, .9);
+    background-color: transparentize(color(neutral, 500), .9);
     bottom: 0;
     content: ' ';
     left: -100vw;
@@ -544,8 +544,8 @@ aside.help {
   }
 
   .drawer {
-    background: lighten($eggshell, 5%);
-    box-shadow: 0 0 20px darken($eggshell, 8%);
+    background: lighten(color(neutral, 200), 5%);
+    box-shadow: 0 0 20px darken(color(neutral, 200), 8%);
     height: 100vh;
     left: -36vw;
     padding: 10rem 14rem;
@@ -556,7 +556,7 @@ aside.help {
   }
 
   .toggle {
-    background-color: darken($eggshell, 5%);
+    background-color: darken(color(neutral, 200), 5%);
     border-bottom-right-radius: 100%;
     border-top-right-radius: 100%;
     bottom: 2.3rem;
@@ -568,7 +568,7 @@ aside.help {
     width: 5rem;
 
     svg {
-      fill: $brown;
+      fill: color(neutral, 500);
       opacity: .5;
       transition: opacity, transform .3s;
       width: 100%;
@@ -591,7 +591,7 @@ aside.help {
     }
 
     .toggle {
-      background-color: lighten($eggshell, 5%);
+      background-color: lighten(color(neutral, 200), 5%);
     }
 
     &::before {
