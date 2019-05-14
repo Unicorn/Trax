@@ -1,5 +1,5 @@
 import { LANES } from '@/config/constants'
-import { SET_SETTING, Setting, Settings, ActivePageValues, ActiveLaneValues, SettingsAction } from '@/models/setting'
+import { SET_SETTING, Setting, Settings, ActivePageValues, ActiveLaneValues, SettingsAction, Features } from '@/models/setting'
 
 export const updateSetting = (payload: Setting): SettingsAction => ({
   type: SET_SETTING,
@@ -26,9 +26,9 @@ export const toggleShowBoardHelp = (value: boolean): SettingsAction => ({
   payload: { key: 'showBoardHelp', value }
 })
 
-export const setFeaturePoints = (value: boolean): SettingsAction => ({
+export const setFeature = (key: Features, value: boolean): SettingsAction => ({
   type: SET_SETTING,
-  payload: { key: 'featurePoints', value }
+  payload: { key, value }
 })
 
 const initialState: Settings = {
@@ -36,7 +36,9 @@ const initialState: Settings = {
   lanes: LANES,
   showBoardSearch: false,
   showBoardHelp: false,
-  featurePoints: true
+  featurePoints: true,
+  featurePriority: true,
+  featureTypes: true
 }
 
 export const settingsReducer = (state: Settings = initialState, action: SettingsAction): Settings => {

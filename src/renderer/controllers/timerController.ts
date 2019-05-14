@@ -1,39 +1,39 @@
 import { union, merge } from 'lodash'
 import { defaultState } from '@/models/app'
-import * as TimerModel from '@/models/timer'
+import { TIMER, Timers, Timer, TimerAction } from '@/models/timer'
 import { secondsLapsed } from '@/helpers/timerHelper'
 
-export const startTimer = (payload: TimerModel.Timer): TimerModel.TimerAction => ({
-  type: TimerModel.TIMER.START,
+export const startTimer = (payload: Timer): TimerAction => ({
+  type: TIMER.START,
   payload
 })
 
-export const restartTimer = (payload: TimerModel.Timer): TimerModel.TimerAction => ({
-  type: TimerModel.TIMER.RESTART,
+export const restartTimer = (payload: Timer): TimerAction => ({
+  type: TIMER.RESTART,
   payload
 })
 
-export const stopTimer = (payload: TimerModel.Timer): TimerModel.TimerAction => ({
-  type: TimerModel.TIMER.STOP,
+export const stopTimer = (payload: Timer): TimerAction => ({
+  type: TIMER.STOP,
   payload
 })
 
-export const tickTimer = (payload: TimerModel.Timer): TimerModel.TimerAction => ({
-  type: TimerModel.TIMER.TICK,
+export const tickTimer = (payload: Timer): TimerAction => ({
+  type: TIMER.TICK,
   payload
 })
 
-export const resetTimer = (payload: TimerModel.Timer): TimerModel.TimerAction => ({
-  type: TimerModel.TIMER.RESET,
+export const resetTimer = (payload: Timer): TimerAction => ({
+  type: TIMER.RESET,
   payload
 })
 
-export const deleteTimer = (payload: TimerModel.Timer): TimerModel.TimerAction => ({
-  type: TimerModel.TIMER.DELETE,
+export const deleteTimer = (payload: Timer): TimerAction => ({
+  type: TIMER.DELETE,
   payload
 })
 
-export const timerReducer = (state: TimerModel.Timers = defaultState, action: TimerModel.TimerAction): TimerModel.Timers => {
+export const timerReducer = (state: Timers = defaultState, action: TimerAction): Timers => {
   const { type, payload } = action
 
   if (!type || !payload) return state
@@ -41,7 +41,7 @@ export const timerReducer = (state: TimerModel.Timers = defaultState, action: Ti
   const newState = { ...state }
 
   switch (type) {
-    case TimerModel.TIMER.START:
+    case TIMER.START:
       newState.keys = union(newState.keys, [payload.key])
       newState.data[payload.key] = merge(newState.data[payload.key], {
         ...payload,
@@ -50,7 +50,7 @@ export const timerReducer = (state: TimerModel.Timers = defaultState, action: Ti
       })
       break
 
-    case TimerModel.TIMER.RESTART:
+    case TIMER.RESTART:
       newState.keys = union(newState.keys, [payload.key])
       newState.data[payload.key] = merge(newState.data[payload.key], {
         ...payload,
@@ -58,7 +58,7 @@ export const timerReducer = (state: TimerModel.Timers = defaultState, action: Ti
       })
       break
 
-    case TimerModel.TIMER.STOP:
+    case TIMER.STOP:
       newState.keys = union(newState.keys, [payload.key])
       newState.data[payload.key] = merge(newState.data[payload.key], {
         ...payload,
@@ -75,7 +75,7 @@ export const timerReducer = (state: TimerModel.Timers = defaultState, action: Ti
       })
       break
 
-    case TimerModel.TIMER.TICK:
+    case TIMER.TICK:
       newState.data[payload.key] = merge(newState.data[payload.key], {
         ...payload,
         isRunning: true,
@@ -83,7 +83,7 @@ export const timerReducer = (state: TimerModel.Timers = defaultState, action: Ti
       })
       break
 
-    case TimerModel.TIMER.RESET:
+    case TIMER.RESET:
       newState.keys = union(newState.keys, [payload.key])
       newState.data[payload.key] = merge(newState.data[payload.key], {
         ...payload,
@@ -92,7 +92,7 @@ export const timerReducer = (state: TimerModel.Timers = defaultState, action: Ti
       })
       break
 
-    case TimerModel.TIMER.DELETE:
+    case TIMER.DELETE:
       newState.keys = newState.keys.filter(key => key !== payload.key)
       delete newState.data[payload.key]
       break

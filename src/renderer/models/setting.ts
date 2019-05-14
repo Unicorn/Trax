@@ -4,6 +4,8 @@ export const SET_SETTING = 'trax/settings/SET_SETTING'
 
 export type ActivePageValues = 'welcome' | 'profile' | 'create' | 'board' | 'timers' | 'invoices' | 'settings'
 
+export type Features = 'featurePoints' | 'featurePriority' | 'featureTypes'
+
 export type ActiveLaneValues = Lane[]
 
 interface ActivePage {
@@ -26,12 +28,12 @@ interface ShowBoardHelp {
   value: boolean
 }
 
-interface FeaturePoints {
-  key: 'featurePoints'
+interface FeatureSetting {
+  key: Features
   value: boolean
 }
 
-export type Setting = ActivePage | ActiveLanes | ShowBoardSearch | ShowBoardHelp | FeaturePoints
+export type Setting = ActivePage | ActiveLanes | ShowBoardSearch | ShowBoardHelp | FeatureSetting
 
 export interface Settings {
   page: ActivePageValues
@@ -39,6 +41,8 @@ export interface Settings {
   showBoardSearch: boolean
   showBoardHelp: boolean
   featurePoints: boolean
+  featurePriority: boolean
+  featureTypes: boolean
 }
 
 export interface SettingsAction {

@@ -321,7 +321,6 @@ header.title {
   cursor: move;
   margin: $item_spacing;
   min-height: 8rem;
-  overflow: hidden;
   position: relative;
   transition: box-shadow .3s;
   width: 100%;
@@ -366,19 +365,19 @@ header.title {
     justify-content: space-between;
     height: 4.2rem;
 
+    .type {
+      width: 1rem;
+    }
+
+    .points {
+      margin-left: 1.2rem;
+    }
+
     strong {
+      flex: 1;
       overflow: hidden;
-      padding-left: 1rem;
       text-overflow: ellipsis;
       white-space: nowrap;
-      width: 80%;
-
-      svg {
-        height: 1.2rem;
-        left: 0;
-        position: absolute;
-        top: 1.6rem;
-      }
     }
 
     svg {
@@ -390,11 +389,24 @@ header.title {
     color: color(neutral, 500);
     display: block;
     padding: 0;
+    position: relative;
 
     p {
       font: 400 1.3rem/1.8rem $font_body;
       padding: 1.5rem 4%;
     }
+  }
+
+  &.priority-1 header strong svg {
+    fill: color(red, 200);
+  }
+
+  &.priority-2 header strong svg {
+    fill: color(red, 400);
+  }
+
+  &.priority-3 header strong svg {
+    fill: color(red, 600);
   }
 
   .tracked {

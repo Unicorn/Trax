@@ -1,4 +1,3 @@
-import { replace } from 'lodash'
 import * as React from 'react'
 
 interface Props {
@@ -8,14 +7,10 @@ interface Props {
   }
 }
 
-const LabelItem: React.SFC<Props> = ({ label }) => {
-  let name = replace(label.name, '-', '')
-
-  return (
-    <span style={{ backgroundColor: `#${label.color}` }} key={name} className="label">
-      {name}
-    </span>
-  )
-}
+const LabelItem: React.SFC<Props> = ({ label }) => (
+  <span style={{ backgroundColor: `#${label.color}` }} key={name} className="label">
+    {label.name.replace(/[^\w]/gi, '')}
+  </span>
+)
 
 export default LabelItem

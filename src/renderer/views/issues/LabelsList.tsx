@@ -1,15 +1,25 @@
 import * as React from 'react'
 import { Label } from '@/models/label'
 import LabelItem from './LabelItem'
-import { labelsWithoutCore } from '@/helpers/labelHelper'
+import { labelsWithoutCore, traxPriorities, traxPoints, traxLanes } from '@/helpers/labelHelper'
 
 interface Props {
   labels: Label[]
-  filterCoreLabels: boolean
+  filter?: string[]
+  filterCore?: boolean
 }
 
-const LabelsList: React.SFC<Props> = ({ labels, filterCoreLabels }) => {
-  const items = filterCoreLabels ? labelsWithoutCore(labels) : labels
+const LabelsList: React.SFC<Props> = ({ labels, filter, filterCore }) => {
+  let items = filterCore ? labelsWithoutCore(labels) : labels
+
+  if (filter && filter.includes('lanes'))
+    items = items.filter((label: Label) => !traxLanes.includes(label.name))
+
+  if (filter && filter.includes('priority'))
+    items = items.filter((label: Label) => !traxPriorities.includes(label.name))
+
+  if (filter && filter.includes('points'))
+    items = items.filter((label: Label) => !traxPoints.includes(label.name))
 
   if (items.length > 0)
     return (

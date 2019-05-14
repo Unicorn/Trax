@@ -1,31 +1,30 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import Form from '@/views/ui/form/index'
-import { ActiveLaneValues, SettingsAction } from '@/models/setting'
+import { AppState } from '@/models/app'
+import { Settings, ActiveLaneValues, SettingsAction, Features } from '@/models/setting'
 import { LANES, Lane } from '@/config/constants'
-import { setLanes, setFeaturePoints } from '@/controllers/settingController'
+import { setLanes, setFeature } from '@/controllers/settingController'
 
 interface Connected {
-  lanes: Lane[]
-  featurePoints: boolean
+  settings: Settings
 }
 
 interface Actions {
   setLanes: (value: ActiveLaneValues) => SettingsAction
-  setFeaturePoints: (value: boolean) => SettingsAction
+  setFeature: (key: Features, value: boolean) => SettingsAction
 }
 
-const LaneSettings: React.SFC<Connected & Actions> = (props) => {
-  const { lanes, featurePoints, setLanes, setFeaturePoints } = props
+const LaneSettings: React.SFC<Connected & Actions> = ({ settings, setLanes, setFeature }) => {
 
   const _laneSettingsHandler = (e: React.SyntheticEvent<HTMLInputElement>) => {
     let input = e.currentTarget
-    let newState = [...lanes]
+    let newState = [...settings.lanes]
 
     if (input.checked)
       newState.push(input.name as Lane)
     else
-      newState = lanes.filter(l => l !== input.name)
+      newState = settings.lanes.filter(l => l !== input.name)
 
     // Seems redundant, but assures our lane order
     setLanes(LANES.filter(lane => newState.includes(lane)))
@@ -42,33 +41,49 @@ const LaneSettings: React.SFC<Connected & Actions> = (props) => {
             type="toggle"
             label={lane}
             onChange={_laneSettingsHandler}
-            checked={lanes.includes(lane)}
+            checked={settings.lanes.includes(lane)}
           />
         )}
       </div>
 
       <div className="column">
         <h2>Show Features:</h2>
+
         <Form.RadioField
           name="points"
           type="toggle"
-          label="Points"
-          onChange={(e) => setFeaturePoints(e.currentTarget.checked)}
-          checked={featurePoints}
+          label="Show Issue Points"
+          onChange={(e) => setFeature('featurePoints', e.currentTarget.checked)}
+          checked={settings.featurePoints}
+        />
+
+        <Form.RadioField
+          name="priorities"
+          type="toggle"
+          label="Show Issue Priority"
+          onChange={(e) => setFeature('featurePriority', e.currentTarget.checked)}
+          checked={settings.featurePriority}
+        />
+
+        <Form.RadioField
+          name="types"
+          type="toggle"
+          label="Show Issue Types"
+          onChange={(e) => setFeature('featureTypes', e.currentTarget.checked)}
+          checked={settings.featureTypes}
         />
       </div>
     </div>
   )
 }
 
-const mapState = (state: any) => ({
-  lanes: state.settings.lanes,
-  featurePoints: state.settings.featurePoints
+const mapState = (state: AppState): Connected => ({
+  settings: state.settings
 })
 
 const mapDispatch = ({
   setLanes,
-  setFeaturePoints
+  setFeature
 })
 
 export default connect(mapState, mapDispatch)(LaneSettings)
