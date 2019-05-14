@@ -1,17 +1,14 @@
 import { union, trim } from 'lodash'
 import * as React from 'react'
-import { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { DragDropContext, DropResult } from 'react-beautiful-dnd'
-
-import { AppState, toArray } from '@/models/app'
-import { filterIssues } from '@/helpers/issueHelper'
 import { reloadTrack } from '@/controllers/trackController'
+import { AppState, toArray } from '@/models/app'
 import { Tracks, Track } from '@/models/track'
 import { Issues, Issue } from '@/models/issue'
 import { updateIssueLane } from '@/models/github'
+import { filterIssues } from '@/helpers/issueHelper'
 import { Lane } from '@/config/constants'
-
 import IssuesLane from '@/views/issues/IssuesLane'
 import SearchIssues from '@/views/issues/SearchIssues'
 
@@ -25,8 +22,8 @@ interface Connected {
 }
 
 const BoardPage: React.FunctionComponent<Connected> = (props: Connected) => {
-  const [ allIssues, setAllIssues ] = useState<Issue[]>([])
-  const [ filteredIssues, setFilteredIssues ] = useState<Issue[]>([])
+  const [ allIssues, setAllIssues ] = React.useState<Issue[]>([])
+  const [ filteredIssues, setFilteredIssues ] = React.useState<Issue[]>([])
 
   function _tracksArray(tracks: Tracks) {
     return toArray(tracks) as Track[]
@@ -56,11 +53,11 @@ const BoardPage: React.FunctionComponent<Connected> = (props: Connected) => {
     }
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     _reload()
   }, [])
 
-  useEffect(() => {
+  React.useEffect(() => {
     let issueIds: string[] = []
 
     const tracksArray = _tracksArray( props.tracks )

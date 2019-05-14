@@ -34,4 +34,6 @@ development:
 
 production:
 	$(call print, GREEN, Building Front-end and Electron app)
-	@yarn dist
+	@rm -rf dist
+	@rm -rf build
+	@yarn release

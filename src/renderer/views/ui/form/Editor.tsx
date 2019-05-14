@@ -25,7 +25,7 @@ const modeOptions = {
 class Editor extends React.Component<Props, State> {
 
   state: State = {
-    mode: 'editor',
+    mode: 'markdown',
     body: RichTextEditor.createEmptyValue()
   }
 
@@ -57,7 +57,7 @@ class Editor extends React.Component<Props, State> {
           value={body}
         />
       case 'markdown' :
-        return <textarea onChange={this._textareaHandler}>{body.toString(mode)}</textarea>
+        return <textarea onChange={this._textareaHandler} value={body.toString(mode)}></textarea>
     }
   }
 

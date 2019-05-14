@@ -1,6 +1,8 @@
 {
   "whiteListedModules": [
-    "react-redux"
+    "react-redux",
+    "react-rte",
+    "react-beautiful-dnd"
   ],
   "main": {
     "extraEntries": ["./static/preload.js"],

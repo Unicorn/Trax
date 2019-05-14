@@ -13,7 +13,8 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.tsx'],
     alias: {
-      react: path.resolve('./node_modules/react')
+      'react': 'react',
+      'react-dom': 'react-dom',
     }
   }
 };
