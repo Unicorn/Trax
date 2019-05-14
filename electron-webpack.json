@@ -1,0 +1,11 @@
+{
+  "whiteListedModules": [
+    "react-redux"
+  ],
+  "main": {
+    "extraEntries": ["./static/preload.js"],
+  },
+  "renderer": {
+    "webpackConfig": "electron-webpack.renderer.js"
+  }
+}

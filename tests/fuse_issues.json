@@ -104,7 +104,7 @@
     "ident": "UnicornAgency/AMG-CRM",
     "number": 1415,
     "title": "[AMG] Email Template Fixes: Head meta title tag ",
-    "body": "## Description\r\n\r\nAdd a title meta tag in the head of each of the email layouts in `app/views/layouts`\r\n\r\n",
+    "body": "## Description\r\n\r\nAdd a title meta tag in the head of each of the email layouts in `app/@/views/layouts`\r\n\r\n",
     "lane": "backlog"
   },
   {
@@ -140,7 +140,7 @@
     "ident": "UnicornAgency/AMG-CRM",
     "number": 1411,
     "title": "[AMG] Email template fixes from glockapps ",
-    "body": "## Description\r\n\r\nFix issues found by glockapps in the amg/vo email templates\r\n\r\nLocation:\r\n- controllers: `app/mailers`\r\n- views `app/views/[name of mailer]`: so lead_mailer, payment_mailer, etc\r\n\r\nBranch to use for fixes\r\n- `hotfix/1411-email-fixes`\r\n\r\n# Steps to complete\r\n\r\n- [ ] Sendgrid url - #1412\r\n- [x] TinyPNG the images - #1413\r\n- [x] Shortened urls - #1414\r\n- [x] Html the `<head>` tag must contain a title - #1415\r\n- [x] Alt tags for images - #1416\r\n- [ ] Find and correct spam phrases if we can\r\n- [ ] Figure out how to get in the Outlook inbox - #1417\r\n\r\nOther issues:\r\n\t\r\n- [ ] Your message contains too many images (17). A best practice is to have a 65/35 text to image ratio to avoid deliverability issues.\r\n- [ ] Your message contains too many links (20). Reduce the number of links in your message content. It's also a best practice to limit the number of different domains linked in an email.",
+    "body": "## Description\r\n\r\nFix issues found by glockapps in the amg/vo email templates\r\n\r\nLocation:\r\n- controllers: `app/mailers`\r\n- views `app/@/views/[name of mailer]`: so lead_mailer, payment_mailer, etc\r\n\r\nBranch to use for fixes\r\n- `hotfix/1411-email-fixes`\r\n\r\n# Steps to complete\r\n\r\n- [ ] Sendgrid url - #1412\r\n- [x] TinyPNG the images - #1413\r\n- [x] Shortened urls - #1414\r\n- [x] Html the `<head>` tag must contain a title - #1415\r\n- [x] Alt tags for images - #1416\r\n- [ ] Find and correct spam phrases if we can\r\n- [ ] Figure out how to get in the Outlook inbox - #1417\r\n\r\nOther issues:\r\n\t\r\n- [ ] Your message contains too many images (17). A best practice is to have a 65/35 text to image ratio to avoid deliverability issues.\r\n- [ ] Your message contains too many links (20). Reduce the number of links in your message content. It's also a best practice to limit the number of different domains linked in an email.",
     "lane": "started"
   },
   {

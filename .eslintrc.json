@@ -15,9 +15,10 @@
   },
   "env": {
     "browser": true,
-    "amd": true,
-    "es6": true,
     "node": true
+  },
+  "globals": {
+    "__static": true
   },
   "rules": {
     "@typescript-eslint/indent": ["error", 2],

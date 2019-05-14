@@ -1,0 +1,210 @@
+//
+// LAYOUT
+//
+$size_100: 1rem;
+$size_200: 1.2rem;
+$size_300: 1.3rem;
+$size_400: 1.4rem;
+$size_500: 1.6rem;
+$size_600: 1.8rem;
+$size_700: 2rem;
+$size_800: 2.4rem;
+$size_900: 3rem;
+
+$padding_100: .2rem;
+$padding_200: .6rem;
+$padding_300: 1.2rem;
+$padding_400: 1.8rem;
+$padding_500: 2rem;
+$padding_600: 3.2rem;
+$padding_700: 5.5rem;
+$padding_800: 6.8rem;
+$padding_900: 9rem;
+
+$item_spacing: 0 0 1rem 0;
+$toolbar_height: 3.7rem;
+
+//
+// TYPOGRAPHY
+//
+$font_condensed: 'Roboto Condensed', sans-serif;
+$font_header: 'Nunito', sans-serif;
+$font_body: 'Roboto', sans-serif;
+$font_monospace: 'Cutive Mono', monospace;
+
+$link_normal: color(primary, 500);
+$link_hover: color(primary, 700);
+
+//
+// FORMS
+//
+$input_background: color(neutral, 100);
+$input_font: 400 1.4rem $font_body;
+$input_letter_spacing: .05em;
+$input_color: color(neutral, 500);
+$input_border_bottom: 2px solid color(neutral, 700);
+$input_padding: $padding_300;
+$input_spacing: $padding_600 0;
+
+//
+// HELPERS
+//
+%clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+$palettes: (
+  blue: (
+    100: hsl(208, 50%, 47%),
+    200: hsl(208, 50%, 47%),
+    300: hsl(208, 50%, 47%),
+    400: hsl(208, 50%, 47%),
+    500: hsl(208, 50%, 47%),
+    600: hsl(208, 50%, 47%),
+    700: hsl(208, 50%, 47%),
+    800: hsl(208, 50%, 47%),
+    900: hsl(208, 50%, 47%),
+  ),
+
+  red: (
+    100: hsl(0, 50%, 47%),
+    200: hsl(0, 50%, 47%),
+    300: hsl(0, 50%, 47%),
+    400: hsl(0, 50%, 47%),
+    500: hsl(0, 50%, 47%),
+    600: hsl(0, 50%, 47%),
+    700: hsl(0, 50%, 47%),
+    800: hsl(0, 50%, 47%),
+    900: hsl(0, 50%, 47%),
+  ),
+
+  teal: (
+    100: hsl(161, 39%, 51%),
+    200: hsl(161, 39%, 51%),
+    300: hsl(161, 39%, 51%),
+    400: hsl(161, 39%, 51%),
+    500: hsl(161, 39%, 51%),
+    600: hsl(161, 39%, 51%),
+    700: hsl(161, 39%, 51%),
+    800: hsl(161, 39%, 30%),
+    900: hsl(161, 39%, 30%),
+  ),
+
+  pink: (
+    100: hsl(303, 66%, 64%),
+    200: hsl(303, 66%, 64%),
+    300: hsl(303, 66%, 64%),
+    400: hsl(303, 66%, 64%),
+    500: hsl(303, 66%, 64%),
+    600: hsl(303, 66%, 64%),
+    700: hsl(303, 66%, 64%),
+    800: hsl(303, 66%, 64%),
+    900: hsl(303, 66%, 64%),
+  ),
+
+  cyan: (
+    100: hsl(190, 53%, 53%),
+    200: hsl(190, 53%, 53%),
+    300: hsl(190, 53%, 53%),
+    400: hsl(190, 53%, 53%),
+    500: hsl(190, 53%, 53%),
+    600: hsl(190, 53%, 53%),
+    700: hsl(190, 53%, 53%),
+    800: hsl(190, 53%, 53%),
+    900: hsl(190, 53%, 53%),
+  ),
+
+  yellow: (
+    100: hsl(51, 88%, 50%),
+    200: hsl(51, 88%, 50%),
+    300: hsl(51, 88%, 50%),
+    400: hsl(51, 88%, 50%),
+    500: hsl(51, 88%, 50%),
+    600: hsl(51, 88%, 50%),
+    700: hsl(51, 88%, 50%),
+    800: hsl(51, 88%, 50%),
+    900: hsl(51, 88%, 50%),
+  ),
+
+  green: (
+    100: hsl(98, 59%, 45%),
+    200: hsl(98, 59%, 45%),
+    300: hsl(98, 59%, 45%),
+    400: hsl(98, 59%, 45%),
+    500: hsl(98, 59%, 45%),
+    600: hsl(98, 59%, 45%),
+    700: hsl(98, 59%, 45%),
+    800: hsl(98, 59%, 45%),
+    900: hsl(98, 59%, 45%),
+  ),
+
+  purple: (
+    100: hsl(268, 66%, 51%),
+    200: hsl(268, 66%, 51%),
+    300: hsl(268, 66%, 51%),
+    400: hsl(268, 66%, 51%),
+    500: hsl(268, 66%, 51%),
+    600: hsl(268, 66%, 51%),
+    700: hsl(268, 66%, 51%),
+    800: hsl(268, 66%, 51%),
+    900: hsl(268, 66%, 51%),
+  ),
+
+  orange: (
+    100: hsl(20, 94%, 52%),
+    200: hsl(20, 94%, 52%),
+    300: hsl(20, 94%, 52%),
+    400: hsl(20, 94%, 52%),
+    500: hsl(20, 94%, 52%),
+    600: hsl(20, 94%, 52%),
+    700: hsl(20, 94%, 52%),
+    800: hsl(20, 94%, 52%),
+    900: hsl(20, 94%, 52%),
+  ),
+
+  neutral: (
+    100: hsl(43, 47%, 97%),
+    200: hsl(40, 35%, 93%),
+    300: hsl(40, 35%, 70%),
+    400: hsl(40, 35%, 60%),
+    500: hsl(37, 17%, 52%),
+    600: hsl(37, 17%, 42%),
+    700: hsl(37, 17%, 30%),
+    800: hsl(38, 37%, 20%),
+    900: hsl(38, 37%, 10%),
+  ),
+
+  primary: (
+    100: hsl(161, 39%, 90%),
+    200: hsl(161, 39%, 75%),
+    300: hsl(161, 39%, 60%),
+    400: hsl(161, 39%, 55%),
+    500: hsl(161, 39%, 50%),
+    600: hsl(161, 39%, 60%),
+    700: hsl(161, 39%, 30%),
+    800: hsl(161, 39%, 20%),
+    900: hsl(161, 39%, 10%),
+  ),
+);
+
+
+@function color($color, $tone) {
+  @if map-has-key($palettes, $color){
+    $color: map-get($palettes,$color);
+
+    @if map-has-key($color, $tone){
+      $tone: map-get($color, $tone);
+      @return $tone;
+    }
+
+    @warn "unknown tone `#{$tone}` in color";
+    @return null;
+  }
+
+  @warn "unknown color `#{$color}` in palette";
+  @return "#000";
+}
