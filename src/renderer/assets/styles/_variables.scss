@@ -38,13 +38,13 @@ $link_hover: color(primary, 700);
 //
 // FORMS
 //
-$input_background: color(neutral, 100);
+$input_background: #fff;
 $input_font: 400 1.4rem $font_body;
 $input_letter_spacing: .05em;
 $input_color: color(neutral, 500);
-$input_border_bottom: 2px solid color(neutral, 700);
+$input_border_bottom: 2px solid color(neutral, 500);
 $input_height: auto;
-$input_padding: $padding_300;
+$input_padding: 1rem;
 $input_spacing: $padding_600 0;
 
 //

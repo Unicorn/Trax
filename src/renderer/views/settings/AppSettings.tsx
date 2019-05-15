@@ -12,11 +12,9 @@ const AppSettings: React.SFC<Props> = (props) => {
   const { resetApp } = props
 
   return (
-    <div>
+    <div className="fixed box bottom">
       <p>Current Version: {window.app.version}</p>
       <button className="small yellow button" onClick={logout}>Logout</button>
-      <br />
-      <br />
       <button className="small red button" onClick={resetApp}>Reset Application Data</button>
     </div>
   )

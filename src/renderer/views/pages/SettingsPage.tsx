@@ -1,19 +1,23 @@
 import * as React from 'react'
 
-import Tabbed from '@/views/ui/Tabbed'
 import BoardSettings from '@/views/settings/BoardSettings'
 import AppSettings from '@/views/settings/AppSettings'
+import TemplateSettings from '@/views/settings/TemplateSettings'
 
 const SettingsPage: React.SFC<{}> = () => {
 
-  let content = {
-    'Board Settings': <BoardSettings />,
-    'Application': <AppSettings />
-  }
-
   return (
     <section className="settings page">
-      <Tabbed content={content} />
+      <div className="golden-ratio columns">
+        <div className="left column">
+          <BoardSettings />
+          <AppSettings />
+        </div>
+
+        <div className="right column">
+          <TemplateSettings />
+        </div>
+      </div>
     </section>
   )
 }

@@ -33,7 +33,7 @@ const LaneSettings: React.SFC<Connected & Actions> = ({ settings, setLanes, setF
   return (
     <div className="box columns">
       <div className="column">
-        <h2>Show Lanes:</h2>
+        <h2>Lanes:</h2>
         {LANES.map(lane =>
           <Form.RadioField
             key={lane}
@@ -47,12 +47,12 @@ const LaneSettings: React.SFC<Connected & Actions> = ({ settings, setLanes, setF
       </div>
 
       <div className="column">
-        <h2>Show Features:</h2>
+        <h2>Features:</h2>
 
         <Form.RadioField
           name="points"
           type="toggle"
-          label="Show Issue Points"
+          label="Points"
           onChange={(e) => setFeature('featurePoints', e.currentTarget.checked)}
           checked={settings.featurePoints}
         />
@@ -60,7 +60,7 @@ const LaneSettings: React.SFC<Connected & Actions> = ({ settings, setLanes, setF
         <Form.RadioField
           name="priorities"
           type="toggle"
-          label="Show Issue Priority"
+          label="Priority"
           onChange={(e) => setFeature('featurePriority', e.currentTarget.checked)}
           checked={settings.featurePriority}
         />
@@ -68,7 +68,7 @@ const LaneSettings: React.SFC<Connected & Actions> = ({ settings, setLanes, setF
         <Form.RadioField
           name="types"
           type="toggle"
-          label="Show Issue Types"
+          label="Types"
           onChange={(e) => setFeature('featureTypes', e.currentTarget.checked)}
           checked={settings.featureTypes}
         />

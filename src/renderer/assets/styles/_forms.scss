@@ -42,7 +42,7 @@ input, textarea, select {
   position: relative;
   text-align: left;
 
-  &.textarea, &.text, &.email, &.password {
+  &.textarea, &.text, &.email, &.password, &.select {
     label {
       pointer-events: none;
     }
@@ -163,7 +163,6 @@ input, textarea, select {
     background-color: $input_background;
     border-bottom: $input_border_bottom;
     border-radius: 0;
-    height: 4rem;
     margin: 0;
     width: 100%;
 
@@ -443,6 +442,10 @@ input, textarea, select {
   @include button-color(red, color(red, 500))
 }
 
+.button + .button {
+  margin-left: 1rem;
+}
+
 /**
  * EDITOR
  */
@@ -452,6 +455,14 @@ input, textarea, select {
   flex-direction: column;
   height: 100%;
   position: relative;
+
+  .field.select {
+    margin: 0;
+    position: absolute;
+    right: .1rem;
+    top: 4.1rem;
+    width: 20rem;
+  }
 
   .tabs {
     margin: 0;
@@ -463,6 +474,7 @@ input, textarea, select {
 
   textarea {
     background-color: $input_background;
+    border-top: 4.6rem solid color(neutral, 100);
     flex: 1;
   }
 }
@@ -471,20 +483,19 @@ input, textarea, select {
 // React RTE overrides
 .rich-text {
   align-items: stretch;
-  background: $input_background;
-  border-bottom: $input_border_bottom;
-  border-radius: 0;
-  border: none;
+  background: $input_background !important;
+  border-radius: 0 !important;
+  border: none !important;
   display: flex;
   flex: 1;
   flex-direction: column;
 }
 
 .rich-text-toolbar {
-  background: #f7f7f6;
-  border: none;
-  margin: 0;
-  padding: .8rem .8rem .3rem;
+  background: color(neutral, 100) !important;
+  border: none !important;
+  margin: 0 !important;
+  padding: .8rem .8rem .3rem !important;
 }
 
 .rich-text-editor {

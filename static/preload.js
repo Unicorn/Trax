@@ -1,9 +1,9 @@
-"use strict";
-exports.__esModule = true;
-var electron_1 = require("electron");
+const { remote, ipcRenderer } = require("electron")
+
+window.ELECTRON_DISABLE_SECURITY_WARNINGS = true
+
 window.app = {
-  version: electron_1.remote.app.getVersion()
+  version: remote.app.getVersion()
 };
-window.BrowserWindow = electron_1.remote.BrowserWindow;
-window.shell = electron_1.shell;
-window.ipc = electron_1.ipcRenderer;
+
+window.ipc = ipcRenderer

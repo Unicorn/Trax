@@ -1,6 +1,8 @@
 import * as React from 'react'
 import RichTextEditor, { EditorValue } from 'react-rte'
 import RadioField from './RadioField'
+import SelectField from './SelectField'
+import { TYPES } from '@/config/constants'
 
 type ModeOption = 'editor' | 'markdown'
 
@@ -25,7 +27,7 @@ const modeOptions = {
 class Editor extends React.Component<Props, State> {
 
   state: State = {
-    mode: 'markdown',
+    mode: 'editor',
     body: RichTextEditor.createEmptyValue()
   }
 
@@ -42,6 +44,10 @@ class Editor extends React.Component<Props, State> {
     let newState = RichTextEditor.createValueFromString(e.currentTarget.value, this.state.mode)
     this.setState({ body: newState })
     this.props.handler(newState)
+  }
+
+  _templateSelectHandler = (e: React.FormEvent<HTMLSelectElement>) => {
+    console.log("_templateSelectHandler", e.currentTarget.value)
   }
 
   _renderEditor = () => {
@@ -71,6 +77,15 @@ class Editor extends React.Component<Props, State> {
           options={modeOptions}
           onChange={this._modeHandler}
           selected={this.state.mode}
+        />
+
+        <SelectField
+          name="template"
+          type="select"
+          label="Template"
+          options={TYPES}
+          onChange={this._templateSelectHandler}
+          required
         />
 
         {this._renderEditor()}
