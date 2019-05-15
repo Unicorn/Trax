@@ -8,13 +8,18 @@ import { Users } from '@/models/user'
 import { TYPES, SWIMLANES, PRIORITY, POINTS } from '@/config/constants'
 import Editor from '@/views/ui/form/Editor'
 import Form, { OptionsObject } from '@/views/ui/form'
+import { Settings } from '@/models/setting';
+import { CreateIssuePayload, CreateIssueAction } from '@/models/issue';
 
 
 interface Connected {
   tracks: Tracks
   users: Users
-  featurePoints: boolean
-  dispatch: (action: any) => any
+  settings: Settings
+}
+
+interface Actions {
+  createIssueRequest: (payload: CreateIssuePayload) => CreateIssueAction
 }
 
 interface State {
@@ -32,7 +37,7 @@ const defaultState = {
   body: ''
 }
 
-class CreatePage extends React.Component<Connected, State> {
+class CreatePage extends React.Component<Connected & Actions, State> {
 
   state = defaultState
   repoOptions: OptionsObject = {}
@@ -53,7 +58,7 @@ class CreatePage extends React.Component<Connected, State> {
       assignees: [assignee],
     }
 
-    this.props.dispatch(createIssueRequest(payload))
+    this.props.createIssueRequest(payload)
     this.setState(defaultState)
   }
 
@@ -86,7 +91,7 @@ class CreatePage extends React.Component<Connected, State> {
   }
 
   render() {
-    const { tracks, featurePoints } = this.props
+    const { tracks, settings } = this.props
     const { type, priority, points, lane, assignee } = this.state
 
     tracks.keys.forEach(key => {
@@ -127,7 +132,7 @@ class CreatePage extends React.Component<Connected, State> {
               required
             />
 
-            {featurePoints &&
+            {settings.featurePoints &&
               <Form.RadioField
                 name="points"
                 type="group"
@@ -137,23 +142,23 @@ class CreatePage extends React.Component<Connected, State> {
                 onChange={this._fieldHandler}
               />}
 
-            <Form.RadioField
+            {settings.featurePriority && <Form.RadioField
               name="priority"
               type="group"
               label="Priority"
               options={PRIORITY}
               selected={priority}
               onChange={this._fieldHandler}
-            />
+            />}
 
-            <Form.RadioField
+            {settings.featureTypes && <Form.RadioField
               name="type"
               type="group"
               label="Type"
               options={TYPES}
               selected={type}
               onChange={this._fieldHandler}
-            />
+            />}
 
             <Form.RadioField
               name="lane"
@@ -179,7 +184,11 @@ class CreatePage extends React.Component<Connected, State> {
 const mapState = (state: AppState) => ({
   tracks: state.tracks,
   users: state.users,
-  featurePoints: state.settings.featurePoints
+  settings: state.settings
 })
 
-export default connect(mapState)(CreatePage)
+const mapDispatch = {
+  createIssueRequest
+}
+
+export default connect(mapState, mapDispatch)(CreatePage)
