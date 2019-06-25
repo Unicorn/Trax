@@ -13,7 +13,7 @@
   "private": true,
   "repository": "https://github.com/UnicornAgency/Trax",
   "scripts": {
-    "lint": "yarn eslint ./src/**/*.ts",
+    "lint": "yarn eslint ./src --ext .ts,.tsx",
     "test": "yarn jest",
     "dev": "electron-webpack dev",
     "compile": "electron-webpack",

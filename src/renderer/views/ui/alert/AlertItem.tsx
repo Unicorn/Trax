@@ -1,5 +1,4 @@
 import * as React from 'react'
-
 import { Alert } from '@/models/alert'
 import CloseIcon from '@/views/ui/icons/CloseIcon'
 
@@ -18,7 +17,5 @@ const AlertItem: React.SFC<Props> = (props) => {
     </div>
   )
 }
-
-
 
 export default AlertItem

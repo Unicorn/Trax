@@ -19,5 +19,16 @@ Sometimes waiting for a product that you want and need in your life just doesnâ€
 ## Running the application
 `yarn dev` will get everything started up in development, provided you have met the prerequisites. `yarn electron:build` will compile the application for regular use into the `dist` folder for install, or you can grab a prebuilt installer/app from the [Releases Page](/releases)
 
+## Linting
+Install dependencies:
+
+```bash
+yarn add -D \
+  eslint prettier @typescript-eslint/parser @typescript-eslint/eslint-plugin \
+  eslint-plugin-prettier eslint-config-prettier eslint-plugin-react
+```
+
+Add command to package.json: `yarn eslint ./src/**/*.ts`
+
 ## Contributing
 Fork and hack away, or open issues and help us organize bugs and features!
