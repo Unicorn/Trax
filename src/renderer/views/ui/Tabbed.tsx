@@ -1,18 +1,16 @@
-import * as React from 'react'
-import { useEffect, useState } from 'react'
+/** @jsx createElement **/
+import { createElement, FC, ReactNode, useEffect, useState } from 'react'
 
 interface Props {
   tabHandler?: (name: string, index: number) => void
   content: {
-    [key: string]: React.ReactNode
+    [key: string]: ReactNode
   }
 }
 
-const Tabbed: React.FunctionComponent<Props> = (props: Props) => {
-  const [ selected, handleSelected ] = useState( -1 )
-  const {
-    content
-  } = props
+const Tabbed: FC<Props> = (props: Props) => {
+  const [selected, handleSelected] = useState(-1)
+  const { content } = props
   const ids = Object.keys(content)
 
   useEffect(() => {
@@ -40,20 +38,16 @@ const Tabbed: React.FunctionComponent<Props> = (props: Props) => {
     <div className="tabbed">
       <nav className="tabs">
         {ids.map((key, index) => {
-
           const className = selected === index ? 'active' : ''
 
           return (
             <button key={`tab-${index}`} onClick={_handleTabClick} className={className} name={key} value={index}>
               <span>{key}</span>
             </button>
-          ) 
-
+          )
         })}
       </nav>
-      <div className="pane">
-        {content[ids[selected]]}
-      </div>
+      <div className="pane">{content[ids[selected]]}</div>
     </div>
   )
 }

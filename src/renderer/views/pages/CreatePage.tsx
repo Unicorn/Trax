@@ -1,4 +1,5 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, Component, FormEvent } from 'react'
 import { connect } from 'react-redux'
 import { AppState } from '@/models/app'
 import { labelNames } from '@/helpers/issueHelper'
@@ -8,9 +9,8 @@ import { Users } from '@/models/user'
 import { TYPES, SWIMLANES, PRIORITY, POINTS } from '@/config/constants'
 import Editor from '@/views/ui/form/Editor'
 import Form, { OptionsObject } from '@/views/ui/form'
-import { Settings } from '@/models/setting';
-import { CreateIssuePayload, CreateIssueAction } from '@/models/issue';
-
+import { Settings } from '@/models/setting'
+import { CreateIssuePayload, CreateIssueAction } from '@/models/issue'
 
 interface Connected {
   tracks: Tracks
@@ -37,13 +37,12 @@ const defaultState = {
   body: ''
 }
 
-class CreatePage extends React.Component<Connected & Actions, State> {
-
+class CreatePage extends Component<Connected & Actions, State> {
   state = defaultState
   repoOptions: OptionsObject = {}
   userOptions: OptionsObject = {}
 
-  _submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  _submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     const { title, type, lane, points, priority, assignee, ident, body } = this.state
@@ -55,7 +54,7 @@ class CreatePage extends React.Component<Connected & Actions, State> {
       owner,
       repo,
       labels: labelNames([type, points, priority, lane]),
-      assignees: [assignee],
+      assignees: [assignee]
     }
 
     this.props.createIssueRequest(payload)
@@ -67,8 +66,7 @@ class CreatePage extends React.Component<Connected & Actions, State> {
 
     if (e._cache) {
       newData['body'] = e.toString('markdown')
-    }
-    else {
+    } else {
       let input = (e as React.FormEvent<HTMLInputElement>).currentTarget
       newData[input.name] = input.value
     }
@@ -84,8 +82,7 @@ class CreatePage extends React.Component<Connected & Actions, State> {
     if (tracks.data[ident]) {
       tracks.data[ident].userIds.forEach(id => {
         let user = users.data[id]
-        if (user)
-          this.userOptions[user.login] = { label: user.login }
+        if (user) this.userOptions[user.login] = { label: user.login }
       })
     }
   }
@@ -124,50 +121,28 @@ class CreatePage extends React.Component<Connected & Actions, State> {
               onChange={this._fieldHandler}
             />
 
-            <Form.TextField
-              name="title"
-              type="text"
-              label="Title"
-              onChange={this._fieldHandler}
-              required
-            />
+            <Form.TextField name="title" type="text" label="Title" onChange={this._fieldHandler} required />
 
-            {settings.featurePoints &&
+            {settings.featurePoints && (
+              <Form.RadioField name="points" type="group" label="Points" options={POINTS} selected={points} onChange={this._fieldHandler} />
+            )}
+
+            {settings.featurePriority && (
               <Form.RadioField
-                name="points"
+                name="priority"
                 type="group"
-                label="Points"
-                options={POINTS}
-                selected={points}
+                label="Priority"
+                options={PRIORITY}
+                selected={priority}
                 onChange={this._fieldHandler}
-              />}
+              />
+            )}
 
-            {settings.featurePriority && <Form.RadioField
-              name="priority"
-              type="group"
-              label="Priority"
-              options={PRIORITY}
-              selected={priority}
-              onChange={this._fieldHandler}
-            />}
+            {settings.featureTypes && (
+              <Form.RadioField name="type" type="group" label="Type" options={TYPES} selected={type} onChange={this._fieldHandler} />
+            )}
 
-            {settings.featureTypes && <Form.RadioField
-              name="type"
-              type="group"
-              label="Type"
-              options={TYPES}
-              selected={type}
-              onChange={this._fieldHandler}
-            />}
-
-            <Form.RadioField
-              name="lane"
-              type="group"
-              label="Swimlane"
-              options={SWIMLANES}
-              selected={lane}
-              onChange={this._fieldHandler}
-            />
+            <Form.RadioField name="lane" type="group" label="Swimlane" options={SWIMLANES} selected={lane} onChange={this._fieldHandler} />
 
             <button className="large teal button">Submit</button>
           </div>
@@ -191,4 +166,7 @@ const mapDispatch = {
   createIssueRequest
 }
 
-export default connect(mapState, mapDispatch)(CreatePage)
+export default connect(
+  mapState,
+  mapDispatch
+)(CreatePage)

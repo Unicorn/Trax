@@ -1,4 +1,5 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, SFC, useState } from 'react'
 import { FieldProps, OptionsObject } from './index'
 import ChevronDownIcon from '@/views/ui/icons/ChevronDownIcon'
 
@@ -10,31 +11,23 @@ interface Props extends FieldProps {
 const _renderSelectOptions = (options?: OptionsObject) => {
   let items = [<option key="default" />]
 
-  if (!options)
-    return items
+  if (!options) return items
 
   Object.keys(options).forEach(k =>
-    items.push(<option key={k} value={k}>{options[k].label}</option>)
+    items.push(
+      <option key={k} value={k}>
+        {options[k].label}
+      </option>
+    )
   )
 
   return items
 }
 
-const SelectField: React.SFC<Props> = (props) => {
-  const {
-    name,
-    type,
-    label,
-    options,
-    selected,
-    validate,
-    onValid,
-    onInvalid,
-    onChange,
-    ...inputProps
-  } = props
+const SelectField: SFC<Props> = props => {
+  const { name, type, label, options, selected, validate, onValid, onInvalid, onChange, ...inputProps } = props
 
-  const [valid, setValid] = React.useState(true)
+  const [valid, setValid] = useState(true)
   let className = `field ${type} `
   className += validate && valid ? 'valid ' : 'invalid '
   className += inputProps.value && inputProps.value.length > 0 ? 'not-empty ' : 'empty '

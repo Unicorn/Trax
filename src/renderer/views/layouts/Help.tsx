@@ -1,12 +1,12 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, Component } from 'react'
 import HelpIcon from '@/views/ui/icons/HelpIcon'
 
 interface State {
   show: boolean
 }
 
-class Help extends React.Component<{}, State> {
-
+class Help extends Component<{}, State> {
   state = {
     show: false
   }
@@ -19,7 +19,7 @@ class Help extends React.Component<{}, State> {
     const { children } = this.props
 
     return (
-      <aside className={ this.state.show ? 'help active' : 'help'}>
+      <aside className={this.state.show ? 'help active' : 'help'}>
         <div className="drawer">
           <button title="Show Help Menu" className="toggle" onClick={this._toggleHelp}>
             <HelpIcon />

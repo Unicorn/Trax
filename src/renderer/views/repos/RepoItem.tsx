@@ -1,4 +1,5 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, Component } from 'react'
 import { connect } from 'react-redux'
 import { createTrack, deleteTrack } from '@/controllers/trackController'
 import { Repo } from '@/models/repo'
@@ -8,7 +9,6 @@ import ConfirmTrack from '@/views/repos/ConfirmTrack'
 import ConfirmUntrack from '@/views/repos/ConfirmUntrack'
 import CheckIcon from '@/views/ui/icons/CheckIcon'
 import UncheckIcon from '@/views/ui/icons/UncheckIcon'
-
 
 interface Props {
   repo: Repo
@@ -23,8 +23,7 @@ interface State {
   showConfirmation: boolean
 }
 
-class RepoItem extends React.Component<Props & Connected, State> {
-
+class RepoItem extends Component<Props & Connected, State> {
   state = {
     showConfirmation: false
   }
@@ -50,20 +49,8 @@ class RepoItem extends React.Component<Props & Connected, State> {
 
     if (!showConfirmation) return null
 
-    if (track)
-      return (
-        <ConfirmUntrack
-          cancel={this._hideConfirmation}
-          handler={this._untrackHandler}
-        />
-      )
-    else
-      return (
-        <ConfirmTrack
-          cancel={this._hideConfirmation}
-          handler={this._trackHandler}
-        />
-      )
+    if (track) return <ConfirmUntrack cancel={this._hideConfirmation} handler={this._untrackHandler} />
+    else return <ConfirmTrack cancel={this._hideConfirmation} handler={this._trackHandler} />
   }
 
   render() {
@@ -86,7 +73,6 @@ class RepoItem extends React.Component<Props & Connected, State> {
       </li>
     )
   }
-
 }
 
 const mapState = (state: any, { repo }: Props) => ({

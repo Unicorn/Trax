@@ -1,16 +1,13 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, SFC } from 'react'
 
 interface Props {
   handler: (e: React.ChangeEvent<HTMLInputElement>) => any
 }
 
-const SearchIssues: React.SFC<Props> = ({ handler }) => (
+const SearchIssues: SFC<Props> = ({ handler }) => (
   <header className="search">
-    <input
-      type="text"
-      placeholder="Search for tasks..."
-      onChange={handler}
-    />
+    <input type="text" placeholder="Search for tasks..." onChange={handler} />
   </header>
 )
 

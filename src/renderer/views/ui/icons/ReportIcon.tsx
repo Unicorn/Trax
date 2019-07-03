@@ -1,11 +1,12 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, SFC } from 'react'
 
-type TIconProps = {
-  id?: string;
-  viewbox?: string;
+interface Props {
+  id?: string
+  viewbox?: string
 }
 
-const ReportIcon: React.SFC<TIconProps> = (props) => {
+const ReportIcon: SFC<Props> = props => {
   const { id, viewbox } = props
 
   return (

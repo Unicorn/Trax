@@ -1,4 +1,5 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, SFC } from 'react'
 import { Alert } from '@/models/alert'
 import CloseIcon from '@/views/ui/icons/CloseIcon'
 
@@ -7,13 +8,22 @@ interface Props {
   dismissHandler: (alert: Alert) => void
 }
 
-const AlertItem: React.SFC<Props> = (props) => {
+const AlertItem: SFC<Props> = props => {
   const { dismissHandler, alert } = props
 
   return (
     <div className={`alert ${alert.status}`}>
       {alert.message}
-      {alert.dismissable && (<button onClick={() => { dismissHandler(alert) }} className="close icon"><CloseIcon /></button>)}
+      {alert.dismissable && (
+        <button
+          onClick={() => {
+            dismissHandler(alert)
+          }}
+          className="close icon"
+        >
+          <CloseIcon />
+        </button>
+      )}
     </div>
   )
 }

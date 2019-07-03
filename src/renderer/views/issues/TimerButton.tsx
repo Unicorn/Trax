@@ -1,4 +1,5 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, SFC } from 'react'
 import { Timer } from '@/models/timer'
 import TimerStartIcon from '@/views/ui/icons/TimerStartIcon'
 import TimerStopIcon from '@/views/ui/icons/TimerStopIcon'
@@ -9,7 +10,7 @@ interface Props {
   handler: () => void
 }
 
-const TimerButton: React.SFC<Props> = ({ handler, timer }) => (
+const TimerButton: SFC<Props> = ({ handler, timer }) => (
   <div className="timer">
     <button onClick={handler}>{timer.isRunning ? <TimerStopIcon /> : <TimerStartIcon />}</button>
     <span className="counter">{timerClock(timer.duration)}</span>

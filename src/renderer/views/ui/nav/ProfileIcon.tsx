@@ -1,16 +1,17 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, SFC } from 'react'
 import { connect } from 'react-redux'
 
 interface Connected {
-  avatar: string;
+  avatar: string
 }
 
 const _errorHandler = (e: React.SyntheticEvent<HTMLImageElement>) => {
-  console.log("error loading profile image", e)
+  console.log('error loading profile image', e)
   e.currentTarget.setAttribute('src', '')
 }
 
-const ProfileIcon: React.SFC<Connected> = ({ avatar }) => (
+const ProfileIcon: SFC<Connected> = ({ avatar }) => (
   <div className="profile">
     <img src={avatar} alt="Profile avatar" height="50px" width="50px" onError={_errorHandler} />
   </div>

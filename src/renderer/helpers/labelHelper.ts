@@ -21,7 +21,7 @@ export const priorityFromLabels = (labels: Label[]): number => {
 export const pointsFromLabels = (labels: Label[]): number => {
   let labelsArr = labels.map(l => l.name)
   let filtered = intersection(labelsArr, traxPoints)
-  return filtered[0] && filtered[0].length || 0
+  return (filtered[0] && filtered[0].length) || 0
 }
 
 export const typeFromLabels = (labels: Label[]): string => {

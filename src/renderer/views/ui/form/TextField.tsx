@@ -1,4 +1,5 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, SFC, useState } from 'react'
 import { FieldProps } from './index'
 
 interface Props extends FieldProps {
@@ -6,20 +7,10 @@ interface Props extends FieldProps {
   onChange: (e: React.SyntheticEvent<HTMLInputElement>) => void
 }
 
-const TextField: React.SFC<Props> = (props) => {
-  const {
-    name,
-    type,
-    label,
-    selected,
-    validate,
-    onValid,
-    onInvalid,
-    onChange,
-    ...inputProps
-  } = props
+const TextField: SFC<Props> = props => {
+  const { name, type, label, selected, validate, onValid, onInvalid, onChange, ...inputProps } = props
 
-  const [valid, setValid] = React.useState(true)
+  const [valid, setValid] = useState(true)
   let className = `field ${type} `
   className += validate && valid ? 'valid ' : 'invalid '
   className += inputProps.value && inputProps.value.length > 0 ? 'not-empty ' : 'empty '

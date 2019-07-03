@@ -1,4 +1,5 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, SFC } from 'react'
 import { render } from 'react-dom'
 
 // REDUX
@@ -22,7 +23,7 @@ declare global {
   }
 }
 
-const App: React.SFC = () => (
+const App: SFC = () => (
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <Page />

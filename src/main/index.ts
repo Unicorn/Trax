@@ -22,12 +22,7 @@ const setupDevEnvironment = () => {
   // Open Dev Tools and install react/redux extensions
   mainWindow && mainWindow.webContents.openDevTools()
 
-  const {
-    default: installExtension,
-    REACT_DEVELOPER_TOOLS,
-    REACT_PERF,
-    REDUX_DEVTOOLS
-  } = require('electron-devtools-installer')
+  const { default: installExtension, REACT_DEVELOPER_TOOLS, REACT_PERF, REDUX_DEVTOOLS } = require('electron-devtools-installer')
 
   const extensions = [REACT_DEVELOPER_TOOLS, REACT_PERF, REDUX_DEVTOOLS]
 
@@ -60,11 +55,13 @@ const createWindow = () => {
 
   isDev
     ? mainWindow.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`)
-    : mainWindow.loadURL(formatUrl({
-      pathname: path.join(__dirname, 'index.html'),
-      protocol: 'file',
-      slashes: true
-    }))
+    : mainWindow.loadURL(
+      formatUrl({
+        pathname: path.join(__dirname, 'index.html'),
+        protocol: 'file',
+        slashes: true
+      })
+    )
 
   mainWindow.maximize()
 
@@ -100,8 +97,8 @@ if (isDev) {
   app.on('certificate-error', (event, _webContents, _url, _error, _certificate, callback) => {
     // On certificate error we disable default behaviour (stop loading the page)
     // and we then say "it is all fine - true" to the callback
-    event.preventDefault();
-    callback(true);
+    event.preventDefault()
+    callback(true)
   })
 }
 

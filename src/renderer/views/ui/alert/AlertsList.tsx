@@ -1,4 +1,5 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, SFC } from 'react'
 import { connect } from 'react-redux'
 
 import { deleteAlert } from '@/controllers/alertController'
@@ -14,15 +15,16 @@ interface Actions {
   deleteAlert: (payload: Alert) => AlertAction
 }
 
-const AlertsList: React.SFC<Props & Actions> = (props) => {
+const AlertsList: SFC<Props & Actions> = props => {
   const { alerts, deleteAlert } = props
 
-  if (!alerts || alerts.length < 1)
-    return null
+  if (!alerts || alerts.length < 1) return null
 
   return (
     <div className="alerts">
-      {alerts.map(alert => <AlertItem alert={alert} dismissHandler={deleteAlert} key={alert.key} />)}
+      {alerts.map(alert => (
+        <AlertItem alert={alert} dismissHandler={deleteAlert} key={alert.key} />
+      ))}
     </div>
   )
 }
@@ -31,8 +33,11 @@ const mapState = (state: AppState) => ({
   alerts: toArray(state.alerts) as Alert[]
 })
 
-const mapDispatch = ({
+const mapDispatch = {
   deleteAlert
-})
+}
 
-export default connect(mapState, mapDispatch)(AlertsList)
+export default connect(
+  mapState,
+  mapDispatch
+)(AlertsList)

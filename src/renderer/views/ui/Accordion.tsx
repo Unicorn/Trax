@@ -1,16 +1,14 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, FC } from 'react'
 import { useState } from 'react'
 
 interface Props {
   children: React.ReactNode
-  trigger: string;
+  trigger: string
 }
 
-const Accordion: React.FunctionComponent<Props> = (props: Props) => {
-  const {
-    trigger,
-    children
-  } = props
+const Accordion: FC<Props> = (props: Props) => {
+  const { trigger, children } = props
   const [open, setOpen] = useState(false)
 
   function _handleClick(e: any) {

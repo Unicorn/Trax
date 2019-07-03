@@ -1,4 +1,5 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, SFC } from 'react'
 import CheckIcon from '@/views/ui/icons/CheckIcon'
 import UncheckIcon from '@/views/ui/icons/UncheckIcon'
 
@@ -7,7 +8,7 @@ interface Props {
   handler: () => void
 }
 
-const ConfirmUntrack: React.SFC<Props> = ({ cancel, handler }) => (
+const ConfirmUntrack: SFC<Props> = ({ cancel, handler }) => (
   <div className="confirm overlay item">
     <div className="actions">
       <button className="confirm" onClick={handler}>

@@ -33,7 +33,6 @@ interface Actions {
 }
 
 const Card: SFC<Props & Connected & Actions> = ({ timers, settings, issue, index }) => {
-
   const timer = timers.data[issue.key] || { ...defaultTimer, key: issue.key, issue, startedAt: new Date() }
 
   const _timerHandler = () => {
@@ -60,12 +59,24 @@ const Card: SFC<Props & Connected & Actions> = ({ timers, settings, issue, index
         >
           <header>
             <strong>{`${issue.ident}/#${issue.number}`}</strong>
-            {settings.featureTypes && type && <i className="type"><TypeIcon type={type} /></i>}
-            {settings.featurePoints && points > 0 && <i className="points"><PointsIcon points={points} /></i>}
+            {settings.featureTypes && type && (
+              <i className="type">
+                <TypeIcon type={type} />
+              </i>
+            )}
+            {settings.featurePoints && points > 0 && (
+              <i className="points">
+                <PointsIcon points={points} />
+              </i>
+            )}
           </header>
 
           <div className="description">
-            {tracked && <div className="tracked"><b>Total Time:</b> <i>{tracked}</i></div>}
+            {tracked && (
+              <div className="tracked">
+                <b>Total Time:</b> <i>{tracked}</i>
+              </div>
+            )}
             <p>{issue.title}</p>
           </div>
 
@@ -91,4 +102,7 @@ const mapDispatch: Actions = {
   stopTimer
 }
 
-export default connect(mapState, mapDispatch)(Card)
+export default connect(
+  mapState,
+  mapDispatch
+)(Card)

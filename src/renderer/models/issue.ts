@@ -5,7 +5,7 @@ import { LANES, Lane } from '@/config/constants'
 
 /**
  * Core Definitions
-**/
+ **/
 export enum ISSUES {
   REQUEST_START = 'trax/issues/request/start',
   REQUEST_SUCCESS = 'trax/issues/request/success',
@@ -58,7 +58,7 @@ export interface Issues extends Resources {
 
 /**
  * ACTIONS and Action Types
-**/
+ **/
 export interface CreateIssuePayload {
   owner: string
   repo: string
@@ -71,7 +71,7 @@ export interface CreateIssuePayload {
 }
 
 export interface CreateIssueAction {
-  type: ISSUE,
+  type: ISSUE
   payload: CreateIssuePayload
 }
 
@@ -82,7 +82,7 @@ export interface IssueAction {
 
 /**
  * Normalizers and Helper Functions
-**/
+ **/
 export const normalizeIssue = (issue: Issue): Issue => {
   const labels = issue.labels && issue.labels.filter(l => LANES.includes(l.name as Lane))
   const lane: Lane = labels && labels.length > 0 ? (labels[0].name as Lane) : 'backlog'

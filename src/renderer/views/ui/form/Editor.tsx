@@ -1,4 +1,5 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, Component } from 'react'
 import RichTextEditor, { EditorValue } from 'react-rte'
 import RadioField from './RadioField'
 import SelectField from './SelectField'
@@ -24,8 +25,7 @@ const modeOptions = {
   }
 }
 
-class Editor extends React.Component<Props, State> {
-
+class Editor extends Component<Props, State> {
   state: State = {
     mode: 'editor',
     body: RichTextEditor.createEmptyValue()
@@ -47,22 +47,24 @@ class Editor extends React.Component<Props, State> {
   }
 
   _templateSelectHandler = (e: React.FormEvent<HTMLSelectElement>) => {
-    console.log("_templateSelectHandler", e.currentTarget.value)
+    console.log('_templateSelectHandler', e.currentTarget.value)
   }
 
   _renderEditor = () => {
     const { body, mode } = this.state
 
-    switch(mode) {
-      case 'editor' :
-        return <RichTextEditor
-          className="rich-text"
-          editorClassName="rich-text-editor"
-          toolbarClassName="rich-text-toolbar"
-          onChange={this._editorHandler}
-          value={body}
-        />
-      case 'markdown' :
+    switch (mode) {
+      case 'editor':
+        return (
+          <RichTextEditor
+            className="rich-text"
+            editorClassName="rich-text-editor"
+            toolbarClassName="rich-text-toolbar"
+            onChange={this._editorHandler}
+            value={body}
+          />
+        )
+      case 'markdown':
         return <textarea onChange={this._textareaHandler} value={body.toString(mode)}></textarea>
     }
   }
@@ -79,14 +81,7 @@ class Editor extends React.Component<Props, State> {
           selected={this.state.mode}
         />
 
-        <SelectField
-          name="template"
-          type="select"
-          label="Template"
-          options={TYPES}
-          onChange={this._templateSelectHandler}
-          required
-        />
+        <SelectField name="template" type="select" label="Template" options={TYPES} onChange={this._templateSelectHandler} required />
 
         {this._renderEditor()}
       </div>

@@ -52,8 +52,6 @@ export const receivedIssues = (): { type: string } => ({
   type: GITHUB.ISSUES.SUCCESS
 })
 
-
-
 export interface GetReposForLogin {
   type: string
   login: string

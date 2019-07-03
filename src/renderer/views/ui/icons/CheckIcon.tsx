@@ -1,12 +1,13 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, SFC } from 'react'
 
-type TIconProps = {
-  id?: string;
-  viewbox?: string;
-  color?: string;
+interface TIconProps {
+  id?: string
+  viewbox?: string
+  color?: string
 }
 
-const CheckIcon: React.SFC<TIconProps> = (props) => {
+const CheckIcon: SFC<TIconProps> = props => {
   const { id, viewbox } = props
 
   return (

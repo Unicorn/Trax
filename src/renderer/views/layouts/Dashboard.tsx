@@ -1,4 +1,5 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, SFC } from 'react'
 import { connect } from 'react-redux'
 
 import { logout } from '@/controllers/authController'
@@ -27,8 +28,7 @@ interface Actions {
   toggleShowBoardSearch: (value: boolean) => SettingsAction
 }
 
-const Dashboard: React.SFC<Props & Actions> = (props) => {
-
+const Dashboard: SFC<Props & Actions> = props => {
   const { children, tracks, page, showBoardSearch, issuesLoading, reloadTrack, toggleShowBoardSearch } = props
 
   const _reloadTracks = () => {
@@ -37,17 +37,19 @@ const Dashboard: React.SFC<Props & Actions> = (props) => {
   }
 
   const _renderBoardActions = () => [
-    <button key="search" onClick={() => toggleShowBoardSearch(!showBoardSearch)}><SearchIcon /></button>,
-    <button key="loading" className={issuesLoading ? 'spin' : ''} onClick={_reloadTracks}><LoadingIcon /></button>
+    <button key="search" onClick={() => toggleShowBoardSearch(!showBoardSearch)}>
+      <SearchIcon />
+    </button>,
+    <button key="loading" className={issuesLoading ? 'spin' : ''} onClick={_reloadTracks}>
+      <LoadingIcon />
+    </button>
   ]
 
   return (
     <div>
       <div>
         <header className="toolbar">
-          <div className="actions">
-            {page === ROUTES.board.name && _renderBoardActions()}
-          </div>
+          <div className="actions">{page === ROUTES.board.name && _renderBoardActions()}</div>
         </header>
 
         <AlertsList />
@@ -55,9 +57,7 @@ const Dashboard: React.SFC<Props & Actions> = (props) => {
         <Navigation />
       </div>
 
-      <main className="dashboard">
-        {children}
-      </main>
+      <main className="dashboard">{children}</main>
     </div>
   )
 }
@@ -69,10 +69,13 @@ const mapState = (state: AppState) => ({
   issuesLoading: state.issues.isLoading
 })
 
-const mapDispatch = ({
+const mapDispatch = {
   toggleShowBoardSearch,
   reloadTrack,
   logout
-})
+}
 
-export default connect(mapState, mapDispatch)(Dashboard)
+export default connect(
+  mapState,
+  mapDispatch
+)(Dashboard)

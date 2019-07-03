@@ -18,7 +18,7 @@ export interface FieldProps {
   onInvalid?: (error: string) => void
 }
 
-export type OptionsObject = {
+export interface OptionsObject {
   [key: string]: {
     label: string
     name?: string
@@ -30,5 +30,5 @@ export default {
   SelectField,
   RadioField,
   TextField,
-  TextAreaField,
+  TextAreaField
 }

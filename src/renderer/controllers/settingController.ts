@@ -26,7 +26,7 @@ export const setFeaturePoints = (value: boolean): SettingsAction => ({
   payload: { featurePoints: value }
 })
 
-export const setFeaturePri = (value: boolean): SettingsAction => ({
+export const setFeaturePriority = (value: boolean): SettingsAction => ({
   type: SETTING.SET_FEATURE_PRIORITY,
   payload: { featurePriority: value }
 })

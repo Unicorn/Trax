@@ -1,21 +1,26 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, SFC } from 'react'
 import { connect } from 'react-redux'
 import Form from '@/views/ui/form/index'
 import { AppState } from '@/models/app'
-import { Settings, ActiveLaneValues, SettingsAction, Features } from '@/models/setting'
+import { Settings } from '@/models/setting'
 import { LANES, Lane } from '@/config/constants'
-import { setLanes, setFeature } from '@/controllers/settingController'
+import { setLanes, setFeaturePoints, setFeaturePriority, setFeatureTypes } from '@/controllers/settingController'
 
 interface Connected {
   settings: Settings
 }
 
 interface Actions {
-  setLanes: (value: ActiveLaneValues) => SettingsAction
-  setFeature: (key: Features, value: boolean) => SettingsAction
+  _setLanes: typeof setLanes
+  _setFeaturePoints: typeof setFeaturePoints
+  _setFeaturePriority: typeof setFeaturePriority
+  _setFeatureTypes: typeof setFeatureTypes
 }
 
-const LaneSettings: React.SFC<Connected & Actions> = ({ settings, setLanes, setFeature }) => {
+const LaneSettings: SFC<Connected & Actions> = (
+  { settings, _setLanes, _setFeaturePoints, _setFeaturePriority, _setFeatureTypes }
+) => {
 
   const _laneSettingsHandler = (e: React.SyntheticEvent<HTMLInputElement>) => {
     let input = e.currentTarget
@@ -27,7 +32,7 @@ const LaneSettings: React.SFC<Connected & Actions> = ({ settings, setLanes, setF
       newState = settings.lanes.filter(l => l !== input.name)
 
     // Seems redundant, but assures our lane order
-    setLanes(LANES.filter(lane => newState.includes(lane)))
+    _setLanes(LANES.filter(lane => newState.includes(lane)))
   }
 
   return (
@@ -53,7 +58,7 @@ const LaneSettings: React.SFC<Connected & Actions> = ({ settings, setLanes, setF
           name="points"
           type="toggle"
           label="Points"
-          onChange={(e) => setFeature('featurePoints', e.currentTarget.checked)}
+          onChange={(e) => _setFeaturePoints(e.currentTarget.checked)}
           checked={settings.featurePoints}
         />
 
@@ -61,7 +66,7 @@ const LaneSettings: React.SFC<Connected & Actions> = ({ settings, setLanes, setF
           name="priorities"
           type="toggle"
           label="Priority"
-          onChange={(e) => setFeature('featurePriority', e.currentTarget.checked)}
+          onChange={(e) => _setFeaturePriority(e.currentTarget.checked)}
           checked={settings.featurePriority}
         />
 
@@ -69,7 +74,7 @@ const LaneSettings: React.SFC<Connected & Actions> = ({ settings, setLanes, setF
           name="types"
           type="toggle"
           label="Types"
-          onChange={(e) => setFeature('featureTypes', e.currentTarget.checked)}
+          onChange={(e) => _setFeatureTypes(e.currentTarget.checked)}
           checked={settings.featureTypes}
         />
       </div>
@@ -82,8 +87,10 @@ const mapState = (state: AppState): Connected => ({
 })
 
 const mapDispatch = ({
-  setLanes,
-  setFeature
+  _setLanes: setLanes,
+  _setFeaturePoints: setFeaturePoints,
+  _setFeaturePriority: setFeaturePriority,
+  _setFeatureTypes: setFeatureTypes,
 })
 
 export default connect(mapState, mapDispatch)(LaneSettings)

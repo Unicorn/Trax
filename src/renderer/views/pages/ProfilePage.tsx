@@ -1,4 +1,5 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, Component } from 'react'
 import { connect } from 'react-redux'
 
 import Tabbed from '@/views/ui/Tabbed'
@@ -22,8 +23,7 @@ interface State {
   logins: { [key: string]: string }
 }
 
-class ProfilePage extends React.Component<Connected, State> {
-
+class ProfilePage extends Component<Connected, State> {
   state = {
     content: {},
     logins: {}
@@ -48,14 +48,15 @@ class ProfilePage extends React.Component<Connected, State> {
   _renderTracks = () => {
     const { tracks, repos }: Connected = this.props
 
-    if (tracks.keys.length < 1)
-      return <p>Nothing tracked yet. Select a repo to track.</p>
+    if (tracks.keys.length < 1) return <p>Nothing tracked yet. Select a repo to track.</p>
 
     const activeTracks = (toArray(tracks) as Track[]).filter(track => track.active)
 
     return (
       <ul>
-        {activeTracks.map(track => <RepoItem repo={repos.data[track.repoId]} key={track.key} />)}
+        {activeTracks.map(track => (
+          <RepoItem repo={repos.data[track.repoId]} key={track.key} />
+        ))}
       </ul>
     )
   }

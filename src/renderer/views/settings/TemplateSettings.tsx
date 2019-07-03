@@ -1,8 +1,9 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, Component } from 'react'
 import { connect } from 'react-redux'
 import { logout } from '@/controllers/authController'
 import { resetApp } from '@/models/app'
-import Editor from '@/views/ui/form/Editor';
+import Editor from '@/views/ui/form/Editor'
 
 interface Props {
   resetApp: () => void
@@ -13,8 +14,7 @@ interface State {
   body: string
 }
 
-class TemplateSettings extends React.Component<Props, State> {
-
+class TemplateSettings extends Component<Props, State> {
   state = {
     body: ''
   }
@@ -30,15 +30,16 @@ class TemplateSettings extends React.Component<Props, State> {
   }
 
   render() {
-    return (
-      <Editor handler={this._fieldHandler} />
-    )
+    return <Editor handler={this._fieldHandler} />
   }
 }
 
-const mapDispatch = ({
+const mapDispatch = {
   resetApp,
   logout
-})
+}
 
-export default connect(null, mapDispatch)(TemplateSettings)
+export default connect(
+  null,
+  mapDispatch
+)(TemplateSettings)

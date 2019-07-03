@@ -1,4 +1,5 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, Component } from 'react'
 import { connect } from 'react-redux'
 import { v4 } from 'uuid'
 
@@ -17,8 +18,7 @@ interface State {
   selectedKeys: string[]
 }
 
-class ReportPage extends React.Component<Connected, State> {
-
+class ReportPage extends Component<Connected, State> {
   state = {
     selectedKeys: []
   }
@@ -27,10 +27,8 @@ class ReportPage extends React.Component<Connected, State> {
     let timerIds: string[] = [...this.state.selectedKeys]
     let input = e.currentTarget
 
-    if (input.checked)
-      timerIds.push(input.value.toString())
-    else
-      timerIds = timerIds.filter(t => t !== input.value)
+    if (input.checked) timerIds.push(input.value.toString())
+    else timerIds = timerIds.filter(t => t !== input.value)
 
     this.setState({ selectedKeys: timerIds })
   }
@@ -46,7 +44,7 @@ class ReportPage extends React.Component<Connected, State> {
   _createInvoice = () => {
     const { timers, dispatch } = this.props
     const { selectedKeys } = this.state
-    let invoice = { timers: selectedKeys.map(key => timers.data[key]), key: v4()}
+    let invoice = { timers: selectedKeys.map(key => timers.data[key]), key: v4() }
 
     dispatch(createInvoice(invoice))
   }
@@ -57,12 +55,21 @@ class ReportPage extends React.Component<Connected, State> {
 
     return (
       <section className="report page">
-        <Help><p>When you track time on individual github issues, they show up here. You can select these at any time to convert them to a report or invoice.</p></Help>
+        <Help>
+          <p>
+            When you track time on individual github issues, they show up here. You can select these at any time to convert them to a report
+            or invoice.
+          </p>
+        </Help>
 
         <table cellPadding="0" cellSpacing="0">
           <thead>
             <tr>
-              <th><div className="input checkbox"><input type="checkbox" onChange={this._selectHandler} /></div></th>
+              <th>
+                <div className="input checkbox">
+                  <input type="checkbox" onChange={this._selectHandler} />
+                </div>
+              </th>
               <th>Repo</th>
               <th>Issue</th>
               <th>Status</th>
@@ -83,7 +90,9 @@ class ReportPage extends React.Component<Connected, State> {
         </table>
 
         <div className={`action-bar ${selectedKeys.length > 0 && 'active'}`}>
-          <button className="brown basic button" onClick={this._createInvoice}>Create Invoice</button>
+          <button className="brown basic button" onClick={this._createInvoice}>
+            Create Invoice
+          </button>
           <button className="red basic button">Cancel</button>
         </div>
       </section>
@@ -92,7 +101,7 @@ class ReportPage extends React.Component<Connected, State> {
 }
 
 const mapState = (state: any) => ({
-  timers: state.timers,
+  timers: state.timers
 })
 
 export default connect(mapState)(ReportPage)

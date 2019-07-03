@@ -1,4 +1,5 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, SFC } from 'react'
 import { connect } from 'react-redux'
 import { AppState } from '@/models/app'
 import { Timer } from '@/models/timer'
@@ -15,17 +16,16 @@ interface Props {
 }
 
 interface Connected {
-  issues:  Issues
+  issues: Issues
 }
 
-const TimerEntry: React.SFC<Props & Connected> = (props) => {
+const TimerEntry: SFC<Props & Connected> = props => {
   const { timer, checked, handler, issues } = props
 
-  if (!timer.issue)
-    return null
+  if (!timer.issue) return null
 
   const issue = issues.data[timer.issue.key]
-  const lane = issue && issue.lane || ''
+  const lane = (issue && issue.lane) || ''
 
   return (
     <tr>
@@ -34,9 +34,19 @@ const TimerEntry: React.SFC<Props & Connected> = (props) => {
           <input type="checkbox" value={timer.key} onChange={handler} checked={checked} />
         </div>
       </td>
-      <td><ExternalLink url={timer.issue.repositoryUrl} showIcon={false}>{timer.issue.ident}</ExternalLink></td>
-      <td><ExternalLink url={timer.issue.htmlUrl} showIcon={false}>#{timer.issue.number}</ExternalLink></td>
-      <td><LabelItem label={SWIMLANES[lane]} /></td>
+      <td>
+        <ExternalLink url={timer.issue.repositoryUrl} showIcon={false}>
+          {timer.issue.ident}
+        </ExternalLink>
+      </td>
+      <td>
+        <ExternalLink url={timer.issue.htmlUrl} showIcon={false}>
+          #{timer.issue.number}
+        </ExternalLink>
+      </td>
+      <td>
+        <LabelItem label={SWIMLANES[lane]} />
+      </td>
       <td>{timerDuration(timer, true)}</td>
       <td>{timer.issue.title}</td>
     </tr>

@@ -1,4 +1,5 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, SFC, useState } from 'react'
 import { FieldProps, OptionsObject } from './index'
 
 interface Props extends FieldProps {
@@ -7,8 +8,7 @@ interface Props extends FieldProps {
 }
 
 const _renderRadioOptions = (props: Props, options?: OptionsObject) => {
-  if (!options)
-    return null
+  if (!options) return null
 
   const { name, selected, onChange } = props
 
@@ -20,23 +20,12 @@ const _renderRadioOptions = (props: Props, options?: OptionsObject) => {
   ))
 }
 
-const RadioField: React.SFC<Props> = (props) => {
-  const {
-    name,
-    type,
-    label,
-    options,
-    selected,
-    validate,
-    onValid,
-    onInvalid,
-    onChange,
-    ...inputProps
-  } = props
+const RadioField: SFC<Props> = props => {
+  const { name, type, label, options, selected, validate, onValid, onInvalid, onChange, ...inputProps } = props
 
   let field = null
 
-  const [valid, setValid] = React.useState(true)
+  const [valid, setValid] = useState(true)
   let className = `field ${type} `
   className += validate && valid ? 'valid ' : 'invalid '
   className += inputProps.value && inputProps.value.length > 0 ? 'not-empty ' : 'empty '
@@ -59,7 +48,7 @@ const RadioField: React.SFC<Props> = (props) => {
   }
 
   switch (type) {
-    case 'toggle' :
+    case 'toggle':
       return (
         <label className={className}>
           <input name={name} type="checkbox" {...inputProps} onChange={_onChange} onBlur={_onBlur} />
@@ -67,15 +56,15 @@ const RadioField: React.SFC<Props> = (props) => {
           <strong>{label}</strong>
         </label>
       )
-    case 'group' :
-    case 'tabs' :
+    case 'group':
+    case 'tabs':
       return (
         <div className={className}>
           <span className="header">{label}</span>
           <div className="options">{_renderRadioOptions(props, options)}</div>
         </div>
       )
-    default :
+    default:
       return (
         <div className={className}>
           {field}

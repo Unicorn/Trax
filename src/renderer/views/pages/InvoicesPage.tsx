@@ -1,4 +1,5 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, SFC } from 'react'
 import { connect } from 'react-redux'
 
 import { AppState, toArray } from '@/models/app'
@@ -9,7 +10,7 @@ interface Connected {
   invoices: Invoices
 }
 
-const InvoicesPage: React.SFC<Connected> = (props) => {
+const InvoicesPage: SFC<Connected> = props => {
   const invoices: Invoice[] = toArray(props.invoices) as Invoice[]
 
   return (
@@ -28,7 +29,7 @@ const InvoicesPage: React.SFC<Connected> = (props) => {
           {invoices.map(invoice => (
             <tr key={invoice.key}>
               <td>{invoice.key}</td>
-              <td>{(new Date(invoice.createdAt || '')).toString()}</td>
+              <td>{new Date(invoice.createdAt || '').toString()}</td>
               <td>{timersDuration(invoice.timers, true)}</td>
             </tr>
           ))}
@@ -38,7 +39,7 @@ const InvoicesPage: React.SFC<Connected> = (props) => {
   )
 }
 
-const mapState = (state: AppState) =>({
+const mapState = (state: AppState) => ({
   invoices: state.invoices
 })
 

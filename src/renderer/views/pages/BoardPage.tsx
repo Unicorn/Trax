@@ -1,5 +1,6 @@
+/** @jsx createElement **/
+import { createElement, FC, useState, useEffect } from 'react'
 import { union, trim } from 'lodash'
-import * as React from 'react'
 import { connect } from 'react-redux'
 import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 import { reloadTrack } from '@/controllers/trackController'
@@ -21,9 +22,9 @@ interface Connected {
   dispatch: (action: any) => any
 }
 
-const BoardPage: React.FunctionComponent<Connected> = (props: Connected) => {
-  const [ allIssues, setAllIssues ] = React.useState<Issue[]>([])
-  const [ filteredIssues, setFilteredIssues ] = React.useState<Issue[]>([])
+const BoardPage: FC<Connected> = (props: Connected) => {
+  const [allIssues, setAllIssues] = useState<Issue[]>([])
+  const [filteredIssues, setFilteredIssues] = useState<Issue[]>([])
 
   function _tracksArray(tracks: Tracks) {
     return toArray(tracks) as Track[]
@@ -33,7 +34,7 @@ const BoardPage: React.FunctionComponent<Connected> = (props: Connected) => {
     const { dispatch, tracks } = props
     const tracksArray = _tracksArray(tracks)
 
-    tracksArray.forEach(track => dispatch(reloadTrack( track )))
+    tracksArray.forEach(track => dispatch(reloadTrack(track)))
   }
 
   function _filterIssues(e: React.ChangeEvent<HTMLInputElement>) {
@@ -53,36 +54,29 @@ const BoardPage: React.FunctionComponent<Connected> = (props: Connected) => {
     }
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     _reload()
   }, [])
 
-  React.useEffect(() => {
+  useEffect(() => {
     let issueIds: string[] = []
 
-    const tracksArray = _tracksArray( props.tracks )
-    tracksArray.forEach( track => issueIds = union(issueIds, track.issueIds) )
+    const tracksArray = _tracksArray(props.tracks)
+    tracksArray.forEach(track => (issueIds = union(issueIds, track.issueIds)))
 
-    setFilteredIssues(union(filteredIssues, issueIds.map( id => props.issues.data[id])))
+    setFilteredIssues(union(filteredIssues, issueIds.map(id => props.issues.data[id])))
     setAllIssues(filteredIssues)
   }, [props])
 
-  const {
-    lanes, showBoardSearch
-  } = props
+  const { lanes, showBoardSearch } = props
 
   return (
-
     <section className="board">
-      { showBoardSearch && <SearchIssues handler={ _filterIssues }/> }
+      {showBoardSearch && <SearchIssues handler={_filterIssues} />}
       <div className="columns">
-        <DragDropContext onDragEnd={ _onDragEnd }>
+        <DragDropContext onDragEnd={_onDragEnd}>
           {lanes.map(lane => (
-            <IssuesLane
-              key={lane}
-              lane={lane}
-              issues={filteredIssues.filter((issue: Issue) => issue && issue.lane === lane)}
-            />
+            <IssuesLane key={lane} lane={lane} issues={filteredIssues.filter((issue: Issue) => issue && issue.lane === lane)} />
           ))}
         </DragDropContext>
       </div>

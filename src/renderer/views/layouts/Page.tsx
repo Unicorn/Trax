@@ -1,4 +1,5 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, SFC } from 'react'
 import { connect } from 'react-redux'
 import { Auth } from '@/models/auth'
 import { ROUTES } from '@/config/constants'
@@ -12,32 +13,31 @@ interface Connected {
   page: string
 }
 
-const Page: React.SFC<Connected> = ({ page, auth }) => {
-  if (page === ROUTES.welcome.name && !auth.accessToken)
-    return <WelcomePage />
+const Page: SFC<Connected> = ({ page, auth }) => {
+  if (page === ROUTES.welcome.name && !auth.accessToken) return <WelcomePage />
 
   var child = null
 
-  switch(page) {
-    case ROUTES.board.name :
+  switch (page) {
+    case ROUTES.board.name:
       child = <Pages.BoardPage />
       break
-    case ROUTES.create.name :
+    case ROUTES.create.name:
       child = <Pages.CreatePage />
       break
-    case ROUTES.profile.name :
+    case ROUTES.profile.name:
       child = <Pages.ProfilePage />
       break
-    case ROUTES.timers.name :
+    case ROUTES.timers.name:
       child = <Pages.TimersPage />
       break
-    case ROUTES.invoices.name :
+    case ROUTES.invoices.name:
       child = <Pages.InvoicesPage />
       break
-    case ROUTES.settings.name :
-      child = <Pages.SettingsPage/>
+    case ROUTES.settings.name:
+      child = <Pages.SettingsPage />
       break
-    default :
+    default:
       child = <Pages.ProfilePage />
   }
 
@@ -46,7 +46,7 @@ const Page: React.SFC<Connected> = ({ page, auth }) => {
 
 const mapState = (state: any): Connected => ({
   auth: state.auth,
-  page: state.settings.page,
+  page: state.settings.page
 })
 
 export default connect(mapState)(Page)

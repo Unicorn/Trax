@@ -38,7 +38,7 @@ function* watchReloadTrack(action: TrackAction): Iterable<CallEffect | PutEffect
 
     yield put(receivedIssues())
   } catch (e) {
-    console.log("Ignoring errors for create tracks:", e.message)
+    console.log('Ignoring errors for create tracks:', e.message)
   }
 }
 
@@ -57,7 +57,7 @@ function* watchCreateTrack(action: TrackAction): Iterable<AllEffect<CallEffect> 
     )
     yield call(watchReloadTrack, action)
   } catch (e) {
-    console.log("error", e.response)
+    console.log('error', e.response)
   }
 }
 

@@ -1,4 +1,5 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, SFC } from 'react'
 import { connect } from 'react-redux'
 import { logout } from '@/controllers/authController'
 import { resetApp } from '@/models/app'
@@ -8,21 +9,28 @@ interface Props {
   logout: () => void
 }
 
-const AppSettings: React.SFC<Props> = (props) => {
+const AppSettings: SFC<Props> = props => {
   const { resetApp } = props
 
   return (
     <div className="fixed box bottom">
       <p>Current Version: {window.app.version}</p>
-      <button className="small yellow button" onClick={logout}>Logout</button>
-      <button className="small red button" onClick={resetApp}>Reset Application Data</button>
+      <button className="small yellow button" onClick={logout}>
+        Logout
+      </button>
+      <button className="small red button" onClick={resetApp}>
+        Reset Application Data
+      </button>
     </div>
   )
 }
 
-const mapDispatch = ({
+const mapDispatch = {
   resetApp,
   logout
-})
+}
 
-export default connect(null, mapDispatch)(AppSettings)
+export default connect(
+  null,
+  mapDispatch
+)(AppSettings)

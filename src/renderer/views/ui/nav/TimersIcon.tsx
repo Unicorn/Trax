@@ -1,11 +1,12 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, SFC } from 'react'
 
-type Props = {
-  id?: string;
-  viewbox?: string;
+interface Props {
+  id?: string
+  viewbox?: string
 }
 
-const TimersIcon: React.SFC<Props> = (props) => {
+const TimersIcon: SFC<Props> = props => {
   const { id, viewbox } = props
 
   return (

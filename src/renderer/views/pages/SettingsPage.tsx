@@ -1,11 +1,11 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, SFC } from 'react'
 
 import BoardSettings from '@/views/settings/BoardSettings'
 import AppSettings from '@/views/settings/AppSettings'
 import TemplateSettings from '@/views/settings/TemplateSettings'
 
-const SettingsPage: React.SFC<{}> = () => {
-
+const SettingsPage: SFC<{}> = () => {
   return (
     <section className="settings page">
       <div className="golden-ratio columns">
@@ -21,6 +21,5 @@ const SettingsPage: React.SFC<{}> = () => {
     </section>
   )
 }
-
 
 export default SettingsPage

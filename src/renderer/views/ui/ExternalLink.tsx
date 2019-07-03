@@ -1,11 +1,12 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, SFC } from 'react'
 import ExternalLinkIcon from '@/views/ui/icons/ExternalLinkIcon'
 
-type ExternalLinkProps = {
-  children?: React.ReactNode;
-  className?: string;
-  showIcon?: boolean;
-  url: string;
+interface ExternalLinkProps {
+  children?: React.ReactNode
+  className?: string
+  showIcon?: boolean
+  url: string
   iconPosition?: 'left' | 'right'
 }
 
@@ -13,13 +14,12 @@ const handleClick = (e: any) => {
   e.preventDefault()
   const url = e.currentTarget.getAttribute('href')
 
-  if (window.shell)
-    window.shell.openExternal(url)
+  if (window.shell) window.shell.openExternal(url)
   // else
   //   window.location = url
 }
 
-const ExternalLink: React.SFC<ExternalLinkProps> = (props) => {
+const ExternalLink: SFC<ExternalLinkProps> = props => {
   const { url, children, showIcon, className, iconPosition } = props
 
   return (

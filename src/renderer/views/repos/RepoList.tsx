@@ -1,4 +1,5 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, SFC } from 'react'
 import { connect } from 'react-redux'
 
 import { AppState, Resources } from '@/models/app'
@@ -18,11 +19,9 @@ const sortByRepoName = (a: any, b: any) => {
   return aName < bName ? -1 : aName > bName ? 1 : 0
 }
 
-const RepoList: React.SFC<Props> = ({ repos, repoIds }) => {
-
+const RepoList: SFC<Props> = ({ repos, repoIds }) => {
   const _renderRepos = () => {
-    if (!repoIds || repoIds.length < 1)
-      return null
+    if (!repoIds || repoIds.length < 1) return null
 
     let sorted = repoIds.map(id => repos.data[id]).sort(sortByRepoName)
 
@@ -31,9 +30,7 @@ const RepoList: React.SFC<Props> = ({ repos, repoIds }) => {
 
   return (
     <Loadable widgetName="repo-list" isLoading={repos.isLoading}>
-      <ul>
-        {_renderRepos()}
-      </ul>
+      <ul>{_renderRepos()}</ul>
     </Loadable>
   )
 }

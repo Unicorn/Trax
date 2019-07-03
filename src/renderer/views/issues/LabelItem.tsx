@@ -1,4 +1,5 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, SFC } from 'react'
 
 interface Props {
   label: {
@@ -7,7 +8,7 @@ interface Props {
   }
 }
 
-const LabelItem: React.SFC<Props> = ({ label }) => (
+const LabelItem: SFC<Props> = ({ label }) => (
   <span style={{ backgroundColor: `#${label.color}` }} key={name} className="label">
     {label.name.replace(/[^\w]/gi, '')}
   </span>

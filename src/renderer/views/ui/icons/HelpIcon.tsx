@@ -1,12 +1,13 @@
-import * as React from 'react'
+/** @jsx createElement **/
+import { createElement, SFC } from 'react'
 
-type Props = {
-  id?: string;
-  viewbox?: string;
-  color?: string;
+interface Props {
+  id?: string
+  viewbox?: string
+  color?: string
 }
 
-const HelpIcon: React.SFC<Props> = (props) => {
+const HelpIcon: SFC<Props> = props => {
   const { id, viewbox } = props
 
   return (
