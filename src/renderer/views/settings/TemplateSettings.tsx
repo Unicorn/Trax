@@ -1,42 +1,43 @@
 /** @jsx createElement **/
-import { createElement, Component } from 'react'
+import { createElement, Component, ReactNode } from 'react'
 import { connect } from 'react-redux'
+import { EditorValue } from 'react-rte'
 import { logout } from '@/controllers/authController'
 import { resetApp } from '@/models/app'
 import Editor from '@/views/ui/form/Editor'
 
-interface Props {
-  resetApp: () => void
-  logout: () => void
+interface Connected {
+  _resetApp: typeof resetApp
+  _logout: typeof logout
 }
 
 interface State {
   body: string
 }
 
-class TemplateSettings extends Component<Props, State> {
+class TemplateSettings extends Component<Connected, State> {
   state = {
     body: ''
   }
 
-  _fieldHandler = (e: any) => {
+  _fieldHandler = (e: EditorValue) => {
     let newData: State = { ...this.state }
 
-    if (e._cache) {
+    if (e.getEditorState) {
       newData['body'] = e.toString('markdown')
     }
 
     this.setState(newData)
   }
 
-  render() {
+  render(): ReactNode {
     return <Editor handler={this._fieldHandler} />
   }
 }
 
-const mapDispatch = {
-  resetApp,
-  logout
+const mapDispatch: Connected = {
+  _resetApp: resetApp,
+  _logout: logout
 }
 
 export default connect(

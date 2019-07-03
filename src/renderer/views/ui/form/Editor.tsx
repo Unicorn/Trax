@@ -1,5 +1,5 @@
 /** @jsx createElement **/
-import { createElement, Component } from 'react'
+import { createElement, Component, ReactNode } from 'react'
 import RichTextEditor, { EditorValue } from 'react-rte'
 import RadioField from './RadioField'
 import SelectField from './SelectField'
@@ -46,11 +46,11 @@ class Editor extends Component<Props, State> {
     this.props.handler(newState)
   }
 
-  _templateSelectHandler = (e: React.FormEvent<HTMLSelectElement>) => {
+  _templateSelectHandler = (e: React.FormEvent<HTMLSelectElement>): void => {
     console.log('_templateSelectHandler', e.currentTarget.value)
   }
 
-  _renderEditor = () => {
+  _renderEditor = (): ReactNode => {
     const { body, mode } = this.state
 
     switch (mode) {
@@ -69,7 +69,7 @@ class Editor extends Component<Props, State> {
     }
   }
 
-  render() {
+  render(): ReactNode {
     return (
       <div className="editor">
         <RadioField

@@ -23,7 +23,7 @@ const Tabbed: FC<Props> = (props: Props) => {
     if (key && tabHandler) tabHandler(key, 0)
   }, [props])
 
-  function _handleTabClick(e: React.FormEvent<HTMLButtonElement>) {
+  const _handleTabClick = (e: React.FormEvent<HTMLButtonElement>): void => {
     const { tabHandler } = props
     const { name, value } = e.currentTarget
 

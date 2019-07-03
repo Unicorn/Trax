@@ -1,6 +1,6 @@
+import { createAlert } from 'horseshoes'
 import { takeLatest, call, put, ForkEffect, CallEffect, PutEffect } from 'redux-saga/effects'
 import { GITHUB, octokit, GetReposForLogin } from '@/models/github'
-import { createAlert } from '@/controllers/alertController'
 import { updateOrgs, updateOrgRepos } from '@/controllers/orgController'
 import { updateRepos } from '@/controllers/repoController'
 import { normalizePayload } from '@/models/app'

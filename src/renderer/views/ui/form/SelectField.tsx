@@ -1,5 +1,5 @@
 /** @jsx createElement **/
-import { createElement, SFC, useState } from 'react'
+import { createElement, SFC, useState, ReactNode } from 'react'
 import { FieldProps, OptionsObject } from './index'
 import ChevronDownIcon from '@/views/ui/icons/ChevronDownIcon'
 
@@ -8,7 +8,7 @@ interface Props extends FieldProps {
   onChange: (e: React.SyntheticEvent<HTMLSelectElement>) => void
 }
 
-const _renderSelectOptions = (options?: OptionsObject) => {
+const _renderSelectOptions = (options?: OptionsObject): ReactNode => {
   let items = [<option key="default" />]
 
   if (!options) return items
@@ -24,15 +24,13 @@ const _renderSelectOptions = (options?: OptionsObject) => {
   return items
 }
 
-const SelectField: SFC<Props> = props => {
-  const { name, type, label, options, selected, validate, onValid, onInvalid, onChange, ...inputProps } = props
-
+const SelectField: SFC<Props> = ({ name, type, label, options, validate, onValid, onInvalid, onChange, ...inputProps }) => {
   const [valid, setValid] = useState(true)
   let className = `field ${type} `
   className += validate && valid ? 'valid ' : 'invalid '
   className += inputProps.value && inputProps.value.length > 0 ? 'not-empty ' : 'empty '
 
-  const _validate = (value: string) => {
+  const _validate = (value: string): void => {
     if (!validate) return
     let [valid, error] = validate(value)
     valid === true && onValid && onValid()
@@ -40,12 +38,12 @@ const SelectField: SFC<Props> = props => {
     setValid(valid === true)
   }
 
-  const _onChange = (e: React.SyntheticEvent<HTMLSelectElement>) => {
+  const _onChange = (e: React.SyntheticEvent<HTMLSelectElement>): void => {
     validate && !valid && _validate(e.currentTarget.value)
     onChange(e)
   }
 
-  const _onBlur = (e: React.SyntheticEvent<HTMLSelectElement>) => {
+  const _onBlur = (e: React.SyntheticEvent<HTMLSelectElement>): void => {
     validate && _validate(e.currentTarget.value)
   }
 

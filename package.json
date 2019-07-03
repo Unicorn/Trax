@@ -23,6 +23,7 @@
   "dependencies": {
     "@octokit/rest": "^16.28.2",
     "fuse.js": "^3.4.5",
+    "horseshoes": "^0.0.26",
     "humps": "^2.0.1",
     "localforage": "^1.7.3",
     "lodash": "^4.17.11",

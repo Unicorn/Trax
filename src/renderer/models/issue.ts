@@ -1,4 +1,5 @@
-import { Resources, Resource, normalizePayload } from './app'
+import { Resources, Resource } from 'horseshoes'
+import { normalizePayload } from './app'
 import { User } from '@/models/user'
 import { Labels } from '@/models/label'
 import { LANES, Lane } from '@/config/constants'
@@ -50,10 +51,8 @@ export interface Issue extends Resource {
   updatedAt: string | null
 }
 
-export interface Issues extends Resources {
-  data: {
-    [key: string]: Issue
-  }
+export interface Issues extends Resources<Issue> {
+  isLoading?: boolean
 }
 
 /**

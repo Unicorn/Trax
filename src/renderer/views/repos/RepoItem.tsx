@@ -1,9 +1,10 @@
 /** @jsx createElement **/
-import { createElement, Component } from 'react'
+import { createElement, Component, ReactNode } from 'react'
 import { connect } from 'react-redux'
 import { createTrack, deleteTrack } from '@/controllers/trackController'
 import { Repo } from '@/models/repo'
 import { Track } from '@/models/track'
+import { RootState } from '@/models/app'
 import ExternalLink from '@/views/ui/ExternalLink'
 import ConfirmTrack from '@/views/repos/ConfirmTrack'
 import ConfirmUntrack from '@/views/repos/ConfirmUntrack'
@@ -16,14 +17,18 @@ interface Props {
 
 interface Connected {
   track: Track | null
-  dispatch: (action: any) => any
+}
+
+interface Actions {
+  _createTrack: typeof createTrack
+  _deleteTrack: typeof deleteTrack
 }
 
 interface State {
   showConfirmation: boolean
 }
 
-class RepoItem extends Component<Props & Connected, State> {
+class RepoItem extends Component<Props & Connected & Actions, State> {
   state = {
     showConfirmation: false
   }
@@ -31,15 +36,18 @@ class RepoItem extends Component<Props & Connected, State> {
   _showConfirmation = () => this.setState({ showConfirmation: true })
   _hideConfirmation = () => this.setState({ showConfirmation: false })
 
-  _trackHandler = () => {
-    const { dispatch, repo } = this.props
-    dispatch(createTrack(repo))
+  _trackHandler = (): void => {
+    const { repo, _createTrack } = this.props
+    _createTrack(repo)
     this._hideConfirmation()
   }
 
-  _untrackHandler = () => {
-    const { dispatch, track } = this.props
-    dispatch(deleteTrack(track!))
+  _untrackHandler = (): void => {
+    const { _deleteTrack, track } = this.props
+
+    if (!track) return
+
+    _deleteTrack(track)
     this._hideConfirmation()
   }
 
@@ -53,7 +61,7 @@ class RepoItem extends Component<Props & Connected, State> {
     else return <ConfirmTrack cancel={this._hideConfirmation} handler={this._trackHandler} />
   }
 
-  render() {
+  render(): ReactNode {
     const { track, repo } = this.props
     const repoName = repo.fullName.split('/')
 
@@ -75,8 +83,16 @@ class RepoItem extends Component<Props & Connected, State> {
   }
 }
 
-const mapState = (state: any, { repo }: Props) => ({
+const mapState = (state: RootState, { repo }: Props): Connected => ({
   track: repo && state.tracks.data[repo.fullName]
 })
 
-export default connect(mapState)(RepoItem)
+const mapDispatch = {
+  _createTrack: createTrack,
+  _deleteTrack: deleteTrack
+}
+
+export default connect(
+  mapState,
+  mapDispatch
+)(RepoItem)

@@ -1,7 +1,7 @@
+import { createAlert } from 'horseshoes'
 import { put, call, takeEvery, ForkEffect, PutEffect, CallEffect } from 'redux-saga/effects'
 import * as IssueModel from '@/models/issue'
 import { octokit, UpdateIssueLaneAction } from '@/models/github'
-import { createAlert } from '@/controllers/alertController'
 import { createIssue, updateIssue } from '@/controllers/issueController'
 import { LANES, Lane } from '@/config/constants'
 

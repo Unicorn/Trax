@@ -1,8 +1,8 @@
-import { eventChannel, END } from 'redux-saga'
+import { createAlert } from 'horseshoes'
+import { eventChannel, END, EventChannel } from 'redux-saga'
 import { put, call, take, takeLatest, ForkEffect, PutEffect, CallEffect, TakeEffect } from 'redux-saga/effects'
 import { camelizeKeys } from 'humps'
 import { receiveAuth } from '@/controllers/authController'
-import { createAlert } from '@/controllers/alertController'
 import { requestProfile } from '@/controllers/profileController'
 import { setPage } from '@/controllers/settingController'
 import { randString } from '@/helpers/stringHelper'
@@ -17,7 +17,12 @@ declare global {
   }
 }
 
-const createAuthWindow = () => {
+interface GithubAuthResponse {
+  code: string | null
+  error: string | null
+}
+
+const createAuthWindow = (): void => {
   // Build the OAuth consent page URL
   const win = new BrowserWindow({
     width: 600,
@@ -37,7 +42,7 @@ const createAuthWindow = () => {
   window.authWindow = win
 }
 
-const parseGithubAuth = (rawURL: string): any => {
+const parseGithubAuth = (rawURL: string): GithubAuthResponse => {
   const url = new URL(rawURL)
   const code = url.searchParams.get('code')
   const error = url.searchParams.get('error')
@@ -45,7 +50,7 @@ const parseGithubAuth = (rawURL: string): any => {
   return { code, error }
 }
 
-const getGithubAuthCode = () => {
+const getGithubAuthCode = (): EventChannel<GithubAuthResponse | void> => {
   const contents = window.authWindow.webContents
 
   return eventChannel(emit => {
@@ -61,7 +66,7 @@ const getGithubAuthCode = () => {
   })
 }
 
-const getGithubAuthToken = async (code: string) => {
+const getGithubAuthToken = async (code: string): Promise<any> => {
   return fetch(`${MICROSERVICE.API}/auth?code=${code}`)
     .then(response => response.json().then(json => ({ json, response })))
     .then(({ json, response }: any) => {

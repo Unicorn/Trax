@@ -1,21 +1,19 @@
 /** @jsx createElement **/
-import { createElement, SFC, useState } from 'react'
+import { createElement, SFC, useState, SyntheticEvent } from 'react'
 import { FieldProps } from './index'
 
 interface Props extends FieldProps {
   type: 'textarea'
-  onChange: (e: React.SyntheticEvent<HTMLTextAreaElement>) => void
+  onChange: (e: SyntheticEvent<HTMLTextAreaElement>) => void
 }
 
-const TextAreaField: SFC<Props> = props => {
-  const { name, type, label, selected, validate, onValid, onInvalid, onChange, ...inputProps } = props
-
+const TextAreaField: SFC<Props> = ({ name, type, label, validate, onValid, onInvalid, onChange, ...inputProps }) => {
   const [valid, setValid] = useState(true)
   let className = `field ${type} `
   className += validate && valid ? 'valid ' : 'invalid '
   className += inputProps.value && inputProps.value.length > 0 ? 'not-empty ' : 'empty '
 
-  const _validate = (value: string) => {
+  const _validate = (value: string): void => {
     if (!validate) return
     let [valid, error] = validate(value)
     valid === true && onValid && onValid()
@@ -23,12 +21,12 @@ const TextAreaField: SFC<Props> = props => {
     setValid(valid === true)
   }
 
-  const _onChange = (e: React.SyntheticEvent<HTMLTextAreaElement>) => {
+  const _onChange = (e: React.SyntheticEvent<HTMLTextAreaElement>): void => {
     validate && !valid && _validate(e.currentTarget.value)
     onChange(e)
   }
 
-  const _onBlur = (e: React.SyntheticEvent<HTMLTextAreaElement>) => {
+  const _onBlur = (e: React.SyntheticEvent<HTMLTextAreaElement>): void => {
     validate && _validate(e.currentTarget.value)
   }
 

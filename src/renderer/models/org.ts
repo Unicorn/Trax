@@ -1,4 +1,4 @@
-import { Resource, Resources } from './app'
+import { Resource, Resources } from 'horseshoes'
 import { Repo } from './repo'
 
 export enum ORGS {
@@ -19,10 +19,8 @@ export interface Org extends Resource {
   repoIds?: string[]
 }
 
-export interface Orgs extends Resources {
-  data: {
-    [key: string]: Org
-  }
+export interface Orgs extends Resources<Org> {
+  isLoading?: boolean
 }
 
 export interface UpdateOrgsAction {

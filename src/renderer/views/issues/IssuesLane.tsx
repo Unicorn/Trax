@@ -1,5 +1,5 @@
 /** @jsx createElement **/
-import { createElement, SFC } from 'react'
+import { createElement, SFC, ReactNode } from 'react'
 import { Droppable, DroppableProvided, DroppableStateSnapshot } from 'react-beautiful-dnd'
 import Card from '@/views/issues/Card'
 import { Issue } from '@/models/issue'
@@ -10,7 +10,7 @@ interface Props {
   lane: string
 }
 
-const renderIssues = (issues: Issue[], lane: string) => {
+const renderIssues = (issues: Issue[], lane: string): ReactNode => {
   if (issues.length < 1) return <p>No issues</p>
 
   return issues.map((issue, index) => <Card key={issue.key} issue={issue} lane={lane} index={index} />)

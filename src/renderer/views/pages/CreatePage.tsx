@@ -1,16 +1,17 @@
 /** @jsx createElement **/
-import { createElement, Component, FormEvent } from 'react'
+import { createElement, Component, FormEvent, ReactNode } from 'react'
 import { connect } from 'react-redux'
-import { AppState } from '@/models/app'
-import { labelNames } from '@/helpers/issueHelper'
+import { EditorValue } from 'react-rte'
 import { createIssueRequest } from '@/controllers/issueController'
+import { TYPES, SWIMLANES, PRIORITY, POINTS } from '@/config/constants'
 import { Tracks } from '@/models/track'
 import { Users } from '@/models/user'
-import { TYPES, SWIMLANES, PRIORITY, POINTS } from '@/config/constants'
-import Editor from '@/views/ui/form/Editor'
-import Form, { OptionsObject } from '@/views/ui/form'
+import { RootState } from '@/models/app'
 import { Settings } from '@/models/setting'
 import { CreateIssuePayload, CreateIssueAction } from '@/models/issue'
+import { labelNames } from '@/helpers/issueHelper'
+import Form, { OptionsObject } from '@/views/ui/form'
+import Editor from '@/views/ui/form/Editor'
 
 interface Connected {
   tracks: Tracks
@@ -42,7 +43,7 @@ class CreatePage extends Component<Connected & Actions, State> {
   repoOptions: OptionsObject = {}
   userOptions: OptionsObject = {}
 
-  _submitHandler = (e: FormEvent<HTMLFormElement>) => {
+  _submitHandler = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
 
     const { title, type, lane, points, priority, assignee, ident, body } = this.state
@@ -61,10 +62,10 @@ class CreatePage extends Component<Connected & Actions, State> {
     this.setState(defaultState)
   }
 
-  _fieldHandler = (e: any) => {
+  _fieldHandler = (e: FormEvent<HTMLElement> | EditorValue): void => {
     let newData: State = { ...this.state }
 
-    if (e._cache) {
+    if ((e as EditorValue).getEditorState) {
       newData['body'] = e.toString('markdown')
     } else {
       let input = (e as React.FormEvent<HTMLInputElement>).currentTarget
@@ -74,7 +75,7 @@ class CreatePage extends Component<Connected & Actions, State> {
     this.setState(newData)
   }
 
-  _repoSelectHandler = (e: React.FormEvent<HTMLSelectElement>) => {
+  _repoSelectHandler = (e: React.FormEvent<HTMLSelectElement>): void => {
     const { tracks, users } = this.props
     let ident = e.currentTarget.value
     this.setState({ ident })
@@ -87,7 +88,7 @@ class CreatePage extends Component<Connected & Actions, State> {
     }
   }
 
-  render() {
+  render(): ReactNode {
     const { tracks, settings } = this.props
     const { type, priority, points, lane, assignee } = this.state
 
@@ -156,7 +157,7 @@ class CreatePage extends Component<Connected & Actions, State> {
   }
 }
 
-const mapState = (state: AppState) => ({
+const mapState = (state: RootState): Connected => ({
   tracks: state.tracks,
   users: state.users,
   settings: state.settings

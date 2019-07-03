@@ -1,10 +1,9 @@
-import { put, takeLatest, ForkEffect, PutEffect } from 'redux-saga/effects'
-import { deleteAlert } from '@/controllers/alertController'
-import { ALERT, AlertAction } from '@/models/alert'
+import { put, takeEvery, ForkEffect, PutEffect } from 'redux-saga/effects'
+import { ALERT, AlertAction, deleteAlert } from 'horseshoes'
 
-const delay = (ms: number): Promise<any> => new Promise(res => setTimeout(res, ms))
+const delay = (ms: number): Promise<void> => new Promise(res => setTimeout(res, ms))
 
-function* watchAlerts(action: AlertAction): Iterable<Promise<any> | PutEffect> {
+function* watchAlerts(action: AlertAction): Iterable<Promise<void> | PutEffect> {
   const { payload } = action
 
   if (payload && payload.dismissAfter) {
@@ -16,5 +15,5 @@ function* watchAlerts(action: AlertAction): Iterable<Promise<any> | PutEffect> {
 }
 
 export default function* alertSaga(): Iterable<ForkEffect> {
-  yield takeLatest(ALERT.CREATE, watchAlerts)
+  yield takeEvery(ALERT.CREATE, watchAlerts)
 }

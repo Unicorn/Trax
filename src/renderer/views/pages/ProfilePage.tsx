@@ -1,43 +1,49 @@
 /** @jsx createElement **/
-import { createElement, Component } from 'react'
+import { createElement, Component, ReactNode } from 'react'
 import { connect } from 'react-redux'
 
 import Tabbed from '@/views/ui/Tabbed'
 import ProfileHelp from '@/views/help/ProfileHelp'
 import RepoList from '@/views/repos/RepoList'
 import RepoItem from '@/views/repos/RepoItem'
-import { AppState, toArray, Resources } from '@/models/app'
-import { Org } from '@/models/org'
-import { Track } from '@/models/track'
+import { RootState } from '@/models/app'
+import { Org, Orgs } from '@/models/org'
+import { Track, Tracks } from '@/models/track'
 import { getOrgs, getReposForLogin } from '@/models/github'
+import { Repos } from '@/models/repo'
+import { toArray } from 'horseshoes'
 
 interface Connected {
-  tracks: Resources
-  repos: Resources
-  orgs: Resources
-  dispatch: (action: any) => any
+  tracks: Tracks
+  repos: Repos
+  orgs: Orgs
+}
+
+interface Actions {
+  _getOrgs: typeof getOrgs
+  _getReposForLogin: typeof getReposForLogin
 }
 
 interface State {
-  content: { [key: string]: any }
+  content: { [key: string]: ReactNode }
   logins: { [key: string]: string }
 }
 
-class ProfilePage extends Component<Connected, State> {
+class ProfilePage extends Component<Connected & Actions, State> {
   state = {
     content: {},
     logins: {}
   }
 
-  componentWillMount() {
-    this.props.dispatch(getOrgs())
+  componentWillMount(): void {
+    this.props._getOrgs()
   }
 
-  componentWillReceiveProps(props: Connected) {
+  componentWillReceiveProps(props: Connected): void {
     const newState: State = { ...this.state }
     const orgArr = toArray(props.orgs) as Org[]
 
-    orgArr.forEach((org: any) => {
+    orgArr.forEach((org: Org) => {
       newState.content[org.login] = <RepoList repoIds={org.repoIds} />
       newState.logins[org.login] = org.nodeId
     })
@@ -45,7 +51,7 @@ class ProfilePage extends Component<Connected, State> {
     this.setState(newState)
   }
 
-  _renderTracks = () => {
+  _renderTracks = (): ReactNode => {
     const { tracks, repos }: Connected = this.props
 
     if (tracks.keys.length < 1) return <p>Nothing tracked yet. Select a repo to track.</p>
@@ -61,13 +67,13 @@ class ProfilePage extends Component<Connected, State> {
     )
   }
 
-  _tabHandler = (login: string, _: number) => {
+  _tabHandler = (login: string): void => {
     const { logins } = this.state as State
     const key: string = logins[login]
-    this.props.dispatch(getReposForLogin(login, key))
+    this.props._getReposForLogin(login, key)
   }
 
-  render() {
+  render(): ReactNode {
     return (
       <section className="profile page">
         <ProfileHelp />
@@ -88,10 +94,18 @@ class ProfilePage extends Component<Connected, State> {
   }
 }
 
-const mapState = (state: AppState) => ({
+const mapState = (state: RootState): Connected => ({
   tracks: state.tracks,
   repos: state.repos,
   orgs: state.orgs
 })
 
-export default connect(mapState)(ProfilePage)
+const mapDispatch = {
+  _getOrgs: getOrgs,
+  _getReposForLogin: getReposForLogin
+}
+
+export default connect(
+  mapState,
+  mapDispatch
+)(ProfilePage)

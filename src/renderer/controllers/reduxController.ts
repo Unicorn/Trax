@@ -4,7 +4,7 @@ import storage from 'redux-persist/lib/storage'
 import createSagaMiddleware from 'redux-saga'
 import rootSaga from '@/controllers/sagaController'
 
-import { alertsReducer } from '@/controllers/alertController'
+import { alertReducer } from 'horseshoes'
 import { authReducer } from '@/controllers/authController'
 import { issuesReducer } from '@/controllers/issueController'
 import { invoiceReducer } from '@/controllers/invoiceController'
@@ -25,7 +25,7 @@ const persistConfig = {
 }
 
 const rootReducer = persistCombineReducers(persistConfig, {
-  alerts: alertsReducer,
+  alerts: alertReducer,
   auth: authReducer,
   issues: issuesReducer,
   invoices: invoiceReducer,

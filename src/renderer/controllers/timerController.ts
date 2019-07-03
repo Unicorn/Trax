@@ -1,5 +1,5 @@
 import { union, merge } from 'lodash'
-import { defaultState } from '@/models/app'
+import { initialState } from '@/models/app'
 import { TIMER, Timers, Timer, TimerAction } from '@/models/timer'
 import { secondsLapsed } from '@/helpers/timerHelper'
 
@@ -33,7 +33,9 @@ export const deleteTimer = (payload: Timer): TimerAction => ({
   payload
 })
 
-export const timerReducer = (state: Timers = defaultState, action: TimerAction): Timers => {
+export const timerReducer = (state: Timers, action: TimerAction): Timers => {
+  if (state === undefined) return initialState.timers
+
   const { type, payload } = action
 
   if (!type || !payload) return state

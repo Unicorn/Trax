@@ -1,7 +1,7 @@
 import { app, Menu, MenuItemConstructorOptions } from 'electron'
 
 export default () => {
-  const checkForUpdates = () => {
+  const checkForUpdates = (): void => {
     require('update-electron-app')()
   }
 

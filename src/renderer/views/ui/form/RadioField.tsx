@@ -1,5 +1,5 @@
 /** @jsx createElement **/
-import { createElement, SFC, useState } from 'react'
+import { createElement, SFC, useState, ReactNode } from 'react'
 import { FieldProps, OptionsObject } from './index'
 
 interface Props extends FieldProps {
@@ -7,7 +7,7 @@ interface Props extends FieldProps {
   onChange: (e: React.SyntheticEvent<HTMLInputElement>) => void
 }
 
-const _renderRadioOptions = (props: Props, options?: OptionsObject) => {
+const _renderRadioOptions = (props: Props, options?: OptionsObject): ReactNode => {
   if (!options) return null
 
   const { name, selected, onChange } = props
@@ -21,8 +21,7 @@ const _renderRadioOptions = (props: Props, options?: OptionsObject) => {
 }
 
 const RadioField: SFC<Props> = props => {
-  const { name, type, label, options, selected, validate, onValid, onInvalid, onChange, ...inputProps } = props
-
+  const { name, type, label, options, validate, onValid, onInvalid, onChange, ...inputProps } = props
   let field = null
 
   const [valid, setValid] = useState(true)
@@ -30,7 +29,7 @@ const RadioField: SFC<Props> = props => {
   className += validate && valid ? 'valid ' : 'invalid '
   className += inputProps.value && inputProps.value.length > 0 ? 'not-empty ' : 'empty '
 
-  const _validate = (value: string) => {
+  const _validate = (value: string): void => {
     if (!validate) return
     let [valid, error] = validate(value)
     valid === true && onValid && onValid()
@@ -38,12 +37,12 @@ const RadioField: SFC<Props> = props => {
     setValid(valid === true)
   }
 
-  const _onChange = (e: React.SyntheticEvent<HTMLInputElement>) => {
+  const _onChange = (e: React.SyntheticEvent<HTMLInputElement>): void => {
     validate && !valid && _validate(e.currentTarget.value)
     onChange(e)
   }
 
-  const _onBlur = (e: React.SyntheticEvent<HTMLInputElement>) => {
+  const _onBlur = (e: React.SyntheticEvent<HTMLInputElement>): void => {
     validate && _validate(e.currentTarget.value)
   }
 

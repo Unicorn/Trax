@@ -1,6 +1,7 @@
 /** @jsx createElement **/
 import { createElement, SFC } from 'react'
 import { render } from 'react-dom'
+import { IpcRenderer, Shell } from 'electron'
 
 // REDUX
 import { Provider } from 'react-redux'
@@ -16,9 +17,8 @@ declare global {
     app: {
       version: string
     }
-    eval: any
-    ipc: any
-    shell: any
+    ipc: IpcRenderer
+    shell: Shell
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: any
   }
 }

@@ -4225,6 +4225,14 @@ homedir-polyfill@^1.0.1:
   dependencies:
     parse-passwd "^1.0.0"
 
+horseshoes@^0.0.26:
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/horseshoes/-/horseshoes-0.0.26.tgz#8ec8ab82e5e53b8fd2401b7be7b998ad59b2f006"
+  integrity sha512-t8tcrqD7xr2CBIerNV7p90YhcXbU56URSoG1g2orQx5SyAi5BNqYyDSgk9711VZP7G7zjOH/qYx/7hcfJ3+XfA==
+  dependencies:
+    immer "^3.1.3"
+    lodash "^4.17.11"
+
 hosted-git-info@^2.1.4, hosted-git-info@^2.7.1:
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.7.1.tgz#97f236977bd6e125408930ff6de3eec6281ec047"
@@ -4436,6 +4444,11 @@ immediate@~3.0.5:
   version "3.0.6"
   resolved "https://registry.yarnpkg.com/immediate/-/immediate-3.0.6.tgz#9db1dbd0faf8de6fbe0f5dd5e56bb606280de69b"
   integrity sha1-nbHb0Pr43m++D13V5Wu2BigN5ps=
+
+immer@^3.1.3:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/immer/-/immer-3.1.3.tgz#59bc742b2aab6e2c676445edb653e588a23c70fc"
+  integrity sha512-HG5SXTXTTVy9lGNwS075cNhQoV375jHsIJO3UtMjuUWJOuwlMr0u42FlsKTJcppt5AzsFAsmj9r4kHvsSHh3hQ==
 
 immutable@^3.8.1:
   version "3.8.2"

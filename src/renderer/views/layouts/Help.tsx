@@ -1,5 +1,5 @@
 /** @jsx createElement **/
-import { createElement, Component } from 'react'
+import { createElement, Component, ReactNode } from 'react'
 import HelpIcon from '@/views/ui/icons/HelpIcon'
 
 interface State {
@@ -11,11 +11,11 @@ class Help extends Component<{}, State> {
     show: false
   }
 
-  _toggleHelp = () => {
+  _toggleHelp = (): void => {
     this.setState(prev => ({ show: !prev.show }))
   }
 
-  render() {
+  render(): ReactNode {
     const { children } = this.props
 
     return (

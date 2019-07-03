@@ -1,4 +1,4 @@
-import { Resource, Resources } from './app'
+import { Resource, Resources } from 'horseshoes'
 
 export enum USERS {
   UPDATE = 'trax/users/update'
@@ -25,10 +25,8 @@ export interface User extends Resource {
   siteAdmin: boolean
 }
 
-export interface Users extends Resources {
-  data: {
-    [key: string]: User
-  }
+export interface Users extends Resources<User> {
+  isLoading?: boolean
 }
 
 export interface UpdateUsersAction {

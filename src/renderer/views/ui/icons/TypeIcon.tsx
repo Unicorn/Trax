@@ -1,5 +1,5 @@
 /** @jsx createElement **/
-import { createElement, SFC } from 'react'
+import { createElement, SFC, ReactNode } from 'react'
 import { TYPES } from '@/config/constants'
 
 interface Props {
@@ -8,10 +8,12 @@ interface Props {
   type: string
 }
 
-const EpicIcon: SFC<Props> = props => {
-  const { id, viewbox, type } = props
+interface Options {
+  [key: string]: ReactNode
+}
 
-  const types: any = {
+const EpicIcon: SFC<Props> = ({ id, viewbox, type }) => {
+  const types: Options = {
     epic: (
       <path d="M16,0.193222092 C11.0617552,10.0391177 6.18885854,-5.29226869 1.25061613,2.44405685 L1.25061613,0.685554534 C1.25061613,-0.228518178 0,-0.228518178 0,0.685554534 L0,21.314453 C0,22.2285157 1.25061613,22.2285157 1.25061613,21.314453 L1.25061613,12.7823351 C6.18885854,5.04622048 11.0617552,20.37835 16,10.5315004 L16,0.263799199 L16,0.193222092 Z" />
     ),

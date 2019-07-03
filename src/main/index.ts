@@ -53,15 +53,17 @@ const createWindow = () => {
     }
   })
 
-  isDev
-    ? mainWindow.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`)
-    : mainWindow.loadURL(
+  if (isDev) {
+    mainWindow.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`)
+  } else {
+    mainWindow.loadURL(
       formatUrl({
         pathname: path.join(__dirname, 'index.html'),
         protocol: 'file',
         slashes: true
       })
     )
+  }
 
   mainWindow.maximize()
 

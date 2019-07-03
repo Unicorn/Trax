@@ -1,14 +1,14 @@
+import { toArray, createAlert } from 'horseshoes'
 import { takeLatest, put, call, all, ForkEffect, PutEffect, CallEffect, AllEffect } from 'redux-saga/effects'
 import { RehydrateAction } from 'redux-persist'
 import { persistor } from '@/controllers/reduxController'
-import { APP, toArray } from '@/models/app'
-import { createAlert } from '@/controllers/alertController'
+import { APP } from '@/models/app'
 import { requestProfile } from '@/controllers/profileController'
 import { stopTimer, resetTimer } from '@/controllers/timerController'
-import { AppState } from '@/models/app'
+import { RootState } from '@/models/app'
 import { Timer } from '@/models/timer'
 
-function* watchPersist({ payload }: RehydrateAction<AppState>): Iterable<PutEffect | AllEffect<PutEffect>> {
+function* watchPersist({ payload }: RehydrateAction<RootState>): Iterable<PutEffect | AllEffect<PutEffect>> {
   if (!payload || !payload.auth || !payload.auth.accessToken) return
   if (!payload.profile || payload.profile.login === 'octocat') yield put(requestProfile())
 

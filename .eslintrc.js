@@ -36,6 +36,9 @@ module.exports = {
       "allowExpressions": true,
       "allowTypedFunctionExpressions": true
     }],
+    "@typescript-eslint/camelcase": ["error", {
+      "allow": ["per_page", "issue_number"]
+    }],
     "react/prop-types": "off"
   },
   overrides: [

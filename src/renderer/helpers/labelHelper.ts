@@ -8,7 +8,7 @@ export const traxPoints = Object.keys(POINTS).map(k => POINTS[k].name)
 export const traxPriorities = Object.keys(PRIORITY).map(k => PRIORITY[k].name)
 export const traxType = Object.keys(TYPES).map(k => TYPES[k].name)
 
-export const labelsWithoutCore = (labels: Label[]) => {
+export const labelsWithoutCore = (labels: Label[]): Label[] => {
   return labels.filter((label: Label) => !traxLabels.includes(label.name))
 }
 

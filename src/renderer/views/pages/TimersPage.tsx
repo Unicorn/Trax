@@ -1,24 +1,26 @@
 /** @jsx createElement **/
-import { createElement, Component } from 'react'
+import { createElement, Component, ReactNode } from 'react'
 import { connect } from 'react-redux'
 import { v4 } from 'uuid'
-
 import { Timers } from '@/models/timer'
+import { RootState } from '@/models/app'
 import { createInvoice } from '@/controllers/invoiceController'
-
 import TimerEntry from '@/views/timers/TimerEntry'
 import Help from '@/views/layouts/Help'
 
 interface Connected {
   timers: Timers
-  dispatch: (action: any) => void
+}
+
+interface Actions {
+  _createInvoice: typeof createInvoice
 }
 
 interface State {
   selectedKeys: string[]
 }
 
-class ReportPage extends Component<Connected, State> {
+class ReportPage extends Component<Connected & Actions, State> {
   state = {
     selectedKeys: []
   }
@@ -41,15 +43,15 @@ class ReportPage extends Component<Connected, State> {
     this.setState({ selectedKeys: input.checked ? timerIds : [] })
   }
 
-  _createInvoice = () => {
-    const { timers, dispatch } = this.props
+  _createInvoiceHandler = () => {
+    const { timers, _createInvoice } = this.props
     const { selectedKeys } = this.state
     let invoice = { timers: selectedKeys.map(key => timers.data[key]), key: v4() }
 
-    dispatch(createInvoice(invoice))
+    _createInvoice(invoice)
   }
 
-  render() {
+  render(): ReactNode {
     const { timers } = this.props
     const { selectedKeys } = this.state
 
@@ -90,7 +92,7 @@ class ReportPage extends Component<Connected, State> {
         </table>
 
         <div className={`action-bar ${selectedKeys.length > 0 && 'active'}`}>
-          <button className="brown basic button" onClick={this._createInvoice}>
+          <button className="brown basic button" onClick={this._createInvoiceHandler}>
             Create Invoice
           </button>
           <button className="red basic button">Cancel</button>
@@ -100,8 +102,15 @@ class ReportPage extends Component<Connected, State> {
   }
 }
 
-const mapState = (state: any) => ({
+const mapState = (state: RootState): Connected => ({
   timers: state.timers
 })
 
-export default connect(mapState)(ReportPage)
+const mapDispatch = {
+  _createInvoice: createInvoice
+}
+
+export default connect(
+  mapState,
+  mapDispatch
+)(ReportPage)

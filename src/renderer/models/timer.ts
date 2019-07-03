@@ -1,5 +1,5 @@
 import { v4 } from 'uuid'
-import { Resources, Resource } from '@/models/app'
+import { Resources, Resource } from 'horseshoes'
 import { Issue } from '@/models/issue'
 
 export enum TIMER {
@@ -34,10 +34,8 @@ export interface Timer extends Resource {
   startedAt: null | Date
 }
 
-export interface Timers extends Resources {
-  data: {
-    [key: string]: Timer
-  }
+export interface Timers extends Resources<Timer> {
+  debug?: boolean // Stubbed
 }
 
 export interface TimerAction {

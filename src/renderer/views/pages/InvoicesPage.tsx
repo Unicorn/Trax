@@ -1,8 +1,8 @@
 /** @jsx createElement **/
 import { createElement, SFC } from 'react'
 import { connect } from 'react-redux'
-
-import { AppState, toArray } from '@/models/app'
+import { toArray } from 'horseshoes'
+import { RootState } from '@/models/app'
 import { Invoices, Invoice } from '@/models/invoice'
 import { timersDuration } from '@/helpers/timerHelper'
 
@@ -39,7 +39,7 @@ const InvoicesPage: SFC<Connected> = props => {
   )
 }
 
-const mapState = (state: AppState) => ({
+const mapState = (state: RootState): Connected => ({
   invoices: state.invoices
 })
 

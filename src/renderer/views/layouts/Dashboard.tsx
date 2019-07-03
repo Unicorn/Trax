@@ -1,46 +1,47 @@
 /** @jsx createElement **/
-import { createElement, SFC } from 'react'
+import { createElement, SFC, ReactNode } from 'react'
 import { connect } from 'react-redux'
 
-import { logout } from '@/controllers/authController'
 import { reloadTrack } from '@/controllers/trackController'
 import { toggleShowBoardSearch } from '@/controllers/settingController'
-import { SettingsAction } from '@/models/setting'
-import { AppState, toArray } from '@/models/app'
-import { Tracks, Track, TrackAction } from '@/models/track'
-
+import { RootState } from '@/models/app'
+import { Tracks, Track } from '@/models/track'
+import { ROUTES } from '@/config/constants'
 import Navigation from '@/views/sections/Navigation'
 import AlertsList from '@/views/ui/alert/AlertsList'
 import LoadingIcon from '@/views/ui/icons/LoadingIcon'
 import SearchIcon from '@/views/ui/icons/SearchIcon'
-import { ROUTES } from '@/config/constants'
+import { toArray } from 'horseshoes'
 
 interface Props {
   children: React.ReactNode
 }
 
-interface Actions {
+interface Connected {
   tracks: Tracks
   page: string
   showBoardSearch: boolean
   issuesLoading: boolean
-  reloadTrack: (payload: Track) => TrackAction
-  toggleShowBoardSearch: (value: boolean) => SettingsAction
 }
 
-const Dashboard: SFC<Props & Actions> = props => {
-  const { children, tracks, page, showBoardSearch, issuesLoading, reloadTrack, toggleShowBoardSearch } = props
+interface Actions {
+  _reloadTrack: typeof reloadTrack
+  _toggleShowBoardSearch: typeof toggleShowBoardSearch
+}
 
-  const _reloadTracks = () => {
+const Dashboard: SFC<Props & Connected & Actions> = props => {
+  const { children, tracks, page, showBoardSearch, issuesLoading, _reloadTrack, _toggleShowBoardSearch } = props
+
+  const _reloadTracksHandler = (): void => {
     const tracksArr = toArray(tracks) as Track[]
-    tracksArr.forEach(track => reloadTrack(track))
+    tracksArr.forEach(track => _reloadTrack(track))
   }
 
-  const _renderBoardActions = () => [
-    <button key="search" onClick={() => toggleShowBoardSearch(!showBoardSearch)}>
+  const _renderBoardActions = (): ReactNode => [
+    <button key="search" onClick={() => _toggleShowBoardSearch(!showBoardSearch)}>
       <SearchIcon />
     </button>,
-    <button key="loading" className={issuesLoading ? 'spin' : ''} onClick={_reloadTracks}>
+    <button key="loading" className={issuesLoading ? 'spin' : ''} onClick={_reloadTracksHandler}>
       <LoadingIcon />
     </button>
   ]
@@ -62,17 +63,16 @@ const Dashboard: SFC<Props & Actions> = props => {
   )
 }
 
-const mapState = (state: AppState) => ({
+const mapState = (state: RootState): Connected => ({
   tracks: state.tracks,
   page: state.settings.page,
   showBoardSearch: state.settings.showBoardSearch,
-  issuesLoading: state.issues.isLoading
+  issuesLoading: state.issues.isLoading === true
 })
 
 const mapDispatch = {
-  toggleShowBoardSearch,
-  reloadTrack,
-  logout
+  _toggleShowBoardSearch: toggleShowBoardSearch,
+  _reloadTrack: reloadTrack
 }
 
 export default connect(

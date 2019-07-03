@@ -1,14 +1,16 @@
 import { union, merge } from 'lodash'
-import { defaultState, Resources } from '@/models/app'
-import * as RepoModel from '@/models/repo'
+import { initialState } from '@/models/app'
+import { Repos, Repo, REPOS, RepoActions, UpdateReposAction } from '@/models/repo'
 import * as GithubModel from '@/models/github'
 
-export const updateRepos = (payload: RepoModel.Repo[]): RepoModel.UpdateReposAction => ({
-  type: RepoModel.REPOS.UPDATE,
+export const updateRepos = (payload: Repo[]): UpdateReposAction => ({
+  type: REPOS.UPDATE,
   payload
 })
 
-export const reposReducer = (state: Resources = defaultState, action: RepoModel.RepoActions): Resources => {
+export const reposReducer = (state: Repos, action: RepoActions): Repos => {
+  if (state === undefined) return initialState.repos
+
   const { type, payload } = action
 
   if (!type || !payload) return state
@@ -20,8 +22,8 @@ export const reposReducer = (state: Resources = defaultState, action: RepoModel.
       newState.isLoading = true
       return newState
 
-    case RepoModel.REPOS.UPDATE:
-      ;(payload as RepoModel.Repo[]).forEach(repo => {
+    case REPOS.UPDATE:
+      ;(payload as Repo[]).forEach(repo => {
         newState.data[repo.key] = merge(newState.data[repo.key], repo)
         newState.keys = union(newState.keys, [repo.key])
       })

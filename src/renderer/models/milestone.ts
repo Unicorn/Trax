@@ -18,3 +18,5 @@ export interface Milestone {
   closedAt: string | null
   dueOn: string
 }
+
+export type Milestones = Milestone[]

@@ -1,5 +1,5 @@
-import { LANES } from '@/config/constants'
 import { SETTING, Settings, ActivePageValues, ActiveLaneValues, SettingsAction } from '@/models/setting'
+import { initialState } from '@/models/app'
 
 export const setPage = (value: ActivePageValues): SettingsAction => ({
   type: SETTING.SET_PAGE,
@@ -36,17 +36,9 @@ export const setFeatureTypes = (value: boolean): SettingsAction => ({
   payload: { featureTypes: value }
 })
 
-const initialState: Settings = {
-  page: 'welcome',
-  lanes: LANES,
-  showBoardSearch: false,
-  showBoardHelp: false,
-  featurePoints: true,
-  featurePriority: true,
-  featureTypes: true
-}
+export const settingsReducer = (state: Settings, action: SettingsAction): Settings => {
+  if (state === undefined) return initialState.settings
 
-export const settingsReducer = (state: Settings = initialState, action: SettingsAction): Settings => {
   const { payload, type } = action
 
   if (!payload || !type) return state

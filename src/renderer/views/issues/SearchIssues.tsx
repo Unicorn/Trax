@@ -2,7 +2,7 @@
 import { createElement, SFC } from 'react'
 
 interface Props {
-  handler: (e: React.ChangeEvent<HTMLInputElement>) => any
+  handler: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 const SearchIssues: SFC<Props> = ({ handler }) => (

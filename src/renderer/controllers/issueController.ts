@@ -1,7 +1,8 @@
 import { union, merge } from 'lodash'
-import { Resources, defaultState } from '@/models/app'
+import { initialState } from '@/models/app'
 import { normalizeIssue, ISSUES, ISSUE, Issues, Issue, CreateIssueAction, CreateIssuePayload, IssueAction } from '@/models/issue'
 import * as GithubModel from '@/models/github'
+import { createResource, updateResource } from 'horseshoes'
 
 export const createIssueRequest = (payload: CreateIssuePayload): CreateIssueAction => ({
   type: ISSUE.CREATE_REQUEST,
@@ -23,7 +24,9 @@ export const updateIssue = (payload: Issue): IssueAction => ({
   payload
 })
 
-export const issuesReducer = (state: Resources = defaultState, action: IssueAction): Issues => {
+export const issuesReducer = (state: Issues, action: IssueAction): Issues => {
+  if (state === undefined) return initialState.issues
+
   const { type, payload } = action
 
   if (!type) return state
@@ -40,9 +43,7 @@ export const issuesReducer = (state: Resources = defaultState, action: IssueActi
       break
 
     case ISSUE.CREATE:
-      newState.keys = union(newState.keys, [(payload as Issue).key])
-      newState.data[(payload as Issue).key] = payload
-      break
+      return createResource<Issue>(state, payload as Issue)
 
     case ISSUES.UPDATE:
       ;(payload as Issue[]).forEach(r => {
@@ -52,10 +53,7 @@ export const issuesReducer = (state: Resources = defaultState, action: IssueActi
       break
 
     case ISSUE.UPDATE:
-      let issue = payload as Issue
-      newState.keys = union(newState.keys, [issue.key])
-      newState.data[issue.key] = merge(newState.data[issue.key], payload)
-      break
+      return updateResource<Issue>(state, payload as Issue)
 
     default:
       return state

@@ -1,4 +1,4 @@
-import { Resources, Resource } from '@/models/app'
+import { Resources, Resource } from 'horseshoes'
 
 export enum TRACK {
   REQUEST = 'trax/track/REQUEST',
@@ -17,10 +17,8 @@ export interface Track extends Resource {
   issueIds: string[]
 }
 
-export interface Tracks extends Resources {
-  data: {
-    [key: string]: Track
-  }
+export interface Tracks extends Resources<Track> {
+  debug?: boolean // Stubbed
 }
 
 export interface TrackAction {

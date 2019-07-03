@@ -1,6 +1,6 @@
-/** @jsx createElement **/
+/** @jsx createElement */
 import { createElement, SFC } from 'react'
-import { Alert } from '@/models/alert'
+import { Alert } from 'horseshoes'
 import CloseIcon from '@/views/ui/icons/CloseIcon'
 
 interface Props {

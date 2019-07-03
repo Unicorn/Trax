@@ -1,7 +1,7 @@
-import { union, merge } from 'lodash'
-import { defaultState, Resources } from '@/models/app'
-import { TRACK, Track, TrackAction } from '@/models/track'
+import { initialState } from '@/models/app'
+import { TRACK, Track, TrackAction, Tracks } from '@/models/track'
 import { Repo } from '@/models/repo'
+import { deleteResource, updateResource } from 'horseshoes'
 
 export const reloadTrack = (payload: Track): TrackAction => ({
   type: TRACK.RELOAD,
@@ -33,7 +33,9 @@ export const deleteTrack = (payload: Track): TrackAction => ({
   }
 })
 
-export const trackReducer = (state: Resources = defaultState, action: TrackAction): Resources => {
+export const trackReducer = (state: Tracks, action: TrackAction): Tracks => {
+  if (state === undefined) return initialState.tracks
+
   const { type, payload } = action
 
   if (!type || !payload) return state
@@ -44,14 +46,10 @@ export const trackReducer = (state: Resources = defaultState, action: TrackActio
     case TRACK.CREATE:
     case TRACK.RELOAD:
     case TRACK.UPDATE:
-      newState.keys = union(newState.keys, [payload.key])
-      newState.data[payload.key] = merge(newState.data[payload.key], payload)
-      break
+      return updateResource<Track>(state, payload)
 
     case TRACK.DELETE:
-      newState.keys = newState.keys.filter(key => key !== payload.key)
-      delete newState.data[payload.key]
-      break
+      return deleteResource<Track>(state, payload)
 
     default:
       return state

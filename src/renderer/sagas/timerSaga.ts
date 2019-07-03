@@ -15,12 +15,13 @@ import {
   TakeEffect,
   CancelEffect
 } from 'redux-saga/effects'
-import { AppState, toArray } from '@/models/app'
+import { RootState } from '@/models/app'
 import { stopTimer, tickTimer } from '@/controllers/timerController'
 import { TIMER, Timer, TimerAction } from '@/models/timer'
+import { toArray } from 'horseshoes'
 
 // wait :: Number -> Promise
-const wait = (ms: number) =>
+const wait = (ms: number): Promise<NodeJS.Timeout> =>
   new Promise(resolve => {
     setTimeout(() => resolve(), ms)
   })
@@ -58,7 +59,7 @@ function* watchStartTimer(action: TimerAction): Iterable<SelectEffect | AllEffec
 
   if (!payload) return
 
-  const timers = yield select((state: AppState) => state.timers)
+  const timers = yield select((state: RootState) => state.timers)
   const runningTimers = (toArray(timers) as Timer[]).filter(timer => timer.key !== payload.key && timer.isRunning && timer.startedAt)
 
   yield all(runningTimers.map(timer => put(stopTimer(timer))))

@@ -4,7 +4,7 @@ import { union, trim } from 'lodash'
 import { connect } from 'react-redux'
 import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 import { reloadTrack } from '@/controllers/trackController'
-import { AppState, toArray } from '@/models/app'
+import { RootState } from '@/models/app'
 import { Tracks, Track } from '@/models/track'
 import { Issues, Issue } from '@/models/issue'
 import { updateIssueLane } from '@/models/github'
@@ -12,6 +12,7 @@ import { filterIssues } from '@/helpers/issueHelper'
 import { Lane } from '@/config/constants'
 import IssuesLane from '@/views/issues/IssuesLane'
 import SearchIssues from '@/views/issues/SearchIssues'
+import { toArray } from 'horseshoes'
 
 interface Connected {
   tracks: Tracks
@@ -19,38 +20,42 @@ interface Connected {
   lanes: Lane[]
   showBoardSearch: boolean
   showBoardHelp: boolean
-  dispatch: (action: any) => any
 }
 
-const BoardPage: FC<Connected> = (props: Connected) => {
+interface Actions {
+  _reloadTrack: typeof reloadTrack
+  _updateIssueLane: typeof updateIssueLane
+}
+
+const _tracksArray = (tracks: Tracks): Track[] => {
+  return toArray(tracks) as Track[]
+}
+
+const BoardPage: FC<Connected & Actions> = props => {
   const [allIssues, setAllIssues] = useState<Issue[]>([])
   const [filteredIssues, setFilteredIssues] = useState<Issue[]>([])
 
-  function _tracksArray(tracks: Tracks) {
-    return toArray(tracks) as Track[]
-  }
-
-  function _reload() {
-    const { dispatch, tracks } = props
+  const _reload = (): void => {
+    const { _reloadTrack, tracks } = props
     const tracksArray = _tracksArray(tracks)
 
-    tracksArray.forEach(track => dispatch(reloadTrack(track)))
+    tracksArray.forEach(track => _reloadTrack(track))
   }
 
-  function _filterIssues(e: React.ChangeEvent<HTMLInputElement>) {
+  const _filterIssues = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const text = trim(e.target.value)
     setFilteredIssues(text.length === 0 ? allIssues : filterIssues(text, allIssues))
   }
 
-  function _onDragEnd(result: DropResult) {
-    const { dispatch, issues } = props
+  const _onDragEnd = (result: DropResult): void => {
+    const { _updateIssueLane, issues } = props
     const { source, destination, draggableId } = result
 
     if (!destination) return
 
     if (source.droppableId !== destination.droppableId) {
       let issue = issues.data[draggableId]
-      dispatch(updateIssueLane(issue, destination.droppableId as Lane))
+      _updateIssueLane(issue, destination.droppableId as Lane)
     }
   }
 
@@ -84,7 +89,7 @@ const BoardPage: FC<Connected> = (props: Connected) => {
   )
 }
 
-const mapState = (state: AppState) => ({
+const mapState = (state: RootState): Connected => ({
   tracks: state.tracks,
   issues: state.issues,
   lanes: state.settings.lanes,
@@ -92,4 +97,12 @@ const mapState = (state: AppState) => ({
   showBoardHelp: state.settings.showBoardHelp
 })
 
-export default connect(mapState)(BoardPage)
+const mapDispatch: Actions = {
+  _reloadTrack: reloadTrack,
+  _updateIssueLane: updateIssueLane
+}
+
+export default connect(
+  mapState,
+  mapDispatch
+)(BoardPage)

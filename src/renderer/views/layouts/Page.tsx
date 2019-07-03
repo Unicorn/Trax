@@ -2,8 +2,8 @@
 import { createElement, SFC } from 'react'
 import { connect } from 'react-redux'
 import { Auth } from '@/models/auth'
+import { RootState } from '@/models/app'
 import { ROUTES } from '@/config/constants'
-
 import * as Pages from '@/views/pages'
 import Dashboard from '@/views/layouts/Dashboard'
 import WelcomePage from '@/views/pages/WelcomePage'
@@ -44,7 +44,7 @@ const Page: SFC<Connected> = ({ page, auth }) => {
   return <Dashboard>{child}</Dashboard>
 }
 
-const mapState = (state: any): Connected => ({
+const mapState = (state: RootState): Connected => ({
   auth: state.auth,
   page: state.settings.page
 })

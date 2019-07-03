@@ -1,4 +1,4 @@
-import { Resources, Resource } from '@/models/app'
+import { Resources, Resource } from 'horseshoes'
 import { Timer } from '@/models/timer'
 
 export enum INVOICE {
@@ -10,10 +10,8 @@ export interface Invoice extends Resource {
   timers: Timer[]
 }
 
-export interface Invoices extends Resources {
-  data: {
-    [key: string]: Invoice
-  }
+export interface Invoices extends Resources<Invoice> {
+  debug?: boolean // Stubbed
 }
 
 export interface InvoiceAction {

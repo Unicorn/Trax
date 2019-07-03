@@ -6,7 +6,7 @@ import { startTimer, stopTimer } from '@/controllers/timerController'
 import { timerDuration } from '@/helpers/timerHelper'
 import ExternalLink from '@/views/ui/ExternalLink'
 
-import { AppState } from '@/models/app'
+import { RootState } from '@/models/app'
 import { Issue } from '@/models/issue'
 import { Timers, Timer, TimerAction, defaultTimer } from '@/models/timer'
 import { pointsFromLabels, typeFromLabels, priorityFromLabels } from '@/helpers/labelHelper'
@@ -35,7 +35,7 @@ interface Actions {
 const Card: SFC<Props & Connected & Actions> = ({ timers, settings, issue, index }) => {
   const timer = timers.data[issue.key] || { ...defaultTimer, key: issue.key, issue, startedAt: new Date() }
 
-  const _timerHandler = () => {
+  const _timerHandler = (): void => {
     timer.isRunning ? stopTimer(timer) : startTimer(timer)
   }
 
@@ -92,7 +92,7 @@ const Card: SFC<Props & Connected & Actions> = ({ timers, settings, issue, index
   )
 }
 
-const mapState = (state: AppState): Connected => ({
+const mapState = (state: RootState): Connected => ({
   timers: state.timers,
   settings: state.settings
 })

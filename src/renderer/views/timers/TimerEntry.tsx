@@ -1,7 +1,7 @@
 /** @jsx createElement **/
 import { createElement, SFC } from 'react'
 import { connect } from 'react-redux'
-import { AppState } from '@/models/app'
+import { RootState } from '@/models/app'
 import { Timer } from '@/models/timer'
 import { Issues } from '@/models/issue'
 import { timerDuration } from '@/helpers/timerHelper'
@@ -53,7 +53,7 @@ const TimerEntry: SFC<Props & Connected> = props => {
   )
 }
 
-const mapState = (state: AppState) => ({
+const mapState = (state: RootState): Connected => ({
   issues: state.issues
 })
 

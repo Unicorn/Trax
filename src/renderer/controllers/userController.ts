@@ -1,14 +1,16 @@
 import { union, merge } from 'lodash'
-import * as UserModel from '@/models/user'
+import { USERS, Users, User, UpdateUsersAction } from '@/models/user'
 import * as GithubModel from '@/models/github'
-import { Resources, defaultState } from '@/models/app'
+import { initialState } from '@/models/app'
 
-export const updateUsers = (payload: UserModel.User[]): UserModel.UpdateUsersAction => ({
-  type: UserModel.USERS.UPDATE,
+export const updateUsers = (payload: User[]): UpdateUsersAction => ({
+  type: USERS.UPDATE,
   payload
 })
 
-export const usersReducer = (state: Resources = defaultState, action: UserModel.UpdateUsersAction): Resources => {
+export const usersReducer = (state: Users, action: UpdateUsersAction): Users => {
+  if (state === undefined) return initialState.users
+
   const { type, payload } = action
 
   if (!type || !payload) return state
@@ -20,8 +22,8 @@ export const usersReducer = (state: Resources = defaultState, action: UserModel.
       newState.isLoading = true
       return newState
 
-    case UserModel.USERS.UPDATE:
-      ;(payload as UserModel.User[]).forEach(r => {
+    case USERS.UPDATE:
+      ;(payload as User[]).forEach(r => {
         newState.data[r.key] = merge(newState.data[r.key], r)
         newState.keys = union(newState.keys, [r.key])
       })

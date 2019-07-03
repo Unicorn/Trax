@@ -1,40 +1,39 @@
-/** @jsx createElement **/
+/** @jsx createElement */
 import { createElement, SFC } from 'react'
 import { connect } from 'react-redux'
+import { toArray, deleteAlert, Alert } from 'horseshoes'
 
-import { deleteAlert } from '@/controllers/alertController'
-import { AppState, toArray } from '@/models/app'
-import { Alert, AlertAction } from '@/models/alert'
+import { RootState } from '@/models/app'
 import AlertItem from './AlertItem'
 
-interface Props {
+interface Connected {
   alerts: Alert[]
 }
 
 interface Actions {
-  deleteAlert: (payload: Alert) => AlertAction
+  _deleteAlert: typeof deleteAlert
 }
 
-const AlertsList: SFC<Props & Actions> = props => {
-  const { alerts, deleteAlert } = props
+const AlertsList: SFC<Connected & Actions> = props => {
+  const { alerts, _deleteAlert } = props
 
   if (!alerts || alerts.length < 1) return null
 
   return (
     <div className="alerts">
       {alerts.map(alert => (
-        <AlertItem alert={alert} dismissHandler={deleteAlert} key={alert.key} />
+        <AlertItem alert={alert} dismissHandler={_deleteAlert} key={alert.key} />
       ))}
     </div>
   )
 }
 
-const mapState = (state: AppState) => ({
+const mapState = (state: RootState): Connected => ({
   alerts: toArray(state.alerts) as Alert[]
 })
 
 const mapDispatch = {
-  deleteAlert
+  _deleteAlert: deleteAlert
 }
 
 export default connect(

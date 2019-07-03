@@ -1,33 +1,25 @@
-import { union } from 'lodash'
-import { Resources, defaultState } from '@/models/app'
-import { INVOICE, Invoice, InvoiceAction } from '@/models/invoice'
+import { initialState } from '@/models/app'
+import { INVOICE, Invoices, Invoice, InvoiceAction } from '@/models/invoice'
+import { createResource } from 'horseshoes'
 
 export const createInvoice = (payload: Invoice): InvoiceAction => ({
   type: INVOICE.CREATE,
   payload
 })
 
-export const invoiceReducer = (state: Resources = defaultState, action: InvoiceAction): Resources => {
+export const invoiceReducer = (state: Invoices, action: InvoiceAction): Invoices => {
+  if (state === undefined) return initialState.invoices
+
   const { type, payload } = action
 
-  if (!type || !payload) return state
-
-  const newState = { ...state }
+  if (!payload) return state
 
   switch (type) {
     case INVOICE.CREATE:
       if (!payload.timers) return state
-
-      newState.keys = union(newState.keys, [payload.key])
-      newState.data[payload.key] = {
-        ...payload,
-        createdAt: new Date()
-      }
-      break
+      return createResource<Invoice>(state, payload)
 
     default:
       return state
   }
-
-  return newState
 }

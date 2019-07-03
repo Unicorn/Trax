@@ -1,5 +1,5 @@
 /** @jsx createElement **/
-import { createElement, SFC } from 'react'
+import { createElement, SFC, MouseEvent } from 'react'
 import ExternalLinkIcon from '@/views/ui/icons/ExternalLinkIcon'
 
 interface ExternalLinkProps {
@@ -10,18 +10,14 @@ interface ExternalLinkProps {
   iconPosition?: 'left' | 'right'
 }
 
-const handleClick = (e: any) => {
+const handleClick = (e: MouseEvent<HTMLAnchorElement>): void => {
   e.preventDefault()
-  const url = e.currentTarget.getAttribute('href')
+  const url = e.currentTarget.getAttribute('href') as string
 
-  if (window.shell) window.shell.openExternal(url)
-  // else
-  //   window.location = url
+  window.shell ? window.shell.openExternal(url) : (window.location.href = url)
 }
 
-const ExternalLink: SFC<ExternalLinkProps> = props => {
-  const { url, children, showIcon, className, iconPosition } = props
-
+const ExternalLink: SFC<ExternalLinkProps> = ({ url, children, showIcon, className, iconPosition }) => {
   return (
     <a className={`${className} ${iconPosition || 'right'}`} href={url} onClick={handleClick}>
       {children}
