@@ -1,6 +1,15 @@
 import { Lane } from '@/config/constants'
 
-export const SET_SETTING = 'trax/settings/SET_SETTING'
+export enum SETTING {
+  SET_PAGE = 'trax/settings/SET_PAGE',
+  SET_LANES = 'trax/settings/SET_LANES',
+  SET_SHOW_BOARD_SEARCH = 'trax/settings/SET_SHOW_BOARD_SEARCH',
+  SET_SHOW_BOARD_HELP = 'trax/settings/SET_SHOW_BOARD_HELP',
+  SET_FEATURE_POINTS = 'trax/settting/SET_FEATURE_POINTS',
+  SET_FEATURE_PRIORITY = 'trax/settting/SET_FEATURE_PRIORITY',
+  SET_FEATURE_TYPES = 'trax/settting/SET_FEATURE_TYPES',
+  SET_SETTING = 'trax/settings/SET_SETTING'
+}
 
 export type ActivePageValues = 'welcome' | 'profile' | 'create' | 'board' | 'timers' | 'invoices' | 'settings'
 
@@ -9,31 +18,34 @@ export type Features = 'featurePoints' | 'featurePriority' | 'featureTypes'
 export type ActiveLaneValues = Lane[]
 
 interface ActivePage {
-  key: 'page'
-  value: ActivePageValues
+  page: ActivePageValues
 }
 
 interface ActiveLanes {
-  key: 'lanes'
-  value: ActiveLaneValues
+  lanes: ActiveLaneValues
 }
 
 interface ShowBoardSearch {
-  key: 'showBoardSearch'
-  value: boolean
+  showBoardSearch: boolean
 }
 
 interface ShowBoardHelp {
-  key: 'showBoardHelp'
-  value: boolean
+  showBoardHelp: boolean
 }
 
-interface FeatureSetting {
-  key: Features
-  value: boolean
+interface FeaturePoints {
+  featurePoints: boolean
 }
 
-export type Setting = ActivePage | ActiveLanes | ShowBoardSearch | ShowBoardHelp | FeatureSetting
+interface FeaturePriority {
+  featurePriority: boolean
+}
+
+interface FeatureTypes {
+  featureTypes: boolean
+}
+
+export type Setting = ActivePage | ActiveLanes | ShowBoardSearch | ShowBoardHelp | FeaturePoints | FeaturePriority | FeatureTypes
 
 export interface Settings {
   page: ActivePageValues
@@ -46,6 +58,6 @@ export interface Settings {
 }
 
 export interface SettingsAction {
-  type: string
+  type: SETTING
   payload?: Setting
 }

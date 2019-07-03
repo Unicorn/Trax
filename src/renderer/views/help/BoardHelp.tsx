@@ -1,8 +1,9 @@
-import * as React from 'react'
+/** @jsx createElement */
+import { createElement, SFC } from 'react'
 import Help from '@/views/layouts/Help'
 import Accordion from '@/views/ui/Accordion'
 
-const BoardHelp = () => (
+const BoardHelp: SFC = () => (
   <Help>
     <Accordion trigger="Velocity tracking">
       <p>

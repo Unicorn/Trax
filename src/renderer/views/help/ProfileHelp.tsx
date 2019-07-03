@@ -1,9 +1,10 @@
-import * as React from 'react'
+/** @jsx createElement */
+import { createElement, SFC } from 'react'
 import Help from '@/views/layouts/Help'
 import Accordion from '@/views/ui/Accordion'
 import ExternalLink from '@/views/ui/ExternalLink'
 
-const ProfileHelp = () => (
+const ProfileHelp: SFC = () => (
   <Help>
     <Accordion trigger="What are Trax Projects?">
       <p>

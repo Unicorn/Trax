@@ -1,34 +1,39 @@
 import { LANES } from '@/config/constants'
-import { SET_SETTING, Setting, Settings, ActivePageValues, ActiveLaneValues, SettingsAction, Features } from '@/models/setting'
-
-export const updateSetting = (payload: Setting): SettingsAction => ({
-  type: SET_SETTING,
-  payload
-})
+import { SETTING, Settings, ActivePageValues, ActiveLaneValues, SettingsAction } from '@/models/setting'
 
 export const setPage = (value: ActivePageValues): SettingsAction => ({
-  type: SET_SETTING,
-  payload: { key: 'page', value }
+  type: SETTING.SET_PAGE,
+  payload: { page: value }
 })
 
 export const setLanes = (value: ActiveLaneValues): SettingsAction => ({
-  type: SET_SETTING,
-  payload: { key: 'lanes', value }
+  type: SETTING.SET_LANES,
+  payload: { lanes: value }
 })
 
 export const toggleShowBoardSearch = (value: boolean): SettingsAction => ({
-  type: SET_SETTING,
-  payload: { key: 'showBoardSearch', value }
+  type: SETTING.SET_SHOW_BOARD_SEARCH,
+  payload: { showBoardSearch: value }
 })
 
 export const toggleShowBoardHelp = (value: boolean): SettingsAction => ({
-  type: SET_SETTING,
-  payload: { key: 'showBoardHelp', value }
+  type: SETTING.SET_SHOW_BOARD_HELP,
+  payload: { showBoardHelp: value }
 })
 
-export const setFeature = (key: Features, value: boolean): SettingsAction => ({
-  type: SET_SETTING,
-  payload: { key, value }
+export const setFeaturePoints = (value: boolean): SettingsAction => ({
+  type: SETTING.SET_FEATURE_POINTS,
+  payload: { featurePoints: value }
+})
+
+export const setFeaturePri = (value: boolean): SettingsAction => ({
+  type: SETTING.SET_FEATURE_PRIORITY,
+  payload: { featurePriority: value }
+})
+
+export const setFeatureTypes = (value: boolean): SettingsAction => ({
+  type: SETTING.SET_FEATURE_TYPES,
+  payload: { featureTypes: value }
 })
 
 const initialState: Settings = {
@@ -43,14 +48,18 @@ const initialState: Settings = {
 
 export const settingsReducer = (state: Settings = initialState, action: SettingsAction): Settings => {
   const { payload, type } = action
-  let newState = { ...state }
 
   if (!payload || !type) return state
 
   switch (type) {
-    case SET_SETTING:
-      newState[payload.key] = payload.value
-      return newState
+    case SETTING.SET_PAGE:
+    case SETTING.SET_LANES:
+    case SETTING.SET_SHOW_BOARD_SEARCH:
+    case SETTING.SET_SHOW_BOARD_HELP:
+    case SETTING.SET_FEATURE_POINTS:
+    case SETTING.SET_FEATURE_PRIORITY:
+    case SETTING.SET_FEATURE_TYPES:
+      return { ...state, ...payload }
 
     default:
       return state

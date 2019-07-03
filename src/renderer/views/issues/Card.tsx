@@ -1,4 +1,5 @@
-import * as React from 'react'
+/** @jsx createElement */
+import { createElement, SFC } from 'react'
 import { connect } from 'react-redux'
 import { Draggable, DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd'
 import { startTimer, stopTimer } from '@/controllers/timerController'
@@ -31,7 +32,7 @@ interface Actions {
   stopTimer: (payload: Timer) => TimerAction
 }
 
-const Card: React.SFC<Props & Connected & Actions> = ({ timers, settings, issue, index }) => {
+const Card: SFC<Props & Connected & Actions> = ({ timers, settings, issue, index }) => {
 
   const timer = timers.data[issue.key] || { ...defaultTimer, key: issue.key, issue, startedAt: new Date() }
 
