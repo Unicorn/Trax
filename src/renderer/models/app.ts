@@ -53,7 +53,13 @@ export const initialState: RootState = {
     showBoardHelp: false,
     featurePoints: true,
     featurePriority: true,
-    featureTypes: true
+    featureTypes: true,
+    templates: {
+      epic: '',
+      story: '',
+      feature: '',
+      bug: ''
+    }
   },
   timers: initResources<Timer>(),
   tracks: initResources<Track>(),

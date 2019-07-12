@@ -1,5 +1,6 @@
 import { SETTING, Settings, ActivePageValues, ActiveLaneValues, SettingsAction } from '@/models/setting'
 import { initialState } from '@/models/app'
+import { ScrumTypes } from '@/config/constants'
 
 export const setPage = (value: ActivePageValues): SettingsAction => ({
   type: SETTING.SET_PAGE,
@@ -36,6 +37,15 @@ export const setFeatureTypes = (value: boolean): SettingsAction => ({
   payload: { featureTypes: value }
 })
 
+export const setTemplate = (key: ScrumTypes, value: string): SettingsAction => ({
+  type: SETTING.SET_TEMPLATE,
+  payload: {
+    templates: {
+      [key]: value
+    }
+  }
+})
+
 export const settingsReducer = (state: Settings, action: SettingsAction): Settings => {
   if (state === undefined) return initialState.settings
 
@@ -51,6 +61,7 @@ export const settingsReducer = (state: Settings, action: SettingsAction): Settin
     case SETTING.SET_FEATURE_POINTS:
     case SETTING.SET_FEATURE_PRIORITY:
     case SETTING.SET_FEATURE_TYPES:
+    case SETTING.SET_TEMPLATE:
       return { ...state, ...payload }
 
     default:

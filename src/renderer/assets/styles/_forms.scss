@@ -459,9 +459,13 @@ input, textarea, select {
   .field.select {
     margin: 0;
     position: absolute;
-    right: .1rem;
-    top: 4.1rem;
+    right: 0;
+    top: 0;
     width: 20rem;
+
+    label {
+      display: none;
+    }
   }
 
   .tabs {
@@ -474,7 +478,7 @@ input, textarea, select {
 
   textarea {
     background-color: $input_background;
-    border-top: 4.6rem solid color(neutral, 100);
+    border-top: 4.1rem solid color(neutral, 100);
     flex: 1;
   }
 }

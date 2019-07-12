@@ -8,6 +8,7 @@ export enum SETTING {
   SET_FEATURE_POINTS = 'trax/settting/SET_FEATURE_POINTS',
   SET_FEATURE_PRIORITY = 'trax/settting/SET_FEATURE_PRIORITY',
   SET_FEATURE_TYPES = 'trax/settting/SET_FEATURE_TYPES',
+  SET_TEMPLATE = 'trax/setting/SET_TEMPLATE',
   SET_SETTING = 'trax/settings/SET_SETTING'
 }
 
@@ -45,7 +46,14 @@ interface FeatureTypes {
   featureTypes: boolean
 }
 
-export type Setting = ActivePage | ActiveLanes | ShowBoardSearch | ShowBoardHelp | FeaturePoints | FeaturePriority | FeatureTypes
+interface Templates {
+  templates: {
+    [key: string]: string
+  }
+}
+
+
+export type Setting = ActivePage | ActiveLanes | ShowBoardSearch | ShowBoardHelp | FeaturePoints | FeaturePriority | FeatureTypes | Templates
 
 export interface Settings {
   page: ActivePageValues
@@ -55,6 +63,9 @@ export interface Settings {
   featurePoints: boolean
   featurePriority: boolean
   featureTypes: boolean
+  templates: {
+    [key: string]: string
+  }
 }
 
 export interface SettingsAction {

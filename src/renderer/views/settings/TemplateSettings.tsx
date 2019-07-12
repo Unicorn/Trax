@@ -1,46 +1,59 @@
 /** @jsx createElement **/
-import { createElement, Component, ReactNode } from 'react'
+import { createElement, FC, useState } from 'react'
 import { connect } from 'react-redux'
-import { EditorValue } from 'react-rte'
 import { logout } from '@/controllers/authController'
-import { resetApp } from '@/models/app'
+import { setTemplate } from '@/controllers/settingController';
+import { resetApp, RootState } from '@/models/app'
+import { Settings } from '@/models/setting'
+import { ScrumTypes } from '@/config/constants'
 import Editor from '@/views/ui/form/Editor'
 
 interface Connected {
+  settings: Settings
+}
+
+interface Actions {
+  _setTemplate: typeof setTemplate
   _resetApp: typeof resetApp
   _logout: typeof logout
 }
 
-interface State {
-  body: string
+const TemplateSettings: FC<Connected & Actions> = ({ settings, _setTemplate }) => {
+  let [body, setBody] = useState<string>('')
+  let [template, setTemplate] = useState<ScrumTypes>('story')
+
+  const _templateHandler = (t: ScrumTypes) => {
+    let markdown = settings.templates[t as ScrumTypes]
+    setTemplate(t)
+    setBody(markdown)
+  }
+
+  const _bodyHandler = (markdown: string) => {
+    setBody(markdown)
+    _setTemplate(template, markdown)
+  }
+
+  return (
+    <Editor
+      markdown={body}
+      template={template}
+      markdownHandler={e => _bodyHandler(e.currentTarget.value)}
+      templateHandler={e => _templateHandler(e.currentTarget.value as ScrumTypes)}
+    />
+  )
 }
 
-class TemplateSettings extends Component<Connected, State> {
-  state = {
-    body: ''
-  }
+const mapState = (state: RootState): Connected => ({
+  settings: state.settings
+})
 
-  _fieldHandler = (e: EditorValue) => {
-    let newData: State = { ...this.state }
-
-    if (e.getEditorState) {
-      newData['body'] = e.toString('markdown')
-    }
-
-    this.setState(newData)
-  }
-
-  render(): ReactNode {
-    return <Editor handler={this._fieldHandler} />
-  }
-}
-
-const mapDispatch: Connected = {
+const mapDispatch: Actions = {
+  _setTemplate: setTemplate,
   _resetApp: resetApp,
   _logout: logout
 }
 
 export default connect(
-  null,
+  mapState,
   mapDispatch
 )(TemplateSettings)

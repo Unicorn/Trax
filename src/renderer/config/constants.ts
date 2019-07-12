@@ -123,6 +123,9 @@ export const TYPES: LabelsType = {
   }
 }
 
+export type ScrumTypes = 'epic' | 'story' | 'feature' | 'bug'
+export const scrumTypes = ['epic', 'story', 'feature', 'bug']
+
 export const PRIORITY: LabelsType = {
   high: {
     label: 'High',

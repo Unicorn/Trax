@@ -1,14 +1,13 @@
 /** @jsx createElement **/
 import { createElement, Component, FormEvent, ReactNode } from 'react'
 import { connect } from 'react-redux'
-import { EditorValue } from 'react-rte'
 import { createIssueRequest } from '@/controllers/issueController'
 import { TYPES, SWIMLANES, PRIORITY, POINTS } from '@/config/constants'
 import { Tracks } from '@/models/track'
 import { Users } from '@/models/user'
 import { RootState } from '@/models/app'
 import { Settings } from '@/models/setting'
-import { CreateIssuePayload, CreateIssueAction } from '@/models/issue'
+import { ScrumTypes } from '@/config/constants'
 import { labelNames } from '@/helpers/issueHelper'
 import Form, { OptionsObject } from '@/views/ui/form'
 import Editor from '@/views/ui/form/Editor'
@@ -20,7 +19,7 @@ interface Connected {
 }
 
 interface Actions {
-  createIssueRequest: (payload: CreateIssuePayload) => CreateIssueAction
+  _createIssueRequest: typeof createIssueRequest
 }
 
 interface State {
@@ -35,7 +34,8 @@ const defaultState = {
   priority: '',
   assignee: '',
   ident: '',
-  body: ''
+  markdown: '',
+  template: 'story'
 }
 
 class CreatePage extends Component<Connected & Actions, State> {
@@ -46,12 +46,12 @@ class CreatePage extends Component<Connected & Actions, State> {
   _submitHandler = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
 
-    const { title, type, lane, points, priority, assignee, ident, body } = this.state
+    const { title, type, lane, points, priority, assignee, ident, markdown } = this.state
     const [owner, repo] = ident.split('/')
 
     let payload = {
       title,
-      body,
+      body: markdown,
       owner,
       repo,
       labels: labelNames([type, points, priority, lane]),
@@ -60,21 +60,21 @@ class CreatePage extends Component<Connected & Actions, State> {
 
     console.log("payload", payload, defaultState)
 
-    // this.props.createIssueRequest(payload)
+    // this.props._createIssueRequest(payload)
     this.setState(defaultState)
   }
 
-  _fieldHandler = (e: FormEvent<HTMLElement> | EditorValue): void => {
+  _fieldHandler = (e: FormEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>): void => {
     let newData: State = { ...this.state }
-
-    if ((e as EditorValue).getEditorState) {
-      newData['body'] = e.toString('markdown')
-    } else {
-      let input = (e as React.FormEvent<HTMLInputElement>).currentTarget
-      newData[input.name] = input.value
-    }
+    let input = e.currentTarget
+    newData[input.name] = input.value
 
     this.setState(newData)
+  }
+
+  _templateHandler = (e: FormEvent<HTMLSelectElement>) => {
+    const template = e.currentTarget.value
+    this.setState({ template, markdown: this.props.settings.templates[template]})
   }
 
   _repoSelectHandler = (e: React.FormEvent<HTMLSelectElement>): void => {
@@ -92,7 +92,7 @@ class CreatePage extends Component<Connected & Actions, State> {
 
   render(): ReactNode {
     const { tracks, settings } = this.props
-    const { ident, title, type, priority, points, lane, assignee } = this.state
+    const { template, ident, title, markdown, type, priority, points, lane, assignee } = this.state
 
     tracks.keys.forEach(key => {
       this.repoOptions[tracks.data[key].ident] = {
@@ -186,7 +186,12 @@ class CreatePage extends Component<Connected & Actions, State> {
           </div>
 
           <div className="right column">
-            <Editor handler={this._fieldHandler} />
+            <Editor
+              template={template as ScrumTypes}
+              markdown={markdown}
+              markdownHandler={this._fieldHandler}
+              templateHandler={this._templateHandler}
+            />
           </div>
         </form>
       </section>
@@ -200,8 +205,8 @@ const mapState = (state: RootState): Connected => ({
   settings: state.settings
 })
 
-const mapDispatch = {
-  createIssueRequest
+const mapDispatch: Actions = {
+  _createIssueRequest: createIssueRequest
 }
 
 export default connect(
