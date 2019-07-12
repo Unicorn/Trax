@@ -58,7 +58,9 @@ class CreatePage extends Component<Connected & Actions, State> {
       assignees: [assignee]
     }
 
-    this.props.createIssueRequest(payload)
+    console.log("payload", payload, defaultState)
+
+    // this.props.createIssueRequest(payload)
     this.setState(defaultState)
   }
 
@@ -90,7 +92,7 @@ class CreatePage extends Component<Connected & Actions, State> {
 
   render(): ReactNode {
     const { tracks, settings } = this.props
-    const { type, priority, points, lane, assignee } = this.state
+    const { ident, title, type, priority, points, lane, assignee } = this.state
 
     tracks.keys.forEach(key => {
       this.repoOptions[tracks.data[key].ident] = {
@@ -110,6 +112,8 @@ class CreatePage extends Component<Connected & Actions, State> {
               label="Repo"
               options={this.repoOptions}
               onChange={this._repoSelectHandler}
+              selected={ident}
+              value={ident}
               required
             />
 
@@ -118,14 +122,30 @@ class CreatePage extends Component<Connected & Actions, State> {
               type="select"
               label="Assigned to"
               options={this.userOptions}
-              selected={assignee}
               onChange={this._fieldHandler}
+              selected={assignee}
+              value={assignee}
             />
 
-            <Form.TextField name="title" type="text" label="Title" onChange={this._fieldHandler} required />
+            <Form.TextField
+              name="title"
+              type="text"
+              label="Title"
+              onChange={this._fieldHandler}
+              value={title}
+              required
+            />
 
             {settings.featurePoints && (
-              <Form.RadioField name="points" type="group" label="Points" options={POINTS} selected={points} onChange={this._fieldHandler} />
+              <Form.RadioField
+                name="points"
+                type="group"
+                label="Points"
+                options={POINTS}
+                onChange={this._fieldHandler}
+                selected={points}
+                value={points}
+              />
             )}
 
             {settings.featurePriority && (
@@ -134,16 +154,33 @@ class CreatePage extends Component<Connected & Actions, State> {
                 type="group"
                 label="Priority"
                 options={PRIORITY}
-                selected={priority}
                 onChange={this._fieldHandler}
+                selected={priority}
+                value={priority}
               />
             )}
 
             {settings.featureTypes && (
-              <Form.RadioField name="type" type="group" label="Type" options={TYPES} selected={type} onChange={this._fieldHandler} />
+              <Form.RadioField
+                name="type"
+                type="group"
+                label="Type"
+                options={TYPES}
+                onChange={this._fieldHandler}
+                selected={type}
+                value={type}
+              />
             )}
 
-            <Form.RadioField name="lane" type="group" label="Swimlane" options={SWIMLANES} selected={lane} onChange={this._fieldHandler} />
+            <Form.RadioField
+              name="lane"
+              type="group"
+              label="Swimlane"
+              options={SWIMLANES}
+              onChange={this._fieldHandler}
+              selected={lane}
+              value={lane}
+            />
 
             <button className="large teal button">Submit</button>
           </div>

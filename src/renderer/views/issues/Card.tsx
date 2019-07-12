@@ -8,7 +8,7 @@ import ExternalLink from '@/views/ui/ExternalLink'
 
 import { RootState } from '@/models/app'
 import { Issue } from '@/models/issue'
-import { Timers, Timer, TimerAction, defaultTimer } from '@/models/timer'
+import { Timers, defaultTimer } from '@/models/timer'
 import { pointsFromLabels, typeFromLabels, priorityFromLabels } from '@/helpers/labelHelper'
 import LabelsList from '@/views/issues/LabelsList'
 import TimerButton from '@/views/issues/TimerButton'
@@ -28,15 +28,15 @@ interface Connected {
 }
 
 interface Actions {
-  startTimer: (payload: Timer) => TimerAction
-  stopTimer: (payload: Timer) => TimerAction
+  _startTimer: typeof startTimer
+  _stopTimer: typeof stopTimer
 }
 
-const Card: SFC<Props & Connected & Actions> = ({ timers, settings, issue, index }) => {
+const Card: SFC<Props & Connected & Actions> = ({ timers, settings, issue, index, _startTimer, _stopTimer }) => {
   const timer = timers.data[issue.key] || { ...defaultTimer, key: issue.key, issue, startedAt: new Date() }
 
   const _timerHandler = (): void => {
-    timer.isRunning ? stopTimer(timer) : startTimer(timer)
+    timer.isRunning ? _stopTimer(timer) : _startTimer(timer)
   }
 
   const priority = priorityFromLabels(issue.labels)
@@ -98,8 +98,8 @@ const mapState = (state: RootState): Connected => ({
 })
 
 const mapDispatch: Actions = {
-  startTimer,
-  stopTimer
+  _startTimer: startTimer,
+  _stopTimer: stopTimer
 }
 
 export default connect(
