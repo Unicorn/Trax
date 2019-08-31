@@ -58,9 +58,7 @@ class CreatePage extends Component<Connected & Actions, State> {
       assignees: [assignee]
     }
 
-    console.log("payload", payload, defaultState)
-
-    // this.props._createIssueRequest(payload)
+    this.props._createIssueRequest(payload)
     this.setState(defaultState)
   }
 
@@ -74,7 +72,7 @@ class CreatePage extends Component<Connected & Actions, State> {
 
   _templateHandler = (e: FormEvent<HTMLSelectElement>) => {
     const template = e.currentTarget.value
-    this.setState({ template, markdown: this.props.settings.templates[template]})
+    this.setState({ template, markdown: this.props.settings.templates[template] })
   }
 
   _repoSelectHandler = (e: React.FormEvent<HTMLSelectElement>): void => {
@@ -127,14 +125,7 @@ class CreatePage extends Component<Connected & Actions, State> {
               value={assignee}
             />
 
-            <Form.TextField
-              name="title"
-              type="text"
-              label="Title"
-              onChange={this._fieldHandler}
-              value={title}
-              required
-            />
+            <Form.TextField name="title" type="text" label="Title" onChange={this._fieldHandler} value={title} required />
 
             {settings.featurePoints && (
               <Form.RadioField

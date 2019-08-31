@@ -2,7 +2,7 @@
 import { createElement, FC, useState } from 'react'
 import { connect } from 'react-redux'
 import { logout } from '@/controllers/authController'
-import { setTemplate } from '@/controllers/settingController';
+import { setTemplate } from '@/controllers/settingController'
 import { resetApp, RootState } from '@/models/app'
 import { Settings } from '@/models/setting'
 import { ScrumTypes } from '@/config/constants'
@@ -22,13 +22,13 @@ const TemplateSettings: FC<Connected & Actions> = ({ settings, _setTemplate }) =
   let [body, setBody] = useState<string>('')
   let [template, setTemplate] = useState<ScrumTypes>('story')
 
-  const _templateHandler = (t: ScrumTypes) => {
+  const _templateHandler = (t: ScrumTypes): void => {
     let markdown = settings.templates[t as ScrumTypes]
     setTemplate(t)
     setBody(markdown)
   }
 
-  const _bodyHandler = (markdown: string) => {
+  const _bodyHandler = (markdown: string): void => {
     setBody(markdown)
     _setTemplate(template, markdown)
   }

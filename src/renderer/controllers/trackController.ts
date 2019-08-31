@@ -40,8 +40,6 @@ export const trackReducer = (state: Tracks, action: TrackAction): Tracks => {
 
   if (!type || !payload) return state
 
-  const newState = { ...state }
-
   switch (type) {
     case TRACK.CREATE:
     case TRACK.RELOAD:
@@ -54,6 +52,4 @@ export const trackReducer = (state: Tracks, action: TrackAction): Tracks => {
     default:
       return state
   }
-
-  return newState
 }

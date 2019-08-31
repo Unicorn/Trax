@@ -52,8 +52,15 @@ interface Templates {
   }
 }
 
-
-export type Setting = ActivePage | ActiveLanes | ShowBoardSearch | ShowBoardHelp | FeaturePoints | FeaturePriority | FeatureTypes | Templates
+export type Setting =
+  | ActivePage
+  | ActiveLanes
+  | ShowBoardSearch
+  | ShowBoardHelp
+  | FeaturePoints
+  | FeaturePriority
+  | FeatureTypes
+  | Templates
 
 export interface Settings {
   page: ActivePageValues

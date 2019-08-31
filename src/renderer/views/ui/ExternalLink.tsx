@@ -14,7 +14,7 @@ const handleClick = (e: MouseEvent<HTMLAnchorElement>): void => {
   e.preventDefault()
   const url = e.currentTarget.getAttribute('href') as string
 
-  window.shell ? window.shell.openExternal(url) : (window.location.href = url)
+  window.shell && window.shell.openExternal(url)
 }
 
 const ExternalLink: SFC<ExternalLinkProps> = ({ url, children, showIcon, className, iconPosition }) => {

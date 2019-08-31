@@ -2,10 +2,9 @@ import { toArray, createAlert } from 'horseshoes'
 import { takeLatest, put, call, all, ForkEffect, PutEffect, CallEffect, AllEffect } from 'redux-saga/effects'
 import { RehydrateAction } from 'redux-persist'
 import { persistor } from '@/controllers/reduxController'
-import { APP } from '@/models/app'
+import { APP, RootState } from '@/models/app'
 import { requestProfile } from '@/controllers/profileController'
 import { stopTimer, resetTimer } from '@/controllers/timerController'
-import { RootState } from '@/models/app'
 import { Timer } from '@/models/timer'
 
 function* watchPersist({ payload }: RehydrateAction<RootState>): Iterable<PutEffect | AllEffect<PutEffect>> {
