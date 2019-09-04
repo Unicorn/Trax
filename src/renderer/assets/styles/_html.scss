@@ -111,10 +111,48 @@ a {
 }
 
 table {
-  border-spacing: 0 1rem;
   margin: 0;
   padding: 0;
   width: 100%;
+
+  &.hoverable {
+    border-spacing: 0 1rem;
+
+    tbody {
+      tr {
+        box-shadow: 0 3px 6px transparentize(color(neutral, 500), .95);
+        transition: box-shadow .3s;
+  
+        &:hover {
+          box-shadow: 0 3px 8px transparentize(color(neutral, 500), .75);
+        }
+      }
+    }
+  }
+
+  &.collapsed {
+    border-spacing: 0;
+
+    tbody {
+      td {
+        border-top: 1rem solid color(neutral, 200);
+      }
+    }
+  }
+
+  &.clickable {
+    tbody {
+      td {
+        cursor: pointer;
+      }
+    }
+  }
+
+  tr.detail {
+    td {
+      border: none;
+    }
+  }
 
   th, td {
     font-size: 1.4rem;
@@ -135,14 +173,11 @@ table {
     transition: background-color .3s;
   }
 
-  tbody {
-    tr {
-      box-shadow: 0 3px 6px transparentize(color(neutral, 500), .95);
-      transition: box-shadow .3s;
-
-      &:hover {
-        box-shadow: 0 3px 8px transparentize(color(neutral, 500), .75);
-      }
+  tr.detail {
+    box-shadow: none;
+    
+    td {
+      background-color: color(neutral, 100);
     }
   }
 

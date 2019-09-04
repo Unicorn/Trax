@@ -64,7 +64,7 @@ class ReportPage extends Component<Connected & Actions, State> {
           </p>
         </Help>
 
-        <table cellPadding="0" cellSpacing="0">
+        <table className="hoverable" cellPadding="0" cellSpacing="0">
           <thead>
             <tr>
               <th>

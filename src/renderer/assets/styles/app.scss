@@ -390,7 +390,7 @@ aside.help {
     background: lighten(color(neutral, 200), 5%);
     box-shadow: 0 0 20px darken(color(neutral, 200), 8%);
     height: 100vh;
-    left: -36vw;
+    left: calc(-40vw + 7rem);
     padding: 10rem 14rem;
     position: relative;
     transition: left .3s;

@@ -434,12 +434,12 @@ input, textarea, select {
     padding: 0 .25rem;
   }
 
-  @include button-color(brown, color(neutral, 500))
-  @include button-color(teal, color(teal, 500))
-  @include button-color(yellow, color(yellow, 500))
-  @include button-color(green, color(green, 500))
-  @include button-color(blue, color(blue, 500))
-  @include button-color(red, color(red, 500))
+  @include button-color(brown, color(neutral, 500));
+  @include button-color(teal, color(teal, 500));
+  @include button-color(yellow, color(yellow, 500));
+  @include button-color(green, color(green, 500));
+  @include button-color(blue, color(blue, 500));
+  @include button-color(red, color(red, 500));
 }
 
 .button + .button {
