@@ -51,6 +51,7 @@ export const initialState: RootState = {
     lanes: LANES,
     showBoardSearch: false,
     showBoardHelp: false,
+    showFilterMenu: false,
     featurePoints: true,
     featurePriority: true,
     featureTypes: true,

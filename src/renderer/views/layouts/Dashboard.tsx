@@ -3,7 +3,7 @@ import { createElement, SFC, ReactNode } from 'react'
 import { connect } from 'react-redux'
 
 import { reloadTrack } from '@/controllers/trackController'
-import { toggleShowBoardSearch } from '@/controllers/settingController'
+import { toggleShowBoardSearch, toggleShowFilterMenu } from '@/controllers/settingController'
 import { RootState } from '@/models/app'
 import { Tracks, Track } from '@/models/track'
 import { ROUTES } from '@/config/constants'
@@ -11,6 +11,7 @@ import Navigation from '@/views/sections/Navigation'
 import AlertsList from '@/views/ui/alert/AlertsList'
 import LoadingIcon from '@/views/ui/icons/LoadingIcon'
 import SearchIcon from '@/views/ui/icons/SearchIcon'
+import FilterIcon from '@/views/ui/icons/FilterIcon'
 import { toArray } from 'horseshoes'
 
 interface Props {
@@ -21,16 +22,18 @@ interface Connected {
   tracks: Tracks
   page: string
   showBoardSearch: boolean
+  showFilterMenu: boolean
   issuesLoading: boolean
 }
 
 interface Actions {
   _reloadTrack: typeof reloadTrack
   _toggleShowBoardSearch: typeof toggleShowBoardSearch
+  _toggleShowFilterMenu: typeof toggleShowFilterMenu
 }
 
 const Dashboard: SFC<Props & Connected & Actions> = props => {
-  const { children, tracks, page, showBoardSearch, issuesLoading, _reloadTrack, _toggleShowBoardSearch } = props
+  const { children, tracks, page, showBoardSearch, showFilterMenu, issuesLoading, _reloadTrack, _toggleShowBoardSearch, _toggleShowFilterMenu } = props
 
   const _reloadTracksHandler = (): void => {
     const tracksArr = toArray(tracks) as Track[]
@@ -38,6 +41,9 @@ const Dashboard: SFC<Props & Connected & Actions> = props => {
   }
 
   const _renderBoardActions = (): ReactNode => [
+    <button key="filter" onClick={() => _toggleShowFilterMenu(!showFilterMenu)}>
+      <FilterIcon />
+    </button>,
     <button key="search" onClick={() => _toggleShowBoardSearch(!showBoardSearch)}>
       <SearchIcon />
     </button>,
@@ -67,11 +73,13 @@ const mapState = (state: RootState): Connected => ({
   tracks: state.tracks,
   page: state.settings.page,
   showBoardSearch: state.settings.showBoardSearch,
+  showFilterMenu: state.settings.showFilterMenu,
   issuesLoading: state.issues.isLoading === true
 })
 
 const mapDispatch = {
   _toggleShowBoardSearch: toggleShowBoardSearch,
+  _toggleShowFilterMenu: toggleShowFilterMenu,
   _reloadTrack: reloadTrack
 }
 
