@@ -12,6 +12,7 @@ import { filterIssues } from '@/helpers/issueHelper'
 import { Lane } from '@/config/constants'
 import IssuesLane from '@/views/issues/IssuesLane'
 import SearchIssues from '@/views/issues/SearchIssues'
+import FilterIssues from '@/views/issues/FilterIssues'
 import { toArray } from 'horseshoes'
 
 interface Connected {
@@ -19,6 +20,7 @@ interface Connected {
   issues: Issues
   lanes: Lane[]
   showBoardSearch: boolean
+  showFilterMenu: boolean
   showBoardHelp: boolean
 }
 
@@ -73,11 +75,12 @@ const BoardPage: FC<Connected & Actions> = props => {
     setAllIssues(filteredIssues)
   }, [props])
 
-  const { lanes, showBoardSearch } = props
+  const { lanes, showBoardSearch, showFilterMenu } = props
 
   return (
     <section className="board">
       {showBoardSearch && <SearchIssues handler={_filterIssues} />}
+      {showFilterMenu && <FilterIssues />}
       <div className="columns">
         <DragDropContext onDragEnd={_onDragEnd}>
           {lanes.map(lane => (
@@ -94,6 +97,7 @@ const mapState = (state: RootState): Connected => ({
   issues: state.issues,
   lanes: state.settings.lanes,
   showBoardSearch: state.settings.showBoardSearch,
+  showFilterMenu: state.settings.showFilterMenu,
   showBoardHelp: state.settings.showBoardHelp
 })
 
