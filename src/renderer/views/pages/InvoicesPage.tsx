@@ -52,7 +52,9 @@ const InvoicesPage: SFC<Connected> = props => {
                 <td>{invoice.key}</td>
                 <td>{new Date(invoice.createdAt || '').toString()}</td>
                 <td>{timersDuration(invoice.timers, true)}</td>
-                <td><button className="button micro brown">Download</button></td>
+                <td>
+                  <button className="button micro brown">Download</button>
+                </td>
               </tr>
               {invoice.timers.map(renderTimerEntry)}
             </Fragment>
@@ -64,7 +66,7 @@ const InvoicesPage: SFC<Connected> = props => {
 }
 
 const mapState = (state: RootState): Connected => ({
-  invoices: state.invoices,
+  invoices: state.invoices
 })
 
 export default connect(mapState)(InvoicesPage)

@@ -33,7 +33,17 @@ interface Actions {
 }
 
 const Dashboard: SFC<Props & Connected & Actions> = props => {
-  const { children, tracks, page, showBoardSearch, showFilterMenu, issuesLoading, _reloadTrack, _toggleShowBoardSearch, _toggleShowFilterMenu } = props
+  const {
+    children,
+    tracks,
+    page,
+    showBoardSearch,
+    showFilterMenu,
+    issuesLoading,
+    _reloadTrack,
+    _toggleShowBoardSearch,
+    _toggleShowFilterMenu
+  } = props
 
   const _reloadTracksHandler = (): void => {
     const tracksArr = toArray(tracks) as Track[]
