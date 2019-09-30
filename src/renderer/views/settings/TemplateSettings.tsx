@@ -19,11 +19,11 @@ interface Actions {
 }
 
 const TemplateSettings: FC<Connected & Actions> = ({ settings, _setTemplate }) => {
-  let [body, setBody] = useState<string>('')
-  let [template, setTemplate] = useState<ScrumTypes>('story')
+  const [body, setBody] = useState<string>('')
+  const [template, setTemplate] = useState<ScrumTypes>('story')
 
   const _templateHandler = (t: ScrumTypes): void => {
-    let markdown = settings.templates[t as ScrumTypes]
+    const markdown = settings.templates[t as ScrumTypes]
     setTemplate(t)
     setBody(markdown)
   }

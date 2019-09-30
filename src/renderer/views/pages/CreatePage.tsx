@@ -49,7 +49,7 @@ class CreatePage extends Component<Connected & Actions, State> {
     const { title, type, lane, points, priority, assignee, ident, markdown } = this.state
     const [owner, repo] = ident.split('/')
 
-    let payload = {
+    const payload = {
       title,
       body: markdown,
       owner,
@@ -63,8 +63,8 @@ class CreatePage extends Component<Connected & Actions, State> {
   }
 
   _fieldHandler = (e: FormEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>): void => {
-    let newData: State = { ...this.state }
-    let input = e.currentTarget
+    const newData: State = { ...this.state }
+    const input = e.currentTarget
     newData[input.name] = input.value
 
     this.setState(newData)
@@ -77,12 +77,12 @@ class CreatePage extends Component<Connected & Actions, State> {
 
   _repoSelectHandler = (e: React.FormEvent<HTMLSelectElement>): void => {
     const { tracks, users } = this.props
-    let ident = e.currentTarget.value
+    const ident = e.currentTarget.value
     this.setState({ ident })
 
     if (tracks.data[ident]) {
       tracks.data[ident].userIds.forEach(id => {
-        let user = users.data[id]
+        const user = users.data[id]
         if (user) this.userOptions[user.login] = { label: user.login }
       })
     }

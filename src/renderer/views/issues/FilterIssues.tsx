@@ -1,5 +1,5 @@
 /** @jsx createElement */
-import { createElement, FC } from 'react'
+import { createElement, FC, ReactNode } from 'react'
 
 import Select from 'react-select'
 
@@ -18,7 +18,7 @@ interface SelectOption {
 }
 
 export const FilterIssues: FC<Props> = ({ tracks, issues }) => {
-  const _renderRepoFilter = (options: Tracks) => {
+  const _renderRepoFilter = (options: Tracks): ReactNode => {
     const selectOptions: SelectOption[] = []
 
     options.keys.map(key => {
@@ -28,7 +28,7 @@ export const FilterIssues: FC<Props> = ({ tracks, issues }) => {
     return <Select placeholder="Filter by repository..." options={selectOptions} isMulti />
   }
 
-  const _renderLabelFilter = (options: Issues) => {
+  const _renderLabelFilter = (options: Issues): ReactNode => {
     const labels: string[] = []
     const selectOptions: SelectOption[] = []
 

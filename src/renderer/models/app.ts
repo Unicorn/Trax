@@ -1,5 +1,3 @@
-import { v4 } from 'uuid'
-import { camelizeKeys } from 'humps'
 import { Resources, Alert, initResources } from 'horseshoes'
 
 import { Auth } from './auth'
@@ -71,18 +69,3 @@ export const initialState: RootState = {
 // Actions
 //
 export const resetApp = () => ({ type: APP.RESET })
-
-//
-// Helpers
-//
-export const scrubPayload = (payload: any): any => {
-  let key: string = payload.nodeId || payload.id || v4()
-
-  return { ...payload, key }
-}
-
-export const normalizePayload = (payload: any): any => {
-  if (Array.isArray(payload)) return payload.map((r: any) => ({ ...scrubPayload(camelizeKeys(r)) }))
-
-  return scrubPayload(camelizeKeys(payload))
-}

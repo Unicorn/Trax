@@ -9,7 +9,7 @@ interface Props extends FieldProps {
 }
 
 const _renderSelectOptions = (options?: OptionsObject): ReactNode => {
-  let items = [<option key="default" />]
+  const items = [<option key="default" />]
 
   if (!options) return items
 
@@ -32,7 +32,7 @@ const SelectField: SFC<Props> = ({ name, type, label, options, validate, onValid
 
   const _validate = (value: string): void => {
     if (!validate) return
-    let [valid, error] = validate(value)
+    const [valid, error] = validate(value)
     valid === true && onValid && onValid()
     valid !== true && onInvalid && onInvalid(error)
     setValid(valid === true)

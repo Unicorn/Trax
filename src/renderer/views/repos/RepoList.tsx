@@ -16,8 +16,8 @@ interface Connected {
 }
 
 const sortByRepoName = (a: Repo, b: Repo): number => {
-  let aName = a.fullName.toLowerCase()
-  let bName = b.fullName.toLowerCase()
+  const aName = a.fullName.toLowerCase()
+  const bName = b.fullName.toLowerCase()
 
   return aName < bName ? -1 : aName > bName ? 1 : 0
 }
@@ -26,7 +26,7 @@ const RepoList: SFC<Props & Connected> = ({ repos, repoIds }) => {
   const _renderRepos = (): ReactNode => {
     if (!repoIds || repoIds.length < 1) return null
 
-    let sorted = repoIds.map(id => repos.data[id]).sort(sortByRepoName)
+    const sorted = repoIds.map(id => repos.data[id]).sort(sortByRepoName)
 
     return sorted.map((repo: Repo) => repo && <RepoItem repo={repo} key={repo.key} />)
   }

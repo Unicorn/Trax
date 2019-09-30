@@ -16,7 +16,7 @@ interface Connected {
 const Page: SFC<Connected> = ({ page, auth }) => {
   if (page === ROUTES.welcome.name && !auth.accessToken) return <WelcomePage />
 
-  var child = null
+  let child = null
 
   switch (page) {
     case ROUTES.board.name:

@@ -1,15 +1,16 @@
-import { createAlert } from 'horseshoes'
-import { put, call, takeEvery, ForkEffect, PutEffect, CallEffect } from 'redux-saga/effects'
-import * as IssueModel from '@/models/issue'
+import { SagaIterator } from 'redux-saga'
+import { put, takeEvery } from 'redux-saga/effects'
+import { call, createAlert } from 'horseshoes'
+import { normalizeIssue, CreateIssueAction, ISSUE } from '@/models/issue'
 import { octokit, UpdateIssueLaneAction } from '@/models/github'
 import { createIssue, updateIssue } from '@/controllers/issueController'
 import { LANES, Lane } from '@/config/constants'
 
-function* watchCreateIssueRequest(action: IssueModel.CreateIssueAction): Iterable<CallEffect | PutEffect> {
+function* watchCreateIssueRequest(action: CreateIssueAction): SagaIterator {
   try {
-    const issue = yield call(octokit.issues.create, action.payload)
+    const issue = yield* call(octokit.issues.create, action.payload)
 
-    yield put(createIssue(IssueModel.normalizeIssue(issue.data)))
+    yield put(createIssue(normalizeIssue(issue.data)))
     yield put(
       createAlert({
         key: 'watchCreateIssueRequestSuccess',
@@ -31,7 +32,7 @@ function* watchCreateIssueRequest(action: IssueModel.CreateIssueAction): Iterabl
   }
 }
 
-function* watchUpdateIssueLane(action: UpdateIssueLaneAction): Iterable<CallEffect | PutEffect> {
+function* watchUpdateIssueLane(action: UpdateIssueLaneAction): SagaIterator {
   const { payload, to } = action
   const [owner, repo] = payload.ident.split('/')
   const newIssue = { ...payload }
@@ -40,7 +41,7 @@ function* watchUpdateIssueLane(action: UpdateIssueLaneAction): Iterable<CallEffe
     const labels = payload.labels.filter(l => !LANES.includes(l.name as Lane)).map(l => l.name)
     labels.push(to)
 
-    const newLabels = yield call(octokit.issues.replaceLabels, { owner, repo, issue_number: payload.number, labels })
+    const newLabels = yield* call(octokit.issues.replaceLabels, { owner, repo, issue_number: payload.number, labels })
     newIssue.labels = newLabels.data
     newIssue.lane = to
     yield put(updateIssue(newIssue))
@@ -56,7 +57,7 @@ function* watchUpdateIssueLane(action: UpdateIssueLaneAction): Iterable<CallEffe
   }
 }
 
-export default function* issueSaga(): Iterable<ForkEffect> {
-  yield takeEvery(IssueModel.ISSUE.CREATE_REQUEST, watchCreateIssueRequest)
-  yield takeEvery(IssueModel.ISSUE.UPDATE_LANE, watchUpdateIssueLane)
+export default function* issueSaga(): SagaIterator {
+  yield takeEvery(ISSUE.CREATE_REQUEST, watchCreateIssueRequest)
+  yield takeEvery(ISSUE.UPDATE_LANE, watchUpdateIssueLane)
 }

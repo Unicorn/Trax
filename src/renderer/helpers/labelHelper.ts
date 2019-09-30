@@ -13,19 +13,19 @@ export const labelsWithoutCore = (labels: Label[]): Label[] => {
 }
 
 export const priorityFromLabels = (labels: Label[]): number => {
-  let labelsArr = labels.map(l => l.name)
-  let filtered = intersection(labelsArr, traxPriorities)
+  const labelsArr = labels.map(l => l.name)
+  const filtered = intersection(labelsArr, traxPriorities)
   return filtered.length > 0 ? filtered[0].length : 0
 }
 
 export const pointsFromLabels = (labels: Label[]): number => {
-  let labelsArr = labels.map(l => l.name)
-  let filtered = intersection(labelsArr, traxPoints)
+  const labelsArr = labels.map(l => l.name)
+  const filtered = intersection(labelsArr, traxPoints)
   return (filtered[0] && filtered[0].length) || 0
 }
 
 export const typeFromLabels = (labels: Label[]): string => {
-  let labelsArr = labels.map(l => l.name)
-  let filtered = intersection(labelsArr, traxType)
+  const labelsArr = labels.map(l => l.name)
+  const filtered = intersection(labelsArr, traxType)
   return filtered[0] ? filtered[0].replace(/[^\w]/gi, '') : ''
 }

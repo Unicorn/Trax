@@ -16,6 +16,16 @@ import { timerReducer } from '@/controllers/timerController'
 import { trackReducer } from '@/controllers/trackController'
 import { usersReducer } from '@/controllers/userController'
 
+declare global {
+  interface Window {
+    app: {
+      version: string
+    }
+    shell: Electron.Shell
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: typeof compose
+  }
+}
+
 const saga = createSagaMiddleware()
 
 const persistConfig = {
@@ -36,7 +46,7 @@ const rootReducer = persistCombineReducers(persistConfig, {
   timers: timerReducer,
   tracks: trackReducer,
   users: usersReducer
-})
+} as any)
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const enhancer = composeEnhancers(applyMiddleware(saga))

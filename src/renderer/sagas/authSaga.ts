@@ -1,6 +1,7 @@
 import { createAlert } from 'horseshoes'
-import { eventChannel, END, EventChannel } from 'redux-saga'
-import { put, call, take, takeLatest, ForkEffect, PutEffect, CallEffect, TakeEffect } from 'redux-saga/effects'
+import { eventChannel, END, EventChannel, SagaIterator } from 'redux-saga'
+import { put, call, takeLatest } from 'redux-saga/effects'
+import { take } from 'horseshoes'
 import { camelizeKeys } from 'humps'
 import { receiveAuth } from '@/controllers/authController'
 import { requestProfile } from '@/controllers/profileController'
@@ -76,14 +77,14 @@ const getGithubAuthToken = async (code: string): Promise<any> => {
     .then((response: Response) => ({ ...response }), (error: Error) => ({ error: error.message || 'Something bad happened' }))
 }
 
-function* watchLogout(): Iterable<PutEffect> {
+function* watchLogout(): SagaIterator {
   yield put(setPage('welcome'))
 }
 
-function* watchAuthRequest(): Iterable<void | TakeEffect | CallEffect | PutEffect> {
-  yield createAuthWindow()
+function* watchAuthRequest(): SagaIterator {
+  createAuthWindow()
   const authCode = yield call(getGithubAuthCode)
-  const { code, error } = yield take(authCode)
+  const { code, error } = yield* take(authCode)
 
   if (error) {
     yield put(
@@ -103,11 +104,11 @@ function* watchAuthRequest(): Iterable<void | TakeEffect | CallEffect | PutEffec
   yield put(receiveAuth(auth))
 }
 
-function* watchAuthSuccess(): Iterable<PutEffect> {
+function* watchAuthSuccess(): SagaIterator {
   yield put(requestProfile())
 }
 
-export default function* authSaga(): Iterable<ForkEffect> {
+export default function* authSaga(): SagaIterator {
   yield takeLatest(AUTH.LOGOUT, watchLogout)
   yield takeLatest(AUTH.REQUEST, watchAuthRequest)
   yield takeLatest(AUTH.SUCCESS, watchAuthSuccess)

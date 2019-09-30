@@ -25,6 +25,6 @@ export const labelNames = (labels: string[]): string[] => {
 
 export const totalPoints = (issues: Issue[]): string => {
   if (issues.length < 1) return ''
-  let total = issues.map(i => pointsFromLabels(i.labels)).reduce((prev, curr) => prev + curr)
+  const total = issues.map(i => pointsFromLabels(i.labels)).reduce((prev, curr) => prev + curr)
   return `${total} pts`
 }

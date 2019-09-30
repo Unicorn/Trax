@@ -1,5 +1,5 @@
 /** @jsx createElement **/
-import { createElement, SFC, Fragment } from 'react'
+import { createElement, SFC, Fragment, ReactNode } from 'react'
 import { connect } from 'react-redux'
 import { toArray } from 'horseshoes'
 import { RootState } from '@/models/app'
@@ -11,7 +11,7 @@ interface Connected {
   invoices: Invoices
 }
 
-const renderTimerEntry = (timer: Timer) => {
+const renderTimerEntry = (timer: Timer): ReactNode => {
   console.log('timer in renderTimerEntry', timer)
 
   return (

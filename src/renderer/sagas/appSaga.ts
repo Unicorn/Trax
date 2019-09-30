@@ -1,5 +1,6 @@
-import { toArray, createAlert } from 'horseshoes'
-import { takeLatest, put, call, all, ForkEffect, PutEffect, CallEffect, AllEffect } from 'redux-saga/effects'
+import { SagaIterator } from 'redux-saga'
+import { takeLatest, put, all } from 'redux-saga/effects'
+import { toArray, createAlert, call } from 'horseshoes'
 import { RehydrateAction } from 'redux-persist'
 import { persistor } from '@/controllers/reduxController'
 import { APP, RootState } from '@/models/app'
@@ -7,7 +8,8 @@ import { requestProfile } from '@/controllers/profileController'
 import { stopTimer, resetTimer } from '@/controllers/timerController'
 import { Timer } from '@/models/timer'
 
-function* watchPersist({ payload }: RehydrateAction<RootState>): Iterable<PutEffect | AllEffect<PutEffect>> {
+function* watchPersist(action: RehydrateAction): SagaIterator {
+  const payload = action.payload as RootState
   if (!payload || !payload.auth || !payload.auth.accessToken) return
   if (!payload.profile || payload.profile.login === 'octocat') yield put(requestProfile())
 
@@ -18,9 +20,9 @@ function* watchPersist({ payload }: RehydrateAction<RootState>): Iterable<PutEff
   yield all(invalidTimers.map(timer => put(resetTimer(timer))))
 }
 
-function* watchAppReset(): Iterable<CallEffect | PutEffect> {
+function* watchAppReset(): SagaIterator {
   try {
-    yield call(persistor.purge)
+    yield* call(persistor.purge)
     yield put({ type: 'RESET' })
     yield put(
       createAlert({
@@ -44,7 +46,7 @@ function* watchAppReset(): Iterable<CallEffect | PutEffect> {
   }
 }
 
-export default function* appSaga(): Iterable<ForkEffect> {
+export default function* appSaga(): SagaIterator {
   yield takeLatest('persist/REHYDRATE', watchPersist)
   yield takeLatest(APP.RESET, watchAppReset)
 }

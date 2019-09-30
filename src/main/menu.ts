@@ -1,53 +1,26 @@
 import { app, Menu, MenuItemConstructorOptions } from 'electron'
+import { updater } from 'update-electron-app'
 
-export default () => {
+export default (): void => {
   const checkForUpdates = (): void => {
-    require('update-electron-app')()
+    updater()
   }
 
   // CREATE MENU
   const template: MenuItemConstructorOptions[] = [
     {
+      label: process.platform === 'darwin' ? app.getName() : 'File',
+      submenu: [{ role: 'about' }, { type: 'separator' }, { role: 'quit' }, { label: 'Check for Update', click: checkForUpdates }]
+    },
+    {
       label: 'Edit',
-      submenu: [{ role: 'cut' }, { role: 'copy' }, { role: 'paste' }, { role: 'delete' }, { role: 'selectall' }]
+      submenu: [{ role: 'selectAll' }, { role: 'cut' }, { role: 'copy' }, { role: 'paste' }, { role: 'delete' }]
     },
     {
       label: 'View',
-      submenu: [{ role: 'reload' }, { role: 'forcereload' }, { role: 'toggledevtools' }]
+      submenu: [{ role: 'reload' }, { role: 'toggleDevTools' }]
     }
   ]
-
-  if (process.platform === 'darwin')
-    template.unshift({
-      label: app.getName(),
-      submenu: [
-        { role: 'about' },
-        {
-          label: 'Check for Update',
-          click: checkForUpdates
-        },
-        { type: 'separator' },
-        { role: 'hide' },
-        { role: 'hideothers' },
-        { role: 'unhide' },
-        { type: 'separator' },
-        { role: 'quit' }
-      ]
-    })
-
-  if (process.platform === 'win32')
-    template.unshift({
-      label: 'File',
-      submenu: [
-        { role: 'about' },
-        {
-          label: 'Check for Update',
-          click: checkForUpdates
-        },
-        { type: 'separator' },
-        { role: 'quit' }
-      ]
-    })
 
   Menu.setApplicationMenu(Menu.buildFromTemplate(template))
 }

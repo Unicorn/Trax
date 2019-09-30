@@ -15,7 +15,7 @@ const TextField: SFC<Props> = ({ name, type, label, validate, onValid, onInvalid
 
   const _validate = (value: string): void => {
     if (!validate) return
-    let [valid, error] = validate(value)
+    const [valid, error] = validate(value)
     valid === true && onValid && onValid()
     valid !== true && onInvalid && onInvalid(error)
     setValid(valid === true)

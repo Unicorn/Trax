@@ -1,17 +1,19 @@
-import { createAlert } from 'horseshoes'
-import { takeLatest, call, put, ForkEffect, CallEffect, PutEffect } from 'redux-saga/effects'
-import { GITHUB, octokit, GetReposForLogin } from '@/models/github'
+import { SagaIterator } from 'redux-saga'
+import { takeLatest, put } from 'redux-saga/effects'
+import { createAlert, call, normalizePayload } from 'horseshoes'
 import { updateOrgs, updateOrgRepos } from '@/controllers/orgController'
 import { updateRepos } from '@/controllers/repoController'
-import { normalizePayload } from '@/models/app'
+import { GITHUB, octokit, GetReposForLogin } from '@/models/github'
+import { Org } from '@/models/org'
+import { Repo } from '@/models/repo'
 
-function* watchOrgsRequest(): Iterable<CallEffect | PutEffect> {
+function* watchOrgsRequest(): SagaIterator {
   try {
-    let orgs = yield call(octokit.orgs.listForAuthenticatedUser)
+    const orgs = yield* call(octokit.orgs.listForAuthenticatedUser)
 
     if (!orgs.data) throw new Error('Could not fetch org data')
 
-    yield put(updateOrgs(normalizePayload(orgs.data)))
+    yield put(updateOrgs(normalizePayload(orgs.data) as Org[]))
   } catch (e) {
     yield put(
       createAlert({
@@ -24,16 +26,20 @@ function* watchOrgsRequest(): Iterable<CallEffect | PutEffect> {
   }
 }
 
-function* watchReposRequest(action: GetReposForLogin): Iterable<CallEffect | PutEffect> {
+function* watchReposRequest(action: GetReposForLogin): SagaIterator {
   const { login, key } = action
   let repos
 
   try {
-    if (login === 'personal') repos = yield call(octokit.repos.list, { per_page: 100 })
-    else repos = yield call(octokit.repos.listForOrg, { org: login, per_page: 100 })
+    if (login === 'personal') repos = yield* call(octokit.repos.list, { per_page: 100 })
+    else repos = yield* call(octokit.repos.listForOrg, { org: login, per_page: 100 })
 
-    yield put(updateOrgRepos({ key: key || login, data: normalizePayload(repos.data) }))
-    yield put(updateRepos(normalizePayload(repos.data)))
+    if (!repos) return
+
+    repos = normalizePayload(repos.data) as Repo[]
+
+    yield put(updateOrgRepos({ key: key || login, data: repos }))
+    yield put(updateRepos(repos))
   } catch (e) {
     yield put(
       createAlert({
@@ -46,7 +52,7 @@ function* watchReposRequest(action: GetReposForLogin): Iterable<CallEffect | Put
   }
 }
 
-export default function* githubSaga(): Iterable<ForkEffect> {
+export default function* githubSaga(): SagaIterator {
   yield takeLatest(GITHUB.ORGS.REQUEST, watchOrgsRequest)
   yield takeLatest(GITHUB.REPOS.REQUEST, watchReposRequest)
 }

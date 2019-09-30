@@ -13,6 +13,7 @@ interface ExternalLinkProps {
 const handleClick = (e: MouseEvent<HTMLAnchorElement>): void => {
   e.preventDefault()
   const url = e.currentTarget.getAttribute('href') as string
+  console.log("url", url)
 
   window.shell && window.shell.openExternal(url)
 }

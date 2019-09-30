@@ -1,5 +1,5 @@
-import { Resources, Resource } from 'horseshoes'
-import { normalizePayload } from './app'
+import { IssuesCreateParams, IssuesCreateResponse } from '@octokit/rest'
+import { Resources, Resource, normalizePayload } from 'horseshoes'
 import { User } from '@/models/user'
 import { Labels } from '@/models/label'
 import { LANES, Lane } from '@/config/constants'
@@ -58,20 +58,11 @@ export interface Issues extends Resources<Issue> {
 /**
  * ACTIONS and Action Types
  **/
-export interface CreateIssuePayload {
-  owner: string
-  repo: string
-  title: string
-  body?: string
-  assignee?: string
-  milestone?: number
-  labels?: string[]
-  assignees?: string[]
-}
+
 
 export interface CreateIssueAction {
   type: ISSUE
-  payload: CreateIssuePayload
+  payload: IssuesCreateParams
 }
 
 export interface IssueAction {
@@ -82,7 +73,7 @@ export interface IssueAction {
 /**
  * Normalizers and Helper Functions
  **/
-export const normalizeIssue = (issue: Issue): Issue => {
+export const normalizeIssue = (issue: Issue | IssuesCreateResponse): Issue => {
   const labels = issue.labels && issue.labels.filter(l => LANES.includes(l.name as Lane))
   const lane: Lane = labels && labels.length > 0 ? (labels[0].name as Lane) : 'backlog'
   return normalizePayload({ ...issue, lane }) as Issue

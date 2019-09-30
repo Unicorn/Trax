@@ -33,7 +33,7 @@ const _tracksArray = (tracks: Tracks): Track[] => {
   return toArray(tracks) as Track[]
 }
 
-const BoardPage: FC<Connected & Actions> = (props) => {
+const BoardPage: FC<Connected & Actions> = props => {
   const [allIssues, setAllIssues] = useState<Issue[]>([])
   const [filteredIssues, setFilteredIssues] = useState<Issue[]>([])
 
@@ -57,14 +57,14 @@ const BoardPage: FC<Connected & Actions> = (props) => {
     if (!destination) return
 
     if (source.droppableId !== destination.droppableId) {
-      let issue = issues.data[draggableId]
+      const issue = issues.data[draggableId]
       _updateIssueLane(issue, destination.droppableId as Lane)
     }
   }
 
   useEffect(() => {
     _reload()
-  }, [])
+  }, ['tracks'])
 
   useEffect(() => {
     let issueIds: string[] = []
@@ -79,7 +79,7 @@ const BoardPage: FC<Connected & Actions> = (props) => {
   return (
     <section className="board">
       {showBoardSearch && <SearchIssues handler={_filterIssues} />}
-      {showFilterMenu && <FilterIssues tracks={ tracks } issues={ issues }/>}
+      {showFilterMenu && <FilterIssues tracks={tracks} issues={issues} />}
       <div className="columns">
         <DragDropContext onDragEnd={_onDragEnd}>
           {lanes.map(lane => (

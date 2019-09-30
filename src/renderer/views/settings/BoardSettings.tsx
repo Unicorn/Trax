@@ -20,7 +20,7 @@ interface Actions {
 
 const LaneSettings: SFC<Connected & Actions> = ({ settings, _setLanes, _setFeaturePoints, _setFeaturePriority, _setFeatureTypes }) => {
   const _laneSettingsHandler = (e: React.SyntheticEvent<HTMLInputElement>): void => {
-    let input = e.currentTarget
+    const input = e.currentTarget
     let newState = [...settings.lanes]
 
     if (input.checked) newState.push(input.name as Lane)

@@ -17,7 +17,7 @@ const Tabbed: FC<Props> = (props: Props) => {
     if (selected >= 0) return
 
     const { content, tabHandler } = props
-    let key = Object.keys(content)[0]
+    const key = Object.keys(content)[0]
 
     handleSelected(0)
     if (key && tabHandler) tabHandler(key, 0)

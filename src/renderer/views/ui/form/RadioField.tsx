@@ -22,7 +22,7 @@ const _renderRadioOptions = (props: Props, options?: OptionsObject): ReactNode =
 
 const RadioField: SFC<Props> = props => {
   const { name, type, label, options, validate, onValid, onInvalid, onChange, ...inputProps } = props
-  let field = null
+  const field = null
 
   const [valid, setValid] = useState(true)
   let className = `field ${type} `
@@ -31,7 +31,7 @@ const RadioField: SFC<Props> = props => {
 
   const _validate = (value: string): void => {
     if (!validate) return
-    let [valid, error] = validate(value)
+    const [valid, error] = validate(value)
     valid === true && onValid && onValid()
     valid !== true && onInvalid && onInvalid(error)
     setValid(valid === true)
