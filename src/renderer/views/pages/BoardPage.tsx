@@ -12,6 +12,7 @@ import { filterIssues } from '@/helpers/issueHelper'
 import { Lane } from '@/config/constants'
 import IssuesLane from '@/views/issues/IssuesLane'
 import SearchIssues from '@/views/issues/SearchIssues'
+import { FilterIssues } from '@/views/issues/FilterIssues'
 import { toArray } from 'horseshoes'
 
 interface Connected {
@@ -19,6 +20,7 @@ interface Connected {
   issues: Issues
   lanes: Lane[]
   showBoardSearch: boolean
+  showFilterMenu: boolean
   showBoardHelp: boolean
 }
 
@@ -31,12 +33,13 @@ const _tracksArray = (tracks: Tracks): Track[] => {
   return toArray(tracks) as Track[]
 }
 
-const BoardPage: FC<Connected & Actions> = props => {
+const BoardPage: FC<Connected & Actions> = (props) => {
   const [allIssues, setAllIssues] = useState<Issue[]>([])
   const [filteredIssues, setFilteredIssues] = useState<Issue[]>([])
 
+  const { _reloadTrack, tracks, issues, lanes, showBoardSearch, showFilterMenu } = props
+
   const _reload = (): void => {
-    const { _reloadTrack, tracks } = props
     const tracksArray = _tracksArray(tracks)
 
     tracksArray.forEach(track => _reloadTrack(track))
@@ -66,18 +69,17 @@ const BoardPage: FC<Connected & Actions> = props => {
   useEffect(() => {
     let issueIds: string[] = []
 
-    const tracksArray = _tracksArray(props.tracks)
+    const tracksArray = _tracksArray(tracks)
     tracksArray.forEach(track => (issueIds = union(issueIds, track.issueIds)))
 
-    setFilteredIssues(union(filteredIssues, issueIds.map(id => props.issues.data[id])))
+    setFilteredIssues(union(filteredIssues, issueIds.map(id => issues.data[id])))
     setAllIssues(filteredIssues)
   }, [props])
-
-  const { lanes, showBoardSearch } = props
 
   return (
     <section className="board">
       {showBoardSearch && <SearchIssues handler={_filterIssues} />}
+      {showFilterMenu && <FilterIssues tracks={ tracks } issues={ issues }/>}
       <div className="columns">
         <DragDropContext onDragEnd={_onDragEnd}>
           {lanes.map(lane => (
@@ -94,6 +96,7 @@ const mapState = (state: RootState): Connected => ({
   issues: state.issues,
   lanes: state.settings.lanes,
   showBoardSearch: state.settings.showBoardSearch,
+  showFilterMenu: state.settings.showFilterMenu,
   showBoardHelp: state.settings.showBoardHelp
 })
 

@@ -9,7 +9,8 @@ export enum SETTING {
   SET_FEATURE_PRIORITY = 'trax/settting/SET_FEATURE_PRIORITY',
   SET_FEATURE_TYPES = 'trax/settting/SET_FEATURE_TYPES',
   SET_TEMPLATE = 'trax/setting/SET_TEMPLATE',
-  SET_SETTING = 'trax/settings/SET_SETTING'
+  SET_SETTING = 'trax/settings/SET_SETTING',
+  SET_SHOW_FILTER_MENU = 'trax/settings/SET_SHOW_FILTER_MENU'
 }
 
 export type ActivePageValues = 'welcome' | 'profile' | 'create' | 'board' | 'timers' | 'invoices' | 'settings'
@@ -28,6 +29,10 @@ interface ActiveLanes {
 
 interface ShowBoardSearch {
   showBoardSearch: boolean
+}
+
+interface ShowFilterMenu {
+  showFilterMenu: boolean
 }
 
 interface ShowBoardHelp {
@@ -61,11 +66,13 @@ export type Setting =
   | FeaturePriority
   | FeatureTypes
   | Templates
+  | ShowFilterMenu
 
 export interface Settings {
   page: ActivePageValues
   lanes: Lane[]
   showBoardSearch: boolean
+  showFilterMenu: boolean
   showBoardHelp: boolean
   featurePoints: boolean
   featurePriority: boolean

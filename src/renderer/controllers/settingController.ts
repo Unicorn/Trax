@@ -17,6 +17,11 @@ export const toggleShowBoardSearch = (value: boolean): SettingsAction => ({
   payload: { showBoardSearch: value }
 })
 
+export const toggleShowFilterMenu = (value: boolean): SettingsAction => ({
+  type: SETTING.SET_SHOW_FILTER_MENU,
+  payload: { showFilterMenu: value }
+})
+
 export const toggleShowBoardHelp = (value: boolean): SettingsAction => ({
   type: SETTING.SET_SHOW_BOARD_HELP,
   payload: { showBoardHelp: value }
@@ -62,6 +67,7 @@ export const settingsReducer = (state: Settings, action: SettingsAction): Settin
     case SETTING.SET_FEATURE_PRIORITY:
     case SETTING.SET_FEATURE_TYPES:
     case SETTING.SET_TEMPLATE:
+    case SETTING.SET_SHOW_FILTER_MENU:
       return { ...state, ...payload }
 
     default:
