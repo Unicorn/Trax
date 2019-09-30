@@ -2,42 +2,19 @@ import * as path from 'path'
 import { format as formatUrl } from 'url'
 import { app, BrowserWindow, dialog, Tray, ipcMain, autoUpdater } from 'electron'
 import createMenu from './menu'
+import { installExtensions } from './extensions'
 
 declare const __static: string
 
 const isDev = process.env.NODE_ENV !== 'production'
-let mainWindow: BrowserWindow | null
-let tray: Tray | null
+let mainWindow: BrowserWindow
+let tray: Tray
 
-const setupDevEnvironment = () => {
-  /**
-   * Hotfix for app name and path
-   * @see https://github.com/electron-userland/electron-webpack/issues/239
-   */
-  const appName = 'Trax'
-  app.setName(appName)
-  const appData = app.getPath('appData')
-  app.setPath('userData', path.join(appData, appName))
-
-  // Open Dev Tools and install react/redux extensions
-  mainWindow && mainWindow.webContents.openDevTools()
-
-  const { default: installExtension, REACT_DEVELOPER_TOOLS, REACT_PERF, REDUX_DEVTOOLS } = require('electron-devtools-installer')
-
-  const extensions = [REACT_DEVELOPER_TOOLS, REACT_PERF, REDUX_DEVTOOLS]
-
-  extensions.map(name => {
-    installExtension(name)
-      .then((name: string) => console.log(`Added Extension:  ${name}`))
-      .catch((err: Error) => console.log('An error occurred: ', err))
-  })
-}
-
-const createTray = () => {
+const createTray = (): void => {
   tray = new Tray(path.resolve(__static, 'icons/tray.png'))
 }
 
-const createWindow = () => {
+const createWindow = (): void => {
   mainWindow = new BrowserWindow({
     titleBarStyle: 'hidden',
     backgroundColor: '#F4F0E8',
@@ -76,7 +53,7 @@ const createWindow = () => {
 }
 
 app.on('ready', () => {
-  if (isDev) setupDevEnvironment()
+  isDev && installExtensions(mainWindow)
 
   createMenu()
   createWindow()
@@ -91,8 +68,8 @@ app.on('activate', () => {
   if (mainWindow === null) createWindow()
 })
 
-ipcMain.on('timer-tick', (_: any, time: any) => {
-  tray!.setTitle(time)
+ipcMain.on('timer-tick', (_: Event, time: string) => {
+  tray.setTitle(time)
 })
 
 if (isDev) {

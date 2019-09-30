@@ -1,6 +1,7 @@
 /** @jsx createElement **/
 import { createElement, SFC } from 'react'
 import { render } from 'react-dom'
+import { compose } from 'redux'
 import { IpcRenderer, Shell } from 'electron'
 
 // REDUX
@@ -19,7 +20,7 @@ declare global {
     }
     ipc: IpcRenderer
     shell: Shell
-    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: any
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: typeof compose
   }
 }
 

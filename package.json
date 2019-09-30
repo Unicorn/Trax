@@ -1,7 +1,7 @@
 {
   "name": "trax",
   "homepage": "https://trax.management/",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "author": "Unicorn Agency <hello@UnicornAgency.com>",
   "description": "A desktop application for managing Github Projects and Issues",
   "keywords": [
@@ -14,11 +14,14 @@
   "repository": "https://github.com/UnicornAgency/Trax",
   "scripts": {
     "lint": "yarn eslint ./src --ext .ts,.tsx",
-    "test": "yarn jest",
+    "test": "yarn lint && yarn jest",
     "dev": "electron-webpack dev",
     "compile": "electron-webpack",
-    "release": "yarn compile && electron-builder -mwl -p onTag",
-    "validate": "codesign -dv --verbose=4 ./dist/mac/Trax.app/"
+    "electron:build": "yarn compile && electron-builder -mwl --x64 -p never",
+    "electron:build:win": "yarn compile && electron-builder -w --x64 -p never",
+    "electron:build:mac": "yarn compile && electron-builder --mac -p never",
+    "electron:release": "yarn compile && electron-builder -mwl --x64 -p always",
+    "validate:mac": "codesign -dv --verbose=4 ./dist/mac/Trax.app/"
   },
   "dependencies": {
     "@octokit/rest": "^16.28.4",
@@ -38,6 +41,7 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "@types/electron-devtools-installer": "^2.2.0",
     "@types/humps": "^1.1.2",
     "@types/lodash": "^4.14.136",
     "@types/react": "^16.8.23",
