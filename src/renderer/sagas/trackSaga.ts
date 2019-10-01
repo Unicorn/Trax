@@ -25,12 +25,8 @@ function* watchReloadTrack(action: TrackAction): SagaIterator {
 
     if (!issues || !users) return
 
-    console.log("watchReloadTrack [1]", normalizePayload, users.data, issues.data)
-
     const normalizedUsers = users.data.map(user => normalizePayload({ ...user, ident: payload.ident }) as User)
     const normalizedIssues = issues.data.map(issue => normalizePayload({ ...issue, ident: payload.ident }) as Issue)
-
-    console.log("watchReloadTrack [2]", normalizePayload, normalizedUsers, normalizedIssues)
 
     yield put(updateUsers(normalizedUsers))
     yield put(updateIssues(normalizedIssues))
@@ -65,7 +61,7 @@ function* watchCreateTrack(action: TrackAction): SagaIterator {
 
     yield* call(watchReloadTrack, action)
   } catch (e) {
-    console.log('error', e.response)
+    console.log('Error in watchCreateTrack:', e.response)
   }
 }
 

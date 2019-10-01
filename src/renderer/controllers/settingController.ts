@@ -42,6 +42,11 @@ export const setFeatureTypes = (value: boolean): SettingsAction => ({
   payload: { featureTypes: value }
 })
 
+export const setFeatureOrgTitles = (value: boolean): SettingsAction => ({
+  type: SETTING.SET_FEATURE_ORG_TITLES,
+  payload: { featureOrgTitles: value }
+})
+
 export const setTemplate = (key: ScrumTypes, value: string): SettingsAction => ({
   type: SETTING.SET_TEMPLATE,
   payload: {
@@ -66,6 +71,7 @@ export const settingsReducer = (state: Settings, action: SettingsAction): Settin
     case SETTING.SET_FEATURE_POINTS:
     case SETTING.SET_FEATURE_PRIORITY:
     case SETTING.SET_FEATURE_TYPES:
+    case SETTING.SET_FEATURE_ORG_TITLES:
     case SETTING.SET_TEMPLATE:
     case SETTING.SET_SHOW_FILTER_MENU:
       return { ...state, ...payload }

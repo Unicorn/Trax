@@ -50,14 +50,6 @@
     justify-content: space-between;
     height: 4.2rem;
 
-    .type {
-      width: 1rem;
-    }
-
-    .points {
-      margin-left: 1.2rem;
-    }
-
     strong {
       flex: 1;
       overflow: hidden;
@@ -67,6 +59,50 @@
 
     svg {
       height: 1rem;
+    }
+
+    .field {
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      margin: 0;
+
+      .header {
+        padding: 0 2rem 0 0;
+      }
+    }
+
+    .type {
+      width: 1rem;
+    }
+    
+    .priority {
+      svg {
+        height: 1.2rem;
+      }
+    }
+
+    .points, .priority, .type, .close {
+      cursor: pointer;
+      margin-left: 1.2rem;
+    }
+
+    .priority-2 {
+      svg {
+        fill: color(yellow, 600) !important;
+      }
+    }
+
+    .priority-3 {
+      svg {
+        fill: color(neutral, 500) !important;
+      }
+    }
+
+    .close {
+      svg {
+        height: 2.4rem;
+      }
     }
   }
 
@@ -80,18 +116,6 @@
       font: 400 1.3rem/1.8rem $font_body;
       padding: 1.5rem 4%;
     }
-  }
-
-  &.priority-1 header strong svg {
-    fill: color(red, 200);
-  }
-
-  &.priority-2 header strong svg {
-    fill: color(red, 400);
-  }
-
-  &.priority-3 header strong svg {
-    fill: color(red, 600);
   }
 
   .tracked {

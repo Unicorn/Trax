@@ -5,7 +5,7 @@ import Form from '@/views/ui/form/index'
 import { RootState } from '@/models/app'
 import { Settings } from '@/models/setting'
 import { LANES, Lane } from '@/config/constants'
-import { setLanes, setFeaturePoints, setFeaturePriority, setFeatureTypes } from '@/controllers/settingController'
+import { setLanes, setFeaturePoints, setFeaturePriority, setFeatureTypes, setFeatureOrgTitles } from '@/controllers/settingController'
 
 interface Connected {
   settings: Settings
@@ -16,9 +16,10 @@ interface Actions {
   _setFeaturePoints: typeof setFeaturePoints
   _setFeaturePriority: typeof setFeaturePriority
   _setFeatureTypes: typeof setFeatureTypes
+  _setFeatureOrgTitles: typeof setFeatureOrgTitles
 }
 
-const LaneSettings: SFC<Connected & Actions> = ({ settings, _setLanes, _setFeaturePoints, _setFeaturePriority, _setFeatureTypes }) => {
+const LaneSettings: SFC<Connected & Actions> = ({ settings, _setLanes, _setFeaturePoints, _setFeaturePriority, _setFeatureTypes, _setFeatureOrgTitles }) => {
   const _laneSettingsHandler = (e: React.SyntheticEvent<HTMLInputElement>): void => {
     const input = e.currentTarget
     let newState = [...settings.lanes]
@@ -72,6 +73,14 @@ const LaneSettings: SFC<Connected & Actions> = ({ settings, _setLanes, _setFeatu
           onChange={e => _setFeatureTypes(e.currentTarget.checked)}
           checked={settings.featureTypes}
         />
+
+        <Form.RadioField
+          name="orgTitles"
+          type="toggle"
+          label="Organization"
+          onChange={e => _setFeatureOrgTitles(e.currentTarget.checked)}
+          checked={settings.featureOrgTitles}
+        />
       </div>
     </div>
   )
@@ -85,7 +94,8 @@ const mapDispatch = {
   _setLanes: setLanes,
   _setFeaturePoints: setFeaturePoints,
   _setFeaturePriority: setFeaturePriority,
-  _setFeatureTypes: setFeatureTypes
+  _setFeatureTypes: setFeatureTypes,
+  _setFeatureOrgTitles: setFeatureOrgTitles
 }
 
 export default connect(

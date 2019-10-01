@@ -8,6 +8,7 @@ export enum SETTING {
   SET_FEATURE_POINTS = 'trax/settting/SET_FEATURE_POINTS',
   SET_FEATURE_PRIORITY = 'trax/settting/SET_FEATURE_PRIORITY',
   SET_FEATURE_TYPES = 'trax/settting/SET_FEATURE_TYPES',
+  SET_FEATURE_ORG_TITLES = 'trax/setting/SET_FEATURE_ORG_TITLES',
   SET_TEMPLATE = 'trax/setting/SET_TEMPLATE',
   SET_SETTING = 'trax/settings/SET_SETTING',
   SET_SHOW_FILTER_MENU = 'trax/settings/SET_SHOW_FILTER_MENU'
@@ -51,6 +52,10 @@ interface FeatureTypes {
   featureTypes: boolean
 }
 
+interface FeatureOrgTitles {
+  featureOrgTitles: boolean
+}
+
 interface Templates {
   templates: {
     [key: string]: string
@@ -65,6 +70,7 @@ export type Setting =
   | FeaturePoints
   | FeaturePriority
   | FeatureTypes
+  | FeatureOrgTitles
   | Templates
   | ShowFilterMenu
 
@@ -77,6 +83,7 @@ export interface Settings {
   featurePoints: boolean
   featurePriority: boolean
   featureTypes: boolean
+  featureOrgTitles: boolean
   templates: {
     [key: string]: string
   }

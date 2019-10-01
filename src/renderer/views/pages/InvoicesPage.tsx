@@ -12,8 +12,6 @@ interface Connected {
 }
 
 const renderTimerEntry = (timer: Timer): ReactNode => {
-  console.log('timer in renderTimerEntry', timer)
-
   return (
     <tr className="detail">
       <td>{timer.issue && timer.issue.title}</td>
@@ -29,8 +27,6 @@ const renderTimerEntry = (timer: Timer): ReactNode => {
 
 const InvoicesPage: SFC<Connected> = props => {
   const invoices: Invoice[] = toArray(props.invoices) as Invoice[]
-
-  console.log('InvoicesPage', invoices[0].timers)
 
   return (
     <section className="invoice page">

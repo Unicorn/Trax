@@ -145,21 +145,21 @@ export const PRIORITY: LabelsType = {
 }
 
 export const POINTS: LabelsType = {
-  five: {
-    label: '5',
-    name: '•••••',
+  '1': {
+    label: '1',
+    name: '•',
     color: '51B294'
   },
-  three: {
+  '3': {
     label: '3',
     name: '•••',
     color: '51B294'
   },
-  one: {
-    label: '1',
-    name: '•',
+  '5': {
+    label: '5',
+    name: '•••••',
     color: '51B294'
-  }
+  },
 }
 
 interface LabelsType {

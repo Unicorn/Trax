@@ -53,6 +53,7 @@ export const initialState: RootState = {
     featurePoints: true,
     featurePriority: true,
     featureTypes: true,
+    featureOrgTitles: true,
     templates: {
       epic: '',
       story: '',

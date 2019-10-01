@@ -9,11 +9,11 @@ import ExternalLink from '@/views/ui/ExternalLink'
 import { RootState } from '@/models/app'
 import { Issue } from '@/models/issue'
 import { Timers, defaultTimer } from '@/models/timer'
-import { pointsFromLabels, typeFromLabels, priorityFromLabels } from '@/helpers/labelHelper'
+
 import LabelsList from '@/views/issues/LabelsList'
+import CardHeader from '@/views/issues/CardHeader'
 import TimerButton from '@/views/issues/TimerButton'
-import PointsIcon from '@/views/ui/icons/PointsIcon'
-import TypeIcon from '@/views/ui/icons/TypeIcon'
+
 import { Settings } from '@/models/setting'
 
 interface Props {
@@ -34,19 +34,12 @@ interface Actions {
 
 const Card: SFC<Props & Connected & Actions> = ({ timers, settings, issue, index, _startTimer, _stopTimer }) => {
   const timer = timers.data[issue.key] || { ...defaultTimer, key: issue.key, issue, startedAt: new Date() }
+  const tracked = timerDuration(timer, true)
+  const className = `card ${timer.isRunning ? 'active' : ''}`
 
   const _timerHandler = (): void => {
     timer.isRunning ? _stopTimer(timer) : _startTimer(timer)
   }
-
-  const priority = priorityFromLabels(issue.labels)
-  const points = pointsFromLabels(issue.labels)
-  const type = typeFromLabels(issue.labels)
-  const tracked = timerDuration(timer, true)
-
-  let className = `card ${timer.isRunning ? 'active' : ''} ${type} `
-  className += settings.featurePriority ? `priority priority-${priority} ` : ''
-  className += settings.featurePoints ? `points-${points} ` : ''
 
   return (
     <Draggable key={issue.key} draggableId={issue.key} index={index}>
@@ -57,19 +50,7 @@ const Card: SFC<Props & Connected & Actions> = ({ timers, settings, issue, index
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <header>
-            <strong>{`${issue.ident}/#${issue.number}`}</strong>
-            {settings.featureTypes && type && (
-              <i className="type">
-                <TypeIcon type={type} />
-              </i>
-            )}
-            {settings.featurePoints && points > 0 && (
-              <i className="points">
-                <PointsIcon points={points} />
-              </i>
-            )}
-          </header>
+          <CardHeader issue={issue} settings={settings} />
 
           <div className="description">
             {tracked && (

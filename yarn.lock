@@ -4260,10 +4260,10 @@ homedir-polyfill@^1.0.1:
   dependencies:
     parse-passwd "^1.0.0"
 
-horseshoes@^0.12.0:
-  version "0.12.1"
-  resolved "https://registry.yarnpkg.com/horseshoes/-/horseshoes-0.12.0.tgz#769ef750c324c1c8b4aef61221c15d9def2030b4"
-  integrity sha512-mgPgFxTRdsmWhU7N9N2Ost0JtIU/U5Q7HpONuk9zkxYJioBNnz2R4fnykGUSuGAMK5rGtVgr4HPFfJTaD9jrRw==
+horseshoes@^0.13.0:
+  version "0.13.1"
+  resolved "https://registry.yarnpkg.com/horseshoes/-/horseshoes-0.13.0.tgz#66c8b2d4e5feb674e0bfe6f5d3ce872854504774"
+  integrity sha512-XpwSua/C3iB4k1ZL9GkF3tt/0RYp2gy/0tUQA0XM63rYIBuYtErbhiWX2h6pPt6lckhM7juPdED7D0QMQh/0Kg==
   dependencies:
     immer "^4.0.0"
     lodash "^4.17.15"

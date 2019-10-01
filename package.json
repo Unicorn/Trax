@@ -27,7 +27,7 @@
     "@octokit/rest": "^16.30.1",
     "@types/react-select": "^3.0.4",
     "fuse.js": "^3.4.5",
-    "horseshoes": "^0.12.0",
+    "horseshoes": "^0.13.0",
     "humps": "^2.0.1",
     "localforage": "^1.7.3",
     "lodash": "^4.17.15",
