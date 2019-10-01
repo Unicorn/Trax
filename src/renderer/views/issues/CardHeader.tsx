@@ -36,7 +36,9 @@ const CardHeader: FC<Props> = ({ issue, settings }) => {
           value={_pointsSelect}
         />
 
-        <button className="close" onClick={() => _setView('info')}><CloseIcon /></button>
+        <button className="close" onClick={() => _setView('info')}>
+          <CloseIcon />
+        </button>
       </header>
     )
 
@@ -48,22 +50,25 @@ const CardHeader: FC<Props> = ({ issue, settings }) => {
         {`#${issue.number}`}
       </strong>
 
-      {priority && priority > 0 && (
+      {(priority && priority > 0 && (
         <button className={`priority priority-${priority}`}>
           <PriorityIcon />
         </button>
-      ) || null}
+      )) ||
+        null}
 
-      {settings.featureTypes && type && (
+      {(settings.featureTypes && type && (
         <button className="type">
           <TypeIcon type={type} />
         </button>
-      ) || null}
-      {settings.featurePoints && (
+      )) ||
+        null}
+      {(settings.featurePoints && (
         <button className="points" onClick={() => _setView('points')}>
           <PointsIcon points={points} />
         </button>
-      ) || null}
+      )) ||
+        null}
     </header>
   )
 }

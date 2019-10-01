@@ -1,5 +1,5 @@
 import { Resources, Alert, initResources } from 'horseshoes'
-
+import { Action } from 'redux'
 import { Auth } from './auth'
 import { Profile, profileState } from './profile'
 import { Issue, Issues } from './issue'
@@ -69,4 +69,4 @@ export const initialState: RootState = {
 //
 // Actions
 //
-export const resetApp = () => ({ type: APP.RESET })
+export const resetApp = (): Action => ({ type: APP.RESET })

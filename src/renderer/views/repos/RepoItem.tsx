@@ -33,8 +33,8 @@ class RepoItem extends Component<Props & Connected & Actions, State> {
     showConfirmation: false
   }
 
-  _showConfirmation = () => this.setState({ showConfirmation: true })
-  _hideConfirmation = () => this.setState({ showConfirmation: false })
+  _showConfirmation = (): void => this.setState({ showConfirmation: true })
+  _hideConfirmation = (): void => this.setState({ showConfirmation: false })
 
   _trackHandler = (): void => {
     const { repo, _createTrack } = this.props
@@ -51,7 +51,7 @@ class RepoItem extends Component<Props & Connected & Actions, State> {
     this._hideConfirmation()
   }
 
-  _renderConfirmation = () => {
+  _renderConfirmation = (): ReactNode => {
     const { showConfirmation } = this.state
     const { track } = this.props
 

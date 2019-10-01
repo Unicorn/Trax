@@ -48,7 +48,7 @@ export const orgsReducer = (state: Orgs = initialState, action: OrgActions): Org
       return newState
 
     case ORGS.UPDATE:
-      ; (payload as Org[]).forEach(org => {
+      ;(payload as Org[]).forEach(org => {
         newState.data[org.key] = merge(newState.data[org.key], org)
         newState.keys = union(newState.keys, [org.key])
       })

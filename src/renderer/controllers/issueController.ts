@@ -47,7 +47,7 @@ export const issuesReducer = (state: Issues, action: IssueAction): Issues => {
       return createResource<Issue>(state, payload as Issue)
 
     case ISSUES.UPDATE:
-      ; (payload as Issue[]).forEach(r => {
+      ;(payload as Issue[]).forEach(r => {
         newState.keys = union(newState.keys, [r.key])
         newState.data[r.key] = merge(newState.data[r.key], r)
       })

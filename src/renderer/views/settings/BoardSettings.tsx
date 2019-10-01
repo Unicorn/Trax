@@ -19,7 +19,14 @@ interface Actions {
   _setFeatureOrgTitles: typeof setFeatureOrgTitles
 }
 
-const LaneSettings: SFC<Connected & Actions> = ({ settings, _setLanes, _setFeaturePoints, _setFeaturePriority, _setFeatureTypes, _setFeatureOrgTitles }) => {
+const LaneSettings: SFC<Connected & Actions> = ({
+  settings,
+  _setLanes,
+  _setFeaturePoints,
+  _setFeaturePriority,
+  _setFeatureTypes,
+  _setFeatureOrgTitles
+}) => {
   const _laneSettingsHandler = (e: React.SyntheticEvent<HTMLInputElement>): void => {
     const input = e.currentTarget
     let newState = [...settings.lanes]

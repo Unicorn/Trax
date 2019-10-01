@@ -70,7 +70,7 @@ class CreatePage extends Component<Connected & Actions, State> {
     this.setState(newData)
   }
 
-  _templateHandler = (e: FormEvent<HTMLSelectElement>) => {
+  _templateHandler = (e: FormEvent<HTMLSelectElement>): void => {
     const template = e.currentTarget.value
     this.setState({ template, markdown: this.props.settings.templates[template] })
   }

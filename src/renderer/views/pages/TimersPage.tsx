@@ -25,7 +25,7 @@ class ReportPage extends Component<Connected & Actions, State> {
     selectedKeys: []
   }
 
-  _checkboxHandler = (e: React.FormEvent<HTMLInputElement>) => {
+  _checkboxHandler = (e: React.FormEvent<HTMLInputElement>): void => {
     let timerIds: string[] = [...this.state.selectedKeys]
     const input = e.currentTarget
 
@@ -35,7 +35,7 @@ class ReportPage extends Component<Connected & Actions, State> {
     this.setState({ selectedKeys: timerIds })
   }
 
-  _selectHandler = (e: React.FormEvent<HTMLInputElement>) => {
+  _selectHandler = (e: React.FormEvent<HTMLInputElement>): void => {
     const { timers } = this.props
     const timerIds = timers.keys
     const input = e.currentTarget
@@ -43,7 +43,7 @@ class ReportPage extends Component<Connected & Actions, State> {
     this.setState({ selectedKeys: input.checked ? timerIds : [] })
   }
 
-  _createInvoiceHandler = () => {
+  _createInvoiceHandler = (): void => {
     const { timers, _createInvoice } = this.props
     const { selectedKeys } = this.state
     const invoice = { timers: selectedKeys.map(key => timers.data[key]), key: v4() }

@@ -159,7 +159,7 @@ export const POINTS: LabelsType = {
     label: '5',
     name: '•••••',
     color: '51B294'
-  },
+  }
 }
 
 interface LabelsType {

@@ -59,7 +59,6 @@ export interface Issues extends Resources<Issue> {
  * ACTIONS and Action Types
  **/
 
-
 export interface CreateIssueAction {
   type: ISSUE
   payload: IssuesCreateParams
