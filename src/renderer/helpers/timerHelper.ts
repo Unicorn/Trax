@@ -11,7 +11,8 @@ export const timerClock = (duration: number, hideEmpty?: boolean): string => {
 
 export const timerDuration = (timer: Timer, format?: boolean): number | string => {
   const { entries } = timer
-  const duration = entries.length > 0 ? entries.reduce((prev: number, curr: TimerEntry) => prev + curr.duration, 0) : timer.duration
+  const duration =
+    entries && entries.length > 0 ? entries.reduce((prev: number, curr: TimerEntry) => prev + curr.duration, 0) : timer.duration
 
   return format ? timerClock(duration, true) : duration
 }
