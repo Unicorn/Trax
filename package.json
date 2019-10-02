@@ -1,7 +1,7 @@
 {
   "name": "trax",
   "homepage": "https://trax.management/",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "author": "Unicorn Agency <hello@UnicornAgency.com>",
   "description": "A desktop application for managing Github Projects and Issues",
   "keywords": [
@@ -26,6 +26,7 @@
   "dependencies": {
     "@octokit/rest": "^16.30.1",
     "@types/react-select": "^3.0.4",
+    "electron-devtools-installer": "^2.2.4",
     "fuse.js": "^3.4.5",
     "horseshoes": "^0.13.0",
     "localforage": "^1.7.3",
@@ -55,7 +56,6 @@
     "@typescript-eslint/parser": "^2.3.2",
     "electron": "^6.0.10",
     "electron-builder": "^21.2.0",
-    "electron-devtools-installer": "^2.2.4",
     "electron-webpack": "^2.7.4",
     "electron-webpack-ts": "^3.2.0",
     "eslint": "^6.5.0",
