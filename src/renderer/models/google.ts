@@ -1,10 +1,11 @@
+import { Credentials } from "google-auth-library";
 import { RootState } from "./app";
 
 export enum GOOGLE_AUTH {
   REQUEST = 'trax/google/auth/REQUEST',
   SUCCESS = 'trax/google/auth/SUCCESS',
   FAILURE = 'trax/google/auth/FAILURE',
-  REFRESH_TOKEN = 'trax/google/auth/REFRESH_TOKEN',
+  REFRESH = 'trax/google/auth/REFRESH',
   LOGOUT = 'trax/google/auth/LOGOUT',
   SET_KEY = 'trax/google/auth/SET_KEY',
   SET_SECRET = 'trax/google/auth/SET_SECRET',
@@ -13,21 +14,15 @@ export enum GOOGLE_AUTH {
 }
 
 export enum GOOGLE_TIMESHEET {
+  GET_SHEETS = 'trax/google/timesheet/GET_SHEETS',
   SET_ID = 'trax/google/timesheet/SET_ID',
 }
 
-export interface GoogleAuthToken {
-  accessToken?: string
-  expiryDate?: number
-  refreshToken?: string
-  scope?: string
-  tokenType?: string
-}
-
-export interface GoogleAuth extends GoogleAuthToken {
+export interface GoogleAuth {
   key?: string
   secret?: string
   code?: string
+  token?: Credentials
 }
 
 export interface GoogleTimesheet {

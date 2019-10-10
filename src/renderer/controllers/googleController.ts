@@ -1,11 +1,16 @@
-import { GOOGLE_AUTH, GOOGLE_TIMESHEET, Google, GoogleAuthToken, GoogleAction, GoogleAuthAction, GoogleTimesheetAction, googleState } from '@/models/google'
+import { Credentials } from 'google-auth-library'
+import { GOOGLE_AUTH, GOOGLE_TIMESHEET, Google, GoogleAction, GoogleAuthAction, GoogleTimesheetAction, googleState } from '@/models/google'
 
 export const requestAuth = (): GoogleAuthAction => ({
   type: GOOGLE_AUTH.REQUEST
 })
 
 export const refreshAuthToken = (): GoogleAuthAction => ({
-  type: GOOGLE_AUTH.REFRESH_TOKEN
+  type: GOOGLE_AUTH.REFRESH
+})
+
+export const logout = (): GoogleAuthAction => ({
+  type: GOOGLE_AUTH.LOGOUT
 })
 
 export const setAuthKey = (key: string): GoogleAuthAction => ({
@@ -23,9 +28,13 @@ export const setAuthCode = (code: string): GoogleAuthAction => ({
   payload: { code }
 })
 
-export const setAuthToken = (token: GoogleAuthToken): GoogleAuthAction => ({
+export const setAuthToken = (token: Credentials): GoogleAuthAction => ({
   type: GOOGLE_AUTH.SET_TOKEN,
-  payload: { ...token }
+  payload: { token }
+})
+
+export const getSheets = (): GoogleTimesheetAction => ({
+  type: GOOGLE_TIMESHEET.GET_SHEETS
 })
 
 export const setSheetId = (id: string): GoogleTimesheetAction => ({
@@ -45,6 +54,9 @@ export const googleReducer = (state: Google = googleState, action: GoogleAction)
 
     case GOOGLE_TIMESHEET.SET_ID:
       return { ...state, timesheet: { ...state.timesheet, ...payload } }
+
+    case GOOGLE_AUTH.LOGOUT:
+      return googleState
 
     default:
       return state
