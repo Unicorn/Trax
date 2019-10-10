@@ -1,6 +1,7 @@
 import { Resources, Alert, initResources } from 'horseshoes'
 import { Action } from 'redux'
 import { Auth } from './auth'
+import { Google, googleState } from './google'
 import { Profile, profileState } from './profile'
 import { Issue, Issues } from './issue'
 import { Invoice, Invoices } from './invoice'
@@ -21,6 +22,7 @@ export enum APP {
 export interface RootState {
   alerts: Resources<Alert>
   auth: Auth
+  google: Google
   invoices: Invoices
   issues: Issues
   labels: Labels
@@ -37,6 +39,7 @@ export interface RootState {
 export const initialState: RootState = {
   alerts: initResources<Alert>(),
   auth: {},
+  google: googleState,
   invoices: initResources<Invoice>(),
   issues: initResources<Issue>(),
   labels: [],

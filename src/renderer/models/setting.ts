@@ -1,4 +1,5 @@
 import { Lane } from '@/config/constants'
+import { RootState } from './app'
 
 export enum SETTING {
   SET_PAGE = 'trax/settings/SET_PAGE',
@@ -11,7 +12,10 @@ export enum SETTING {
   SET_FEATURE_ORG_TITLES = 'trax/setting/SET_FEATURE_ORG_TITLES',
   SET_TEMPLATE = 'trax/setting/SET_TEMPLATE',
   SET_SETTING = 'trax/settings/SET_SETTING',
-  SET_SHOW_FILTER_MENU = 'trax/settings/SET_SHOW_FILTER_MENU'
+  SET_SHOW_FILTER_MENU = 'trax/settings/SET_SHOW_FILTER_MENU',
+  SET_GOOGLE_KEY = 'trax/settings/SET_GOOGLE_KEY',
+  SET_GOOGLE_SECRET = 'trax/settings/SET_GOOGLE_SECRET',
+  SET_GOOGLE_TOKEN = 'trax/settings/SET_GOOGLE_TOKEN',
 }
 
 export type ActivePageValues = 'welcome' | 'profile' | 'create' | 'board' | 'timers' | 'invoices' | 'settings'
@@ -74,7 +78,7 @@ export type Setting =
   | Templates
   | ShowFilterMenu
 
-export interface Settings {
+export interface Settings extends Templates {
   page: ActivePageValues
   lanes: Lane[]
   showBoardSearch: boolean
@@ -84,12 +88,12 @@ export interface Settings {
   featurePriority: boolean
   featureTypes: boolean
   featureOrgTitles: boolean
-  templates: {
-    [key: string]: string
-  }
 }
 
 export interface SettingsAction {
   type: SETTING
   payload?: Setting
 }
+
+
+export const getSettings = ({ settings }: RootState): Settings => settings

@@ -28,6 +28,7 @@
     "@types/react-select": "^3.0.4",
     "electron-devtools-installer": "^2.2.4",
     "fuse.js": "^3.4.5",
+    "googleapis": "39",
     "horseshoes": "^0.13.0",
     "localforage": "^1.7.3",
     "lodash": "^4.17.15",

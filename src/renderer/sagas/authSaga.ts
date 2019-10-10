@@ -11,12 +11,6 @@ import { GITHUB, MICROSERVICE } from '@/config/constants'
 
 const { BrowserWindow } = require('electron').remote
 
-declare global {
-  interface Window {
-    authWindow: Electron.BrowserWindow
-  }
-}
-
 interface GithubAuthResponse {
   code: string | null
   error: string | null
@@ -76,10 +70,6 @@ const getGithubAuthToken = async (code: string): Promise<any> => {
     .then((response: Response) => ({ ...response }), (error: Error) => ({ error: error.message || 'Something bad happened' }))
 }
 
-function* watchLogout(): SagaIterator {
-  yield put(setPage('welcome'))
-}
-
 function* watchAuthRequest(): SagaIterator {
   createAuthWindow()
   const authCode = yield call(getGithubAuthCode)
@@ -107,8 +97,12 @@ function* watchAuthSuccess(): SagaIterator {
   yield put(requestProfile())
 }
 
+function* watchLogout(): SagaIterator {
+  yield put(setPage('welcome'))
+}
+
 export default function* authSaga(): SagaIterator {
-  yield takeLatest(AUTH.LOGOUT, watchLogout)
   yield takeLatest(AUTH.REQUEST, watchAuthRequest)
   yield takeLatest(AUTH.SUCCESS, watchAuthSuccess)
+  yield takeLatest(AUTH.LOGOUT, watchLogout)
 }

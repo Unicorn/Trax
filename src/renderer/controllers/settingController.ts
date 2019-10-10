@@ -2,49 +2,49 @@ import { SETTING, Settings, ActivePageValues, ActiveLaneValues, SettingsAction }
 import { initialState } from '@/models/app'
 import { ScrumTypes } from '@/config/constants'
 
-export const setPage = (value: ActivePageValues): SettingsAction => ({
+export const setPage = (page: ActivePageValues): SettingsAction => ({
   type: SETTING.SET_PAGE,
-  payload: { page: value }
+  payload: { page }
 })
 
-export const setLanes = (value: ActiveLaneValues): SettingsAction => ({
+export const setLanes = (lanes: ActiveLaneValues): SettingsAction => ({
   type: SETTING.SET_LANES,
-  payload: { lanes: value }
+  payload: { lanes }
 })
 
-export const toggleShowBoardSearch = (value: boolean): SettingsAction => ({
+export const toggleShowBoardSearch = (showBoardSearch: boolean): SettingsAction => ({
   type: SETTING.SET_SHOW_BOARD_SEARCH,
-  payload: { showBoardSearch: value }
+  payload: { showBoardSearch }
 })
 
-export const toggleShowFilterMenu = (value: boolean): SettingsAction => ({
+export const toggleShowFilterMenu = (showFilterMenu: boolean): SettingsAction => ({
   type: SETTING.SET_SHOW_FILTER_MENU,
-  payload: { showFilterMenu: value }
+  payload: { showFilterMenu }
 })
 
-export const toggleShowBoardHelp = (value: boolean): SettingsAction => ({
+export const toggleShowBoardHelp = (showBoardHelp: boolean): SettingsAction => ({
   type: SETTING.SET_SHOW_BOARD_HELP,
-  payload: { showBoardHelp: value }
+  payload: { showBoardHelp }
 })
 
-export const setFeaturePoints = (value: boolean): SettingsAction => ({
+export const setFeaturePoints = (featurePoints: boolean): SettingsAction => ({
   type: SETTING.SET_FEATURE_POINTS,
-  payload: { featurePoints: value }
+  payload: { featurePoints }
 })
 
-export const setFeaturePriority = (value: boolean): SettingsAction => ({
+export const setFeaturePriority = (featurePriority: boolean): SettingsAction => ({
   type: SETTING.SET_FEATURE_PRIORITY,
-  payload: { featurePriority: value }
+  payload: { featurePriority }
 })
 
-export const setFeatureTypes = (value: boolean): SettingsAction => ({
+export const setFeatureTypes = (featureTypes: boolean): SettingsAction => ({
   type: SETTING.SET_FEATURE_TYPES,
-  payload: { featureTypes: value }
+  payload: { featureTypes }
 })
 
-export const setFeatureOrgTitles = (value: boolean): SettingsAction => ({
+export const setFeatureOrgTitles = (featureOrgTitles: boolean): SettingsAction => ({
   type: SETTING.SET_FEATURE_ORG_TITLES,
-  payload: { featureOrgTitles: value }
+  payload: { featureOrgTitles }
 })
 
 export const setTemplate = (key: ScrumTypes, value: string): SettingsAction => ({

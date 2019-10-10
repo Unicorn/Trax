@@ -2,20 +2,19 @@
 import { createElement, SFC } from 'react'
 import { connect } from 'react-redux'
 import { requestAuth } from '@/controllers/authController'
-import { AuthAction } from '@/models/auth'
 import LogoNeon from '@/views/ui/icons/LogoNeon'
 
 interface Actions {
-  requestAuth: () => AuthAction
+  _requestAuth: typeof requestAuth
 }
 
-const WelcomePage: SFC<Actions> = ({ requestAuth }) => (
+const WelcomePage: SFC<Actions> = ({ _requestAuth }) => (
   <main className="welcome">
     <header className="hero">
       <LogoNeon />
     </header>
 
-    <button className="large basic teal button" onClick={requestAuth}>
+    <button className="large basic teal button" onClick={_requestAuth}>
       Login with Github
     </button>
 
@@ -45,7 +44,7 @@ const WelcomePage: SFC<Actions> = ({ requestAuth }) => (
 )
 
 const mapDispatch = {
-  requestAuth
+  _requestAuth: requestAuth
 }
 
 export default connect(

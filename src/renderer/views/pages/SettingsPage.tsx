@@ -4,6 +4,7 @@ import { createElement, SFC } from 'react'
 import BoardSettings from '@/views/settings/BoardSettings'
 import AppSettings from '@/views/settings/AppSettings'
 import TemplateSettings from '@/views/settings/TemplateSettings'
+import GoogleSheetsSettings from '@/views/settings/GoogleSheetsSettings'
 
 const SettingsPage: SFC<{}> = () => {
   return (
@@ -11,6 +12,7 @@ const SettingsPage: SFC<{}> = () => {
       <div className="golden-ratio columns">
         <div className="left column">
           <BoardSettings />
+          <GoogleSheetsSettings />
           <AppSettings />
         </div>
 

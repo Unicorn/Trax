@@ -1,5 +1,7 @@
 /** @jsx createElement **/
 import { createElement, SFC } from 'react'
+import { OAuth2Client } from 'googleapis-common'
+import { BrowserWindow } from 'electron'
 import { render } from 'react-dom'
 
 // REDUX
@@ -10,6 +12,13 @@ import { PersistGate } from 'redux-persist/integration/react'
 import Page from '@/views/layouts/Page'
 
 import '@/assets/styles/app.scss'
+
+declare global {
+  interface Window {
+    authWindow: BrowserWindow
+    googleClient: OAuth2Client
+  }
+}
 
 const App: SFC = () => (
   <Provider store={store}>

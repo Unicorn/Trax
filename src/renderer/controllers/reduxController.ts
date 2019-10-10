@@ -15,6 +15,7 @@ import { settingsReducer } from '@/controllers/settingController'
 import { timerReducer } from '@/controllers/timerController'
 import { trackReducer } from '@/controllers/trackController'
 import { usersReducer } from '@/controllers/userController'
+import { googleReducer } from './googleController'
 
 declare global {
   interface Window {
@@ -37,6 +38,7 @@ const persistConfig = {
 const rootReducer = persistCombineReducers(persistConfig, {
   alerts: alertReducer,
   auth: authReducer,
+  google: googleReducer,
   issues: issuesReducer,
   invoices: invoiceReducer,
   orgs: orgsReducer,
