@@ -5,7 +5,8 @@ import createSagaMiddleware from 'redux-saga'
 import rootSaga from '@/controllers/sagaController'
 
 import { alertReducer } from 'horseshoes'
-import { authReducer } from '@/controllers/authController'
+import { githubReducer } from '@/controllers/githubController'
+import { googleReducer } from './googleController'
 import { issuesReducer } from '@/controllers/issueController'
 import { invoiceReducer } from '@/controllers/invoiceController'
 import { orgsReducer } from '@/controllers/orgController'
@@ -15,7 +16,6 @@ import { settingsReducer } from '@/controllers/settingController'
 import { timerReducer } from '@/controllers/timerController'
 import { trackReducer } from '@/controllers/trackController'
 import { usersReducer } from '@/controllers/userController'
-import { googleReducer } from './googleController'
 
 declare global {
   interface Window {
@@ -37,7 +37,7 @@ const persistConfig = {
 
 const rootReducer = persistCombineReducers(persistConfig, {
   alerts: alertReducer,
-  auth: authReducer,
+  github: githubReducer,
   google: googleReducer,
   issues: issuesReducer,
   invoices: invoiceReducer,

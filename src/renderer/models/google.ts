@@ -1,32 +1,35 @@
-import { Credentials } from "google-auth-library";
-import { RootState } from "./app";
+import { RootState } from './app'
+import { sheets_v4 } from 'googleapis' // eslint-disable-line @typescript-eslint/camelcase
 
 export enum GOOGLE_AUTH {
   REQUEST = 'trax/google/auth/REQUEST',
   SUCCESS = 'trax/google/auth/SUCCESS',
   FAILURE = 'trax/google/auth/FAILURE',
-  REFRESH = 'trax/google/auth/REFRESH',
-  LOGOUT = 'trax/google/auth/LOGOUT',
-  SET_KEY = 'trax/google/auth/SET_KEY',
-  SET_SECRET = 'trax/google/auth/SET_SECRET',
-  SET_CODE = 'trax/google/auth/SET_CODE',
-  SET_TOKEN = 'trax/google/auth/SET_TOKEN',
+  LOGOUT = 'trax/google/auth/LOGOUT'
 }
 
 export enum GOOGLE_TIMESHEET {
   GET_SHEETS = 'trax/google/timesheet/GET_SHEETS',
-  SET_ID = 'trax/google/timesheet/SET_ID',
+  SET_SPREADSHEET_ID = 'trax/google/timesheet/SET_SPREADSHEET_ID',
+  SET_VALID_ID = 'trax/google/timesheet/SET_VALID_ID',
+  SET_SHEET = 'trax/google/timesheet/SET_SHEET',
+  SET_SHEETS = 'trax/google/timesheet/SET_SHEETS'
 }
 
 export interface GoogleAuth {
-  key?: string
-  secret?: string
-  code?: string
-  token?: Credentials
+  accessToken?: string
+  refreshToken?: string
+  tokenType?: string
+  expiry?: string
 }
 
 export interface GoogleTimesheet {
-  id?: string
+  spreadsheetId?: string
+  validId?: boolean
+  validName?: boolean
+  sheets?: sheets_v4.Schema$Sheet[] // eslint-disable-line @typescript-eslint/camelcase
+  sheetId?: number
+  sheetName?: string
 }
 
 export interface Google {
@@ -35,12 +38,12 @@ export interface Google {
 }
 
 export interface GoogleAuthAction {
-  type: GOOGLE_AUTH,
+  type: GOOGLE_AUTH
   payload?: GoogleAuth
 }
 
 export interface GoogleTimesheetAction {
-  type: GOOGLE_TIMESHEET,
+  type: GOOGLE_TIMESHEET
   payload?: GoogleTimesheet
 }
 
@@ -50,14 +53,11 @@ export interface GoogleAction {
 }
 
 export const googleState: Google = {
-  auth: {
-    key: '',
-    secret: '',
-    code: '',
-  },
+  auth: {},
   timesheet: {
-    id: ''
+    spreadsheetId: ''
   }
 }
 
 export const getGoogleAuth = (state: RootState): GoogleAuth => state.google.auth
+export const getGoogleTimesheet = (state: RootState): GoogleTimesheet => state.google.timesheet

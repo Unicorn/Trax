@@ -1,6 +1,5 @@
 import { Resources, Alert, initResources } from 'horseshoes'
 import { Action } from 'redux'
-import { Auth } from './auth'
 import { Google, googleState } from './google'
 import { Profile, profileState } from './profile'
 import { Issue, Issues } from './issue'
@@ -13,6 +12,7 @@ import { Users, User } from './user'
 import { Labels } from './label'
 import { Milestones } from './milestone'
 import { Repo, Repos } from './repo'
+import { GithubAuth } from './github'
 import { LANES } from '@/config/constants'
 
 export enum APP {
@@ -21,7 +21,7 @@ export enum APP {
 
 export interface RootState {
   alerts: Resources<Alert>
-  auth: Auth
+  github: GithubAuth
   google: Google
   invoices: Invoices
   issues: Issues
@@ -38,7 +38,7 @@ export interface RootState {
 
 export const initialState: RootState = {
   alerts: initResources<Alert>(),
-  auth: {},
+  github: {},
   google: googleState,
   invoices: initResources<Invoice>(),
   issues: initResources<Issue>(),

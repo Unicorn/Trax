@@ -1,7 +1,7 @@
 /** @jsx createElement **/
 import { createElement, SFC } from 'react'
 import { connect } from 'react-redux'
-import { logout } from '@/controllers/authController'
+import { logout } from '@/controllers/githubController'
 import { resetApp } from '@/models/app'
 
 interface Props {

@@ -1,7 +1,6 @@
 /** @jsx createElement **/
 import { createElement, SFC } from 'react'
 import { OAuth2Client } from 'googleapis-common'
-import { BrowserWindow } from 'electron'
 import { render } from 'react-dom'
 
 // REDUX
@@ -15,8 +14,8 @@ import '@/assets/styles/app.scss'
 
 declare global {
   interface Window {
-    authWindow: BrowserWindow
     googleClient: OAuth2Client
+    BrowserWindow: typeof Electron.BrowserWindow
   }
 }
 

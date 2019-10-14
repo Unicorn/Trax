@@ -1,7 +1,7 @@
 /** @jsx createElement **/
 import { createElement, SFC } from 'react'
 import { connect } from 'react-redux'
-import { requestAuth } from '@/controllers/authController'
+import { requestAuth } from '@/controllers/githubController'
 import LogoNeon from '@/views/ui/icons/LogoNeon'
 
 interface Actions {

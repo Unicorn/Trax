@@ -1,118 +1,137 @@
-import { google } from 'googleapis'
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { google, sheets_v4 } from 'googleapis' // eslint-disable-line @typescript-eslint/camelcase
+import { GaxiosResponse } from 'gaxios'
+import { put, takeLatest } from 'redux-saga/effects'
 import { SagaIterator } from 'redux-saga'
-import { select } from 'horseshoes'
-import { GOOGLE_AUTH, GoogleAuth, getGoogleAuth, GOOGLE_TIMESHEET, GoogleTimesheetAction } from '@/models/google'
-import { setAuthCode, setAuthToken } from '@/controllers/googleController'
+import { call, select } from 'horseshoes'
+import { setSheetValidId, setSheetSheets, receiveAuth } from '@/controllers/googleController'
+import {
+  GOOGLE_AUTH,
+  GoogleAuth,
+  getGoogleAuth,
+  GOOGLE_TIMESHEET,
+  GoogleTimesheetAction,
+  GoogleTimesheet,
+  getGoogleTimesheet
+} from '@/models/google'
+import { authorizeApp, getToken } from '@/helpers/authHelper'
+import { MICROSERVICE } from '@/config/constants'
 
-const { BrowserWindow } = require('electron').remote
+type Spreadsheet = GaxiosResponse<sheets_v4.Schema$Spreadsheet> // eslint-disable-line @typescript-eslint/camelcase
+type AddRow = GaxiosResponse<sheets_v4.Schema$BatchUpdateSpreadsheetResponse> // eslint-disable-line @typescript-eslint/camelcase
 
-const createGoogleClient = ({ key, secret, token }: GoogleAuth): void => {
-  window.googleClient = new google.auth.OAuth2(key, secret, 'urn:ietf:wg:oauth:2.0:oob')
-  token && window.googleClient.setCredentials(token)
+const sheets = google.sheets('v4')
+
+const createGoogleClient = ({ accessToken, refreshToken, tokenType }: GoogleAuth): void => {
+  window.googleClient = new google.auth.OAuth2()
+  accessToken &&
+    window.googleClient.setCredentials({
+      access_token: accessToken, // eslint-disable-line @typescript-eslint/camelcase
+      refresh_token: refreshToken, // eslint-disable-line @typescript-eslint/camelcase
+      token_type: tokenType // eslint-disable-line @typescript-eslint/camelcase
+    })
 }
 
-const authorizeApp = (): Promise<any> => new Promise((resolve, reject) => {
-  // Build the OAuth consent page URL
-  const win = new BrowserWindow({
-    width: 600,
-    height: 750,
-    show: true,
-    titleBarStyle: 'hiddenInset',
-    webPreferences: {
-      nodeIntegration: false
+const checkSheetAccess = ({ spreadsheetId }: GoogleTimesheet): Promise<Spreadsheet> =>
+  new Promise((resolve, reject) => {
+    const request = {
+      auth: window.googleClient,
+      spreadsheetId,
+      ranges: []
     }
+
+    sheets.spreadsheets.get(request, (err: Error | null, res?: Spreadsheet | null) => {
+      return res && !err ? resolve(res) : reject(err)
+    })
   })
 
-  const authUrl = window.googleClient.generateAuthUrl({
-    access_type: 'offline',
-    scope: ['https://www.googleapis.com/auth/spreadsheets'],
+const addRowToSheet = ({ spreadsheetId, sheetId }: GoogleTimesheet): Promise<AddRow> =>
+  new Promise((resolve, reject) => {
+    const request = {
+      auth: window.googleClient,
+      spreadsheetId,
+      requestBody: {
+        requests: [
+          {
+            insertDimension: {
+              inheritFromBefore: false,
+              range: {
+                sheetId,
+                startIndex: 1,
+                endIndex: 2,
+                dimension: 'ROWS'
+              }
+            }
+          },
+          {
+            pasteData: {
+              data: '=TODAY(), =NOW()',
+              type: 'PASTE_NORMAL',
+              delimiter: ',',
+              coordinate: {
+                sheetId,
+                rowIndex: 1,
+                columnIndex: 0
+              }
+            }
+          }
+        ]
+      }
+    }
+
+    console.log('request', request)
+
+    sheets.spreadsheets.batchUpdate(request, (err: Error | null, res?: AddRow | null) => {
+      return res && !err ? resolve(res) : reject(err)
+    })
   })
-
-  win.loadURL(authUrl)
-
-  const filter = { urls: [`https://accounts.google.com/o/oauth2/approval/v2*`] }
-
-  win.webContents.session.webRequest.onBeforeRequest(filter, (details, _callback) => {
-    const components = details.url.split('=')
-
-    if (!components[4]) return reject(new Error(`Could not extract code from url: ${details.url}`))
-
-    win.close()
-    resolve(decodeURIComponent(components[4]))
-  })
-})
-
-const updateToken = (code: string) => new Promise((resolve, reject) => {
-  window.googleClient.getToken(code, (err, token) => {
-    if (err || !token)
-      return reject(new Error(`Failed to get token from Google: ${err ? err.message : 'unknown error'}`))
-
-    window.googleClient.setCredentials(token)
-    resolve(token)
-  })
-})
-
 
 function* watchAuthRequest(): SagaIterator {
   try {
-    const credentials = yield* select(getGoogleAuth)
-    yield call(createGoogleClient, credentials)
+    const authUrl = `${MICROSERVICE.API}${MICROSERVICE.GOOGLE.AUTH}`
+    const tokenUrl = `${MICROSERVICE.API}${MICROSERVICE.GOOGLE.AUTH}`
+    const filter = `${MICROSERVICE.API}${MICROSERVICE.GOOGLE.AUTH}*`
+    const code = yield* call(authorizeApp, authUrl, filter)
+    const token = yield* call(getToken, tokenUrl, code)
 
-    const code = yield call(authorizeApp)
-    yield put(setAuthCode(code))
+    token.accessToken && localStorage.setItem('google.accessToken', token.accessToken)
 
-    const token = yield call(updateToken, code)
-    yield put(setAuthToken(token))
-
+    yield put(receiveAuth(token))
   } catch (error) {
-    console.log("Error in watchAuthRequest", error)
+    console.log('Error in googleSaga: watchAuthRequest', error)
   }
 }
 
-function* watchSheetSelection({ payload }: GoogleTimesheetAction): SagaIterator {
-  if (!payload || !payload.id) return
+function* watchSetSpreadsheetId({ payload }: GoogleTimesheetAction): SagaIterator {
+  if (!payload || !payload.spreadsheetId) return
 
   try {
     const credentials = yield* select(getGoogleAuth)
-    yield call(createGoogleClient, credentials)
+    yield* call(createGoogleClient, credentials)
 
-    const sheets = google.sheets('v4')
-
-    const request = {
-      // The ID of the spreadsheet to retrieve data from.
-      spreadsheetId: payload.id,
-
-      // The A1 notation of the values to retrieve.
-      range: 'Clay',  // TODO: Update placeholder value.
-
-      // How values should be represented in the output.
-      // The default render option is ValueRenderOption.FORMATTED_VALUE.
-      // valueRenderOption: '',  // TODO: Update placeholder value.
-
-      // How dates, times, and durations should be represented in the output.
-      // This is ignored if value_render_option is
-      // FORMATTED_VALUE.
-      // The default dateTime render option is [DateTimeRenderOption.SERIAL_NUMBER].
-      // dateTimeRenderOption: '',  // TODO: Update placeholder value.
-
-      auth: window.googleClient,
-    };
-
-    sheets.spreadsheets.values.get(request, (err: any, response: any) => {
-      if (err) {
-        console.error(err);
-        return;
-      }
-
-      console.log('Response in getting sheet', response)
-    });
+    const response = yield* call(checkSheetAccess, payload)
+    yield put(setSheetValidId(response && response.status === 200))
+    yield put(setSheetSheets(response.data.sheets || []))
   } catch (error) {
-    console.log("Error in watchSheetsRequest", error)
+    console.log('Error in watchSheetsRequest', error)
+  }
+}
+
+function* watchSetSheet(): SagaIterator {
+  try {
+    const credentials = yield* select(getGoogleAuth)
+    yield* call(createGoogleClient, credentials)
+
+    const timesheet = yield* select(getGoogleTimesheet)
+    const response = yield* call(addRowToSheet, timesheet)
+
+    console.log('response', response)
+  } catch (error) {
+    console.log('Error in watchSetSheet', error)
   }
 }
 
 export default function* googleSaga(): SagaIterator {
   yield takeLatest(GOOGLE_AUTH.REQUEST, watchAuthRequest)
-  yield takeLatest(GOOGLE_TIMESHEET.SET_ID, watchSheetSelection)
+  yield takeLatest(GOOGLE_TIMESHEET.SET_SPREADSHEET_ID, watchSetSpreadsheetId)
+  yield takeLatest('TODO: listen to create invoices', watchSetSheet)
 }

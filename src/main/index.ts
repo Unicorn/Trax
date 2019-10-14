@@ -23,8 +23,8 @@ const createWindow = (): void => {
     width: 900,
     height: 680,
     webPreferences: {
-      experimentalFeatures: true,
-      contextIsolation: false,
+      // experimentalFeatures: true,
+      // contextIsolation: false,
       nodeIntegration: true,
       preload: path.resolve(__static, 'preload.js')
     }
@@ -93,7 +93,7 @@ autoUpdater.on('update-downloaded', (_, releaseNotes, releaseName) => {
     detail: 'A new version has been downloaded. Restart the application to apply the updates.'
   }
 
-  dialog.showMessageBox(mainWindow, dialogOpts).then(_response => {
+  dialog.showMessageBox(mainWindow, dialogOpts).then(() => {
     autoUpdater.quitAndInstall()
   })
 })

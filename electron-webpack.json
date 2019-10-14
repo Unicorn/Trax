@@ -5,7 +5,9 @@
     "react-beautiful-dnd"
   ],
   "main": {
-    "extraEntries": ["./static/preload.js"],
+    "extraEntries": [
+      "./static/preload.js"
+    ]
   },
   "renderer": {
     "webpackConfig": "electron-webpack.renderer.js"

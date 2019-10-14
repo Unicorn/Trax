@@ -1,15 +1,15 @@
 /** @jsx createElement **/
 import { createElement, SFC } from 'react'
 import { connect } from 'react-redux'
-import { Auth } from '@/models/auth'
 import { RootState } from '@/models/app'
+import { GithubAuth } from '@/models/github'
 import { ROUTES } from '@/config/constants'
 import * as Pages from '@/views/pages'
 import Dashboard from '@/views/layouts/Dashboard'
 import WelcomePage from '@/views/pages/WelcomePage'
 
 interface Connected {
-  auth: Auth
+  auth: GithubAuth
   page: string
 }
 
@@ -45,7 +45,7 @@ const Page: SFC<Connected> = ({ page, auth }) => {
 }
 
 const mapState = (state: RootState): Connected => ({
-  auth: state.auth,
+  auth: state.github,
   page: state.settings.page
 })
 

@@ -4,7 +4,7 @@ import { Lane } from '@/config/constants'
 
 export const octokit = new Octokit({
   auth() {
-    return `token ${localStorage.getItem('accessToken') || ''}`
+    return `token ${localStorage.getItem('github.accessToken') || ''}`
   },
   userAgent: 'octokit/rest.js v1.2.3',
   previews: [],
@@ -20,6 +20,24 @@ export const octokit = new Octokit({
     timeout: 0
   }
 })
+
+export enum GITHUB_AUTH {
+  REQUEST = 'trax/github/auth/REQUEST',
+  SUCCESS = 'trax/github/auth/SUCCESS',
+  FAILURE = 'trax/github/auth/FAILURE',
+  LOGOUT = 'trax/user/logout'
+}
+
+export interface GithubAuth {
+  accessToken?: string
+  tokenType?: string
+  expiry?: string
+}
+
+export interface GithubAction {
+  type: GITHUB_AUTH
+  payload?: GithubAuth
+}
 
 export const GITHUB = {
   ISSUES: {

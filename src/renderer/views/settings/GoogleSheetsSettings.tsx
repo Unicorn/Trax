@@ -1,14 +1,11 @@
 /** @jsx createElement **/
-import { createElement, SFC, ReactNode, Fragment } from 'react'
+import { createElement, SFC, ReactNode } from 'react'
 import { connect } from 'react-redux'
-import { setAuthKey, setAuthSecret, setAuthCode, setSheetId, logout } from '@/controllers/googleController'
-import { requestAuth, refreshAuthToken } from '@/controllers/googleController'
+import { setSpreadsheetId, setSheet, logout } from '@/controllers/googleController'
+import { requestAuth } from '@/controllers/googleController'
 import { RootState } from '@/models/app'
 import { GoogleAuth, GoogleTimesheet } from '@/models/google'
-import Form from '@/views/ui/form'
-
-interface Props {
-}
+import Form, { OptionsObject } from '@/views/ui/form'
 
 interface Connected {
   auth: GoogleAuth
@@ -17,72 +14,64 @@ interface Connected {
 
 interface Actions {
   _requestAuth: typeof requestAuth
-  _refreshAuthToken: typeof refreshAuthToken
   _logout: typeof logout
-  _setAuthKey: typeof setAuthKey
-  _setAuthSecret: typeof setAuthSecret
-  _setAuthCode: typeof setAuthCode
-  _setSheetId: typeof setSheetId
+  _setSpreadsheetId: typeof setSpreadsheetId
+  _setSheet: typeof setSheet
 }
 
-const GoogleSettings: SFC<Props & Connected & Actions> = ({ auth, timesheet, _requestAuth, _refreshAuthToken, _logout, _setAuthKey, _setAuthSecret, _setSheetId }) => {
-
+const GoogleSettings: SFC<Connected & Actions> = ({ auth, timesheet, _requestAuth, _logout, _setSpreadsheetId, _setSheet }) => {
   const _renderFields = (): ReactNode => {
-    if (auth.token)
+    if (auth.accessToken && !timesheet.validId) {
       return (
         <Form.TextField
           type="text"
           name="googleSheetId"
           label="Google Timesheet ID"
-          value={timesheet.id}
-          onChange={({ currentTarget: { value } }) => _setSheetId(value)}
+          value={timesheet.spreadsheetId}
+          onChange={({ currentTarget: { value } }) => _setSpreadsheetId(value)}
         />
       )
+    }
 
-    return (
-      <Fragment>
-        <Form.TextField
-          type="text"
-          name="googleKey"
-          label="Google Sheets API Key"
-          value={auth.key}
-          onChange={({ currentTarget: { value } }) => _setAuthKey(value)}
-        />
+    if (auth.accessToken && timesheet.validId && timesheet.sheets && timesheet.sheets.length > 0) {
+      const options: OptionsObject = {}
+      timesheet.sheets.forEach(sheet => {
+        if (!sheet.properties || !sheet.properties.title || sheet.properties.sheetId === undefined) return
+        options[sheet.properties.sheetId.toString()] = { label: sheet.properties.title, value: sheet.properties.sheetId }
+      })
 
-        <Form.TextField
-          type="text"
-          name="googleSecret"
-          label="Google Sheets API Secret"
-          value={auth.secret}
-          onChange={({ currentTarget: { value } }) => _setAuthSecret(value)}
+      return (
+        <Form.SelectField
+          type="select"
+          name="googleSheetName"
+          label="Google Sheet"
+          value={timesheet.sheetId !== undefined ? timesheet.sheetId.toString() : ''}
+          options={options}
+          onChange={({ currentTarget: { value } }) => _setSheet(parseInt(value), options[value].label)}
         />
-      </Fragment>
-    )
+      )
+    }
+
+    return null
   }
 
   const _renderActions = (): ReactNode => {
-    let actions = []
+    const actions = []
 
-    if (!auth.key || !auth.secret || !auth.token)
+    if (!auth.accessToken)
       actions.push(
-        <button className="small blue button" disabled={auth.key && auth.secret ? false : true} onClick={_requestAuth}>
+        <button key="connect" className="small blue button" onClick={_requestAuth}>
           Connect Google
         </button>
       )
 
-    if (auth.key && auth.secret && auth.token)
+    if (auth.accessToken) {
       actions.push(
-        <button className="small yellow button" onClick={_refreshAuthToken}>
-          Refresh Token
-        </button>
-      )
-
-    if (auth.key && auth.secret && auth.token)
-      actions.push(
-        <button className="small red button" onClick={_logout}>
+        <button key="logout" className="small red button" onClick={_logout}>
           Disconnect Google
         </button>
       )
+    }
 
     return actions
   }
@@ -102,14 +91,10 @@ const mapState = (state: RootState): Connected => ({
 
 const mapDispatch: Actions = {
   _requestAuth: requestAuth,
-  _refreshAuthToken: refreshAuthToken,
   _logout: logout,
-  _setAuthKey: setAuthKey,
-  _setAuthSecret: setAuthSecret,
-  _setAuthCode: setAuthCode,
-  _setSheetId: setSheetId,
+  _setSpreadsheetId: setSpreadsheetId,
+  _setSheet: setSheet
 }
-
 
 export default connect(
   mapState,

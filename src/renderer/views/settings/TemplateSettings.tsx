@@ -1,7 +1,7 @@
 /** @jsx createElement **/
 import { createElement, FC, useState } from 'react'
 import { connect } from 'react-redux'
-import { logout } from '@/controllers/authController'
+import { logout } from '@/controllers/githubController'
 import { setTemplate } from '@/controllers/settingController'
 import { resetApp, RootState } from '@/models/app'
 import { Settings } from '@/models/setting'

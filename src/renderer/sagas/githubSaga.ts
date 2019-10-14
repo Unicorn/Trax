@@ -1,58 +1,40 @@
 import { SagaIterator } from 'redux-saga'
-import { takeLatest, put } from 'redux-saga/effects'
-import { createAlert, call, normalizePayload } from 'horseshoes'
-import { updateOrgs, updateOrgRepos } from '@/controllers/orgController'
-import { updateRepos } from '@/controllers/repoController'
-import { GITHUB, octokit, GetReposForLogin } from '@/models/github'
-import { Org } from '@/models/org'
-import { Repo } from '@/models/repo'
+import { put, takeLatest } from 'redux-saga/effects'
+import { call } from 'horseshoes'
+import { receiveAuth } from '@/controllers/githubController'
+import { requestProfile } from '@/controllers/profileController'
+import { setPage } from '@/controllers/settingController'
+import { GITHUB_AUTH } from '@/models/github'
+import { randString } from '@/helpers/stringHelper'
+import { authorizeApp, getToken } from '@/helpers/authHelper'
+import { GITHUB, MICROSERVICE } from '@/config/constants'
 
-function* watchOrgsRequest(): SagaIterator {
+function* watchAuthRequest(): SagaIterator {
   try {
-    const orgs = yield* call(octokit.orgs.listForAuthenticatedUser)
+    const authUrl = `${GITHUB.HOST}/login/oauth/authorize?client_id=${GITHUB.CLIENT_ID}&scope=${GITHUB.SCOPE}&state=${randString()}`
+    const tokenUrl = `${MICROSERVICE.API}${MICROSERVICE.GITHUB.AUTH}`
+    const filter = `http://localhost:1323/github/auth*`
+    const code = yield* call(authorizeApp, authUrl, filter)
+    const token = yield* call(getToken, tokenUrl, code)
 
-    if (!orgs.data) throw new Error('Could not fetch org data')
+    token.accessToken && localStorage.setItem('github.accessToken', token.accessToken)
 
-    yield put(updateOrgs(normalizePayload(orgs.data) as Org[]))
-  } catch (e) {
-    yield put(
-      createAlert({
-        key: 'watchOrgsRequestError',
-        status: 'error',
-        message: `Error fetching user orgs: ${e.message}`,
-        dismissable: true
-      })
-    )
+    yield put(receiveAuth(token))
+  } catch (error) {
+    console.log('Error in githubSaga: watchAuthRequest', error)
   }
 }
 
-function* watchReposRequest(action: GetReposForLogin): SagaIterator {
-  const { login, key } = action
-  let repos
-
-  try {
-    if (login === 'personal') repos = yield* call(octokit.repos.list, { per_page: 100 })
-    else repos = yield* call(octokit.repos.listForOrg, { org: login, per_page: 100 })
-
-    if (!repos) return
-
-    repos = normalizePayload(repos.data) as Repo[]
-
-    yield put(updateOrgRepos({ key: key || login, data: repos }))
-    yield put(updateRepos(repos))
-  } catch (e) {
-    yield put(
-      createAlert({
-        key: 'watchReposRequestError',
-        status: 'error',
-        message: `Error fetching ${login} repos: ${e.message}`,
-        dismissable: true
-      })
-    )
-  }
+function* watchAuthSuccess(): SagaIterator {
+  yield put(requestProfile())
 }
 
-export default function* githubSaga(): SagaIterator {
-  yield takeLatest(GITHUB.ORGS.REQUEST, watchOrgsRequest)
-  yield takeLatest(GITHUB.REPOS.REQUEST, watchReposRequest)
+function* watchLogout(): SagaIterator {
+  yield put(setPage('welcome'))
+}
+
+export default function* authSaga(): SagaIterator {
+  yield takeLatest(GITHUB_AUTH.REQUEST, watchAuthRequest)
+  yield takeLatest(GITHUB_AUTH.SUCCESS, watchAuthSuccess)
+  yield takeLatest(GITHUB_AUTH.LOGOUT, watchLogout)
 }

@@ -28,7 +28,7 @@ const SelectField: SFC<Props> = ({ name, type, label, options, validate, onValid
   const [valid, setValid] = useState(true)
   let className = `field ${type} `
   className += validate && valid ? 'valid ' : 'invalid '
-  className += inputProps.value && inputProps.value.length > 0 ? 'not-empty ' : 'empty '
+  className += inputProps.value ? 'not-empty ' : 'empty '
 
   const _validate = (value: string): void => {
     if (!validate) return

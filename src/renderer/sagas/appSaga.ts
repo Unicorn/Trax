@@ -10,7 +10,7 @@ import { Timer } from '@/models/timer'
 
 function* watchPersist(action: RehydrateAction): SagaIterator {
   const payload = action.payload as RootState
-  if (!payload || !payload.auth || !payload.auth.accessToken) return
+  if (!payload || !payload.github || !payload.github.accessToken) return
   if (!payload.profile || payload.profile.login === 'octocat') yield put(requestProfile())
 
   const runningTimers = (toArray(payload.timers) as Timer[]).filter(timer => timer.isRunning && timer.startedAt)

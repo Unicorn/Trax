@@ -15,7 +15,7 @@ export enum SETTING {
   SET_SHOW_FILTER_MENU = 'trax/settings/SET_SHOW_FILTER_MENU',
   SET_GOOGLE_KEY = 'trax/settings/SET_GOOGLE_KEY',
   SET_GOOGLE_SECRET = 'trax/settings/SET_GOOGLE_SECRET',
-  SET_GOOGLE_TOKEN = 'trax/settings/SET_GOOGLE_TOKEN',
+  SET_GOOGLE_TOKEN = 'trax/settings/SET_GOOGLE_TOKEN'
 }
 
 export type ActivePageValues = 'welcome' | 'profile' | 'create' | 'board' | 'timers' | 'invoices' | 'settings'
@@ -94,6 +94,5 @@ export interface SettingsAction {
   type: SETTING
   payload?: Setting
 }
-
 
 export const getSettings = ({ settings }: RootState): Settings => settings
