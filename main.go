@@ -20,6 +20,8 @@ type response struct {
 	Data    interface{} `json:"data"`
 }
 
+const apiBase = "https://trax-server.herokuapp.com/"
+
 func githubAuth(c echo.Context) error {
 	key := os.Getenv("GH_CLIENT_ID")
 	secret := os.Getenv("GH_CLIENT_SECRET")
@@ -62,7 +64,7 @@ func googleAuth(c echo.Context) error {
 		ClientSecret: secret,
 		Endpoint:     google.Endpoint,
 		Scopes:       []string{"https://www.googleapis.com/auth/spreadsheets"},
-		RedirectURL:  "http://localhost:1323/google/auth",
+		RedirectURL:  apiBase + "/google/auth",
 	}
 
 	if len(code) < 5 {
@@ -85,5 +87,5 @@ func main() {
 	e.Use(middleware.CORS())
 	e.GET("/github/auth", githubAuth)
 	e.GET("/google/auth", googleAuth)
-	e.Logger.Fatal(e.Start(":1323"))
+	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
 }

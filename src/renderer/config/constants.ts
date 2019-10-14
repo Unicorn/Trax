@@ -180,8 +180,8 @@ export const LABELS: LabelsType = {
 export const LANES: Lane[] = Object.keys(SWIMLANES as Swimlanes).map((key: string) => (SWIMLANES[key] as Swimlane).name as Lane)
 
 export const MICROSERVICE = {
-  // API: 'https://trax-go.herokuapp.com'
-  API: 'http://localhost:1323',
+  API: 'https://trax-go.herokuapp.com',
+  // API: 'http://localhost:1323',
   GITHUB: {
     AUTH: '/github/auth'
   },

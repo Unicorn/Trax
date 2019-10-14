@@ -1,7 +1,7 @@
 {
   "name": "trax",
   "homepage": "https://trax.management/",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "author": "Unicorn Agency <hello@UnicornAgency.com>",
   "description": "A desktop application for managing Github Projects and Issues",
   "keywords": [

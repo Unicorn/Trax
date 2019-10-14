@@ -33,3 +33,7 @@ yarn-error.log*
 main/*.js
 renderer/*.js
 *.js.map
+
+
+# Go
+trax
