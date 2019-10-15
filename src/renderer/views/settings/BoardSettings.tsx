@@ -2,7 +2,7 @@
 import { createElement, SFC } from 'react'
 import { connect } from 'react-redux'
 import { setFeaturePoints, setFeaturePriority, setFeatureTypes, setFeatureOrgTitles } from '@/controllers/settingController'
-import { setLaneVisibility } from '@/controllers/laneController'
+import { setVisible } from '@/controllers/laneController'
 import { RootState } from '@/models/app'
 import { Settings } from '@/models/setting'
 import { Lanes, laneTypes, LaneTypes } from '@/models/lane'
@@ -14,7 +14,7 @@ interface Connected {
 }
 
 interface Actions {
-  _setLaneVisibility: typeof setLaneVisibility
+  _setVisible: typeof setVisible
   _setFeaturePoints: typeof setFeaturePoints
   _setFeaturePriority: typeof setFeaturePriority
   _setFeatureTypes: typeof setFeatureTypes
@@ -24,7 +24,7 @@ interface Actions {
 const LaneSettings: SFC<Connected & Actions> = ({
   lanes,
   settings,
-  _setLaneVisibility,
+  _setVisible,
   _setFeaturePoints,
   _setFeaturePriority,
   _setFeatureTypes,
@@ -41,7 +41,7 @@ const LaneSettings: SFC<Connected & Actions> = ({
             name={lane}
             type="toggle"
             label={lane}
-            onChange={({ currentTarget: { name, checked } }) => _setLaneVisibility(name as LaneTypes, checked)}
+            onChange={({ currentTarget: { name, checked } }) => _setVisible(name as LaneTypes, checked)}
             checked={lanes[lane].visible}
           />
         ))}
@@ -92,7 +92,7 @@ const mapState = (state: RootState): Connected => ({
 })
 
 const mapDispatch = {
-  _setLaneVisibility: setLaneVisibility,
+  _setVisible: setVisible,
   _setFeaturePoints: setFeaturePoints,
   _setFeaturePriority: setFeaturePriority,
   _setFeatureTypes: setFeatureTypes,

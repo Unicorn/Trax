@@ -1,7 +1,8 @@
 import { COLORS } from '@/config/constants'
 
 export enum LANE {
-  SET_VISIBILITY = 'trax/lanes/SET_VISIBILITY'
+  SET_VISIBILITY = 'trax/lanes/SET_VISIBILITY',
+  SET_COLLAPSED = 'trax/lanes/SET_COLLAPSED',
 }
 
 export type LaneTypes = 'backlog' | 'sprint' | 'started' | 'review' | 'complete'
@@ -18,14 +19,15 @@ export type Lanes = {
   [key in LaneTypes]: Lane;
 }
 
-interface SetVisibility {
+interface SetLane {
   lane: LaneTypes
-  visible: boolean
+  visible?: boolean
+  collapsed?: boolean
 }
 
 export interface LanesAction {
   type: LANE,
-  payload?: SetVisibility
+  payload?: SetLane
 }
 
 export const laneTypes: LaneTypes[] = ['backlog', 'sprint', 'started', 'review', 'complete']

@@ -9,7 +9,7 @@ import { RootState } from '@/models/app'
 import { Tracks, Track } from '@/models/track'
 import { Issues, Issue } from '@/models/issue'
 import { updateIssueLane } from '@/models/github'
-import { LaneTypes, visibleLanes } from '@/models/lane'
+import { LaneTypes, visibleLanes, Lanes } from '@/models/lane'
 import { filterIssues } from '@/helpers/issueHelper'
 import IssuesLane from '@/views/issues/IssuesLane'
 import SearchIssues from '@/views/issues/SearchIssues'
@@ -18,7 +18,7 @@ import { FilterIssues } from '@/views/issues/FilterIssues'
 interface Connected {
   tracks: Tracks
   issues: Issues
-  lanes: LaneTypes[]
+  lanes: Lanes
   showBoardSearch: boolean
   showFilterMenu: boolean
   showBoardHelp: boolean
@@ -79,7 +79,7 @@ const BoardPage: FC<Connected & Actions> = ({ _reloadTrack, tracks, issues, lane
       {showFilterMenu && <FilterIssues tracks={tracks} issues={issues} />}
       <div className="columns">
         <DragDropContext onDragEnd={_onDragEnd}>
-          {lanes.map(lane => (
+          {visibleLanes(lanes).map(lane => (
             <IssuesLane
               key={lane}
               lane={lane}
@@ -95,7 +95,7 @@ const BoardPage: FC<Connected & Actions> = ({ _reloadTrack, tracks, issues, lane
 const mapState = (state: RootState): Connected => ({
   tracks: state.tracks,
   issues: state.issues,
-  lanes: visibleLanes(state.lanes),
+  lanes: state.lanes,
   showBoardSearch: state.settings.showBoardSearch,
   showFilterMenu: state.settings.showFilterMenu,
   showBoardHelp: state.settings.showBoardHelp

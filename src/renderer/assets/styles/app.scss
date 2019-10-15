@@ -5,6 +5,7 @@
 @import '_layout';
 @import '_ui';
 @import 'profile';
+@import 'board';
 @import 'card';
 
 //
@@ -197,121 +198,6 @@ header.title {
     position: absolute;
     right: 0;
     top: 0;
-  }
-}
-
-//
-// BOARD
-//
-.swimlane {
-  background: #fbf9f4;
-  color: color(neutral, 500);
-  flex: 1;
-  height: calc(100vh - 3.7rem);
-  padding: 1.5rem 1%;
-  position: relative;
-
-  &.backlog {
-    background-color: transparentize(color(pink, 500), 0.95);
-    color: color(pink, 500);
-
-    .card header {
-      background-color: transparentize(color(pink, 500), 0.9);
-      color: color(pink, 500);
-    }
-
-    header svg {
-      fill: color(pink, 500);
-    }
-  }
-
-  &.sprint {
-    background-color: transparentize(color(cyan, 500), 0.95);
-    color: color(cyan, 500);
-
-    .card header {
-      background-color: transparentize(color(cyan, 500), 0.9);
-      color: color(cyan, 500);
-    }
-
-    header svg {
-      fill: color(cyan, 500);
-    }
-  }
-
-  &.started {
-    background-color: transparentize(color(orange, 500), 0.95);
-    color: color(orange, 500);
-
-    .card header {
-      background-color: transparentize(color(orange, 500), 0.9);
-      color: color(orange, 500);
-    }
-
-    header svg {
-      fill: color(orange, 500);
-    }
-  }
-
-  &.review {
-    background-color: transparentize(color(purple, 500), 0.95);
-    color: color(purple, 500);
-
-    .card header {
-      background-color: transparentize(color(purple, 500), 0.9);
-      color: color(purple, 500);
-    }
-
-    header svg {
-      fill: color(purple, 500);
-    }
-  }
-
-  &.complete {
-    background-color: transparentize(color(green, 500), 0.95);
-    color: color(green, 500);
-
-    .card header {
-      background-color: transparentize(color(green, 500), 0.9);
-      color: color(green, 500);
-    }
-
-    header svg {
-      fill: color(green, 500);
-    }
-  }
-
-  &.dragging-over {
-    background: #f5e8c2;
-  }
-
-  big {
-    align-items: baseline;
-    display: flex;
-    flex-direction: row;
-    font: 1.8rem $font_header;
-    justify-content: space-between;
-    text-transform: capitalize;
-
-    i {
-      font-size: 1.2rem;
-      text-transform: lowercase;
-    }
-  }
-
-  .inner {
-    bottom: 0;
-    left: 0;
-    overflow-y: scroll;
-    padding: 4% 4% 10rem 4%;
-    position: absolute;
-    right: 0;
-    top: 4rem;
-
-    &::-webkit-scrollbar {
-      background: transparent;
-      width: 0px;
-    }
   }
 }
 
