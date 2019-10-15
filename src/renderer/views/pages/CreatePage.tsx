@@ -2,12 +2,12 @@
 import { createElement, Component, FormEvent, ReactNode } from 'react'
 import { connect } from 'react-redux'
 import { createIssueRequest } from '@/controllers/issueController'
-import { TYPES, SWIMLANES, PRIORITY, POINTS } from '@/config/constants'
 import { Tracks } from '@/models/track'
 import { Users } from '@/models/user'
 import { RootState } from '@/models/app'
 import { Settings } from '@/models/setting'
-import { ScrumTypes } from '@/config/constants'
+import { defaultLanes } from '@/models/lane'
+import { TYPES, PRIORITY, POINTS, ScrumTypes } from '@/config/constants'
 import { labelNames } from '@/helpers/issueHelper'
 import Form, { OptionsObject } from '@/views/ui/form'
 import Editor from '@/views/ui/form/Editor'
@@ -167,7 +167,7 @@ class CreatePage extends Component<Connected & Actions, State> {
               name="lane"
               type="group"
               label="Swimlane"
-              options={SWIMLANES}
+              options={defaultLanes}
               onChange={this._fieldHandler}
               selected={lane}
               value={lane}

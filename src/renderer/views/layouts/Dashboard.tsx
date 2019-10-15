@@ -1,18 +1,18 @@
 /** @jsx createElement **/
 import { createElement, SFC, ReactNode } from 'react'
 import { connect } from 'react-redux'
+import { toArray } from 'horseshoes'
 
 import { reloadTrack } from '@/controllers/trackController'
 import { toggleShowBoardSearch, toggleShowFilterMenu } from '@/controllers/settingController'
 import { RootState } from '@/models/app'
 import { Tracks, Track } from '@/models/track'
-import { ROUTES } from '@/config/constants'
+import { ROUTES } from '@/config/routes'
 import Navigation from '@/views/sections/Navigation'
 import AlertsList from '@/views/ui/alert/AlertsList'
 import LoadingIcon from '@/views/ui/icons/LoadingIcon'
 import SearchIcon from '@/views/ui/icons/SearchIcon'
 import FilterIcon from '@/views/ui/icons/FilterIcon'
-import { toArray } from 'horseshoes'
 
 interface Props {
   children: React.ReactNode

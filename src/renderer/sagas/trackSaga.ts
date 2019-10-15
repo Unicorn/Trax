@@ -7,7 +7,7 @@ import { TrackAction } from '@/models/track'
 import { User } from '@/models/user'
 import { Issue } from '@/models/issue'
 import { TRACK } from '@/models/track'
-import { LABELS } from '@/config/constants'
+import { LABELS } from '@/models/label'
 import { octokit, getIssues, receivedIssues } from '@/models/github'
 import { SagaIterator } from 'redux-saga'
 

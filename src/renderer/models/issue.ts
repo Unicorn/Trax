@@ -2,7 +2,7 @@ import { IssuesCreateParams, IssuesCreateResponse } from '@octokit/rest'
 import { Resources, Resource, normalizePayload } from 'horseshoes'
 import { User } from '@/models/user'
 import { Labels } from '@/models/label'
-import { LANES, Lane } from '@/config/constants'
+import { laneTypes, LaneTypes } from '@/models/lane'
 
 /**
  * Core Definitions
@@ -22,7 +22,7 @@ export enum ISSUE {
 
 export interface Issue extends Resource {
   ident: string
-  lane: Lane
+  lane: LaneTypes
   id: string
   nodeId: string
   url: string
@@ -73,7 +73,7 @@ export interface IssueAction {
  * Normalizers and Helper Functions
  **/
 export const normalizeIssue = (issue: Issue | IssuesCreateResponse): Issue => {
-  const labels = issue.labels && issue.labels.filter(l => LANES.includes(l.name as Lane))
-  const lane: Lane = labels && labels.length > 0 ? (labels[0].name as Lane) : 'backlog'
+  const labels = issue.labels && issue.labels.filter(l => laneTypes.includes(l.name as LaneTypes))
+  const lane: LaneTypes = labels && labels.length > 0 ? (labels[0].name as LaneTypes) : 'backlog'
   return normalizePayload({ ...issue, lane }) as Issue
 }

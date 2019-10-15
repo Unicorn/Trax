@@ -13,7 +13,7 @@ import { Labels } from './label'
 import { Milestones } from './milestone'
 import { Repo, Repos } from './repo'
 import { GithubAuth } from './github'
-import { LANES } from '@/config/constants'
+import { Lanes, defaultLanes } from './lane'
 
 export enum APP {
   RESET = 'trax/app/reset'
@@ -30,6 +30,7 @@ export interface RootState {
   orgs: Orgs
   profile: Profile
   repos: Repos
+  lanes: Lanes
   settings: Settings
   timers: Timers
   tracks: Tracks
@@ -47,9 +48,9 @@ export const initialState: RootState = {
   orgs: initResources<Org>(),
   profile: profileState,
   repos: initResources<Repo>(),
+  lanes: defaultLanes,
   settings: {
     page: 'welcome',
-    lanes: LANES,
     showBoardSearch: false,
     showBoardHelp: false,
     showFilterMenu: false,

@@ -2,7 +2,7 @@
 import { createElement, SFC } from 'react'
 import * as NavIcon from '@/views/ui/nav'
 import NavLink from '@/views/ui/NavLink'
-import { ROUTES } from '@/config/constants'
+import { ROUTES } from '@/config/routes'
 
 const Navigation: SFC = () => {
   return (

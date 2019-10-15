@@ -1,9 +1,8 @@
-import { Lane } from '@/config/constants'
 import { RootState } from './app'
 
 export enum SETTING {
   SET_PAGE = 'trax/settings/SET_PAGE',
-  SET_LANES = 'trax/settings/SET_LANES',
+  SET_LANE_SETTINGS = 'trax/settings/SET_LANE_SETTINGS',
   SET_SHOW_BOARD_SEARCH = 'trax/settings/SET_SHOW_BOARD_SEARCH',
   SET_SHOW_BOARD_HELP = 'trax/settings/SET_SHOW_BOARD_HELP',
   SET_FEATURE_POINTS = 'trax/settting/SET_FEATURE_POINTS',
@@ -22,14 +21,8 @@ export type ActivePageValues = 'welcome' | 'profile' | 'create' | 'board' | 'tim
 
 export type Features = 'featurePoints' | 'featurePriority' | 'featureTypes'
 
-export type ActiveLaneValues = Lane[]
-
 interface ActivePage {
   page: ActivePageValues
-}
-
-interface ActiveLanes {
-  lanes: ActiveLaneValues
 }
 
 interface ShowBoardSearch {
@@ -68,7 +61,6 @@ interface Templates {
 
 export type Setting =
   | ActivePage
-  | ActiveLanes
   | ShowBoardSearch
   | ShowBoardHelp
   | FeaturePoints
@@ -80,7 +72,6 @@ export type Setting =
 
 export interface Settings extends Templates {
   page: ActivePageValues
-  lanes: Lane[]
   showBoardSearch: boolean
   showFilterMenu: boolean
   showBoardHelp: boolean

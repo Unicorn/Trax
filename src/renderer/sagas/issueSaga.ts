@@ -4,7 +4,7 @@ import { call, createAlert } from 'horseshoes'
 import { normalizeIssue, CreateIssueAction, ISSUE } from '@/models/issue'
 import { octokit, UpdateIssueLaneAction } from '@/models/github'
 import { createIssue, updateIssue } from '@/controllers/issueController'
-import { LANES, Lane } from '@/config/constants'
+import { laneTypes, LaneTypes } from '@/models/lane'
 
 function* watchCreateIssueRequest(action: CreateIssueAction): SagaIterator {
   try {
@@ -38,7 +38,7 @@ function* watchUpdateIssueLane(action: UpdateIssueLaneAction): SagaIterator {
   const newIssue = { ...payload }
 
   try {
-    const labels = payload.labels.filter(l => !LANES.includes(l.name as Lane)).map(l => l.name)
+    const labels = payload.labels.filter(l => !laneTypes.includes(l.name as LaneTypes)).map(l => l.name)
     labels.push(to)
 
     const newLabels = yield* call(octokit.issues.replaceLabels, { owner, repo, issue_number: payload.number, labels })

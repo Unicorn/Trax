@@ -1,24 +1,4 @@
-import { ActivePageValues } from '@/models/setting'
-
-interface Swimlane {
-  label: string
-  name: Lane
-  color: string
-}
-
-interface Swimlanes {
-  [key: string]: Swimlane
-}
-
-export type Lane = 'backlog' | 'sprint' | 'started' | 'review' | 'complete'
-
-export interface Routes {
-  [key: string]: {
-    component: string
-    name: ActivePageValues
-    path: string
-  }
-}
+import { LabelsType } from '@/models/label'
 
 export const IDENT = 'Trax'
 
@@ -34,71 +14,7 @@ export const COLORS = {
   pink: 'E068DB'
 }
 
-export const ROUTES: Routes = {
-  welcome: {
-    component: 'WelcomePage',
-    name: 'welcome',
-    path: '/welcome'
-  },
-  create: {
-    component: 'CreatePage',
-    name: 'create',
-    path: '/create'
-  },
-  board: {
-    component: 'BoardPage',
-    name: 'board',
-    path: '/board'
-  },
-  profile: {
-    component: 'ProfilePage',
-    name: 'profile',
-    path: '/profile'
-  },
-  timers: {
-    component: 'TimersPage',
-    name: 'timers',
-    path: '/timers'
-  },
-  invoices: {
-    component: 'InvoicesPage',
-    name: 'invoices',
-    path: '/invoices'
-  },
-  settings: {
-    component: 'SettingsPage',
-    name: 'settings',
-    path: '/settings'
-  }
-}
 
-export const SWIMLANES: Swimlanes = {
-  backlog: {
-    label: 'Backlog',
-    name: 'backlog',
-    color: COLORS.pink
-  },
-  sprint: {
-    label: 'Sprint',
-    name: 'sprint',
-    color: COLORS.cyan
-  },
-  started: {
-    label: 'Started',
-    name: 'started',
-    color: COLORS.orange
-  },
-  review: {
-    label: 'Review',
-    name: 'review',
-    color: COLORS.blue
-  },
-  complete: {
-    label: 'Complete',
-    name: 'complete',
-    color: COLORS.green
-  }
-}
 
 export const TYPES: LabelsType = {
   epic: {
@@ -161,23 +77,6 @@ export const POINTS: LabelsType = {
     color: '51B294'
   }
 }
-
-interface LabelsType {
-  [key: string]: {
-    label: string
-    name: string
-    color: string
-  }
-}
-
-export const LABELS: LabelsType = {
-  ...SWIMLANES,
-  ...TYPES,
-  ...PRIORITY,
-  ...POINTS
-}
-
-export const LANES: Lane[] = Object.keys(SWIMLANES as Swimlanes).map((key: string) => (SWIMLANES[key] as Swimlane).name as Lane)
 
 export const MICROSERVICE = {
   API: 'https://trax-server.herokuapp.com',

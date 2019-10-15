@@ -1,8 +1,9 @@
 import { intersection } from 'lodash'
-import { Label } from '@/models/label'
-import { SWIMLANES, LABELS, TYPES, POINTS, PRIORITY } from '@/config/constants'
+import { LABELS, Label } from '@/models/label'
+import { defaultLanes } from '@/models/lane'
+import { TYPES, POINTS, PRIORITY } from '@/config/constants'
 
-export const traxLanes = Object.keys(SWIMLANES).map(k => LABELS[k].name)
+export const traxLanes = Object.keys(defaultLanes).map(k => LABELS[k].name)
 export const traxLabels = Object.keys(LABELS).map(k => LABELS[k].name)
 export const traxPoints = Object.keys(POINTS).map(k => POINTS[k].name)
 export const traxPriorities = Object.keys(PRIORITY).map(k => PRIORITY[k].name)

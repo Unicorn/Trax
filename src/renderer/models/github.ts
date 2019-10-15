@@ -1,6 +1,6 @@
 import * as Octokit from '@octokit/rest'
 import { ISSUE, Issue } from '@/models/issue'
-import { Lane } from '@/config/constants'
+import { LaneTypes } from '@/models/lane'
 
 export const octokit = new Octokit({
   auth() {
@@ -85,10 +85,10 @@ export const getReposForLogin = (login: string, key: string): GetReposForLogin =
 export interface UpdateIssueLaneAction {
   type: ISSUE
   payload: Issue
-  to: Lane
+  to: LaneTypes
 }
 
-export const updateIssueLane = (payload: Issue, to: Lane): UpdateIssueLaneAction => ({
+export const updateIssueLane = (payload: Issue, to: LaneTypes): UpdateIssueLaneAction => ({
   type: ISSUE.UPDATE_LANE,
   payload,
   to

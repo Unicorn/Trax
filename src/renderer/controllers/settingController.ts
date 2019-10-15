@@ -1,15 +1,10 @@
-import { SETTING, Settings, ActivePageValues, ActiveLaneValues, SettingsAction } from '@/models/setting'
+import { SETTING, Settings, ActivePageValues, SettingsAction } from '@/models/setting'
 import { initialState } from '@/models/app'
 import { ScrumTypes } from '@/config/constants'
 
 export const setPage = (page: ActivePageValues): SettingsAction => ({
   type: SETTING.SET_PAGE,
   payload: { page }
-})
-
-export const setLanes = (lanes: ActiveLaneValues): SettingsAction => ({
-  type: SETTING.SET_LANES,
-  payload: { lanes }
 })
 
 export const toggleShowBoardSearch = (showBoardSearch: boolean): SettingsAction => ({
@@ -65,7 +60,6 @@ export const settingsReducer = (state: Settings, action: SettingsAction): Settin
 
   switch (type) {
     case SETTING.SET_PAGE:
-    case SETTING.SET_LANES:
     case SETTING.SET_SHOW_BOARD_SEARCH:
     case SETTING.SET_SHOW_BOARD_HELP:
     case SETTING.SET_FEATURE_POINTS:

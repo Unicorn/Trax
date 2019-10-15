@@ -13,6 +13,7 @@ import { orgsReducer } from '@/controllers/orgController'
 import { profileReducer } from '@/controllers/profileController'
 import { reposReducer } from '@/controllers/repoController'
 import { settingsReducer } from '@/controllers/settingController'
+import { lanesReducer } from '@/controllers/laneController'
 import { timerReducer } from '@/controllers/timerController'
 import { trackReducer } from '@/controllers/trackController'
 import { usersReducer } from '@/controllers/userController'
@@ -44,6 +45,7 @@ const rootReducer = persistCombineReducers(persistConfig, {
   orgs: orgsReducer,
   profile: profileReducer,
   repos: reposReducer,
+  lanes: lanesReducer,
   settings: settingsReducer,
   timers: timerReducer,
   tracks: trackReducer,

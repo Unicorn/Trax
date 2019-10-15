@@ -1,18 +1,20 @@
 /** @jsx createElement **/
 import { createElement, SFC } from 'react'
 import { connect } from 'react-redux'
-import Form from '@/views/ui/form/index'
+import { setFeaturePoints, setFeaturePriority, setFeatureTypes, setFeatureOrgTitles } from '@/controllers/settingController'
+import { setLaneVisibility } from '@/controllers/laneController'
 import { RootState } from '@/models/app'
 import { Settings } from '@/models/setting'
-import { LANES, Lane } from '@/config/constants'
-import { setLanes, setFeaturePoints, setFeaturePriority, setFeatureTypes, setFeatureOrgTitles } from '@/controllers/settingController'
+import { Lanes, laneTypes, LaneTypes } from '@/models/lane'
+import Form from '@/views/ui/form/index'
 
 interface Connected {
+  lanes: Lanes
   settings: Settings
 }
 
 interface Actions {
-  _setLanes: typeof setLanes
+  _setLaneVisibility: typeof setLaneVisibility
   _setFeaturePoints: typeof setFeaturePoints
   _setFeaturePriority: typeof setFeaturePriority
   _setFeatureTypes: typeof setFeatureTypes
@@ -20,36 +22,27 @@ interface Actions {
 }
 
 const LaneSettings: SFC<Connected & Actions> = ({
+  lanes,
   settings,
-  _setLanes,
+  _setLaneVisibility,
   _setFeaturePoints,
   _setFeaturePriority,
   _setFeatureTypes,
   _setFeatureOrgTitles
 }) => {
-  const _laneSettingsHandler = (e: React.SyntheticEvent<HTMLInputElement>): void => {
-    const input = e.currentTarget
-    let newState = [...settings.lanes]
-
-    if (input.checked) newState.push(input.name as Lane)
-    else newState = settings.lanes.filter(l => l !== input.name)
-
-    // Seems redundant, but assures our lane order
-    _setLanes(LANES.filter(lane => newState.includes(lane)))
-  }
 
   return (
     <div className="box columns">
       <div className="column">
         <h2>Lanes:</h2>
-        {LANES.map(lane => (
+        {laneTypes.map(lane => (
           <Form.RadioField
             key={lane}
             name={lane}
             type="toggle"
             label={lane}
-            onChange={_laneSettingsHandler}
-            checked={settings.lanes.includes(lane)}
+            onChange={({ currentTarget: { name, checked } }) => _setLaneVisibility(name as LaneTypes, checked)}
+            checked={lanes[lane].visible}
           />
         ))}
       </div>
@@ -94,11 +87,12 @@ const LaneSettings: SFC<Connected & Actions> = ({
 }
 
 const mapState = (state: RootState): Connected => ({
+  lanes: state.lanes,
   settings: state.settings
 })
 
 const mapDispatch = {
-  _setLanes: setLanes,
+  _setLaneVisibility: setLaneVisibility,
   _setFeaturePoints: setFeaturePoints,
   _setFeaturePriority: setFeaturePriority,
   _setFeatureTypes: setFeatureTypes,

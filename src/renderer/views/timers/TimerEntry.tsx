@@ -7,7 +7,7 @@ import { Issues } from '@/models/issue'
 import { timerDuration } from '@/helpers/timerHelper'
 import LabelItem from '@/views/issues/LabelItem'
 import ExternalLink from '@/views/ui/ExternalLink'
-import { SWIMLANES } from '@/config/constants'
+import { defaultLanes } from '@/models/lane'
 
 interface Props {
   timer: Timer
@@ -19,9 +19,7 @@ interface Connected {
   issues: Issues
 }
 
-const TimerEntry: SFC<Props & Connected> = props => {
-  const { timer, checked, handler, issues } = props
-
+const TimerEntry: SFC<Props & Connected> = ({ timer, checked, handler, issues }) => {
   if (!timer.issue) return null
 
   const issue = issues.data[timer.issue.key]
@@ -45,7 +43,7 @@ const TimerEntry: SFC<Props & Connected> = props => {
         </ExternalLink>
       </td>
       <td>
-        <LabelItem label={SWIMLANES[lane]} />
+        <LabelItem label={defaultLanes[lane]} />
       </td>
       <td>{timerDuration(timer, true)}</td>
       <td>{timer.issue.title}</td>

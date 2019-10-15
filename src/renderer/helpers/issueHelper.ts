@@ -1,7 +1,7 @@
 import * as Fuse from 'fuse.js'
 import { Issue } from '@/models/issue'
+import { LABELS } from '@/models/label'
 import { pointsFromLabels } from '@/helpers/labelHelper'
-import { LABELS } from '@/config/constants'
 
 export const filterIssues = (text: string, issues: Issue[]): Issue[] => {
   const options = {

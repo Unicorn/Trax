@@ -36,8 +36,8 @@ const GoogleSettings: SFC<Connected & Actions> = ({ auth, timesheet, _requestAut
     if (auth.accessToken && timesheet.validId && timesheet.sheets && timesheet.sheets.length > 0) {
       const options: OptionsObject = {}
       timesheet.sheets.forEach(sheet => {
-        if (!sheet.properties || !sheet.properties.title || sheet.properties.sheetId === undefined) return
-        options[sheet.properties.sheetId.toString()] = { label: sheet.properties.title, value: sheet.properties.sheetId }
+        if (!sheet.properties || !sheet.properties.title || !sheet.properties.sheetId) return
+        options[sheet.properties.sheetId] = { label: sheet.properties.title, value: sheet.properties.sheetId }
       })
 
       return (
