@@ -2,7 +2,7 @@
 import { createElement, Component, FormEvent, ReactNode } from 'react'
 import { connect } from 'react-redux'
 import { createIssueRequest } from '@/controllers/issueController'
-import { Tracks } from '@/models/track'
+import { Tracks, tracksReposOptions } from '@/models/track'
 import { Users } from '@/models/user'
 import { RootState } from '@/models/app'
 import { Settings } from '@/models/setting'
@@ -40,7 +40,6 @@ const defaultState = {
 
 class CreatePage extends Component<Connected & Actions, State> {
   state = defaultState
-  repoOptions: OptionsObject = {}
   userOptions: OptionsObject = {}
 
   _submitHandler = (e: FormEvent<HTMLFormElement>): void => {
@@ -92,12 +91,6 @@ class CreatePage extends Component<Connected & Actions, State> {
     const { tracks, settings } = this.props
     const { template, ident, title, markdown, type, priority, points, lane, assignee } = this.state
 
-    tracks.keys.forEach(key => {
-      this.repoOptions[tracks.data[key].ident] = {
-        label: tracks.data[key].ident
-      }
-    })
-
     return (
       <section className="create page">
         <form className="golden-ratio columns" onSubmit={this._submitHandler}>
@@ -108,7 +101,7 @@ class CreatePage extends Component<Connected & Actions, State> {
               name="ident"
               type="select"
               label="Repo"
-              options={this.repoOptions}
+              options={tracksReposOptions(tracks)}
               onChange={this._repoSelectHandler}
               selected={ident}
               value={ident}

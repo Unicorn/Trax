@@ -13,7 +13,7 @@ import { LaneTypes, visibleLanes, Lanes } from '@/models/lane'
 import { filterIssues } from '@/helpers/issueHelper'
 import IssuesLane from '@/views/issues/IssuesLane'
 import SearchIssues from '@/views/issues/SearchIssues'
-import { FilterIssues } from '@/views/issues/FilterIssues'
+import FilterIssues from '@/views/issues/FilterIssues'
 
 interface Connected {
   tracks: Tracks
@@ -48,6 +48,12 @@ const BoardPage: FC<Connected & Actions> = ({ _reloadTrack, tracks, issues, lane
     setFilteredIssues(text.length === 0 ? allIssues : filterIssues(text, allIssues))
   }
 
+  const _repoSelectHandler = (ident: string): void => {
+    if (ident.length < 5) return
+
+    setFilteredIssues(filteredIssues.filter(issue => issue.ident === ident))
+  }
+
   const _onDragEnd = (result: DropResult): void => {
     const { source, destination, draggableId } = result
 
@@ -76,7 +82,7 @@ const BoardPage: FC<Connected & Actions> = ({ _reloadTrack, tracks, issues, lane
   return (
     <section className="board">
       {showBoardSearch && <SearchIssues handler={_filterIssues} />}
-      {showFilterMenu && <FilterIssues tracks={tracks} issues={issues} />}
+      {showFilterMenu && <FilterIssues tracks={tracks} repoSelectHandler={_repoSelectHandler} />}
       <div className="columns">
         <DragDropContext onDragEnd={_onDragEnd}>
           {visibleLanes(lanes).map(lane => (

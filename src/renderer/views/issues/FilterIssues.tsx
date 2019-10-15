@@ -1,53 +1,37 @@
 /** @jsx createElement */
-import { createElement, FC, ReactNode } from 'react'
-
-import Select from 'react-select'
-
-import { Tracks } from '@/models/track'
-import { Issues } from '@/models/issue'
+import { createElement, FC, useState, FormEvent } from 'react'
+import { Tracks, tracksReposOptions } from '@/models/track'
+import Form from '@/views/ui/form'
 
 interface Props {
   tracks: Tracks
-  issues: Issues
+  repoSelectHandler: (ident: string) => void
 }
 
-interface SelectOption {
-  label: string
-  value: string
-  color?: string
-}
+const FilterIssues: FC<Props> = ({ tracks, repoSelectHandler }) => {
+  const [_ident, _setIdent] = useState('')
 
-export const FilterIssues: FC<Props> = ({ tracks, issues }) => {
-  const _renderRepoFilter = (options: Tracks): ReactNode => {
-    const selectOptions: SelectOption[] = []
-
-    options.keys.map(key => {
-      selectOptions.push({ label: options.data[key].ident, value: options.data[key].ident })
-    })
-
-    return <Select placeholder="Filter by repository..." options={selectOptions} isMulti />
-  }
-
-  const _renderLabelFilter = (options: Issues): ReactNode => {
-    const labels: string[] = []
-    const selectOptions: SelectOption[] = []
-
-    options.keys.map(key => {
-      options.data[key].labels.map(label => {
-        if (labels.indexOf(label.name) < 0) {
-          labels.push(label.name)
-          selectOptions.push({ value: label.name, label: label.name, color: '#' + label.color })
-        }
-      })
-    })
-
-    return <Select placeholder="Filter by label..." options={selectOptions} isMulti />
+  const _repoSelectHandler = ({ currentTarget: { value } }: FormEvent<HTMLSelectElement>): void => {
+    _setIdent(value)
+    repoSelectHandler(value)
   }
 
   return (
     <div>
-      {_renderRepoFilter(tracks)}
-      {_renderLabelFilter(issues)}
+      <p>Filter Issues:</p>
+      <Form.SelectField
+        name="ident"
+        type="select"
+        label="Repo"
+        options={tracksReposOptions(tracks)}
+        onChange={_repoSelectHandler}
+        selected={_ident}
+        value={_ident}
+        required
+      />
     </div>
   )
 }
+
+
+export default FilterIssues
