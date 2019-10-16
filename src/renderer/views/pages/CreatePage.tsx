@@ -1,16 +1,17 @@
 /** @jsx createElement **/
-import { createElement, Component, FormEvent, ReactNode } from 'react'
+import { createElement, FormEvent, SFC, useState } from 'react'
 import { connect } from 'react-redux'
+import { UI, toOptions } from 'horseshoes'
 import { createIssueRequest } from '@/controllers/issueController'
-import { Tracks, tracksReposOptions } from '@/models/track'
+import { Tracks, Track } from '@/models/track'
 import { Users } from '@/models/user'
 import { RootState } from '@/models/app'
 import { Settings } from '@/models/setting'
 import { defaultLanes } from '@/models/lane'
 import { TYPES, PRIORITY, POINTS, ScrumTypes } from '@/config/constants'
 import { labelNames } from '@/helpers/issueHelper'
-import Form, { OptionsObject } from '@/views/ui/form'
-import Editor from '@/views/ui/form/Editor'
+import Editor from '@/views/ui/Editor'
+import { OptionsObject } from 'horseshoes/build/main/lib/views/form/types'
 
 interface Connected {
   tracks: Tracks
@@ -26,7 +27,7 @@ interface State {
   [key: string]: string
 }
 
-const defaultState = {
+const defaultState: State = {
   title: '',
   type: '',
   lane: 'backlog',
@@ -38,149 +39,146 @@ const defaultState = {
   template: 'story'
 }
 
-class CreatePage extends Component<Connected & Actions, State> {
-  state = defaultState
-  userOptions: OptionsObject = {}
+const CreatePage: SFC<Connected & Actions> = ({ tracks, users, settings, _createIssueRequest }) => {
+  const [state, setState] = useState<State>(defaultState)
+  const [userOptions, setUserOptions] = useState<OptionsObject>({})
 
-  _submitHandler = (e: FormEvent<HTMLFormElement>): void => {
+  const _submitHandler = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
 
-    const { title, type, lane, points, priority, assignee, ident, markdown } = this.state
-    const [owner, repo] = ident.split('/')
+    const [owner, repo] = state.ident.split('/')
 
     const payload = {
-      title,
-      body: markdown,
+      title: state.title,
+      body: state.markdown,
       owner,
       repo,
-      labels: labelNames([type, points, priority, lane]),
-      assignees: [assignee]
+      labels: labelNames([state.type, state.points, state.priority, state.lane]),
+      assignees: [state.assignee]
     }
 
-    this.props._createIssueRequest(payload)
-    this.setState(defaultState)
+    _createIssueRequest(payload)
+    setState(defaultState)
   }
 
-  _fieldHandler = (e: FormEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>): void => {
-    const newData: State = { ...this.state }
+  const _fieldHandler = (e: FormEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>): void => {
+    const nextState: State = { ...state }
     const input = e.currentTarget
-    newData[input.name] = input.value
-
-    this.setState(newData)
+    nextState[input.name] = input.value
+    setState(nextState)
   }
 
-  _templateHandler = (e: FormEvent<HTMLSelectElement>): void => {
+  const _templateHandler = (e: FormEvent<HTMLSelectElement>): void => {
     const template = e.currentTarget.value
-    this.setState({ template, markdown: this.props.settings.templates[template] })
+    const nextState: State = { ...state, template, markdown: settings.templates[template] }
+    setState(nextState)
   }
 
-  _repoSelectHandler = (e: React.FormEvent<HTMLSelectElement>): void => {
-    const { tracks, users } = this.props
+  const _repoSelectHandler = (e: FormEvent<HTMLSelectElement>): void => {
     const ident = e.currentTarget.value
-    this.setState({ ident })
+    const nextState = { ...state, ident }
+    const userOpts: OptionsObject = {}
 
     if (tracks.data[ident]) {
       tracks.data[ident].userIds.forEach(id => {
         const user = users.data[id]
-        if (user) this.userOptions[user.login] = { label: user.login }
+        if (user) userOpts[user.login] = { label: user.login }
       })
     }
+
+    setState(nextState)
+    setUserOptions(userOpts)
   }
 
-  render(): ReactNode {
-    const { tracks, settings } = this.props
-    const { template, ident, title, markdown, type, priority, points, lane, assignee } = this.state
+  return (
+    <section className="create page">
+      <form className="golden-ratio columns" onSubmit={_submitHandler}>
+        <div className="left column">
+          <h1>Create Issue</h1>
 
-    return (
-      <section className="create page">
-        <form className="golden-ratio columns" onSubmit={this._submitHandler}>
-          <div className="left column">
-            <h1>Create Issue</h1>
+          <UI.form.SelectField
+            name="ident"
+            type="select"
+            label="Repo"
+            options={toOptions<Track>(tracks, 'ident')}
+            onChange={_repoSelectHandler}
+            selected={state.ident}
+            value={state.ident}
+            required
+          />
 
-            <Form.SelectField
-              name="ident"
-              type="select"
-              label="Repo"
-              options={tracksReposOptions(tracks)}
-              onChange={this._repoSelectHandler}
-              selected={ident}
-              value={ident}
-              required
-            />
+          <UI.form.SelectField
+            name="assignee"
+            type="select"
+            label="Assigned to"
+            options={userOptions}
+            onChange={_fieldHandler}
+            selected={state.assignee}
+            value={state.assignee}
+          />
 
-            <Form.SelectField
-              name="assignee"
-              type="select"
-              label="Assigned to"
-              options={this.userOptions}
-              onChange={this._fieldHandler}
-              selected={assignee}
-              value={assignee}
-            />
+          <UI.form.TextField name="title" type="text" label="Title" onChange={_fieldHandler} value={state.title} required />
 
-            <Form.TextField name="title" type="text" label="Title" onChange={this._fieldHandler} value={title} required />
-
-            {settings.featurePoints && (
-              <Form.RadioField
-                name="points"
-                type="group"
-                label="Points"
-                options={POINTS}
-                onChange={this._fieldHandler}
-                selected={points}
-                value={points}
-              />
-            )}
-
-            {settings.featurePriority && (
-              <Form.RadioField
-                name="priority"
-                type="group"
-                label="Priority"
-                options={PRIORITY}
-                onChange={this._fieldHandler}
-                selected={priority}
-                value={priority}
-              />
-            )}
-
-            {settings.featureTypes && (
-              <Form.RadioField
-                name="type"
-                type="group"
-                label="Type"
-                options={TYPES}
-                onChange={this._fieldHandler}
-                selected={type}
-                value={type}
-              />
-            )}
-
-            <Form.RadioField
-              name="lane"
+          {settings.featurePoints && (
+            <UI.form.RadioField
+              name="points"
               type="group"
-              label="Swimlane"
-              options={defaultLanes}
-              onChange={this._fieldHandler}
-              selected={lane}
-              value={lane}
+              label="Points"
+              options={POINTS}
+              onChange={_fieldHandler}
+              selected={state.points}
+              value={state.points}
             />
+          )}
 
-            <button className="large teal button">Submit</button>
-          </div>
-
-          <div className="right column">
-            <Editor
-              template={template as ScrumTypes}
-              markdown={markdown}
-              markdownHandler={this._fieldHandler}
-              templateHandler={this._templateHandler}
+          {settings.featurePriority && (
+            <UI.form.RadioField
+              name="priority"
+              type="group"
+              label="Priority"
+              options={PRIORITY}
+              onChange={_fieldHandler}
+              selected={state.priority}
+              value={state.priority}
             />
-          </div>
-        </form>
-      </section>
-    )
-  }
+          )}
+
+          {settings.featureTypes && (
+            <UI.form.RadioField
+              name="type"
+              type="group"
+              label="Type"
+              options={TYPES}
+              onChange={_fieldHandler}
+              selected={state.type}
+              value={state.type}
+            />
+          )}
+
+          <UI.form.RadioField
+            name="lane"
+            type="group"
+            label="Swimlane"
+            options={defaultLanes}
+            onChange={_fieldHandler}
+            selected={state.lane}
+            value={state.lane}
+          />
+
+          <button className="large teal button">Submit</button>
+        </div>
+
+        <div className="right column">
+          <Editor
+            template={state.template as ScrumTypes}
+            markdown={state.markdown}
+            markdownHandler={_fieldHandler}
+            templateHandler={_templateHandler}
+          />
+        </div>
+      </form>
+    </section>
+  )
 }
 
 const mapState = (state: RootState): Connected => ({

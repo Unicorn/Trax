@@ -1,7 +1,7 @@
 /** @jsx createElement **/
 import { createElement, SFC, FormEvent } from 'react'
-import SelectField from './SelectField'
 import { TYPES, ScrumTypes } from '@/config/constants'
+import SelectField from 'horseshoes/build/main/lib/views/form/SelectField'
 
 interface Props {
   template: ScrumTypes

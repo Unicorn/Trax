@@ -1,11 +1,12 @@
 /** @jsx createElement **/
 import { createElement, SFC, ReactNode } from 'react'
 import { connect } from 'react-redux'
+import { UI } from 'horseshoes'
+import { OptionsObject } from 'horseshoes/build/main/lib/views/form/types'
 import { setSpreadsheetId, setSheet, logout } from '@/controllers/googleController'
 import { requestAuth } from '@/controllers/googleController'
 import { RootState } from '@/models/app'
 import { GoogleAuth, GoogleTimesheet } from '@/models/google'
-import Form, { OptionsObject } from '@/views/ui/form'
 
 interface Connected {
   auth: GoogleAuth
@@ -23,7 +24,7 @@ const GoogleSettings: SFC<Connected & Actions> = ({ auth, timesheet, _requestAut
   const _renderFields = (): ReactNode => {
     if (auth.accessToken && !timesheet.validId) {
       return (
-        <Form.TextField
+        <UI.form.TextField
           type="text"
           name="googleSheetId"
           label="Google Timesheet ID"
@@ -41,7 +42,7 @@ const GoogleSettings: SFC<Connected & Actions> = ({ auth, timesheet, _requestAut
       })
 
       return (
-        <Form.SelectField
+        <UI.form.SelectField
           type="select"
           name="googleSheetName"
           label="Google Sheet"

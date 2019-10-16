@@ -16,7 +16,7 @@ export const lanesReducer = (state: Lanes, action: LanesAction): Lanes => {
 
   const { payload, type } = action
 
-  let newState = { ...state }
+  const newState = { ...state }
 
   if (!payload || !type) return state
 

@@ -26,4 +26,3 @@ export interface Label {
 }
 
 export type Labels = Label[]
-

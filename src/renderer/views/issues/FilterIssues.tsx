@@ -1,37 +1,46 @@
 /** @jsx createElement */
-import { createElement, FC, useState, FormEvent } from 'react'
-import { Tracks, tracksReposOptions } from '@/models/track'
-import Form from '@/views/ui/form'
+import { createElement, FC } from 'react'
+import { UI } from 'horseshoes'
+import { Tracks, Track } from '@/models/track'
+import { Users, User } from '@/models/user'
+import { toOptions } from 'horseshoes'
 
 interface Props {
+  repo: string
+  assignee: string
   tracks: Tracks
-  repoSelectHandler: (ident: string) => void
+  users: Users
+  repoHandler: (value: string) => void
+  assigneeHandler: (value: string) => void
 }
 
-const FilterIssues: FC<Props> = ({ tracks, repoSelectHandler }) => {
-  const [_ident, _setIdent] = useState('')
-
-  const _repoSelectHandler = ({ currentTarget: { value } }: FormEvent<HTMLSelectElement>): void => {
-    _setIdent(value)
-    repoSelectHandler(value)
-  }
-
+const FilterIssues: FC<Props> = ({ repo, assignee, tracks, users, repoHandler, assigneeHandler }) => {
   return (
     <header className="filter">
       <p>Filter Issues:</p>
-      <Form.SelectField
-        name="ident"
+      <UI.form.SelectField
+        name="repo"
         type="select"
         label="Repo"
-        options={tracksReposOptions(tracks)}
-        onChange={_repoSelectHandler}
-        selected={_ident}
-        value={_ident}
+        options={toOptions<Track>(tracks, 'ident')}
+        onChange={({ currentTarget: { value } }) => repoHandler(value)}
+        selected={repo}
+        value={repo}
+        required
+      />
+
+      <UI.form.SelectField
+        name="assignee"
+        type="select"
+        label="Assignee"
+        options={toOptions<User>(users, 'login')}
+        onChange={({ currentTarget: { value } }) => assigneeHandler(value)}
+        selected={assignee}
+        value={assignee}
         required
       />
     </header>
   )
 }
-
 
 export default FilterIssues

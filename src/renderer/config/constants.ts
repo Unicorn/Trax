@@ -14,8 +14,6 @@ export const COLORS = {
   pink: 'E068DB'
 }
 
-
-
 export const TYPES: LabelsType = {
   epic: {
     label: 'Epic',

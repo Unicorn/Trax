@@ -1,12 +1,12 @@
 /** @jsx createElement **/
 import { createElement, SFC } from 'react'
 import { connect } from 'react-redux'
+import RadioField from 'horseshoes/build/main/lib/views/form/RadioField'
 import { setFeaturePoints, setFeaturePriority, setFeatureTypes, setFeatureOrgTitles } from '@/controllers/settingController'
 import { setVisible } from '@/controllers/laneController'
 import { RootState } from '@/models/app'
 import { Settings } from '@/models/setting'
 import { Lanes, laneTypes, LaneTypes } from '@/models/lane'
-import Form from '@/views/ui/form/index'
 
 interface Connected {
   lanes: Lanes
@@ -30,13 +30,12 @@ const LaneSettings: SFC<Connected & Actions> = ({
   _setFeatureTypes,
   _setFeatureOrgTitles
 }) => {
-
   return (
     <div className="box columns">
       <div className="column">
         <h2>Lanes:</h2>
         {laneTypes.map(lane => (
-          <Form.RadioField
+          <RadioField
             key={lane}
             name={lane}
             type="toggle"
@@ -50,7 +49,7 @@ const LaneSettings: SFC<Connected & Actions> = ({
       <div className="column">
         <h2>Features:</h2>
 
-        <Form.RadioField
+        <RadioField
           name="points"
           type="toggle"
           label="Points"
@@ -58,7 +57,7 @@ const LaneSettings: SFC<Connected & Actions> = ({
           checked={settings.featurePoints}
         />
 
-        <Form.RadioField
+        <RadioField
           name="priorities"
           type="toggle"
           label="Priority"
@@ -66,7 +65,7 @@ const LaneSettings: SFC<Connected & Actions> = ({
           checked={settings.featurePriority}
         />
 
-        <Form.RadioField
+        <RadioField
           name="types"
           type="toggle"
           label="Types"
@@ -74,7 +73,7 @@ const LaneSettings: SFC<Connected & Actions> = ({
           checked={settings.featureTypes}
         />
 
-        <Form.RadioField
+        <RadioField
           name="orgTitles"
           type="toggle"
           label="Organization"

@@ -2,12 +2,13 @@
 import { createElement, SFC } from 'react'
 
 interface Props {
-  handler: (e: React.ChangeEvent<HTMLInputElement>) => void
+  search: string
+  searchHandler: (value: string) => void
 }
 
-const SearchIssues: SFC<Props> = ({ handler }) => (
+const SearchIssues: SFC<Props> = ({ search, searchHandler }) => (
   <header className="search">
-    <input type="text" placeholder="Search for tasks..." onChange={handler} />
+    <input type="text" placeholder="Search for tasks..." value={search} onChange={({ currentTarget: { value } }) => searchHandler(value)} />
   </header>
 )
 

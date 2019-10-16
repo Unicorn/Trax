@@ -1,7 +1,7 @@
 {
   "name": "trax",
   "homepage": "https://trax.management/",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "author": "Unicorn Agency <hello@UnicornAgency.com>",
   "description": "A desktop application for managing Github Projects and Issues",
   "keywords": [
@@ -30,7 +30,8 @@
     "electron-devtools-installer": "^2.2.4",
     "fuse.js": "^3.4.5",
     "googleapis": "44.0.0",
-    "horseshoes": "^0.13.0",
+    "horseshoes": "^0.15.2",
+    "immer": "^4.0.1",
     "localforage": "^1.7.3",
     "lodash": "^4.17.15",
     "react": "^16.10.2",
@@ -48,7 +49,7 @@
     "@types/electron-devtools-installer": "^2.2.0",
     "@types/humps": "^1.1.2",
     "@types/lodash": "^4.14.144",
-    "@types/react": "^16.9.6",
+    "@types/react": "^16.9.7",
     "@types/react-beautiful-dnd": "^11.0.3",
     "@types/react-dom": "^16.9.2",
     "@types/react-redux": "^7.1.4",
@@ -69,7 +70,7 @@
     "prettier": "^1.18.2",
     "sass-loader": "^8.0.0",
     "typescript": "^3.6.4",
-    "webpack": "^4.41.1",
-    "webpack-build-notifier": "^1.1.1"
+    "webpack": "^4.41.2",
+    "webpack-build-notifier": "^2.0.0"
   }
 }

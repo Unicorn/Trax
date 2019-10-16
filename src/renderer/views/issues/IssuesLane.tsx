@@ -61,4 +61,7 @@ const mapDispatch: Actions = {
   _setCollapsed: setCollapsed
 }
 
-export default connect(mapState, mapDispatch)(IssuesLane)
+export default connect(
+  mapState,
+  mapDispatch
+)(IssuesLane)

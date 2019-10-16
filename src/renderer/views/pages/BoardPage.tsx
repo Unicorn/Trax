@@ -1,15 +1,16 @@
 /** @jsx createElement **/
-import { createElement, FC, useState, useEffect } from 'react'
-import { union, trim } from 'lodash'
+import { createElement, SFC, useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 import { toArray } from 'horseshoes'
+import { trim } from 'lodash'
 import { reloadTrack } from '@/controllers/trackController'
 import { RootState } from '@/models/app'
 import { Tracks, Track } from '@/models/track'
 import { Issues, Issue } from '@/models/issue'
 import { updateIssueLane } from '@/models/github'
 import { LaneTypes, visibleLanes, Lanes } from '@/models/lane'
+import { Users } from '@/models/user'
 import { filterIssues } from '@/helpers/issueHelper'
 import IssuesLane from '@/views/issues/IssuesLane'
 import SearchIssues from '@/views/issues/SearchIssues'
@@ -18,6 +19,7 @@ import FilterIssues from '@/views/issues/FilterIssues'
 interface Connected {
   tracks: Tracks
   issues: Issues
+  users: Users
   lanes: Lanes
   showBoardSearch: boolean
   showFilterMenu: boolean
@@ -29,32 +31,31 @@ interface Actions {
   _updateIssueLane: typeof updateIssueLane
 }
 
-const _tracksArray = (tracks: Tracks): Track[] => {
-  return toArray(tracks) as Track[]
-}
+const BoardPage: SFC<Connected & Actions> = ({
+  _reloadTrack,
+  tracks,
+  issues,
+  users,
+  lanes,
+  showBoardSearch,
+  showFilterMenu,
+  _updateIssueLane
+}) => {
+  const [_repo, _setRepo] = useState('')
+  const [_assignee, _setAssignee] = useState('')
+  const [_search, _setSearch] = useState('')
+  const [_filtered, _setFiltered] = useState<readonly Issue[]>(toArray<Issue>(issues))
 
-const BoardPage: FC<Connected & Actions> = ({ _reloadTrack, tracks, issues, lanes, showBoardSearch, showFilterMenu, _updateIssueLane }) => {
-  const [allIssues, setAllIssues] = useState<Issue[]>([])
-  const [filteredIssues, setFilteredIssues] = useState<Issue[]>([])
+  const _reload = (): void => toArray<Track>(tracks).forEach(track => _reloadTrack(track))
 
-  const _reload = (): void => {
-    const tracksArray = _tracksArray(tracks)
+  const _filterHandler = (): void => {
+    let filtered = toArray<Issue>(issues)
 
-    tracksArray.forEach(track => _reloadTrack(track))
-  }
+    trim(_search).length > 0 ? (filtered = filterIssues(_search, filtered)) : null
+    trim(_repo).length > 0 ? (filtered = filtered.filter(issue => issue.ident === _repo)) : null
+    trim(_assignee).length > 0 ? (filtered = filtered.filter(issue => issue.assignees.map(a => a.login).includes(_assignee))) : null
 
-  const _filterIssues = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const text = trim(e.target.value)
-    setFilteredIssues(text.length === 0 ? allIssues : filterIssues(text, allIssues))
-  }
-
-  const _repoSelectHandler = (ident: string): void => {
-    if (ident.length < 5) {
-      setFilteredIssues(allIssues)
-      return
-    }
-
-    setFilteredIssues(allIssues.filter(issue => issue.ident === ident))
+    _setFiltered(filtered)
   }
 
   const _onDragEnd = (result: DropResult): void => {
@@ -64,36 +65,37 @@ const BoardPage: FC<Connected & Actions> = ({ _reloadTrack, tracks, issues, lane
 
     if (source.droppableId !== destination.droppableId) {
       const issue = issues.data[draggableId]
-      _updateIssueLane(issue, destination.droppableId as LaneTypes)
+      const lane = destination.droppableId as LaneTypes
+      _updateIssueLane(issue, lane)
+      _filterHandler()
     }
   }
 
   useEffect(() => {
     _reload()
-  }, ['tracks'])
+  }, [])
 
   useEffect(() => {
-    let issueIds: string[] = []
-
-    const tracksArray = _tracksArray(tracks)
-    tracksArray.forEach(track => (issueIds = union(issueIds, track.issueIds)))
-
-    setFilteredIssues(union(filteredIssues, issueIds.map(id => issues.data[id])))
-    setAllIssues(filteredIssues)
-  }, [tracks])
+    _filterHandler()
+  }, [issues.data, _search, _repo, _assignee])
 
   return (
     <section className="board">
-      {showBoardSearch && <SearchIssues handler={_filterIssues} />}
-      {showFilterMenu && <FilterIssues tracks={tracks} repoSelectHandler={_repoSelectHandler} />}
+      {showBoardSearch && <SearchIssues search={_search} searchHandler={_setSearch} />}
+      {showFilterMenu && (
+        <FilterIssues
+          repo={_repo}
+          assignee={_assignee}
+          tracks={tracks}
+          users={users}
+          repoHandler={_setRepo}
+          assigneeHandler={_setAssignee}
+        />
+      )}
       <div className="columns">
         <DragDropContext onDragEnd={_onDragEnd}>
           {visibleLanes(lanes).map(lane => (
-            <IssuesLane
-              key={lane}
-              lane={lane}
-              issues={filteredIssues.filter((issue: Issue) => issue && issue.lane === lane)}
-            />
+            <IssuesLane key={lane} lane={lane} issues={_filtered.filter((issue: Issue) => issue && issue.lane === lane)} />
           ))}
         </DragDropContext>
       </div>
@@ -104,6 +106,7 @@ const BoardPage: FC<Connected & Actions> = ({ _reloadTrack, tracks, issues, lane
 const mapState = (state: RootState): Connected => ({
   tracks: state.tracks,
   issues: state.issues,
+  users: state.users,
   lanes: state.lanes,
   showBoardSearch: state.settings.showBoardSearch,
   showFilterMenu: state.settings.showFilterMenu,

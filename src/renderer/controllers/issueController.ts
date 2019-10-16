@@ -1,6 +1,5 @@
 import { IssuesCreateParams } from '@octokit/rest'
-import { union, merge } from 'lodash'
-import { createResource, updateResource } from 'horseshoes'
+import { createResource, updateResource, updateResources } from 'horseshoes'
 import { initialState } from '@/models/app'
 import { normalizeIssue, ISSUES, ISSUE, Issues, Issue, CreateIssueAction, IssueAction } from '@/models/issue'
 import * as GithubModel from '@/models/github'
@@ -47,11 +46,7 @@ export const issuesReducer = (state: Issues, action: IssueAction): Issues => {
       return createResource<Issue>(state, payload as Issue)
 
     case ISSUES.UPDATE:
-      ;(payload as Issue[]).forEach(r => {
-        newState.keys = union(newState.keys, [r.key])
-        newState.data[r.key] = merge(newState.data[r.key], r)
-      })
-      break
+      return updateResources<Issue>(state, payload as Issue[])
 
     case ISSUE.UPDATE:
       return updateResource<Issue>(state, payload as Issue)

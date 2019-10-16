@@ -35,6 +35,7 @@ export interface Issue extends Resource {
   state: string
   title: string
   body: string
+  assignees: User[]
   user: User
   labels: Labels
   locked: boolean

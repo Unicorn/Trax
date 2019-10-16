@@ -3,10 +3,10 @@ import { createElement, FC, useState } from 'react'
 import { Issue } from '@/models/issue'
 import { Settings } from '@/models/setting'
 import { pointsFromLabels, typeFromLabels, priorityFromLabels } from '@/helpers/labelHelper'
-import Form from '@/views/ui/form'
 import PointsIcon from '@/views/ui/icons/PointsIcon'
 import TypeIcon from '@/views/ui/icons/TypeIcon'
 import PriorityIcon from '@/views/ui/icons/PriorityIcon'
+import RadioField from 'horseshoes/build/main/lib/views/form/RadioField'
 import CloseIcon from 'horseshoes/build/main/lib/views/icons/CloseIcon'
 import { POINTS } from '@/config/constants'
 
@@ -26,7 +26,7 @@ const CardHeader: FC<Props> = ({ issue, settings }) => {
   if (_view === 'points')
     return (
       <header>
-        <Form.RadioField
+        <RadioField
           name="points"
           type="group"
           label="Points"

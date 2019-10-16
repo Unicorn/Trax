@@ -3,7 +3,7 @@ import { Issue } from '@/models/issue'
 import { LABELS } from '@/models/label'
 import { pointsFromLabels } from '@/helpers/labelHelper'
 
-export const filterIssues = (text: string, issues: Issue[]): Issue[] => {
+export const filterIssues = (text: string, issues: readonly Issue[]): Issue[] => {
   const options = {
     shouldSort: true,
     threshold: 0.5,

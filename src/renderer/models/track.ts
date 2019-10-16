@@ -1,5 +1,4 @@
 import { Resources, Resource } from 'horseshoes'
-import { OptionsObject } from '@/views/ui/form'
 
 export enum TRACK {
   REQUEST = 'trax/track/REQUEST',
@@ -25,16 +24,4 @@ export interface Tracks extends Resources<Track> {
 export interface TrackAction {
   type: TRACK
   payload?: Track
-}
-
-export const tracksReposOptions = (tracks: Tracks): OptionsObject => {
-  const options: OptionsObject = {}
-
-  tracks.keys.forEach(key => {
-    options[tracks.data[key].ident] = {
-      label: tracks.data[key].ident
-    }
-  })
-
-  return options
 }

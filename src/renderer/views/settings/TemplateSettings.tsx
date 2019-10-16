@@ -6,7 +6,7 @@ import { setTemplate } from '@/controllers/settingController'
 import { resetApp, RootState } from '@/models/app'
 import { Settings } from '@/models/setting'
 import { ScrumTypes } from '@/config/constants'
-import Editor from '@/views/ui/form/Editor'
+import Editor from '@/views/ui/Editor'
 
 interface Connected {
   settings: Settings
