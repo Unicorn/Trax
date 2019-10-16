@@ -17,7 +17,7 @@ const FilterIssues: FC<Props> = ({ tracks, repoSelectHandler }) => {
   }
 
   return (
-    <div>
+    <header className="filter">
       <p>Filter Issues:</p>
       <Form.SelectField
         name="ident"
@@ -29,7 +29,7 @@ const FilterIssues: FC<Props> = ({ tracks, repoSelectHandler }) => {
         value={_ident}
         required
       />
-    </div>
+    </header>
   )
 }
 

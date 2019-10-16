@@ -1,6 +1,73 @@
 //
 // BOARD
 //
+section.board {
+  > header {
+    background-color: darken(color(neutral, 200), 3%);
+    border-bottom: 1px solid darken(color(neutral, 200), 8%);
+  }
+
+  header.filter {
+    align-items: center;
+    display: flex;
+    flex-flow: row nowrap;
+    overflow: hidden;
+    padding: 0 1.5rem;
+
+    p {
+      margin: 0;
+      padding: 0;
+    }
+
+    .field {
+      margin: 0 0 0 1.5rem;
+
+      select {
+        border-bottom: 2px solid #fff;
+      }
+
+      span { 
+        display: none;
+      }
+    }
+  }
+
+  header.search {
+    @extend %clearfix;
+    height: 5rem;
+    padding: 0;
+  
+    > input {
+      background: transparent;
+      border: none;
+      color: color(neutral, 500);
+      float: left;
+      font-size: 1.5rem;
+      font-weight: 300;
+      padding: 1.5rem;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
+      width: 50%;
+    }
+  
+    input::-webkit-input-placeholder {
+      color: lighten(color(neutral, 500), 20%);
+      font-size: 1.5rem;
+      font-weight: 300;
+      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.1);
+    }
+  
+    .actions {
+      float: right;
+      padding: 1.2rem 2rem 0;
+      text-align: right;
+  
+      button {
+        margin-top: 0;
+      }
+    }
+  }
+}
+
 .swimlane {
   background: #fbf9f4;
   color: color(neutral, 500);

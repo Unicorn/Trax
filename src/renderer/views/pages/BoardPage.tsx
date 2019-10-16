@@ -49,9 +49,12 @@ const BoardPage: FC<Connected & Actions> = ({ _reloadTrack, tracks, issues, lane
   }
 
   const _repoSelectHandler = (ident: string): void => {
-    if (ident.length < 5) return
+    if (ident.length < 5) {
+      setFilteredIssues(allIssues)
+      return
+    }
 
-    setFilteredIssues(filteredIssues.filter(issue => issue.ident === ident))
+    setFilteredIssues(allIssues.filter(issue => issue.ident === ident))
   }
 
   const _onDragEnd = (result: DropResult): void => {
