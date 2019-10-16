@@ -16,6 +16,7 @@ declare global {
   interface Window {
     googleClient: OAuth2Client
     BrowserWindow: typeof Electron.BrowserWindow
+    dialog: typeof Electron.dialog
   }
 }
 

@@ -7,6 +7,7 @@ import { ROUTES } from '@/config/routes'
 import * as Pages from '@/views/pages'
 import Dashboard from '@/views/layouts/Dashboard'
 import WelcomePage from '@/views/pages/WelcomePage'
+import InvoicePrint from '@/views/invoices/InvoicePrint'
 
 interface Connected {
   auth: GithubAuth
@@ -14,7 +15,13 @@ interface Connected {
 }
 
 const Page: SFC<Connected> = ({ page, auth }) => {
-  if (page === ROUTES.welcome.name && !auth.accessToken) return <WelcomePage />
+  if (page === ROUTES.welcome.name && !auth.accessToken) {
+    return <WelcomePage />
+  }
+
+  if (window.location.search.match(/\?invoice\=/)) {
+    return <InvoicePrint />
+  }
 
   let child = null
 

@@ -26,3 +26,8 @@ export const timersDuration = (timers: Timer[], format?: boolean): number | stri
 export const secondsLapsed = (start: Date): number => {
   return Math.floor((Date.now() - start.getTime()) / 1000)
 }
+
+export const formatDate = (date: string | Date): string => {
+  const d = new Date(date)
+  return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`
+}

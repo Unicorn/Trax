@@ -6,7 +6,7 @@ export enum INVOICE {
 }
 
 export interface Invoice extends Resource {
-  createdAt?: Date
+  createdAt: Date
   timers: Timer[]
 }
 

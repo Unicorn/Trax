@@ -1,4 +1,5 @@
 import * as path from 'path'
+import * as fs from 'fs'
 import { format as formatUrl } from 'url'
 import { app, BrowserWindow, dialog, Tray, ipcMain, autoUpdater } from 'electron'
 import createMenu from './menu'
@@ -70,6 +71,12 @@ app.on('activate', () => {
 
 ipcMain.on('timer-tick', (_: Event, time: string) => {
   tray.setTitle(time)
+})
+
+ipcMain.on('print-invoice', (_: Event, data: { path: string, pdf: Buffer }) => {
+  fs.writeFile(`${data.path}.pdf`, data.pdf, {}, (error) => {
+    if (error) console.log("error saving invoice", error)
+  })
 })
 
 if (isDev) {

@@ -46,7 +46,7 @@ class ReportPage extends Component<Connected & Actions, State> {
   _createInvoiceHandler = (): void => {
     const { timers, _createInvoice } = this.props
     const { selectedKeys } = this.state
-    const invoice = { timers: selectedKeys.map(key => timers.data[key]), key: v4() }
+    const invoice = { timers: selectedKeys.map(key => timers.data[key]), key: v4(), createdAt: new Date() }
 
     _createInvoice(invoice)
   }

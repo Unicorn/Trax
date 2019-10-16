@@ -9,5 +9,6 @@ window.app = {
 window.shell = shell
 
 window.BrowserWindow = remote.BrowserWindow
+window.dialog = remote.dialog
 
 window.ipc = ipcRenderer
