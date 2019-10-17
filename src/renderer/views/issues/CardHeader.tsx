@@ -45,7 +45,7 @@ const CardHeader: FC<Props> = ({ issue, settings }) => {
   return (
     <header>
       <strong>
-        {settings.featureOrgTitles && `${org}/`}
+        {settings.features.orgTitles && `${org}/`}
         {`${repo}/`}
         {`#${issue.number}`}
       </strong>
@@ -57,13 +57,13 @@ const CardHeader: FC<Props> = ({ issue, settings }) => {
       )) ||
         null}
 
-      {(settings.featureTypes && type && (
+      {(settings.features.types && type && (
         <button className="type">
           <TypeIcon type={type} />
         </button>
       )) ||
         null}
-      {(settings.featurePoints && (
+      {(settings.features.points && (
         <button className="points" onClick={() => _setView('points')}>
           <PointsIcon points={points} />
         </button>

@@ -54,10 +54,15 @@ export const initialState: RootState = {
     showBoardSearch: false,
     showBoardHelp: false,
     showFilterMenu: false,
-    featurePoints: true,
-    featurePriority: true,
-    featureTypes: true,
-    featureOrgTitles: true,
+    invoices: {
+      rate: '100'
+    },
+    features: {
+      points: true,
+      priority: true,
+      types: true,
+      orgTitles: false
+    },
     templates: {
       epic: '',
       story: '',

@@ -119,7 +119,7 @@ const CreatePage: SFC<Connected & Actions> = ({ tracks, users, settings, _create
 
           <UI.form.TextField name="title" type="text" label="Title" onChange={_fieldHandler} value={state.title} required />
 
-          {settings.featurePoints && (
+          {settings.features.points && (
             <UI.form.RadioField
               name="points"
               type="group"
@@ -131,7 +131,7 @@ const CreatePage: SFC<Connected & Actions> = ({ tracks, users, settings, _create
             />
           )}
 
-          {settings.featurePriority && (
+          {settings.features.priority && (
             <UI.form.RadioField
               name="priority"
               type="group"
@@ -143,7 +143,7 @@ const CreatePage: SFC<Connected & Actions> = ({ tracks, users, settings, _create
             />
           )}
 
-          {settings.featureTypes && (
+          {settings.features.types && (
             <UI.form.RadioField
               name="type"
               type="group"

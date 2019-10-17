@@ -111,6 +111,8 @@ a {
 }
 
 table {
+  border-collapse: collapse;
+  border-spacing: 0;
   margin: 0;
   padding: 0;
   width: 100%;
@@ -161,11 +163,11 @@ table {
     vertical-align: middle;
   }
 
-  th {
+  th, tfoot td {
     font-weight: 600;
   }
 
-  td {
+  tbody td {
     background-color: #fff;
     font-weight: 400;
     height: 8rem;
@@ -178,6 +180,12 @@ table {
     
     td {
       background-color: color(neutral, 100);
+    }
+  }
+
+  &.compact {
+    tbody td {
+      height: auto;
     }
   }
 

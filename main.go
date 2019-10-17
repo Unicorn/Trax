@@ -20,7 +20,7 @@ type response struct {
 	Data    interface{} `json:"data"`
 }
 
-const apiBase = "https://trax-server.herokuapp.com/"
+const apiBase = "https://trax-server.herokuapp.com"
 
 func githubAuth(c echo.Context) error {
 	key := os.Getenv("GH_CLIENT_ID")

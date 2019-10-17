@@ -2,7 +2,7 @@
 import { createElement, SFC } from 'react'
 import { connect } from 'react-redux'
 import RadioField from 'horseshoes/build/main/lib/views/form/RadioField'
-import { setFeaturePoints, setFeaturePriority, setFeatureTypes, setFeatureOrgTitles } from '@/controllers/settingController'
+import { setFeaturesSettings } from '@/controllers/settingController'
 import { setVisible } from '@/controllers/laneController'
 import { RootState } from '@/models/app'
 import { Settings } from '@/models/setting'
@@ -15,20 +15,14 @@ interface Connected {
 
 interface Actions {
   _setVisible: typeof setVisible
-  _setFeaturePoints: typeof setFeaturePoints
-  _setFeaturePriority: typeof setFeaturePriority
-  _setFeatureTypes: typeof setFeatureTypes
-  _setFeatureOrgTitles: typeof setFeatureOrgTitles
+  _setFeaturesSettings: typeof setFeaturesSettings
 }
 
 const LaneSettings: SFC<Connected & Actions> = ({
   lanes,
   settings,
   _setVisible,
-  _setFeaturePoints,
-  _setFeaturePriority,
-  _setFeatureTypes,
-  _setFeatureOrgTitles
+  _setFeaturesSettings,
 }) => {
   return (
     <div className="box columns">
@@ -53,32 +47,32 @@ const LaneSettings: SFC<Connected & Actions> = ({
           name="points"
           type="toggle"
           label="Points"
-          onChange={e => _setFeaturePoints(e.currentTarget.checked)}
-          checked={settings.featurePoints}
+          onChange={({ currentTarget: { name, checked } }) => _setFeaturesSettings(name, checked)}
+          checked={settings.features.points}
         />
 
         <RadioField
-          name="priorities"
+          name="priority"
           type="toggle"
           label="Priority"
-          onChange={e => _setFeaturePriority(e.currentTarget.checked)}
-          checked={settings.featurePriority}
+          onChange={({ currentTarget: { name, checked } }) => _setFeaturesSettings(name, checked)}
+          checked={settings.features.priority}
         />
 
         <RadioField
           name="types"
           type="toggle"
           label="Types"
-          onChange={e => _setFeatureTypes(e.currentTarget.checked)}
-          checked={settings.featureTypes}
+          onChange={({ currentTarget: { name, checked } }) => _setFeaturesSettings(name, checked)}
+          checked={settings.features.types}
         />
 
         <RadioField
           name="orgTitles"
           type="toggle"
           label="Organization"
-          onChange={e => _setFeatureOrgTitles(e.currentTarget.checked)}
-          checked={settings.featureOrgTitles}
+          onChange={({ currentTarget: { name, checked } }) => _setFeaturesSettings(name, checked)}
+          checked={settings.features.orgTitles}
         />
       </div>
     </div>
@@ -90,12 +84,9 @@ const mapState = (state: RootState): Connected => ({
   settings: state.settings
 })
 
-const mapDispatch = {
+const mapDispatch: Actions = {
   _setVisible: setVisible,
-  _setFeaturePoints: setFeaturePoints,
-  _setFeaturePriority: setFeaturePriority,
-  _setFeatureTypes: setFeatureTypes,
-  _setFeatureOrgTitles: setFeatureOrgTitles
+  _setFeaturesSettings: setFeaturesSettings,
 }
 
 export default connect(

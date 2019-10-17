@@ -1,15 +1,15 @@
 /** @jsx createElement **/
-import { createElement, SFC, Fragment, ReactNode, FormEvent } from 'react'
+import { createElement, FormEvent, SFC } from 'react'
 import { connect } from 'react-redux'
 import { toArray } from 'horseshoes'
-import { RootState } from '@/models/app'
-import { Invoices, Invoice } from '@/models/invoice'
-import { Timer } from '@/models/timer'
-import { timersDuration, timerDuration, formatDate } from '@/helpers/timerHelper'
 import { BrowserWindow } from 'electron'
+import { RootState } from '@/models/app'
+import { Invoice } from '@/models/invoice'
+import { timersDuration, formatDate, timeToCost } from '@/helpers/timerHelper'
 
 interface Connected {
-  invoices: Invoices
+  invoices: readonly Invoice[]
+  rate: number
 }
 
 const invoiceWindow = (key: string): Promise<BrowserWindow> =>
@@ -24,28 +24,9 @@ const invoiceWindow = (key: string): Promise<BrowserWindow> =>
       }
     })
     win.loadURL(`${window.location.href}?invoice=${key}`).then(() => resolve(win))
-    // win.show()
   })
 
-const renderTimerEntry = (timer: Timer): ReactNode => {
-  const beginDate = timer.entries[0].startedAt
-  const endDate = timer.entries.slice(-1)[0].stoppedAt
-  return (
-    <tr key={timer.key} className="detail">
-      <td>{timer.issue && timer.issue.title}</td>
-      <td>{beginDate && formatDate(beginDate)} - {endDate && formatDate(endDate)}</td>
-      <td>{timerDuration(timer, true)}</td>
-      <td>
-        <button className="button micro yellow">Edit</button>
-        <button className="button micro red">Delete</button>
-      </td>
-    </tr>
-  )
-}
-
-const InvoicesPage: SFC<Connected> = props => {
-  const invoices: Invoice[] = toArray(props.invoices) as Invoice[]
-
+const InvoicesPage: SFC<Connected> = ({ invoices, rate }) => {
   const _showInvoice = async (e: FormEvent<HTMLButtonElement>) => {
     try {
       const win = await invoiceWindow(e.currentTarget.value)
@@ -81,29 +62,28 @@ const InvoicesPage: SFC<Connected> = props => {
     <section className="invoice page">
       <h1>Invoice</h1>
 
-      <table className="clickable collapsed" cellPadding="0" cellSpacing="0">
+      <table className="clickable collapsed">
         <thead>
           <tr>
             <th>Invoice</th>
             <th>Date</th>
             <th>Time</th>
+            <th>Cost</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {invoices.map(invoice => (
-            <Fragment key={invoice.key}>
-              <tr>
-                <td>{invoice.key}</td>
-                <td>{formatDate(invoice.createdAt)}</td>
-                <td>{timersDuration(invoice.timers, true)}</td>
-                <td>
-                  <button className="button micro brown" value={invoice.key} onClick={_showInvoice}>View</button>
-                  <button className="button micro brown" value={invoice.key} onClick={_downloadInvoice}>Download</button>
-                </td>
-              </tr>
-              {invoice.timers.map(renderTimerEntry)}
-            </Fragment>
+            <tr key={invoice.key}>
+              <td>{invoice.key}</td>
+              <td>{formatDate(invoice.createdAt)}</td>
+              <td>{timersDuration(invoice.timers, true)}</td>
+              <td>{timeToCost(invoice.timers, rate)}</td>
+              <td>
+                <button className="button micro brown" value={invoice.key} onClick={_showInvoice}>View</button>
+                <button className="button micro brown" value={invoice.key} onClick={_downloadInvoice}>Download</button>
+              </td>
+            </tr>
           ))}
         </tbody>
       </table>
@@ -111,8 +91,9 @@ const InvoicesPage: SFC<Connected> = props => {
   )
 }
 
-const mapState = (state: RootState): Connected => ({
-  invoices: state.invoices
+const mapState = ({ settings, invoices }: RootState): Connected => ({
+  invoices: toArray<Invoice>(invoices),
+  rate: settings.invoices.rate ? parseInt(settings.invoices.rate) : 0
 })
 
 export default connect(mapState)(InvoicesPage)

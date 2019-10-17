@@ -22,28 +22,18 @@ export const toggleShowBoardHelp = (showBoardHelp: boolean): SettingsAction => (
   payload: { showBoardHelp }
 })
 
-export const setFeaturePoints = (featurePoints: boolean): SettingsAction => ({
-  type: SETTING.SET_FEATURE_POINTS,
-  payload: { featurePoints }
+export const setInvoicesSettings = (key: string, value: string): SettingsAction => ({
+  type: SETTING.SET_INVOICES,
+  payload: { invoices: { [key]: value } }
 })
 
-export const setFeaturePriority = (featurePriority: boolean): SettingsAction => ({
-  type: SETTING.SET_FEATURE_PRIORITY,
-  payload: { featurePriority }
-})
-
-export const setFeatureTypes = (featureTypes: boolean): SettingsAction => ({
-  type: SETTING.SET_FEATURE_TYPES,
-  payload: { featureTypes }
-})
-
-export const setFeatureOrgTitles = (featureOrgTitles: boolean): SettingsAction => ({
-  type: SETTING.SET_FEATURE_ORG_TITLES,
-  payload: { featureOrgTitles }
+export const setFeaturesSettings = (key: string, value: boolean): SettingsAction => ({
+  type: SETTING.SET_FEATURES,
+  payload: { features: { [key]: value } }
 })
 
 export const setTemplate = (key: ScrumTypes, value: string): SettingsAction => ({
-  type: SETTING.SET_TEMPLATE,
+  type: SETTING.SET_TEMPLATES,
   payload: {
     templates: {
       [key]: value
@@ -59,14 +49,12 @@ export const settingsReducer = (state: Settings, action: SettingsAction): Settin
   if (!payload || !type) return state
 
   switch (type) {
+    case SETTING.SET_FEATURES:
+    case SETTING.SET_INVOICES:
     case SETTING.SET_PAGE:
     case SETTING.SET_SHOW_BOARD_SEARCH:
     case SETTING.SET_SHOW_BOARD_HELP:
-    case SETTING.SET_FEATURE_POINTS:
-    case SETTING.SET_FEATURE_PRIORITY:
-    case SETTING.SET_FEATURE_TYPES:
-    case SETTING.SET_FEATURE_ORG_TITLES:
-    case SETTING.SET_TEMPLATE:
+    case SETTING.SET_TEMPLATES:
     case SETTING.SET_SHOW_FILTER_MENU:
       return { ...state, ...payload }
 

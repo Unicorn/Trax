@@ -5,6 +5,7 @@ import BoardSettings from '@/views/settings/BoardSettings'
 import AppSettings from '@/views/settings/AppSettings'
 import TemplateSettings from '@/views/settings/TemplateSettings'
 import GoogleSheetsSettings from '@/views/settings/GoogleSheetsSettings'
+import InvoiceSettings from '@/views/settings/InvoiceSettings'
 
 const SettingsPage: SFC<{}> = () => {
   return (
@@ -13,6 +14,7 @@ const SettingsPage: SFC<{}> = () => {
         <div className="left column">
           <BoardSettings />
           <GoogleSheetsSettings />
+          <InvoiceSettings />
           <AppSettings />
         </div>
 
