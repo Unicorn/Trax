@@ -13,7 +13,7 @@ interface Connected {
 }
 
 const invoiceWindow = (key: string): Promise<BrowserWindow> =>
-  new Promise((resolve) => {
+  new Promise(resolve => {
     const win = new window.BrowserWindow({
       width: 600,
       height: 750,
@@ -27,34 +27,34 @@ const invoiceWindow = (key: string): Promise<BrowserWindow> =>
   })
 
 const InvoicesPage: SFC<Connected> = ({ invoices, rate }) => {
-  const _showInvoice = async (e: FormEvent<HTMLButtonElement>) => {
+  const _showInvoice = async (e: FormEvent<HTMLButtonElement>): Promise<void> => {
     try {
       const win = await invoiceWindow(e.currentTarget.value)
       win.show()
     } catch (error) {
-      console.log("Error rendering invoice window", error)
+      console.log('Error rendering invoice window', error)
     }
   }
 
-  const _downloadInvoice = async (e: FormEvent<HTMLButtonElement>) => {
+  const _downloadInvoice = async (e: FormEvent<HTMLButtonElement>): Promise<void> => {
     try {
       const printOptions = {
         landscape: false,
         marginsType: 0,
         printBackground: false,
         printSelectionOnly: false,
-        pageSize: "A4",
+        pageSize: 'A4'
       }
       const win = await invoiceWindow(e.currentTarget.value)
       const pdf = await win.webContents.printToPDF(printOptions)
       const saveDialog = await window.dialog.showSaveDialog({})
 
       if (!saveDialog.canceled && saveDialog.filePath && pdf) {
-        console.log("Send pdf to main thread", win, pdf, saveDialog)
+        console.log('Send pdf to main thread', win, pdf, saveDialog)
         window.ipc.send('print-invoice', { path: saveDialog.filePath, pdf })
       }
     } catch (error) {
-      console.log("Error rendering invoice window", error)
+      console.log('Error rendering invoice window', error)
     }
   }
 
@@ -80,8 +80,12 @@ const InvoicesPage: SFC<Connected> = ({ invoices, rate }) => {
               <td>{timersDuration(invoice.timers, true)}</td>
               <td>{timeToCost(invoice.timers, rate)}</td>
               <td>
-                <button className="button micro brown" value={invoice.key} onClick={_showInvoice}>View</button>
-                <button className="button micro brown" value={invoice.key} onClick={_downloadInvoice}>Download</button>
+                <button className="button micro brown" value={invoice.key} onClick={_showInvoice}>
+                  View
+                </button>
+                <button className="button micro brown" value={invoice.key} onClick={_downloadInvoice}>
+                  Download
+                </button>
               </td>
             </tr>
           ))}

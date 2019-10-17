@@ -9,7 +9,7 @@ export enum SETTING {
   SET_FEATURES = 'trax/settting/SET_FEATURES',
   SET_TEMPLATES = 'trax/setting/SET_TEMPLATES',
   SET_SETTING = 'trax/settings/SET_SETTING',
-  SET_SHOW_FILTER_MENU = 'trax/settings/SET_SHOW_FILTER_MENU',
+  SET_SHOW_FILTER_MENU = 'trax/settings/SET_SHOW_FILTER_MENU'
 }
 
 export type ActivePageValues = 'welcome' | 'profile' | 'create' | 'board' | 'timers' | 'invoices' | 'settings'

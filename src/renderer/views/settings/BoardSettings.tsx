@@ -18,12 +18,7 @@ interface Actions {
   _setFeaturesSettings: typeof setFeaturesSettings
 }
 
-const LaneSettings: SFC<Connected & Actions> = ({
-  lanes,
-  settings,
-  _setVisible,
-  _setFeaturesSettings,
-}) => {
+const LaneSettings: SFC<Connected & Actions> = ({ lanes, settings, _setVisible, _setFeaturesSettings }) => {
   return (
     <div className="box columns">
       <div className="column">
@@ -86,7 +81,7 @@ const mapState = (state: RootState): Connected => ({
 
 const mapDispatch: Actions = {
   _setVisible: setVisible,
-  _setFeaturesSettings: setFeaturesSettings,
+  _setFeaturesSettings: setFeaturesSettings
 }
 
 export default connect(

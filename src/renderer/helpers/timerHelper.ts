@@ -33,12 +33,12 @@ export const formatDate = (date: string | Date): string => {
 }
 
 export const timeToCost = (timer: Timer | Timer[], rate: number): string => {
-  const seconds: number = Array.isArray(timer) ? timersDuration(timer, false) as number : timerDuration(timer, false) as number
+  const seconds: number = Array.isArray(timer) ? (timersDuration(timer, false) as number) : (timerDuration(timer, false) as number)
   const hours: number = seconds / 60 / 60
 
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'USD',
+    currency: 'USD'
   })
 
   return formatter.format(hours * rate)

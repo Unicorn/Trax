@@ -1,6 +1,4 @@
-/**
- * @jsx createElement
- */
+/** @jsx createElement */
 import { createElement, SFC } from 'react'
 import { Timer } from '@/models/timer'
 import { timerDuration, formatDate, timeToCost } from '@/helpers/timerHelper'
@@ -17,7 +15,9 @@ const InvoiceEntry: SFC<Props> = ({ timer, rate }) => {
   return (
     <tr key={timer.key}>
       <td>{timer.issue && timer.issue.title}</td>
-      <td>{beginDate && formatDate(beginDate)} - {endDate && formatDate(endDate)}</td>
+      <td>
+        {beginDate && formatDate(beginDate)} - {endDate && formatDate(endDate)}
+      </td>
       <td>{timerDuration(timer, true)}</td>
       <td>{rate && timeToCost(timer, rate)}</td>
     </tr>

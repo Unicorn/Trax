@@ -77,7 +77,7 @@ export const POINTS: LabelsType = {
 }
 
 export const MICROSERVICE = {
-  API: 'https://trax-server.herokuapp.com',
+  API: 'https://api.trax.management',
   GITHUB: {
     AUTH: '/github/auth'
   },

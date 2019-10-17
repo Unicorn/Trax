@@ -73,9 +73,9 @@ ipcMain.on('timer-tick', (_: Event, time: string) => {
   tray.setTitle(time)
 })
 
-ipcMain.on('print-invoice', (_: Event, data: { path: string, pdf: Buffer }) => {
-  fs.writeFile(`${data.path}.pdf`, data.pdf, {}, (error) => {
-    if (error) console.log("error saving invoice", error)
+ipcMain.on('print-invoice', (_: Event, data: { path: string; pdf: Buffer }) => {
+  fs.writeFile(`${data.path}.pdf`, data.pdf, {}, error => {
+    if (error) console.log('error saving invoice', error)
   })
 })
 

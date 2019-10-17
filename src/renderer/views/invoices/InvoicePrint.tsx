@@ -1,6 +1,4 @@
-/**
- * @jsx createElement
- */
+/** @jsx createElement */
 import { createElement, SFC } from 'react'
 import { connect } from 'react-redux'
 import { Invoice } from '@/models/invoice'
@@ -17,7 +15,7 @@ const InvoicePrint: SFC<Connected> = ({ invoice, rate }) => {
   return (
     <section className="invoice details print">
       <header>
-        <h1>Invoice {(new Date(invoice.createdAt)).getTime()}</h1>
+        <h1>Invoice {new Date(invoice.createdAt).getTime()}</h1>
         <p>Created At: {formatDate(invoice.createdAt)}</p>
       </header>
 
@@ -31,7 +29,9 @@ const InvoicePrint: SFC<Connected> = ({ invoice, rate }) => {
           </tr>
         </thead>
         <tbody>
-          {invoice.timers.map(timer => <InvoiceEntry timer={timer} rate={rate} />)}
+          {invoice.timers.map(timer => (
+            <InvoiceEntry key={timer.key} timer={timer} rate={rate} />
+          ))}
         </tbody>
         <tfoot>
           <tr>
