@@ -32,6 +32,21 @@ export const formatDate = (date: string | Date): string => {
   return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`
 }
 
+export const formatTime = (date?: string | Date): string => {
+  if (!date) return ''
+
+  const d = new Date(date)
+
+  let h = d.getHours()
+  const m = d.getMinutes()
+  const ampm = h >= 12 ? 'pm' : 'am'
+  h = h % 12
+  const hours = h ? h : 12 // the hour '0' should be '12'
+  const minutes = m < 10 ? '0' + m : m
+
+  return `${hours}:${minutes} ${ampm}`
+}
+
 export const timeToCost = (timer: Timer | Timer[], rate: number): string => {
   const seconds: number = Array.isArray(timer) ? (timersDuration(timer, false) as number) : (timerDuration(timer, false) as number)
   const hours: number = seconds / 60 / 60

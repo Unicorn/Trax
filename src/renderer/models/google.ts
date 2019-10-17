@@ -30,6 +30,7 @@ export interface GoogleTimesheet {
   sheets?: sheets_v4.Schema$Sheet[] // eslint-disable-line @typescript-eslint/camelcase
   sheetId?: number
   sheetName?: string
+  data?: string
 }
 
 export interface Google {

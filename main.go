@@ -64,7 +64,7 @@ func googleAuth(c echo.Context) error {
 		ClientSecret: secret,
 		Endpoint:     google.Endpoint,
 		Scopes:       []string{"https://www.googleapis.com/auth/spreadsheets"},
-		RedirectURL:  apiBase + "/google/auth", // could be "postmessage" or "urn:ietf:wg:oauth:2.0:oob" or apiBase + "/google/auth"
+		RedirectURL:  apiBase + "/google/auth",
 	}
 
 	if len(code) < 5 {
