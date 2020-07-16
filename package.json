@@ -33,7 +33,7 @@
     "horseshoes": "^0.15.2",
     "immer": "^4.0.1",
     "localforage": "^1.7.3",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "react": "^16.10.2",
     "react-beautiful-dnd": "^11.0.5",
     "react-dom": "^16.10.2",
