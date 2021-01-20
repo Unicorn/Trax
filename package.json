@@ -31,7 +31,7 @@
     "fuse.js": "^3.4.5",
     "googleapis": "44.0.0",
     "horseshoes": "^0.15.2",
-    "immer": "^4.0.1",
+    "immer": "^8.0.1",
     "localforage": "^1.7.3",
     "lodash": "^4.17.15",
     "react": "^16.10.2",
